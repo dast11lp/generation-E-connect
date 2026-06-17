@@ -26,3 +26,85 @@ body {
     --border-radius-secundario: 15px;
     --border-radius-terciario: 10px;
 }
+
+
+/* INICIO CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
+
+body {
+    background-color: var(--color-azul-suave);
+    color: var(--color-oscuro-principal);
+    padding: 50px 20px;
+}
+
+.card-proyecto {
+    width: 50rem;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: var(--color-blanco);
+    border: 2px solid var(--color-azul-generation);
+    border-radius: var(--border-radius-secundario);
+    box-shadow: 0 8px 20px rgba(0, 58, 112, 0.15);
+    text-align: center;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.logo-generation {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: var(--color-azul-institucional);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    color: var(--color-gris-texto);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.card-text {
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    text-decoration: none;
+    color: var(--color-blanco);
+    padding: 12px 20px;
+    border-radius: var(--border-radius-terciario);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-github {
+    background-color: var(--color-azul-institucional);
+}
+
+.btn-github:hover {
+    background-color: var(--color-azul-generation);
+}
+
+.btn-wireframe {
+    background-color: var(--color-verde-impacto);
+}
+
+.btn-wireframe:hover {
+    background-color: var(--color-cian-dinamico);
+}
+
+/* FIN CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
