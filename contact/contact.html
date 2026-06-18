@@ -1,12 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About-Us</title>
+    <link rel="stylesheet" href="/generation-E-connect/contact/styles.css" />
+
 </head>
+
 <body>
-    contact
+    <!-- INICIO CAMBIO JAIME - SECCIÓN CONTACTO -->
+
+    <div class="container"> 
+    <form action="https://formspree.io/f/mnjykdqe" class="fs-form" target="_top" method="POST">
+        <div class="fs-field">
+            <label class="fs-label" for="name">Nombre</label>
+            <input class="fs-input" id="name" name="name" required />
+        </div>
+        <div class="fs-field">
+            <label class="fs-label" for="email">Correo</label>
+            <input class="fs-input" id="email" name="email" required />
+        </div>
+        <div class="fs-field">
+            <label class="fs-label" for="number">Phone Number</label>
+            <input class="fs-input" id="number" name="number" />
+        </div>
+        <div class="fs-field">
+            <label class="fs-label" for="message">Inquiry Message</label>
+            <textarea class="fs-textarea" id="message" name="message" required></textarea>
+        </div>
+        <div class="fs-button-group">
+            <button class="fs-button" type="submit">Submit</button>
+        </div>
+    </form>
+    </div>
+    <!-- FIN CAMBIO JAIME - SECCIÓN CONTACTO -->
+
+
 </body>
+
 </html>
