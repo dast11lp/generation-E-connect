@@ -1,0 +1,137 @@
+html {
+    font-size: 16px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+}
+
+:root {
+    --color-azul-institucional: #003A70;
+    --color-azul-generation: #0066CC;
+    --color-cian-dinamico: #00A8E0;
+    --color-verde-impacto: #00B87D;
+    --color-azul-suave: #E8F3FF;
+    --color-gris-claro: #D1DEEA;
+    --color-gris-texto: #5F6368;
+    --color-oscuro-principal: #1A1A2E;
+    --color-blanco: #FFFFFF;
+    --border-radius-principal: 20px;
+    --border-radius-secundario: 15px;
+    --border-radius-terciario: 10px;
+}
+
+
+/* INICIO CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
+
+body {
+    background-color: var(--color-azul-suave);
+    color: var(--color-oscuro-principal);
+}
+
+.card-proyecto {
+    width: 50rem;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: var(--color-blanco);
+    border: 2px solid var(--color-azul-generation);
+    border-radius: var(--border-radius-secundario);
+    box-shadow: 0 8px 20px rgba(0, 58, 112, 0.15);
+    text-align: center;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.logo-generation {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: var(--color-azul-institucional);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    color: var(--color-gris-texto);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.card-text {
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    text-decoration: none;
+    color: var(--color-blanco);
+    padding: 12px 20px;
+    border-radius: var(--border-radius-terciario);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-github {
+    background-color: var(--color-azul-institucional);
+}
+
+.btn-github:hover {
+    background-color: var(--color-azul-generation);
+}
+
+.btn-wireframe {
+    background-color: var(--color-verde-impacto);
+}
+
+.btn-wireframe:hover {
+    background-color: var(--color-cian-dinamico);
+}
+
+/* FIN CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
+/*Cambios maria - misión y visión */
+header{
+    padding: 100px;
+    margin-bottom: 60px;
+    text-align: center;
+    font-size: 40px;
+    color: var(--color-blanco);
+    text-shadow: 3px 3px var(--color-azul-institucional);
+    position: relative;
+}
+header::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/images/logos/header.jfif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    filter: blur(3px);
+    z-index: -1;
+}
+#mision{
+   
+}
+/*Fin cambios maria - misión y visión */
