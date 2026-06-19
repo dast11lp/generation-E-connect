@@ -132,6 +132,39 @@ header::before{
     z-index: -1;
 }
 #mision{
-   
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    font-size: 20px;
+    gap: 50px;
+    border-radius: var(--border-radius-secundario);
+    border: 2px solid var(--color-azul-generation);
+    background-color: var(--color-blanco);
+}
+#img-mision{
+    width: 300px;
+    height: auto;
+    border-radius: var(--border-radius-principal);
+}
+#vision{
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    font-size: 20px;
+    gap: 50px;
+    border-radius: var(--border-radius-secundario);
+    border: 2px solid var(--color-azul-generation);
+    background-color: var(--color-blanco);
+}
+#img-vision{
+    width: 300px;
+    height: auto;
+    border-radius: var(--border-radius-principal);
 }
 /*Fin cambios maria - misión y visión */
