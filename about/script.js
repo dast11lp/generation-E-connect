@@ -86,3 +86,16 @@ const contenedor = document.getElementById("contenedor-tarjetas");
 contenedor.innerHTML = integrantes
   .map((persona) => crearTarjeta(persona))
   .join("");
+
+
+const header = document.querySelector(".header-navbar");
+
+window.addEventListener("scroll", () => {
+
+  if (window.scrollY > 120) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+
+});
