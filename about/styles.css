@@ -125,7 +125,8 @@ body {
 }
 
 .titulo-equipo {
-    margin: 30px
+    margin: 30px;
+    font-size: 90px
 }
 
 .tarjeta {
@@ -135,6 +136,7 @@ body {
     box-shadow: 0 48px 96px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     transform: skewX(-12deg);
+    background: var(--color-blanco);
 }
 
 .tarjeta__forma {
@@ -160,10 +162,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, 20%);
-    color: var(--color-white);
+    color: var(--color-blanco);
     text-transform: uppercase;
     text-align: center;
-    font-size: 1.4vw;
+    font-size: 1vw;
     opacity: 0;
     transition: all 0.5s;
     backface-visibility: hidden;
