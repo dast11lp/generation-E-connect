@@ -108,3 +108,157 @@ body {
 }
 
 /* FIN CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
+
+
+/* Inicio Targetas Daniel */
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor-tarjetas {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.titulo-equipo {
+    margin: 30px
+}
+
+.tarjeta {
+    display: flex;
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 48px 96px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    transform: skewX(-12deg);
+}
+
+.tarjeta__forma {
+    flex-shrink: 0;
+    width: 380px;
+    align-self: stretch;
+    position: relative;
+    overflow: hidden;
+}
+
+.tarjeta__imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    backface-visibility: hidden;
+    transition: all 0.5s;
+}
+
+.tarjeta__descripcion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    color: var(--color-white);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.4vw;
+    opacity: 0;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+}
+
+.tarjeta__texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 25px;
+    margin: 0 50px;
+    transform: skewX(12deg);
+    font-size: 1.9vw;
+}
+
+.tarjeta__texto h3 {
+    font-size: 1.3em;
+}
+
+.tarjeta__texto p {
+    padding: 20px 0;
+    font-size: 1.6vw;
+}
+
+.redes {
+    display: flex;
+}
+
+.redes__icono {
+    display: block;
+    width: 35px;
+    transition: all 0.4s;
+}
+
+.redes__icono:hover {
+    transform: scale(1.2);
+}
+
+.redes__icono:last-child {
+    margin-left: 20px;
+}
+
+.tarjeta:hover .tarjeta__descripcion {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.tarjeta:hover .tarjeta__imagen {
+    transform: scale(1.15);
+    filter: blur(3px) brightness(80%);
+}
+
+
+@media (max-width: 950px) {
+    .tarjeta {
+        width: 100%;
+        padding: 64px;
+    }
+
+    .tarjeta__texto {
+        font-size: 1.6vw;
+    }
+
+    .tarjeta__descripcion {
+        font-size: 2vw;
+    }
+}
+
+@media (max-width: 850px) {
+    .tarjeta__texto p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 800px) {
+    .tarjeta {
+        transform: skewX(0);
+        flex-direction: column;
+    }
+
+    .tarjeta__forma {
+        width: 100%;
+        height: 250px;
+    }
+
+    .tarjeta__texto {
+        transform: skewX(0);
+        font-size: 3.6vw;
+        padding: 30px 25px;
+        margin: 0;
+    }
+
+    .tarjeta__descripcion {
+        font-size: 3vw;
+    }
+}
+
+/* Fin Targetas Daniel */
