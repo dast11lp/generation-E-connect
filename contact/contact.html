@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About-Us</title>
-    <link rel="stylesheet" href="/generation-E-connect/contact/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
 
 </head>
 
@@ -13,7 +13,11 @@
     <!-- INICIO CAMBIO JAIME - SECCIÓN CONTACTO -->
 
     <div class="container"> 
-    <form action="https://formspree.io/f/mnjykdqe" class="fs-form" target="_top" method="POST">
+    <form  id ="formulario-contacto"  
+
+    class="fs-form" target="_top" 
+
+    >
         <div class="fs-field">
             <label class="fs-label" for="name">Nombre</label>
             <input class="fs-input" id="name" name="name" required />
@@ -31,13 +35,14 @@
             <textarea class="fs-textarea" id="message" name="message" required></textarea>
         </div>
         <div class="fs-button-group">
-            <button class="fs-button" type="submit">Submit</button>
+            <button  id="enviar-contacto" class="fs-button" type="submit">Submit</button>
         </div>
     </form>
     </div>
     <!-- FIN CAMBIO JAIME - SECCIÓN CONTACTO -->
 
 
+    <script src="script.js"></script>
 </body>
 
 </html>
