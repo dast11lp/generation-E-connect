@@ -391,3 +391,8 @@ fieldset {
 }
 
 /* FINAL CAMBIO JAIME - SECCIÓN CONTACTO */
+
+
+.fs-error-msg {
+  color: rgb(226, 54, 54);
+}
