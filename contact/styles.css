@@ -433,8 +433,10 @@ fieldset {
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
+  min-width: auto;
   margin: 30px;
   padding: 0 20px;
+  background-color: #0f172a;
 }
 
 .contacto {
@@ -443,5 +445,5 @@ fieldset {
 }
 
 .copy{
-  color: var(--color-border-active);
+  color: var(--color-highlight);
 }
