@@ -212,31 +212,44 @@ body {
 }
 
 .card-proyecto {
-    width: 50rem;
-    max-width: 100%;
-    margin: 0 auto;
+    display: flex;         
+    align-items: center;
+    justify-content: center;
+    gap: 50px;             
+    padding: 40px;         
+    width: 60%;            
+    margin: 0 auto 50px auto;
+    font-size: 20px;
     background-color: var(--color-blanco);
     border: 2px solid var(--color-azul-generation);
     border-radius: var(--border-radius-secundario);
     box-shadow: 0 8px 20px rgba(0, 58, 112, 0.15);
-    text-align: center;
 }
 
 .card-body {
     padding: 2rem;
+    flex: 1; /* Hace que el texto use el espacio disponible de forma limpia */
 }
 
 .logo-generation {
-    width: 100%;
+    width: 300px; /* Cambiado a un tamaño fijo inicial igual que los otros para que empuje el corte */
+    height: auto;
     max-height: 180px;
-    object-fit: contain;
+    justify-self: center;
+    border-radius: var(--border-radius-principal);
     margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .card-title {
     color: var(--color-azul-institucional);
     font-size: 2rem;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .card-subtitle {
@@ -244,11 +257,15 @@ body {
     font-size: 1rem;
     margin-bottom: 20px;
     font-weight: normal;
+    display: flex;
+    justify-content: center;
 }
 
 .card-text {
     line-height: 1.6;
     margin-bottom: 25px;
+     display: flex;
+    justify-content: center;
 }
 
 .botones {
@@ -280,6 +297,21 @@ body {
 
 .btn-wireframe:hover {
     background-color: var(--color-cian-dinamico);
+}
+
+/* --- EL MISMO COMPORTAMIENTO CUANDO SE QUEDA SIN ESPACIO --- */
+@media (max-width: 750px) {
+    .card-proyecto {
+         /* Cambia a columna y manda la imagen abajo */
+        width: 85%;                     /* Agranda el recuadro para que no se aplaste */
+        gap: 20px;                      /* Reduce la distancia entre elementos */
+        padding: 30px;
+    }
+
+    .logo-generation {
+        width: 100%;                    /* Se adapta al ancho en pantallas chicas */
+        max-width: 250px;               /* Controla que no se haga gigante en móviles */
+    }
 }
 
 /* FIN CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
@@ -480,44 +512,46 @@ body {
     margin-top: 100px;
 }
 
-#mision {
+#mision, #vision {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+
+    gap: 50px;
     padding: 40px;
     width: 60%;
-    margin: 0 auto;
-    margin-bottom: 50px;
+    margin: 0 auto 50px auto;
     font-size: 20px;
-    gap: 50px;
     border-radius: var(--border-radius-secundario);
     border: 2px solid var(--color-azul-generation);
     background-color: var(--color-blanco);
 }
 
-#img-mision {
+
+#mision > div, #vision > div {
+    flex: 1;
+}
+
+#img-mision, #img-vision {
+    
     width: 300px;
     height: auto;
     border-radius: var(--border-radius-principal);
-}
-
-#vision {
-    display: flex;
-    align-items: center;
-    padding: 40px;
-    width: 60%;
     margin: 0 auto;
-    margin-bottom: 50px;
-    font-size: 20px;
-    gap: 50px;
-    border-radius: var(--border-radius-secundario);
-    border: 2px solid var(--color-azul-generation);
-    background-color: var(--color-blanco);
+    
 }
 
-#img-vision {
-    width: 300px;
-    height: auto;
-    border-radius: var(--border-radius-principal);
+
+@media (max-width: 750px) {
+    #mision, #vision {
+        flex-direction: column; 
+        width: 85%; 
+        padding: 20px;           
+        gap: 20px;  
+         
+    }
+
+  
 }
 
 /*Fin cambios maria - misión y visión */
