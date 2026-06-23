@@ -1,0 +1,523 @@
+html {
+    font-size: 16px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+}
+
+:root {
+    --color-azul-institucional: #003A70;
+    --color-azul-generation: #0066CC;
+    --color-cian-dinamico: #00A8E0;
+    --color-verde-impacto: #00B87D;
+    --color-azul-suave: #E8F3FF;
+    --color-gris-claro: #D1DEEA;
+    --color-gris-texto: #5F6368;
+    --color-oscuro-principal: #1A1A2E;
+    --color-blanco: #FFFFFF;
+    --border-radius-principal: 20px;
+    --border-radius-secundario: 15px;
+    --border-radius-terciario: 10px;
+}
+
+
+/* INICIO CAMBIOS ALEJANDRO */
+
+.header-navbar {
+    display: grid;
+    position: fixed;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: 0px 40px;
+    top: 20px;
+    /* Lo pega al borde superior */
+    left: 0;
+    /* Lo pega al borde izquierdo */
+    width: 100%;
+    /* Forza a que ocupe todo el ancho de la pantalla */
+    z-index: 1000;
+    /* Asegura que el header pase por encima de cualquier otro elemento */
+    transition: all 0.5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.header-navbar.scrolled {
+
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+    padding: 15px 30px;
+    border-radius: 100px;
+    /* background: rgba(255, 255, 255, .15); */
+    border: 1px solid rgba(255, 255, 255, .25);
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, .35),
+            rgba(255, 255, 255, .08));
+    backdrop-filter: blur(20px);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .15),
+        inset 2px 2px 10px rgba(255, 255, 255, .3);
+
+}
+
+.header-navbar.scrolled .navegacion-principal,
+.header-navbar.scrolled .navegacion-secundaria {
+
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    border: none;
+
+    padding: 0;
+}
+
+.header-navbar.scrolled #logo img {
+    width: 140px;
+    transition: all 2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.header-navbar,
+.navegacion-principal,
+.navegacion-secundaria {
+    transition: all 2s cubic-bezier(.22, 1, .36, 1);
+}
+
+.navegacion-principal {
+    justify-self: center;
+    display: flex;
+    height: 94px;
+    width: 620px;
+    justify-content: space-between;
+    align-items: center;
+    /* align-items: center; */
+    padding: 0px 14.5px; 
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 100px;
+    /* background-color: rgba(255, 255, 255, 0.3); */
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, .35),
+            rgba(255, 255, 255, .08));
+    box-shadow: 0 0 15px #4c4c4c;
+    /* #4c4c4c */
+    backdrop-filter: blur(10px);
+
+    /* box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.3),
+        inset -4px -5px 10px rgba(255, 255, 255, 0.6); */
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .15),
+        inset 2px 2px 10px rgba(255, 255, 255, .3);
+}
+
+.navegacion-secundaria {
+    justify-self: end;
+    display: flex;
+    height: 94px;
+    width: 214px;
+    justify-content:space-evenly;
+    align-items: center;
+    /* border: 1px solid rgba(0, 0, 0, 0.06); */
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 100px;
+    /* background-color: rgba(255, 255, 255, 0.3); */
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, .35),
+            rgba(255, 255, 255, .08));
+    box-shadow: 0 0 15px #4c4c4c;
+    /* #4c4c4c */
+    backdrop-filter: blur(10px);
+
+    /* box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.3),
+        inset -4px -5px 10px rgba(255, 255, 255, 0.6); */
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .15),
+        inset 2px 2px 10px rgba(255, 255, 255, .3);
+    
+        
+}
+
+#logo {
+    justify-self: start;
+}
+
+#logo:hover {
+    transform: scale(1.005);
+}
+
+#logo:active {
+    transform: translateY(2px);
+}
+
+.navegacion-principal a {
+    text-decoration: none;
+    border-radius: 50px;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* transition: transform 0.2s ease, box-shadow 0.1s ease; */
+    font-size: 20px;
+    
+}
+
+.navegacion-secundaria a {
+    border-radius: 50px;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
+    transition: transform 0.2s ease, box-shadow 0.1s ease;
+    font-size: 20px;
+}
+
+.navegacion-secundaria img {
+    width: 30px;
+}
+
+.navegacion-principal a:hover, .navegacion-secundaria a:hover {
+    padding: 20px 30px;
+    
+    /* transform: translateY(2px); */
+    /* box-shadow: inset 1.5px 1.5px 15px rgba(255, 255, 255, 0.2),
+        inset -1.5px -1.5px 15px rgba(255, 255, 255, 0.2),
+        inset 1.5px -1.5px 15px rgba(255, 255, 255, 0.2),
+        inset -1.5px 1.5px 15px rgba(255, 255, 255, 0.2); */
+    box-shadow: inset 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navegacion-principal a:active, .navegacion-secundaria a:active {
+    transform: translateY(2px);
+    box-shadow: inset 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* INICIO CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
+
+body {
+    background-color: var(--color-azul-suave);
+    color: var(--color-oscuro-principal);
+}
+
+.card-proyecto {
+    width: 50rem;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: var(--color-blanco);
+    border: 2px solid var(--color-azul-generation);
+    border-radius: var(--border-radius-secundario);
+    box-shadow: 0 8px 20px rgba(0, 58, 112, 0.15);
+    text-align: center;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.logo-generation {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: var(--color-azul-institucional);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    color: var(--color-gris-texto);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.card-text {
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    text-decoration: none;
+    color: var(--color-blanco);
+    padding: 12px 20px;
+    border-radius: var(--border-radius-terciario);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-github {
+    background-color: var(--color-azul-institucional);
+}
+
+.btn-github:hover {
+    background-color: var(--color-azul-generation);
+}
+
+.btn-wireframe {
+    background-color: var(--color-verde-impacto);
+}
+
+.btn-wireframe:hover {
+    background-color: var(--color-cian-dinamico);
+}
+
+/* FIN CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
+
+
+/* Inicio Targetas Daniel */
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor-tarjetas {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.titulo-equipo {
+    margin: 30px;
+    font-size: 90px
+}
+
+.tarjeta {
+    display: flex;
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 48px 96px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    transform: skewX(-12deg);
+    background: var(--color-blanco);
+    max-width: 1460px;
+}
+
+.tarjeta__forma {
+    flex-shrink: 0;
+    width: 380px;
+    align-self: stretch;
+    position: relative;
+    overflow: hidden;
+}
+
+.tarjeta__imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    backface-visibility: hidden;
+    transition: all 0.5s;
+}
+
+.tarjeta__descripcion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    color: var(--color-blanco);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 0vw;
+    opacity: 0;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+}
+
+.tarjeta__texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 25px;
+    margin: 0 50px;
+    transform: skewX(12deg);
+    font-size: 1.9vw;
+}
+
+
+.tarjeta__texto h3 {
+    font-size: 1.3em;
+}
+
+.tarjeta__texto p {
+    padding: 20px 0;
+    font-size: 1vw;
+}
+
+.redes {
+    display: flex;
+}
+
+.redes__icono {
+    display: block;
+    width: 35px;
+    transition: all 0.4s;
+}
+
+.redes__icono:hover {
+    transform: scale(1.2);
+}
+
+.redes__icono:last-child {
+    margin-left: 20px;
+}
+
+.tarjeta:hover .tarjeta__descripcion {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+.tarjeta:hover .tarjeta__imagen {
+    transform: scale(1.15);
+    filter: blur(3px) brightness(80%);
+}
+
+
+@media (max-width: 1250px) {
+    .tarjeta__descripcion p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 950px) {
+    .tarjeta {
+        width: 100%;
+        padding: 64px;
+    }
+
+    .tarjeta__texto {
+        font-size: 3vw;
+    }
+
+
+}
+
+@media (max-width: 890px) {
+    .tarjeta__texto {
+        transform: skewX(0);
+        margin: 0;
+        padding: 25px 0;
+    }
+
+    .tarjeta {
+        transform: skewX(0);
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 800px) {
+    .tarjeta__forma {
+        width: 100%;
+        height: 250px;
+    }
+
+    .tarjeta__texto {
+        padding: 30px 25px;
+        margin: 0;
+    }
+
+    .tarjeta__descripcion {
+        font-size: 3vw;
+    }
+}
+
+/* Fin Targetas Daniel */
+/*Cambios maria - misión y visión */
+
+.contenedor-mision-vision {
+    margin-top: 100px;
+}
+
+.header-principal {
+    padding: 100px;
+    margin-bottom: 60px;
+    text-align: center;
+    font-size: 40px;
+    color: var(--color-blanco);
+    text-shadow: 3px 3px var(--color-azul-institucional);
+    position: relative;
+}
+
+.header-principal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-image: url(../assets/images/logos/header.jfif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+.header-principal h1 {
+    margin-top: 100px;
+}
+
+#mision {
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    font-size: 20px;
+    gap: 50px;
+    border-radius: var(--border-radius-secundario);
+    border: 2px solid var(--color-azul-generation);
+    background-color: var(--color-blanco);
+}
+
+#img-mision {
+    width: 300px;
+    height: auto;
+    border-radius: var(--border-radius-principal);
+}
+
+#vision {
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    font-size: 20px;
+    gap: 50px;
+    border-radius: var(--border-radius-secundario);
+    border: 2px solid var(--color-azul-generation);
+    background-color: var(--color-blanco);
+}
+
+#img-vision {
+    width: 300px;
+    height: auto;
+    border-radius: var(--border-radius-principal);
+}
+
+/*Fin cambios maria - misión y visión */
