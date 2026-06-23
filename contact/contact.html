@@ -1,48 +1,110 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About-Us</title>
     <link rel="stylesheet" href="styles.css" />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- INICIO CAMBIO JAIME - SECCIÓN CONTACTO -->
 
     <div class="container">
-        <form id="formulario-contacto" class="fs-form" target="_top">
-            <div class="fs-field">
-                <label class="fs-label" for="name">Nombre</label>
-                <input class="fs-input" id="name" name="name" required />
-                <span class="fs-error-msg" id="error-name"></span>
-            </div>
-            <div class="fs-field">
-                <label class="fs-label" for="email">Correo</label>
-                <input class="fs-input" id="email" name="email" required />
-                <span class="fs-error-msg" id="error-email"></span>
-            </div>
-            <div class="fs-field">
-                <label class="fs-label" for="number">Phone Number</label>
-                <input class="fs-input" id="number" name="number" />
-                <span class="fs-error-msg" id="error-number"></span>
-            </div>
-            <div class="fs-field">
-                <label class="fs-label" for="message">Inquiry Message</label>
-                <textarea class="fs-textarea" id="message" name="message" required></textarea>
-                <span class="fs-error-msg" id="error-message"></span>
-            </div>
-            <div class="fs-button-group">
-                <button id="enviar-contacto" class="fs-button" type="submit">Submit</button>
-            </div>
-        </form>
+      <form id="formulario-contacto" class="fs-form" target="_top">
+        <div class="fs-field">
+          <label class="fs-label" for="name">Nombre</label>
+          <input class="fs-input" id="name" name="name" required />
+          <span class="fs-error-msg" id="error-name"></span>
+        </div>
+        <div class="fs-field">
+          <label class="fs-label" for="email">Correo</label>
+          <input class="fs-input" id="email" name="email" required />
+          <span class="fs-error-msg" id="error-email"></span>
+        </div>
+        <div class="fs-field">
+          <label class="fs-label" for="number">Phone Number</label>
+          <input class="fs-input" id="number" name="number" />
+          <span class="fs-error-msg" id="error-number"></span>
+        </div>
+        <div class="fs-field">
+          <label class="fs-label" for="message">Inquiry Message</label>
+          <textarea
+            class="fs-textarea"
+            id="message"
+            name="message"
+            required
+          ></textarea>
+          <span class="fs-error-msg" id="error-message"></span>
+        </div>
+        <div class="fs-button-group">
+          <button id="enviar-contacto" class="fs-button" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
     <!-- FIN CAMBIO JAIME - SECCIÓN CONTACTO -->
 
+    <div class="contenedor1">
+      <h2>Contáctanos</h2>
+
+      <h2 class="subtitulo">¡Queremos escucharte!</h2>
+      <p>
+        Si tienes preguntas sobre nuestros programas, mentorias, o necesitas
+        ayuda, déjanos tu mensaje. Por favor diligencia el formulario con tus
+        datos y en breve un miembro del equipo se pondrá en contacto contigo.
+        Estamos aquí para apoyarte.
+      </p>
+    </div>
+
+    <div>
+      <a
+        href="https://www.linkedin.com/school/generation-colombia/posts/?feedView=all"
+      >
+        <img
+          class="contacto"
+          src="./img/linkedin (2).png"
+          alt="LinkedIn logo linking to Generation Colombia LinkedIn page"
+        />
+      </a>
+
+      <a href="https://x.com/youemployed">
+        <img
+          class="contacto"
+          src="./img/x.png"
+          alt="X social media logo linking to Generation Colombia X profile"
+        />
+      </a>
+
+      <a
+        class="contacto"
+        href="https://l.instagram.com/?u=http%3A%2F%2Flinktr.ee%2FGenColombia&e=AUDGMbMuDAxZ9ytmje3CM6m6X71IM3AEY5ihaMrvy_rvBP9CocjxbMP3T_IxYaYxNA1VV9aUbLtI60wxwnMX9vAGahdJWBXCQgbPC4rRfO6i4Ww8-ZlORYwMN56u-wfyk32qcKp-DX35bErEYsaHjw"
+      >
+        <img
+          class="contacto"
+          src="./img/instagram.png"
+          alt="Instagram logo linking to Generation Colombia Instagram account"
+        />
+      </a>
+
+      <a href="https://web.facebook.com/GenerationColombia?_rdc=1&_rdr#">
+        <img
+          class="contacto"
+          src="./img/facebook.png"
+          alt="Facebook logo linking to Generation Colombia Facebook page"
+        />
+      </a>
+
+      <a href="https://www.youtube.com/@GenerationColombia">
+        <img
+          class="contacto"
+          src="./img/youtube.png"
+          alt="YouTube logo linking to Generation Colombia YouTube channel"
+        />
+      </a>
+    </div>
 
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
