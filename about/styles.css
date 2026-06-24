@@ -535,7 +535,7 @@ body {
     margin-top: 100px;
 }
 
-.header-principal {
+.hero {
     padding: 100px;
     margin-bottom: 60px;
     text-align: center;
@@ -545,7 +545,7 @@ body {
     position: relative;
 }
 
-.header-principal::before {
+.hero::before {
     content: "";
     position: absolute;
     top: 0;
@@ -560,7 +560,7 @@ body {
     z-index: -1;
 }
 
-.header-principal h1 {
+.hero h1 {
     margin-top: 100px;
 }
 
