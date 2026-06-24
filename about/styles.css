@@ -318,6 +318,42 @@ body {
 
 /* FIN CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
 
+/* Inicio stylos valores Henry */
+
+.valores{
+    max-width: 1300px;
+    min-width: auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-right: 30px;
+}
+
+.titulo{
+    font-size: 100px;
+}
+
+.valor{
+    font-size: 75px;
+}
+
+.valores_img{
+    width: 120px;
+    height: 120px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+
+.descripcion{
+    font-size: 20px;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+/* Fin stylos valores Henry */
+
+
 
 /* Inicio Targetas Daniel */
 
