@@ -29,10 +29,10 @@ const integrantes = [
   {
     nombre: "Henry",
     cargo: "QA Tester",
-    imagen: "img/nat-9.jpg",
+    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQGSyGzs2OCWIA/profile-displayphoto-scale_400_400/B4EZ5wWETHIwAk-/0/1780001296871?e=1784160000&v=beta&t=sEzljfNh75YeoznTznTAEekdIXk2E-iS3FN1CegKXiE",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
-    linkedin: "https://linkedin.com/in/persona-4",
+    linkedin: "https://www.linkedin.com/in/henry-alfonso-bol%C3%ADvar-unriza-dearrollador-fullstack/",
     github: "https://github.com/persona-4",
   },
   {
@@ -62,8 +62,11 @@ function crearTarjeta(persona) {
   return `
     <div class="tarjeta">
       <div class="tarjeta__forma">
-        <img src="${persona.imagen}" alt="${persona.nombre}" class="tarjeta__imagen" />
-        <figcaption class="tarjeta__descripcion">${persona.nombre}</figcaption>
+      <div class="targeta-contenedor-imagen"> 
+       <img src="${persona.imagen}" alt="${persona.nombre}" class="tarjeta__imagen" />
+      </div>
+       
+        <figcaption class="tarjeta__nombre">${persona.nombre}</figcaption>
       </div>
       <div class="tarjeta__texto">
         <h3>${persona.cargo}</h3>
