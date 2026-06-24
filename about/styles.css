@@ -100,7 +100,7 @@ body {
     justify-content: space-between;
     align-items: center;
     /* align-items: center; */
-    padding: 0px 14.5px; 
+    padding: 0px 14.5px;
     border: 1px solid rgba(255, 255, 255, .25);
     border-radius: 100px;
     /* background-color: rgba(255, 255, 255, 0.3); */
@@ -124,7 +124,7 @@ body {
     display: flex;
     height: 94px;
     width: 214px;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     align-items: center;
     /* border: 1px solid rgba(0, 0, 0, 0.06); */
     border: 1px solid rgba(255, 255, 255, .25);
@@ -143,8 +143,8 @@ body {
     box-shadow:
         0 10px 30px rgba(0, 0, 0, .15),
         inset 2px 2px 10px rgba(255, 255, 255, .3);
-    
-        
+
+
 }
 
 #logo {
@@ -170,7 +170,7 @@ body {
     align-items: center;
     /* transition: transform 0.2s ease, box-shadow 0.1s ease; */
     font-size: 20px;
-    
+
 }
 
 .navegacion-secundaria a {
@@ -188,9 +188,10 @@ body {
     width: 30px;
 }
 
-.navegacion-principal a:hover, .navegacion-secundaria a:hover {
+.navegacion-principal a:hover,
+.navegacion-secundaria a:hover {
     padding: 20px 30px;
-    
+
     /* transform: translateY(2px); */
     /* box-shadow: inset 1.5px 1.5px 15px rgba(255, 255, 255, 0.2),
         inset -1.5px -1.5px 15px rgba(255, 255, 255, 0.2),
@@ -199,7 +200,8 @@ body {
     box-shadow: inset 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.navegacion-principal a:active, .navegacion-secundaria a:active {
+.navegacion-principal a:active,
+.navegacion-secundaria a:active {
     transform: translateY(2px);
     box-shadow: inset 0 6px 8px rgba(0, 0, 0, 0.15);
 }
@@ -212,31 +214,44 @@ body {
 }
 
 .card-proyecto {
-    width: 50rem;
-    max-width: 100%;
-    margin: 0 auto;
+    display: flex;         
+    align-items: center;
+    justify-content: center;
+    gap: 50px;             
+    padding: 40px;         
+    width: 60%;            
+    margin: 0 auto 50px auto;
+    font-size: 20px;
     background-color: var(--color-blanco);
     border: 2px solid var(--color-azul-generation);
     border-radius: var(--border-radius-secundario);
     box-shadow: 0 8px 20px rgba(0, 58, 112, 0.15);
-    text-align: center;
 }
 
 .card-body {
     padding: 2rem;
+    flex: 1; /* Hace que el texto use el espacio disponible de forma limpia */
 }
 
 .logo-generation {
-    width: 100%;
+    width: 300px; /* Cambiado a un tamaño fijo inicial igual que los otros para que empuje el corte */
+    height: auto;
     max-height: 180px;
-    object-fit: contain;
+    justify-self: center;
+    border-radius: var(--border-radius-principal);
     margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .card-title {
     color: var(--color-azul-institucional);
     font-size: 2rem;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .card-subtitle {
@@ -244,11 +259,15 @@ body {
     font-size: 1rem;
     margin-bottom: 20px;
     font-weight: normal;
+    display: flex;
+    justify-content: center;
 }
 
 .card-text {
     line-height: 1.6;
     margin-bottom: 25px;
+     display: flex;
+    justify-content: center;
 }
 
 .botones {
@@ -282,7 +301,58 @@ body {
     background-color: var(--color-cian-dinamico);
 }
 
+/* --- EL MISMO COMPORTAMIENTO CUANDO SE QUEDA SIN ESPACIO --- */
+@media (max-width: 750px) {
+    .card-proyecto {
+         /* Cambia a columna y manda la imagen abajo */
+        width: 85%;                     /* Agranda el recuadro para que no se aplaste */
+        gap: 20px;                      /* Reduce la distancia entre elementos */
+        padding: 30px;
+    }
+
+    .logo-generation {
+        width: 100%;                    /* Se adapta al ancho en pantallas chicas */
+        max-width: 250px;               /* Controla que no se haga gigante en móviles */
+    }
+}
+
 /* FIN CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
+
+/* Inicio stylos valores Henry */
+
+.valores{
+    max-width: 1300px;
+    min-width: auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-right: 30px;
+}
+
+.titulo{
+    font-size: 100px;
+}
+
+.valor{
+    font-size: 75px;
+}
+
+.valores_img{
+    width: 120px;
+    height: 120px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+
+.descripcion{
+    font-size: 20px;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+/* Fin stylos valores Henry */
+
 
 
 /* Inicio Targetas Daniel */
@@ -291,6 +361,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin: 145px 0;
 }
 
 .contenedor-tarjetas {
@@ -300,17 +372,18 @@ body {
 }
 
 .titulo-equipo {
-    margin: 30px;
-    font-size: 90px
+    margin: 0 0 90px;
+    font-size: clamp(18px, 3vw, 200px);
 }
 
 .tarjeta {
     display: flex;
+    max-height: 350px;
     width: 75%;
     margin: 0 auto;
     box-shadow: 0 48px 96px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
-    transform: skewX(-12deg);
+    transform: skewX(-7deg);
     background: var(--color-blanco);
     max-width: 1460px;
 }
@@ -323,17 +396,21 @@ body {
     overflow: hidden;
 }
 
-.tarjeta__imagen {
+.targeta-contenedor-imagen {
     width: 100%;
     height: 100%;
+    transform: skewX(7deg);
     object-fit: cover;
+}
+
+.tarjeta__imagen {
     display: block;
-    transform: scale(1);
+    transform: scale(1.12);
     backface-visibility: hidden;
     transition: all 0.5s;
 }
 
-.tarjeta__descripcion {
+.tarjeta__nombre {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -341,10 +418,10 @@ body {
     color: var(--color-blanco);
     text-transform: uppercase;
     text-align: center;
-    font-size: 0vw;
     opacity: 0;
     transition: all 0.5s;
     backface-visibility: hidden;
+    font-weight: 500;
 }
 
 .tarjeta__texto {
@@ -353,18 +430,17 @@ body {
     justify-content: center;
     padding: 30px 25px;
     margin: 0 50px;
-    transform: skewX(12deg);
-    font-size: 1.9vw;
+    transform: skewX(7deg);
+    font-size: clamp(15px, 0.9vw, 20px);
 }
-
 
 .tarjeta__texto h3 {
-    font-size: 1.3em;
+    font-size: clamp(16px, 1.9vw, 30px);
 }
+
 
 .tarjeta__texto p {
     padding: 20px 0;
-    font-size: 1vw;
 }
 
 .redes {
@@ -385,61 +461,69 @@ body {
     margin-left: 20px;
 }
 
-.tarjeta:hover .tarjeta__descripcion {
+.tarjeta:hover .tarjeta__nombre {
     opacity: 1;
     transform: translate(-50%, -50%);
 }
 
 .tarjeta:hover .tarjeta__imagen {
-    transform: scale(1.15);
+    transform: scale(1.225);
     filter: blur(3px) brightness(80%);
 }
 
 
 @media (max-width: 1250px) {
-    .tarjeta__descripcion p {
+    .tarjeta__nombre p {
         font-size: 14px;
     }
-}
 
-@media (max-width: 950px) {
+    .tarjeta__forma {
+        margin: auto;
+    }
+
     .tarjeta {
-        width: 100%;
-        padding: 64px;
+        max-height: none;
     }
-
-    .tarjeta__texto {
-        font-size: 3vw;
-    }
-
-
 }
 
-@media (max-width: 890px) {
+@media (max-width: 920px) {
+
+    .tarjeta__forma {
+        width: 100%;
+    }
+
+    .tarjeta__imagen {
+        margin: auto;
+        width: 100%;
+    }
+
     .tarjeta__texto {
         transform: skewX(0);
         margin: 0;
-        padding: 25px 0;
+        padding: 25px 0 0 0;
     }
 
     .tarjeta {
         transform: skewX(0);
         flex-direction: column;
+        padding: 65px;
     }
+
+    .targeta-contenedor-imagen {
+        transform: skewX(0deg);
+    }
+
+
 }
 
 @media (max-width: 800px) {
-    .tarjeta__forma {
+    .targeta-contenedor-imagen {
+        height: 100%;
         width: 100%;
-        height: 250px;
     }
 
-    .tarjeta__texto {
-        padding: 30px 25px;
-        margin: 0;
-    }
 
-    .tarjeta__descripcion {
+    .tarjeta__nombre {
         font-size: 3vw;
     }
 }
@@ -480,44 +564,46 @@ body {
     margin-top: 100px;
 }
 
-#mision {
+#mision, #vision {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+
+    gap: 50px;
     padding: 40px;
     width: 60%;
-    margin: 0 auto;
-    margin-bottom: 50px;
+    margin: 0 auto 50px auto;
     font-size: 20px;
-    gap: 50px;
     border-radius: var(--border-radius-secundario);
     border: 2px solid var(--color-azul-generation);
     background-color: var(--color-blanco);
 }
 
-#img-mision {
+
+#mision > div, #vision > div {
+    flex: 1;
+}
+
+#img-mision, #img-vision {
+    
     width: 300px;
     height: auto;
     border-radius: var(--border-radius-principal);
-}
-
-#vision {
-    display: flex;
-    align-items: center;
-    padding: 40px;
-    width: 60%;
     margin: 0 auto;
-    margin-bottom: 50px;
-    font-size: 20px;
-    gap: 50px;
-    border-radius: var(--border-radius-secundario);
-    border: 2px solid var(--color-azul-generation);
-    background-color: var(--color-blanco);
+    
 }
 
-#img-vision {
-    width: 300px;
-    height: auto;
-    border-radius: var(--border-radius-principal);
+
+@media (max-width: 750px) {
+    #mision, #vision {
+        flex-direction: column; 
+        width: 85%; 
+        padding: 20px;           
+        gap: 20px;  
+         
+    }
+
+  
 }
 
 /*Fin cambios maria - misión y visión */
