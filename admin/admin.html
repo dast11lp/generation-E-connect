@@ -11,7 +11,7 @@
     <!--Inicio formulario Henry-->
     <form id="formulario_video">
       <div id="form" class="form">
-        <p>Sube aquí tu video</p>
+        <p>Sube aquí tu video o archivo.</p>
         <input type="file" id="videoFile" accept="video/*" hidden />
       </div>
 
@@ -20,16 +20,17 @@
 
       <label for="category">Tu categoria</label>
       <select id="category" name="tu_categoria">
-        <option value="tutorial">Java Full-Stack</option>
-        <option value="entretenimiento">Unity</option>
-        <option value="educacion">Educación</option>
+        <option value="tutorial">Full-Stack/Javak</option>
+        <option value="entretenimiento">Soporte TI</option>
+        <option value="educacion">Unity</option>
+        <option value="educacion">Marketing digital</option>
       </select>
 
       <!-- Descripción -->
       <label for="description">Descripción:</label>
       <textarea
         id="description"
-        placeholder="Escribe de qué trata el video..."
+        placeholder="Realiza una breve descripion."
         name="description"
       ></textarea>
 
@@ -38,20 +39,13 @@
       <input type="hidden" id="uploadDate" />
 
       <button type="submit">Subir Video</button>
-    </form>
 
-    <form id="formulario_url">
-      <div id="form_url">
         <p>URL del video</p>
-        <label for="video" id="URL_video">Aquí tu url</label>
-        <input type="url" id="URL" />
 
         <label for="archivo">Sube tu documento:</label>
         <input type="file" id="archivo" name="archivo" required />
 
         <button type="submit">Subir archivo</button>
-      </div>
-    </form>
     <!--Fin formularo Henry-->
 
     <script src="admin.js"></script>
