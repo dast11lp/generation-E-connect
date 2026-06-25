@@ -443,11 +443,11 @@ body {
 
 /* Inicio Grabaciones */ 
 
-.grabaciones {
+/* .grabaciones {
     padding: 0 25px;
     height: 100vh;
     border: 1px solid black;
     display: grid;
     grid-template-columns: 1fr 1fr;
-}
+} */
 
