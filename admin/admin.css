@@ -163,4 +163,24 @@ textarea {
     transform: scale(0.98);
 }
 
+@media (max-width: 480px) {
+    #formulario_video {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 20px 16px;
+        box-shadow: none;
+        box-sizing: border-box;
+    }
+
+    #form.form {
+        padding: 16px;
+    }
+
+    #formulario_video button[type="submit"] {
+        padding: 16px;
+        font-size: 16px;
+    }
+}
+
 /*Fin stilos formulario Henry */
