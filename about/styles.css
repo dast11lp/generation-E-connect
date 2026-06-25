@@ -320,35 +320,60 @@ body {
 
 /* Inicio stylos valores Henry */
 
-.valores{
+
+.valores {
     max-width: 1300px;
-    min-width: auto;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    width: 100%;
+    margin: 20px auto 30px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
     text-align: center;
-    margin-right: 30px;
-}
-
-.titulo{
-    font-size: 100px;
-}
-
-.valor{
-    font-size: 75px;
-}
-
-.valores_img{
-    width: 120px;
-    height: 120px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-}
 
 
-.descripcion{
-    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    margin-right: 20px;
+}
+
+
+.titulo {
+    font-size: clamp(2.5rem, 8vw, 6.25rem);
+    margin-bottom: 10px;
+}
+
+
+.valor {
+    font-size: clamp(2rem, 6vw, 4.68rem);
+    font-weight: bold;
+}
+
+
+.valores_img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    margin: 15px 0 20px 0;
+}
+
+.descripcion {
+    font-size: 1.25rem;
+    max-width: 600px;
+    text-align: center;
+}
+
+/* Ajustes específicos para pantallas muy pequeñas (Celulares) */
+@media (max-width: 480px) {
+    .valores {
+        margin-right: 0;
+        /* Eliminamos márgenes fijos laterales */
+        margin-left: 0;
+    }
+
+    .valores_img {
+        max-width: 90px;
+        /* Imagen un poco más pequeña en celular */
+    }
 }
 
 /* Fin stylos valores Henry */
