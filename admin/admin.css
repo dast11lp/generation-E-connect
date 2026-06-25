@@ -1,0 +1,216 @@
+html {
+  font-size: 16px;
+}
+
+:root {
+  --color-azul-institucional: #003a70;
+  --color-azul-generation: #0066cc;
+  --color-cian-dinamico: #00a8e0;
+  --color-verde-impacto: #00b87d;
+  --color-azul-suave: #e8f3ff;
+  --color-gris-claro: #d1deea;
+  --color-gris-texto: #5f6368;
+  --color-oscuro-principal: #1a1a2e;
+  --color-blanco: #ffffff;
+
+  --border-radius-principal: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Montserrat, sans-serif;
+  background: var(--color-blanco);
+}
+
+/* SECCIONES */
+
+.grabaciones,
+.estudiantes-historial {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.grabaciones h2,
+.estudiantes-historial h2 {
+  margin-bottom: 24px;
+  font-size: 2rem;
+  color: var(--color-azul-institucional);
+}
+
+/* GRID */
+
+.grid-webinars,
+.grid-estudiantes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* TARJETAS WEBINARS */
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: var(--color-azul-suave);
+
+  background: var(--color-azul-institucional);
+  border-radius: var(--border-radius-principal);
+  overflow: hidden;
+
+  transition: 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.thumbnail {
+  position: relative;
+  height: 260px;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.duracion {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+
+  padding: 6px 10px;
+
+  background: rgba(0,0,0,.8);
+  color: white;
+
+  border-radius: 8px;
+  font-size: .85rem;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.categoria {
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  background: var(--color-azul-suave);
+  color: var(--color-azul-institucional);
+
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.card-content h3 {
+  margin: 12px 0;
+  line-height: 1.4;
+}
+
+.info {
+  color: var(--color-gris-claro);
+  font-size: .9rem;
+}
+
+/* HISTORIAS */
+
+.card-historia {
+  background: var(--color-azul-generation);
+  color: var(--color-blanco);
+
+  padding: 24px;
+  border-radius: var(--border-radius-principal);
+
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+.header-historia {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.foto-perfil {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.nombre {
+  font-size: 1.4rem;
+}
+
+.empresa {
+  color: var(--color-azul-suave);
+  font-size: .95rem;
+}
+
+.testimonio {
+  margin-bottom: 20px;
+
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.badge-rol {
+  display: inline-block;
+
+  padding: 8px 16px;
+
+  background: var(--color-azul-suave);
+  color: var(--color-azul-generation);
+
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.btn-ver-mas {
+  display: inline-block;
+
+  margin-top: 16px;
+  padding: 10px 18px;
+
+  background: var(--color-verde-impacto);
+  color: white;
+
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 600;
+
+  transition: .2s;
+}
+
+.btn-ver-mas:hover {
+  background: var(--color-cian-dinamico);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .grabaciones h2,
+  .estudiantes-historial h2 {
+    font-size: 1.6rem;
+  }
+
+  .thumbnail {
+    height: 220px;
+  }
+
+  .header-historia {
+    align-items: flex-start;
+  }
+}
