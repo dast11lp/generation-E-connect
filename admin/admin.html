@@ -1,13 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Administración</title>
-    <link rel="stylesheet" href="admin.css">
-</head>
-<body>
-    
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+
+    <!--Inicio formulario Henry-->
+    <form id="formulario_video">
+      <div id="form" class="form">
+        <p>Sube aquí tu video</p>
+        <input type="file" id="videoFile" accept="video/*" hidden />
+      </div>
+
+      <label for="videoUrl" id="url">Aquí el enlace de tu video:</label>
+      <input type="url" id="videoUrl" placeholder="https://ejemplo.com" />
+
+      <label for="category">Tu categoria</label>
+      <select id="category" name="tu_categoria">
+        <option value="tutorial">Java Full-Stack</option>
+        <option value="entretenimiento">Unity</option>
+        <option value="educacion">Educación</option>
+      </select>
+
+      <!-- Descripción -->
+      <label for="description">Descripción:</label>
+      <textarea
+        id="description"
+        placeholder="Escribe de qué trata el video..."
+        name="description"
+      ></textarea>
+
+      <!-- Campos ocultos o automáticos -->
+      <input type="hidden" id="username" value="UsuarioActual" />
+      <input type="hidden" id="uploadDate" />
+
+      <button type="submit">Subir Video</button>
+    </form>
+
+    <form id="formulario_url">
+      <div id="form_url">
+        <p>URL del video</p>
+        <label for="video" id="URL_video">Aquí tu url</label>
+        <input type="url" id="URL" />
+
+        <label for="archivo">Sube tu documento:</label>
+        <input type="file" id="archivo" name="archivo" required />
+
+        <button type="submit">Subir archivo</button>
+      </div>
+    </form>
+    <!--Fin formularo Henry-->
+
     <script src="admin.js"></script>
-</body>
+  </body>
 </html>
