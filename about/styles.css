@@ -61,7 +61,7 @@ body {
 
     background:
         linear-gradient(135deg,
-            rgba(255, 255, 255, .35),
+            rgba(255, 255, 255, 0.35),
             rgba(255, 255, 255, .08));
     backdrop-filter: blur(20px);
     box-shadow:
@@ -483,6 +483,7 @@ body {
 #mision {
     display: flex;
     align-items: center;
+    text-align: justify;
     padding: 40px;
     width: 60%;
     margin: 0 auto;
@@ -503,6 +504,7 @@ body {
 #vision {
     display: flex;
     align-items: center;
+    text-align: justify;
     padding: 40px;
     width: 60%;
     margin: 0 auto;
@@ -519,5 +521,63 @@ body {
     height: auto;
     border-radius: var(--border-radius-principal);
 }
+/* ===== TABLET ===== */
+@media (max-width: 1024px) {
 
+  .header-principal {
+    padding: 60px 20px;
+    font-size: 28px;
+  }
+
+  .header-principal h1 {
+    margin-top: 60px;
+  }
+
+  #mision, #vision {
+    flex-direction: column;
+    width: 85%;
+    padding: 25px;
+    gap: 30px;
+    font-size: 18px;
+  }
+
+  #img-mision, #img-vision {
+    width: 200px;
+  }
+}
+
+/* ===== CELULAR ===== */
+@media (max-width: 480px) {
+
+  .header-principal {
+    padding: 40px 15px;
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+
+  .header-principal::before {
+    height: 250px;
+  }
+
+  .header-principal h1 {
+    margin-top: 40px;
+  }
+
+  .contenedor-mision-vision {
+    margin-top: 50px;
+  }
+  #mision, #vision {
+    flex-direction: column;
+    width: 90%;
+    padding: 20px;
+    gap: 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  #img-mision, #img-vision {
+    width: 100%;
+    max-width: 250px;
+  }
+}
 /*Fin cambios maria - misión y visión */
