@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,23 +7,37 @@
     <link rel="stylesheet" href="admin.css" />
   </head>
   <body>
-
     <!--Inicio formulario Henry-->
     <form id="formulario_video">
-      <div id="form" class="form">
-        <p>Sube aquí tu video o archivo.</p>
-        <input type="file" id="videoFile" accept="video/*" >
+      <div class="tabs">
+        <ul class="tabs__list">
+          <li class="tabs__list__tab tabs__list__tab--active" data-tab="1">Archivo De Video</li>
+          <li class="tabs__list__tab" data-tab="2">Url</li>
+        </ul>
       </div>
 
-      <label for="videoUrl" id="url">Aquí el enlace de tu video:</label>
-      <input type="url" id="videoUrl" placeholder="https://ejemplo.com" />
+      <div class="tabs__content tabs__content--1 tabs__content--active" data-content="1">
+        <p>Sube aquí tu video o archivo.</p>
+        <input type="file" id="videoFile" accept="video/*" />
+      </div>
+
+      <div class="tabs__content tabs__content--2" data-content="2">
+        <label for="videoUrl" id="url">Aquí el enlace de tu video:</label>
+        <input
+          type="url"
+          id="videoUrl"
+          name="videoUrl"
+          placeholder="https://ejemplo.com"
+        />
+      </div>
 
       <label for="category">Tu categoria</label>
-      <select id="category" name="tu_categoria">
-        <option value="tutorial">Full-Stack/Javak</option>
-        <option value="entretenimiento">Soporte TI</option>
-        <option value="educacion">Unity</option>
-        <option value="educacion">Marketing digital</option>
+      <select id="category" name="categoria-cohorte">
+        <option value="">Seleccione una categoría</option>
+        <option value="java">Full-Stack/Javak</option>
+        <option value="soporte">Soporte TI</option>
+        <option value="unity">Unity</option>
+        <option value="marketing">Marketing digital</option>
       </select>
 
       <!-- Descripción -->
@@ -38,7 +52,8 @@
       <input type="hidden" id="username" value="UsuarioActual" />
       <input type="hidden" id="uploadDate" />
 
-        <button type="submit">Agregar video</button>
+      <button id="send">Agregar video</button>
+    </form>
     <!--Fin formularo Henry-->
 
     <script src="admin.js"></script>

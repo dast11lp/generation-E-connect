@@ -1,0 +1,90 @@
+
+/* inicio IA */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+#formulario_video {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+}
+
+#formulario_video div {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+#formulario_video .form {
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+#formulario_video .form p {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+input[type="url"],
+input[type="file"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+li {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* fin IA */
+
+/* Inicio Daniel */
+
+#formulario_video .tabs__content {
+  display: none; 
+}
+
+#formulario_video .tabs__content--active {
+  display: block;
+}
+
+.tabs__list__tab--active {
+  background: red;
+}
+
+/* Fin Daniel */
