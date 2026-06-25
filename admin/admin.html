@@ -1,15 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Administración</title>
     <link rel="stylesheet" href="admin.css">
 </head>
+
 <body>
 
     <!-- Inicio cambios Alejandro navbar y main -->
-     <!-- <header class="header-navbar">
+    <!-- <header class="header-navbar">
         <a href="index.html" id="logo">
             <img src="../assets/images/logos/Generation_Colombia_logo_NEW-BLUE.svg" alt="">
         </a>
@@ -52,23 +54,55 @@
     </div>
 
     <!-- Fin cambios Alejandro navbar y main -->
-    
-<!--  cambios Jaime inicio -->
-   <section class="grabaciones">
-  <h2>Grabaciones y webinars</h2>
 
-  <div id="tarjetas-grabaciones" class="grid-webinars"></div>
-  
-</section>
+    <!--  cambios Jaime inicio -->
+    <section class="grabaciones">
+        <h2>Grabaciones y webinars</h2>
+
+        <div id="tarjetas-grabaciones" class="grid-webinars"></div>
+
+    </section>
 
 
-<section class = "estudiantes-historial">
-  <h2>Estudiantes y su historial</h2>
-  <div id="tarjetas-historias" class="grid-estudiantes"></div>
-</section>
-<!-- cambios Jaime final -->
+    <section class="estudiantes-historial">
+        <h2>Estudiantes y su historial</h2>
+        <div id="tarjetas-historias" class="grid-estudiantes"></div>
+    </section>
+    <!-- cambios Jaime final -->
 
+
+
+    <!--Inicio formulario Henry-->
+    <form id="formulario_video">
+        <div id="form" class="form">
+            <p>Sube aquí tu video o archivo.</p>
+            <input type="file" id="videoFile" accept="video/*">
+        </div>
+
+        <label for="videoUrl" id="url">Aquí el enlace de tu video:</label>
+        <input type="url" id="videoUrl" placeholder="https://ejemplo.com" />
+
+        <label for="category">Tu categoria</label>
+        <select id="category" name="tu_categoria">
+            <option value="tutorial">Full-Stack/Java</option>
+            <option value="entretenimiento">Soporte TI</option>
+            <option value="educacion">Unity</option>
+            <option value="educacion">Marketing digital</option>
+        </select>
+
+        <!-- Descripción -->
+        <label for="description">Descripción:</label>
+        <textarea id="description" placeholder="Realiza una breve descripion." name="description"></textarea>
+
+        <!-- Campos ocultos o automáticos -->
+        <input type="hidden" id="username" value="UsuarioActual" />
+        <input type="hidden" id="uploadDate" />
+
+        <button type="submit">Agregar video</button>
+    </form>
+    <!--Fin formularo Henry-->
 
     <script src="admin.js"></script>
 </body>
+
 </html>
