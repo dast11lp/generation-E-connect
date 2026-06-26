@@ -321,20 +321,23 @@ body {
 /* Inicio stylos valores Henry */
 
 .valores{
-    max-width: 1300px;
-    min-width: auto;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 30px;
-    text-align: center;
-    margin-right: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
 }
 
 .titulo{
-    font-size: 100px;
+    text-align: center;
+    font-size: 70px;
+    color: var(--color-azul-institucional);
 }
 
 .valor{
-    font-size: 75px;
+    font-size: 40px;
+    color: var(--color-cian-dinamico);
 }
 
 .valores_img{
@@ -344,13 +347,75 @@ body {
     margin-bottom: 20px;
 }
 
-
 .descripcion{
     font-size: 20px;
-    justify-content: center;
+    text-align: justify;
     margin-right: 20px;
 }
 
+.valores-card{
+    width: 550px;
+    height: 550px;
+    padding: 50px;
+    margin: 40px;
+    text-align: center;
+    border-radius: var(--border-radius-principal);
+    background-color: var(--color-blanco);
+    box-shadow: 0 8px 20px rgba(0, 58, 112, 0.15);
+}
+
+@media (max-width: 768px) {
+    .valores-card {
+        width: 100%;
+        height: auto;
+        padding: 30px;
+        margin: 10px 0;
+    }
+
+    .titulo {
+        font-size: 45px;
+    }
+
+    .valor {
+        font-size: 28px;
+    }
+
+    .descripcion {
+        font-size: 16px;
+        margin-right: 0;
+    }
+
+    .valores-img {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+@media (max-width: 480px) {
+    .valores-card {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        margin: 8px 0;
+    }
+
+    .titulo {
+        font-size: 32px;
+    }
+
+    .valor {
+        font-size: 22px;
+    }
+
+    .descripcion {
+        font-size: 14px;
+    }
+
+    .valores-img {
+        width: 70px;
+        height: 70px;
+    }
+}
 /* Fin stylos valores Henry */
 
 
@@ -593,27 +658,14 @@ body {
     
 }
 
-
-@media (max-width: 750px) {
-    #mision, #vision {
-        flex-direction: column; 
-        width: 85%; 
-        padding: 20px;           
-        gap: 20px;  
-         
-    }
-
-  
-}
 /* ===== TABLET ===== */
 @media (max-width: 1024px) {
-
-  .header-principal {
+  .hero {
     padding: 60px 20px;
     font-size: 28px;
   }
 
-  .header-principal h1 {
+  .hero h1 {
     margin-top: 60px;
   }
 
@@ -632,18 +684,17 @@ body {
 
 /* ===== CELULAR ===== */
 @media (max-width: 480px) {
-
-  .header-principal {
+  .hero {
     padding: 40px 15px;
     font-size: 22px;
     margin-bottom: 30px;
   }
 
-  .header-principal::before {
+  .hero::before {
     height: 250px;
   }
 
-  .header-principal h1 {
+  .hero h1 {
     margin-top: 40px;
   }
 
