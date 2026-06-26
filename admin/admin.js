@@ -158,8 +158,6 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     grabacionesLocalStorage.push(nuevoVideo);
     
     localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
-
-    console.log(grabacionesLocalStorage);
     
     mostrarGrabaciones();
 
@@ -222,33 +220,37 @@ let grabaciones = [
     }
 ];
 
+let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []  
+
 function seed () {
-    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
-
+    
     if (grabacionesLocalStorage.length === 0) {
-        localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+        localStorage.setItem("grabaciones", JSON.stringify(grabaciones));
     }
-
 }
 
-
-
-function mostrarGrabaciones() {
+function mostrarGrabaciones(lista = []) {
     
-    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+    seed()
+    
+    if (lista.length === 0) {
+        lista = JSON.parse(localStorage.getItem('grabaciones')) || []
+    }
 
     const contenedor = document.getElementById("tarjetas-grabaciones");
-
+    
     contenedor.innerHTML = "";
-
-    if (grabacionesLocalStorage.length === 0) {
+    
+    if (lista.length === 0) {
         contenedor.innerHTML = `
-            <h3>No se encontraron grabaciones.</h3>
+        <h3>No se encontraron grabaciones.</h3>
         `;
         return;
     }
+    
 
-    grabacionesLocalStorage.forEach(grabacion => {
+
+    lista.forEach(grabacion => {
         contenedor.innerHTML += `
             <a href="${grabacion.link}" class="card" target="_blank">
 
@@ -285,18 +287,21 @@ mostrarGrabaciones();
 // cambios Jaime final
 
 
-const listaGrabaciones = grabaciones;
+const listaGrabaciones = grabacionesLocalStorage;
 
 const btnBuscarSesiones = document.querySelector('.btn-buscar-sesiones');
 btnBuscarSesiones.addEventListener('click', buscarFiltrarGrabaciones);
 
 function buscarFiltrarGrabaciones() {
 
+    
+    
+
     const inputBusqueda = document.getElementById('busqueda-sesiones');
-
-
+    
     const textoDigitado = inputBusqueda.value.trim().toLowerCase();
 
+    
     // Si no escribió nada, mostrar todas
     if (textoDigitado === "") {
         mostrarGrabaciones();
@@ -309,6 +314,17 @@ function buscarFiltrarGrabaciones() {
         grabacion.titulo.toLowerCase().includes(textoDigitado) ||
         grabacion.autor.toLowerCase().includes(textoDigitado)
     );
+
+
+    if (grabacionesEncontradas.length === 0)  {
+        const contenedor = document.getElementById("tarjetas-grabaciones");
+        contenedor.innerHTML = `
+            <h3>Tu busqueda no dio resultados.</h3>
+        `;
+        return;
+    }
+
+
     mostrarGrabaciones(grabacionesEncontradas);
 }
 
