@@ -7,6 +7,7 @@ html {
     --color-azul-generation: #0066CC;
     --color-cian-dinamico: #00A8E0;
     --color-verde-impacto: #00B87D;
+    --color-verde-impacto-oscuro: #32b34d;
     --color-azul-suave: #E8F3FF;
     --color-gris-claro: #D1DEEA;
     --color-gris-texto: #5F6368;
@@ -30,15 +31,14 @@ body {
 
 /* SECCIONES */
 
-.grabaciones,
-.estudiantes-historial {
+.section-grabaciones {
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 20px auto;
+  margin-bottom: 80px;
   padding: 20px;
 }
 
-.grabaciones h2,
-.estudiantes-historial h2 {
+.section-grabaciones h2 {
   margin-bottom: 24px;
   font-size: 2rem;
   color: var(--color-azul-institucional);
@@ -46,8 +46,7 @@ body {
 
 /* GRID */
 
-.grid-webinars,
-.grid-estudiantes {
+.grid-grabaciones {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 24px;
@@ -56,16 +55,16 @@ body {
 /* TARJETAS WEBINARS */
 
 .card {
-  display: block;
-  text-decoration: none;
-  color: var(--color-azul-suave);
+    display: block;
+    text-decoration: none;
+    color: var(--color-azul-suave);
+    margin: 0 auto;
+    background: var(--color-azul-institucional);
+    border-radius: var(--border-radius-principal);
+    overflow: hidden;
 
-  background: var(--color-azul-institucional);
-  border-radius: var(--border-radius-principal);
-  overflow: hidden;
-
-  transition: 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    transition: 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 
 .card:hover {
@@ -124,99 +123,22 @@ body {
   font-size: .9rem;
 }
 
-/* HISTORIAS */
-
-.card-historia {
-  background: var(--color-azul-generation);
-  color: var(--color-blanco);
-
-  padding: 24px;
-  border-radius: var(--border-radius-principal);
-
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
-}
-
-.header-historia {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.foto-perfil {
-  width: 70px;
-  height: 70px;
-
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.nombre {
-  font-size: 1.4rem;
-}
-
-.empresa {
-  color: var(--color-azul-suave);
-  font-size: .95rem;
-}
-
-.testimonio {
-  margin-bottom: 20px;
-
-  line-height: 1.6;
-  font-style: italic;
-}
-
-.badge-rol {
-  display: inline-block;
-
-  padding: 8px 16px;
-
-  background: var(--color-azul-suave);
-  color: var(--color-azul-generation);
-
-  border-radius: 999px;
-  font-weight: 600;
-}
-
-.btn-ver-mas {
-  display: inline-block;
-
-  margin-top: 16px;
-  padding: 10px 18px;
-
-  background: var(--color-verde-impacto);
-  color: white;
-
-  text-decoration: none;
-  border-radius: 999px;
-  font-weight: 600;
-
-  transition: .2s;
-}
-
-.btn-ver-mas:hover {
-  background: var(--color-cian-dinamico);
-}
 
 /* RESPONSIVE */
 
 @media (max-width: 768px) {
-  .grabaciones h2,
-  .estudiantes-historial h2 {
+  .section-grabaciones h2 {
     font-size: 1.6rem;
   }
 
   .thumbnail {
     height: 220px;
   }
-
-  .header-historia {
-    align-items: flex-start;
-  }
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////////  */
+
+/* Cambios por Alejandro */
 
 .header-navbar {
     display: grid;
@@ -225,13 +147,9 @@ body {
     align-items: center;
     padding: 0px 40px;
     top: 20px;
-    /* Lo pega al borde superior */
     left: 0;
-    /* Lo pega al borde izquierdo */
     width: 100%;
-    /* Forza a que ocupe todo el ancho de la pantalla */
     z-index: 1000;
-    /* Asegura que el header pase por encima de cualquier otro elemento */
     transition: all 0.5s cubic-bezier(.22, 1, .36, 1);
 }
 
@@ -398,48 +316,70 @@ body {
 
 /* Inicio Main */
 
+.contenedor-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 180px;
+    padding: 20px;
+}
+
 .contenedor-main-header {
     justify-content: left;
-    padding: 0 25px;
-    padding-top: 30px;
-    padding-bottom: 7px;
 }
 
 .contenedor-main-header h1 {
     font-weight: 800;
-    font-size: 40px;
+    font-size: 50px;
 }
 
 .contenedor-main-header p {
     padding: 10px 0;
+    font-size: 18px;
 }
 
 .contenedor-main-header input {
-    height: 40px;
-    width: 300px;
+    height: 55px;
+    width: 500px;
     margin-top: 15px;
-    margin-bottom: 5px;
-    padding: 0 12px;
+    padding: 0 18px;
+    font-size: 18px;
     border-radius: var(--border-radius-terciario);
 }
 
 .btn-buscar-sesiones {
-    height: 40px;
-    width: 70px;
+    height: 55px;
+    width: 115px;
+    font-size: 18px;
     border-radius: var(--border-radius-terciario);
+}
+
+.btn-buscar-sesiones:active {
+    transform: translateY(2px);
 }
 
 .filtros-busqueda-sesiones {
     display: flex;
-    margin: 20px 0;
+    margin-top: 30px;
     gap: 10px;
 }
 
 .filtros-busqueda-sesiones a {
     text-decoration: none;
-    padding: 10px 20px;
-    border: 1px solid #1A1A2E;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 12px 22px;
+    border: 2px solid #1A1A2E;
     border-radius: 50px;
+}
+
+.filtros-busqueda-sesiones a:hover {
+    background-color: var(--color-verde-impacto-oscuro);
+    box-shadow: 0 0 10px rgb(232, 232, 232);
+}
+
+.filtros-busqueda-sesiones a:active {
+    transform: translateY(2px);
 }
 
 /* Fin Main */
@@ -479,6 +419,7 @@ textarea {
     gap: 16px;
     max-width: 480px;
     margin: 20px auto;
+    margin-bottom: 80px;
     padding: 30px;
     background-color: var(--color-azul-institucional);
     border-radius: var(--border-radius-principal);

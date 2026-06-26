@@ -1,6 +1,6 @@
 // cambios Jaime inicio
-
-const webinars = [
+// const webinars
+const grabaciones = [
     {
         categoria: "Guest Talk",
         titulo: "Cómo conseguí trabajo en una startup siendo junior",
@@ -27,6 +27,24 @@ const webinars = [
         duracion: "55:41",
         thumbnail: "https://upload.wikimedia.org/wikipedia/en/4/46/JoeCamel.jpg",
         link: "https://www.generation.org"
+    },
+    {
+        categoria: "Guest Talk",
+        titulo: "Cómo conseguí trabajo en una startup siendo junior",
+        autor: "Paula Herrera",
+        fecha: "May 2024",
+        duracion: "48:22",
+        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    {
+        categoria: "Guest Talk",
+        titulo: "Cómo conseguí trabajo en una startup siendo junior",
+        autor: "Paula Herrera",
+        fecha: "May 2024",
+        duracion: "48:22",
+        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }
 ];
 
@@ -53,118 +71,85 @@ const historias = [
   }
 ];
 
-function mostrarWebinars() {
+function mostrarGrabaciones(lista = grabaciones) {
     const contenedor = document.getElementById("tarjetas-grabaciones");
 
-    webinars.forEach(webinar => {
+    contenedor.innerHTML = "";
+
+    if (lista.length === 0) {
+        contenedor.innerHTML = `
+            <h3>No se encontraron grabaciones.</h3>
+        `;
+        return;
+    }
+
+    lista.forEach(grabacion => {
         contenedor.innerHTML += `
-      <a href="${webinar.link}" class="card" target="_blank">
+            <a href="${grabacion.link}" class="card" target="_blank">
 
-        <div class="thumbnail">
-          <img
-            src="${webinar.thumbnail}"
-            alt="${webinar.titulo}"
-          >
+                <div class="thumbnail">
+                    <img
+                        src="${grabacion.thumbnail}"
+                        alt="${grabacion.titulo}">
+                    <span class="duracion">
+                        ${grabacion.duracion}
+                    </span>
+                </div>
 
-          <span class="duracion">
-            ${webinar.duracion}
-          </span>
-        </div>
+                <div class="card-content">
+                    <span class="categoria">
+                        ${grabacion.categoria}
+                    </span>
 
-        <div class="card-content">
+                    <h3>${grabacion.titulo}</h3>
 
-          <span class="categoria">
-            ${webinar.categoria}
-          </span>
+                    <p class="info">
+                        ${grabacion.autor} · ${grabacion.fecha}
+                    </p>
+                </div>
 
-          <h3>
-            ${webinar.titulo}
-          </h3>
-
-          <p class="info">
-            ${webinar.autor} · ${webinar.fecha}
-          </p>
-
-        </div>
-
-      </a>
-    `;
+            </a>
+        `;
     });
 }
 
-function mostrarHistorias() {
-  const contenedor = document.getElementById("tarjetas-historias");
-
-  historias.forEach(historia => {
-    contenedor.innerHTML += `
-      <div class="card-historia">
-
-        <div class="header-historia">
-
-          <img
-            src="${historia.foto}"
-            alt="${historia.nombre}"
-            class="foto-perfil"
-          >
-
-          <div>
-            <h3 class="nombre">${historia.nombre}</h3>
-
-            <p class="empresa">
-              ${historia.empresa} · ${historia.tiempo}
-            </p>
-          </div>
-
-        </div>
-
-        <p class="testimonio">
-          "${historia.testimonio}"
-        </p>
-
-        <span class="badge-rol">
-          ${historia.rol} · ${historia.anio}
-        </span>
-
-        <a href="#" class="btn-ver-mas">
-          Ver más
-        </a>
-
-      </div>
-    `;
-  });
-}
-
-mostrarWebinars();
-
-mostrarHistorias();
+mostrarGrabaciones();
 
 
 // cambios Jaime final
+
+
+const listaGrabaciones = grabaciones;
+
 const btnBuscarSesiones = document.querySelector('.btn-buscar-sesiones');
 btnBuscarSesiones.addEventListener('click', buscarFiltrarGrabaciones);
 
 function buscarFiltrarGrabaciones() {
+
     const inputBusqueda = document.getElementById('busqueda-sesiones');
-    console.log("El botón funciona");
-    console.log(inputBusqueda.value);
-    
     const textoDigitado = inputBusqueda.value.trim().toLowerCase();
 
-    if (textoDigitado != "") {
-        const grabacionesEncontradas = listraGrabaciones.filter(grabacion => 
-            grabacion.nombre?.toLowerCase().includes(textoDigitado));
-        crearTarjetaGrabacionEncontrada(grabacionesEncontradas);
-    } else {
-        console.log("No se ha ingresado ninguna búsqueda");
+    // Si no escribió nada, mostrar todas
+    if (textoDigitado === "") {
+        mostrarGrabaciones();
+        return;
     }
+
+    const grabacionesEncontradas = listaGrabaciones.filter(grabacion =>
+        grabacion.categoria.toLowerCase().includes(textoDigitado) ||
+        grabacion.titulo.toLowerCase().includes(textoDigitado) ||
+        grabacion.autor.toLowerCase().includes(textoDigitado)
+    );
+    mostrarGrabaciones(grabacionesEncontradas);
 }
 
-function crearTarjetaGrabacionEncontrada(listraGrabaciones) {
-    const contenedorResultadoGrabaciones = document.querySelector('.grabaciones');
-    for (let grabacion of listaGrabaciones) {
-        let tarjeta = document.createElement('div');
-        tarjeta.innerHTML = `
+
+// function crearTarjetaGrabacionEncontrada(listraGrabaciones) {
+//     const contenedorResultadoGrabaciones = document.querySelector('#tarjetas-grabaciones');
+//     for (let grabacion of listaGrabaciones) {
+//         let tarjeta = document.createElement('div');
+//         tarjeta.innerHTML = `
             
-        `
-    }
-}
+//         `
+//     }
+// }
