@@ -143,16 +143,22 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     if (!valido) return
 
     const nuevoVideo = {
-        url: urlFInal,
+        link: urlFInal,
         categoria: selectCategoria.value,
-        descripcion: descriptionArea.value
+        titulo: descriptionArea.value,
+        fecha: "Jun 2026",
+        autor: "Goku",
+        duracion: "59:59"
     }
-
-    console.log(nuevoVideo);
     grabaciones.push(nuevoVideo);
+    grabaciones = [...grabaciones, ...JSON.parse(localStorage.getItem('videos')) || []];
+
+    console.log(grabaciones);
+    
     
     localStorage.setItem("videos", JSON.stringify(grabaciones));
-
+    const cargarVideo = JSON.parse(localStorage.getItem('videos'));
+    mostrarGrabaciones(cargarVideo);
 
 })
 
@@ -160,7 +166,7 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
 
 // cambios Jaime inicio
 // const webinars
-const grabaciones = [
+let grabaciones = [
     {
         categoria: "Guest Talk",
         titulo: "Cómo conseguí trabajo en una startup siendo junior",
