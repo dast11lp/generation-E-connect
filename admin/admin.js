@@ -1,3 +1,4 @@
+// inicio formulario daniel
 const formularioVideo = document.querySelector("#formulario_video");
 const selectCategoria = document.querySelector("#category")
 const btnEnviarFormulario = document.querySelector("#send");
@@ -15,19 +16,15 @@ tabSeccion.addEventListener('click', ({ target }) => {
     const tab = target.closest('.tabs__list__tab');
     if (!tab) return;
 
-    console.log(tabList);
-
     tabList.forEach((el)=> {
         el.classList.remove("tabs__list__tab--active")
     });
-
     target.classList.add("tabs__list__tab--active");
-
-    tabContent.forEach((el)=> {
-
-    })
     
- 
+    tabContent.forEach((el)=> {
+        el.classList.remove("tabs__content--active")
+    })
+    document.querySelector(`.tabs__content--${tab.dataset.tab}`).classList.add("tabs__content--active");
 })
 
 
@@ -35,28 +32,21 @@ tabSeccion.addEventListener('click', ({ target }) => {
 btnEnviarFormulario.addEventListener('click', (e) => {
 
     e.preventDefault();
-
     const urlTest = regexURL.test(videoURL.value);
-
-
     if (selectCategoria.value === "") {
         console.log("debes seleccionar una categoría");
         return
     }
-
     if (!urlTest) {
         console.log("la url no es válida");
-
     }
 
-
-
     const datosFormulario = new FormData(formularioVideo);
-
     console.log(datosFormulario);
-
-
 })
+
+// fin  formulario daniel
+
 // cambios Jaime inicio
 
 const webinars = [
