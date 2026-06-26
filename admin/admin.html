@@ -9,7 +9,7 @@
 
   <body>
     <!-- Inicio cambios Alejandro navbar y main -->
-    <!-- <header class="header-navbar">
+    <header class="header-navbar">
         <a href="index.html" id="logo">
             <img src="../assets/images/logos/Generation_Colombia_logo_NEW-BLUE.svg" alt="">
         </a>
@@ -29,44 +29,40 @@
                 <img src="../assets/images/logos/usuario-negra.png" alt="">
             </a>
         </nav>
-    </header> -->
+    </header>
 
-    <main>
-      <div class="contenedor-main-header">
-        <h1>Grabaciones y webinars</h1>
-        <p>
-          Sesiones grabadas por el equipo Generation para seguir aprendiendo.
-        </p>
-        <input
-          id="busqueda-sesiones"
-          type="text"
-          placeholder="Buscar sesiones..."
-        />
-        <button class="btn-buscar-sesiones">Buscar</button>
-        <div class="filtros-busqueda-sesiones">
-          <a href="#">Todas</a>
-          <a href="#">Guest Talks</a>
-          <a href="#">Webinars</a>
-          <a href="#">Talleres</a>
-          <a href="#">Charlas técnicas</a>
-          <a href="#">Sesiones informativas</a>
+    <main class="contenedor-main">
+        <div class="contenedor-main-header">
+            <h1>Grabaciones y webinars</h1>
+            <p>Sesiones grabadas por el equipo Generation para seguir aprendiendo.</p>
+            <input id="busqueda-sesiones" type="text" placeholder="Buscar sesiones...">
+            <button class="btn-buscar-sesiones">Buscar</button>
+            <div class="filtros-busqueda-sesiones">
+                <a href="#">Todas</a>
+                <a href="#">Guest Talks</a>
+                <a href="#">Webinars</a>
+                <a href="#">Talleres</a>
+                <a href="#">Charlas técnicas</a>
+                <a href="#">Sesiones informativas</a>
+            </div>
+
         </div>
       </div>
     </main>
-    <div class="grabaciones"></div>
+
+    <!-- <div class="grabaciones">
+
+    </div> -->
+
 
     <!-- Fin cambios Alejandro navbar y main -->
 
     <!--  cambios Jaime inicio -->
-    <section class="grabaciones">
-      <h2>Grabaciones y webinars</h2>
+    <section class="section-grabaciones">
+        <!-- <h2>Grabaciones y webinars</h2> -->
+        <div id="tarjetas-grabaciones" class="grid-grabaciones">
 
-      <div id="tarjetas-grabaciones" class="grid-webinars"></div>
-    </section>
-
-    <section class="estudiantes-historial">
-      <h2>Estudiantes y su historial</h2>
-      <div id="tarjetas-historias" class="grid-estudiantes"></div>
+        </div>
     </section>
     <!-- cambios Jaime final -->
 
