@@ -29,6 +29,11 @@
   display: block;
 }
 
+.error {
+  color: red;
+  
+}
+
 /* Fin Daniel */
 
 html {
