@@ -1,6 +1,172 @@
-// cambios Jaime inicio
+// inicio formulario daniel
+const formularioVideo = document.querySelector("#formulario_video");
 
-const webinars = [
+const selectCategoria = document.querySelector("#category")
+const inputURL = document.querySelector("#videoUrl");
+const descriptionArea = document.querySelector("#description");
+
+
+const btnEnviarFormulario = document.querySelector("#send");
+
+const spanError = document.querySelectorAll('.error')
+
+
+const tabSeccion = document.querySelector('.tabs')
+const tabList = document.querySelectorAll('.tabs__list__tab')
+const tabContent = document.querySelectorAll('.tabs__content')
+
+const regexURL = /^(https?:\/\/)([\w\-]+\.)+[\w]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=%]*)?$/
+
+
+
+tabSeccion.addEventListener('click', ({ target }) => {
+    const tab = target.closest('.tabs__list__tab');
+    if (!tab) return;
+
+    tabList.forEach((el) => {
+        el.classList.remove("tabs__list__tab--active")
+    });
+    target.classList.add("tabs__list__tab--active");
+
+    tabContent.forEach((el) => {
+        el.classList.remove("tabs__content--active")
+    })
+    document.querySelector(`.tabs__content--${tab.dataset.tab}`).classList.add("tabs__content--active");
+})
+
+// capturar video 
+
+const subirVideoCloudinary = async (archivo) => {
+    try {
+        if (!archivo) {
+            console.log("inserta un archivo de video");
+            return
+        }
+
+        const tipoArchivo = archivo.type.split("/")[0]
+
+        if (tipoArchivo !== 'video') {
+            console.log("por favor ingresar un archivo de video");
+            return
+        }
+
+        const formData = new FormData();
+        formData.append("file", archivo);
+        formData.append("upload_preset", "ml_default");
+        formData.append("folder", "alumni/cursos/")
+
+        const respuesta = await fetch("https://api.cloudinary.com/v1_1/dd9iztlrv/video/upload", {
+            method: "POST",
+            body: formData
+        })
+
+
+        if (!respuesta.ok) {
+            console.log("Error al subir el video, intenta de nuevo");
+            return
+        }
+
+        const datos = await respuesta.json();
+        return datos.secure_url;
+
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// validar formulario
+
+const camposFormulario = [
+    {
+        input: selectCategoria,
+        validaciones: [
+            { validar: (valor) => valor !== "", mensaje: "selecciona una categoría" },
+        ],
+
+    },
+    {
+        input: descriptionArea,
+        validaciones: [
+            { validar: (valor) => valor !== "", mensaje: "Por favor agregar una descripción", },
+        ]
+    }
+]
+
+const mostrarError = (input, mensaje) => {
+    input.nextElementSibling.textContent = mensaje;
+}
+
+function limpiarError(input) {
+    input.nextElementSibling.textContent = "";
+}
+
+
+btnEnviarFormulario.addEventListener('click', async (e) => {
+
+    e.preventDefault();
+    let valido = true;
+
+    const tabActiva = document.querySelector(".tabs__list__tab--active").dataset.tab;
+
+    let urlFInal = "";
+
+    if (tabActiva === "1") {
+        const archivoVideo = document.querySelector("#videoFile").files[0];
+        urlFInal = await subirVideoCloudinary(archivoVideo)
+    } else {
+        if (inputURL.value === "") {
+            mostrarError(inputURL, "campo vacío")
+            valido = false;
+
+        } else if (!regexURL.test(inputURL.value.trim())) {
+            mostrarError(inputURL, "ingresa una url válida");
+            valido = false;
+        } else {
+            urlFInal = inputURL.value;
+        }
+
+    }
+
+
+    camposFormulario.forEach(campo => {
+        limpiarError(campo.input);
+        for (const validacion of campo.validaciones) {
+            if (!validacion.validar(campo.input.value)) {
+                mostrarError(campo.input, validacion.mensaje);
+                valido = false;
+                break;
+            }
+        }
+    });
+
+    if (!valido) return
+
+    const nuevoVideo = {
+        link: urlFInal,
+        categoria: selectCategoria.value,
+        titulo: descriptionArea.value,
+        fecha: "Jun 2026",
+        autor: "Goku",
+        duracion: "59:59"
+    }
+    grabaciones.push(nuevoVideo);
+    grabaciones = [...grabaciones, ...JSON.parse(localStorage.getItem('videos')) || []];
+
+    console.log(grabaciones);
+    
+    
+    localStorage.setItem("videos", JSON.stringify(grabaciones));
+    const cargarVideo = JSON.parse(localStorage.getItem('videos'));
+    mostrarGrabaciones(cargarVideo);
+
+})
+
+// fin  formulario daniel
+
+// cambios Jaime inicio
+// const webinars
+let grabaciones = [
     {
         categoria: "Guest Talk",
         titulo: "Cómo conseguí trabajo en una startup siendo junior",
@@ -27,144 +193,110 @@ const webinars = [
         duracion: "55:41",
         thumbnail: "https://upload.wikimedia.org/wikipedia/en/4/46/JoeCamel.jpg",
         link: "https://www.generation.org"
+    },
+    {
+        categoria: "Guest Talk",
+        titulo: "Cómo conseguí trabajo en una startup siendo junior",
+        autor: "Paula Herrera",
+        fecha: "May 2024",
+        duracion: "48:22",
+        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    {
+        categoria: "Guest Talk",
+        titulo: "Cómo conseguí trabajo en una startup siendo junior",
+        autor: "Paula Herrera",
+        fecha: "May 2024",
+        duracion: "48:22",
+        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }
 ];
 
-const historias = [
-  {
-    nombre: "Juan Rodríguez",
-    empresa: "Teleperformance",
-    tiempo: "2 meses",
-    testimonio:
-      "La sección de Networking fue clave. Conecté con un reclutador y a las dos semanas tenía trabajo.",
-    rol: "IT Support",
-    anio: "2023",
-    foto: "https://randomuser.me/api/portraits/men/32.jpg"
-  },
-  {
-    nombre: "María López",
-    empresa: "Mercado Libre",
-    tiempo: "4 meses",
-    testimonio:
-      "Gracias a las simulaciones de entrevista conseguí mi primer empleo.",
-    rol: "Frontend Developer",
-    anio: "2024",
-    foto: "https://randomuser.me/api/portraits/women/44.jpg"
-  }
-];
-
-function mostrarWebinars() {
+function mostrarGrabaciones(lista = grabaciones) {
     const contenedor = document.getElementById("tarjetas-grabaciones");
 
-    webinars.forEach(webinar => {
+    contenedor.innerHTML = "";
+
+    if (lista.length === 0) {
+        contenedor.innerHTML = `
+            <h3>No se encontraron grabaciones.</h3>
+        `;
+        return;
+    }
+
+    lista.forEach(grabacion => {
         contenedor.innerHTML += `
-      <a href="${webinar.link}" class="card" target="_blank">
+            <a href="${grabacion.link}" class="card" target="_blank">
 
-        <div class="thumbnail">
-          <img
-            src="${webinar.thumbnail}"
-            alt="${webinar.titulo}"
-          >
+                <div class="thumbnail">
+                    <img
+                        src="${grabacion.thumbnail}"
+                        alt="${grabacion.titulo}">
+                    <span class="duracion">
+                        ${grabacion.duracion}
+                    </span>
+                </div>
 
-          <span class="duracion">
-            ${webinar.duracion}
-          </span>
-        </div>
+                <div class="card-content">
+                    <span class="categoria">
+                        ${grabacion.categoria}
+                    </span>
 
-        <div class="card-content">
+                    <h3>${grabacion.titulo}</h3>
 
-          <span class="categoria">
-            ${webinar.categoria}
-          </span>
+                    <p class="info">
+                        ${grabacion.autor} · ${grabacion.fecha}
+                    </p>
+                </div>
 
-          <h3>
-            ${webinar.titulo}
-          </h3>
-
-          <p class="info">
-            ${webinar.autor} · ${webinar.fecha}
-          </p>
-
-        </div>
-
-      </a>
-    `;
+            </a>
+        `;
     });
 }
 
-function mostrarHistorias() {
-  const contenedor = document.getElementById("tarjetas-historias");
+mostrarGrabaciones();
 
-  historias.forEach(historia => {
-    contenedor.innerHTML += `
-      <div class="card-historia">
-
-        <div class="header-historia">
-
-          <img
-            src="${historia.foto}"
-            alt="${historia.nombre}"
-            class="foto-perfil"
-          >
-
-          <div>
-            <h3 class="nombre">${historia.nombre}</h3>
-
-            <p class="empresa">
-              ${historia.empresa} · ${historia.tiempo}
-            </p>
-          </div>
-
-        </div>
-
-        <p class="testimonio">
-          "${historia.testimonio}"
-        </p>
-
-        <span class="badge-rol">
-          ${historia.rol} · ${historia.anio}
-        </span>
-
-        <a href="#" class="btn-ver-mas">
-          Ver más
-        </a>
-
-      </div>
-    `;
-  });
-}
-
-mostrarWebinars();
-
-mostrarHistorias();
 
 
 // cambios Jaime final
+
+
+const listaGrabaciones = grabaciones;
+
 const btnBuscarSesiones = document.querySelector('.btn-buscar-sesiones');
 btnBuscarSesiones.addEventListener('click', buscarFiltrarGrabaciones);
 
 function buscarFiltrarGrabaciones() {
+
     const inputBusqueda = document.getElementById('busqueda-sesiones');
-    console.log("El botón funciona");
-    console.log(inputBusqueda.value);
-    
+
+
     const textoDigitado = inputBusqueda.value.trim().toLowerCase();
 
-    if (textoDigitado != "") {
-        const grabacionesEncontradas = listraGrabaciones.filter(grabacion => 
-            grabacion.nombre?.toLowerCase().includes(textoDigitado));
-        crearTarjetaGrabacionEncontrada(grabacionesEncontradas);
-    } else {
-        console.log("No se ha ingresado ninguna búsqueda");
+    // Si no escribió nada, mostrar todas
+    if (textoDigitado === "") {
+        mostrarGrabaciones();
+        return;
+
     }
+
+    const grabacionesEncontradas = listaGrabaciones.filter(grabacion =>
+        grabacion.categoria.toLowerCase().includes(textoDigitado) ||
+        grabacion.titulo.toLowerCase().includes(textoDigitado) ||
+        grabacion.autor.toLowerCase().includes(textoDigitado)
+    );
+    mostrarGrabaciones(grabacionesEncontradas);
 }
 
-function crearTarjetaGrabacionEncontrada(listraGrabaciones) {
-    const contenedorResultadoGrabaciones = document.querySelector('.grabaciones');
-    for (let grabacion of listaGrabaciones) {
-        let tarjeta = document.createElement('div');
-        tarjeta.innerHTML = `
+
+// function crearTarjetaGrabacionEncontrada(listraGrabaciones) {
+//     const contenedorResultadoGrabaciones = document.querySelector('#tarjetas-grabaciones');
+//     for (let grabacion of listaGrabaciones) {
+//         let tarjeta = document.createElement('div');
+//         tarjeta.innerHTML = `
             
-        `
-    }
-}
+//         `
+//     }
+// }
