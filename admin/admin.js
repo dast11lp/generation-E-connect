@@ -224,7 +224,11 @@ let grabaciones = [
 
 function seed () {
     let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
-    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+
+    if (grabacionesLocalStorage.length === 0) {
+        localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+    }
+
 }
 
 
