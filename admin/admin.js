@@ -149,9 +149,9 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     }
 
     console.log(nuevoVideo);
+    grabaciones.push(nuevoVideo);
     
-
-    localStorage.setItem("video", JSON.stringify(nuevoVideo))
+    localStorage.setItem("videos", JSON.stringify(grabaciones));
 
 
 })
@@ -205,29 +205,6 @@ const grabaciones = [
         duracion: "48:22",
         thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
         link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    }
-];
-
-const historias = [
-    {
-        nombre: "Juan Rodríguez",
-        empresa: "Teleperformance",
-        tiempo: "2 meses",
-        testimonio:
-            "La sección de Networking fue clave. Conecté con un reclutador y a las dos semanas tenía trabajo.",
-        rol: "IT Support",
-        anio: "2023",
-        foto: "https://randomuser.me/api/portraits/men/32.jpg"
-    },
-    {
-        nombre: "María López",
-        empresa: "Mercado Libre",
-        tiempo: "4 meses",
-        testimonio:
-            "Gracias a las simulaciones de entrevista conseguí mi primer empleo.",
-        rol: "Frontend Developer",
-        anio: "2024",
-        foto: "https://randomuser.me/api/portraits/women/44.jpg"
     }
 ];
 

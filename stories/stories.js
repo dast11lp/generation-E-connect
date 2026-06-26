@@ -1,3 +1,26 @@
+const historias = [
+    {
+        nombre: "Juan Rodríguez",
+        empresa: "Teleperformance",
+        tiempo: "2 meses",
+        testimonio:
+            "La sección de Networking fue clave. Conecté con un reclutador y a las dos semanas tenía trabajo.",
+        rol: "IT Support",
+        anio: "2023",
+        foto: "https://randomuser.me/api/portraits/men/32.jpg"
+    },
+    {
+        nombre: "María López",
+        empresa: "Mercado Libre",
+        tiempo: "4 meses",
+        testimonio:
+            "Gracias a las simulaciones de entrevista conseguí mi primer empleo.",
+        rol: "Frontend Developer",
+        anio: "2024",
+        foto: "https://randomuser.me/api/portraits/women/44.jpg"
+    }
+];
+
 function mostrarHistorias() {
   const contenedor = document.getElementById("tarjetas-historias");
 
