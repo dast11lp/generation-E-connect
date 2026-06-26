@@ -103,12 +103,15 @@ function limpiarError(input) {
 
 
 btnEnviarFormulario.addEventListener('click', async (e) => {
-
+    
     e.preventDefault();
+
+    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+
     let valido = true;
-
+    
     const tabActiva = document.querySelector(".tabs__list__tab--active").dataset.tab;
-
+    
     let urlFInal = "";
 
     if (tabActiva === "1") {
@@ -143,6 +146,7 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     if (!valido) return
 
     const nuevoVideo = {
+        id: grabacionesLocalStorage.length + 1,
         link: urlFInal,
         categoria: selectCategoria.value,
         titulo: descriptionArea.value,
@@ -150,15 +154,14 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
         autor: "Goku",
         duracion: "59:59"
     }
-    grabaciones.push(nuevoVideo);
-    grabaciones = [...grabaciones, ...JSON.parse(localStorage.getItem('videos')) || []];
 
-    console.log(grabaciones);
+    grabacionesLocalStorage.push(nuevoVideo);
     
+    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+
+    console.log(grabacionesLocalStorage);
     
-    localStorage.setItem("videos", JSON.stringify(grabaciones));
-    const cargarVideo = JSON.parse(localStorage.getItem('videos'));
-    mostrarGrabaciones(cargarVideo);
+    mostrarGrabaciones();
 
 })
 
@@ -167,7 +170,8 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
 // cambios Jaime inicio
 // const webinars
 let grabaciones = [
-    {
+    {   
+        id: 1,
         categoria: "Guest Talk",
         titulo: "Cómo conseguí trabajo en una startup siendo junior",
         autor: "Paula Herrera",
@@ -177,6 +181,7 @@ let grabaciones = [
         link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     },
     {
+        id: 2,
         categoria: "Webinar",
         titulo: "LinkedIn para graduados: perfil, red y búsqueda activa",
         autor: "Equipo Generation",
@@ -186,6 +191,7 @@ let grabaciones = [
         link: "https://www.linkedin.com"
     },
     {
+        id: 3,
         categoria: "Taller",
         titulo: "Simula tu entrevista técnica",
         autor: "Equipo Generation",
@@ -195,6 +201,7 @@ let grabaciones = [
         link: "https://www.generation.org"
     },
     {
+        id: 4,
         categoria: "Guest Talk",
         titulo: "Cómo conseguí trabajo en una startup siendo junior",
         autor: "Paula Herrera",
@@ -204,6 +211,7 @@ let grabaciones = [
         link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     },
     {
+        id: 5,
         categoria: "Guest Talk",
         titulo: "Cómo conseguí trabajo en una startup siendo junior",
         autor: "Paula Herrera",
@@ -214,19 +222,29 @@ let grabaciones = [
     }
 ];
 
-function mostrarGrabaciones(lista = grabaciones) {
+function seed () {
+    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+}
+
+
+
+function mostrarGrabaciones() {
+    
+    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+
     const contenedor = document.getElementById("tarjetas-grabaciones");
 
     contenedor.innerHTML = "";
 
-    if (lista.length === 0) {
+    if (grabacionesLocalStorage.length === 0) {
         contenedor.innerHTML = `
             <h3>No se encontraron grabaciones.</h3>
         `;
         return;
     }
 
-    lista.forEach(grabacion => {
+    grabacionesLocalStorage.forEach(grabacion => {
         contenedor.innerHTML += `
             <a href="${grabacion.link}" class="card" target="_blank">
 
