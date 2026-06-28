@@ -67,7 +67,10 @@ const subirVideoCloudinary = async (archivo) => {
         }
 
         const datos = await respuesta.json();
-        return datos.secure_url;
+        return {
+            video: datos.secure_url,
+            thumbnail: `https://res.cloudinary.com/dd9iztlrv/video/upload/so_0/${datos.public_id}.jpg`
+        };
 
 
     } catch (error) {
@@ -114,23 +117,9 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     const tabActiva = document.querySelector(".tabs__list__tab--active").dataset.tab;
     
     let urlFInal = "";
+    let thumbnailFinal = "";
 
-    if (tabActiva === "1") {
-        const archivoVideo = document.querySelector("#videoFile").files[0];
-        urlFInal = await subirVideoCloudinary(archivoVideo)
-    } else {
-        if (inputURL.value === "") {
-            mostrarError(inputURL, "campo vacío")
-            valido = false;
 
-        } else if (!regexURL.test(inputURL.value.trim())) {
-            mostrarError(inputURL, "ingresa una url válida");
-            valido = false;
-        } else {
-            urlFInal = inputURL.value;
-        }
-
-    }
 
 
     camposFormulario.forEach(campo => {
@@ -146,11 +135,37 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
 
     if (!valido) return
 
+        if (tabActiva === "1") {
+        const archivoVideo = document.querySelector("#videoFile").files[0];
+
+        const resultado = await subirVideoCloudinary(archivoVideo);
+
+        urlFInal = resultado.video;
+        thumbnailFinal = resultado.thumbnail;
+    } else {
+        if (inputURL.value === "") {
+            mostrarError(inputURL, "campo vacío")
+            valido = false;
+
+        } else if (!regexURL.test(inputURL.value.trim())) {
+            mostrarError(inputURL, "ingresa una url válida");
+            valido = false;
+        } else {
+            urlFInal = inputURL.value;
+            thumbnailFinal = "";
+        }
+
+    }
+
     const nuevoVideo = {
         //id: grabacionesLocalStorage.length + 1,
         id: grabaciones.length + 1,
         link: urlFInal,
+<<<<<<< HEAD
         thumbnail:"img/default-video.png",
+=======
+        thumbnail: thumbnailFinal,
+>>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
         categoria: selectCategoria.value,
         titulo: descriptionArea.value,
         fecha: "Jun 2026",
@@ -158,6 +173,7 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
         duracion: "59:59"
     }
 
+<<<<<<< HEAD
     // grabacionesLocalStorage.push(nuevoVideo);
     grabaciones.push(nuevoVideo);
     formularioVideo.reset();
@@ -167,6 +183,14 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     //console.log(grabacionesLocalStorage);
     mostrarGrabaciones();
     alert("Agregado correctamente");
+=======
+    grabacionesLocalStorage.push(nuevoVideo);
+    
+    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+    
+    mostrarGrabaciones();
+    formularioVideo.reset();
+>>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
 
 })
 
@@ -227,29 +251,48 @@ let grabaciones = [
     }
 ];
 
+<<<<<<< HEAD
 // function seed () {
 //     let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
 //     localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
 // }
+=======
+let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []  
 
-
-
-function mostrarGrabaciones() {
+function seed () {
     
+    if (grabacionesLocalStorage.length === 0) {
+        localStorage.setItem("grabaciones", JSON.stringify(grabaciones));
+    }
+}
+>>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
+
+function mostrarGrabaciones(lista = []) {
+    
+<<<<<<< HEAD
     let grabaciones = JSON.parse(localStorage.getItem('grabaciones')) || [];
+=======
+    seed()
+    
+    if (lista.length === 0) {
+        lista = JSON.parse(localStorage.getItem('grabaciones')) || []
+    }
+>>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
 
     const contenedor = document.getElementById("tarjetas-grabaciones");
-
+    
     contenedor.innerHTML = "";
-
-    if (grabacionesLocalStorage.length === 0) {
+    
+    if (lista.length === 0) {
         contenedor.innerHTML = `
-            <h3>No se encontraron grabaciones.</h3>
+        <h3>No se encontraron grabaciones.</h3>
         `;
         return;
     }
+    
 
-    grabacionesLocalStorage.forEach(grabacion => {
+
+    lista.forEach(grabacion => {
         contenedor.innerHTML += `
             <a href="${grabacion.link}" class="card" target="_blank">
 
@@ -286,18 +329,21 @@ mostrarGrabaciones();
 // cambios Jaime final
 
 
-const listaGrabaciones = grabaciones;
+const listaGrabaciones = grabacionesLocalStorage;
 
 const btnBuscarSesiones = document.querySelector('.btn-buscar-sesiones');
 btnBuscarSesiones.addEventListener('click', buscarFiltrarGrabaciones);
 
 function buscarFiltrarGrabaciones() {
 
+    
+    
+
     const inputBusqueda = document.getElementById('busqueda-sesiones');
-
-
+    
     const textoDigitado = inputBusqueda.value.trim().toLowerCase();
 
+    
     // Si no escribió nada, mostrar todas
     if (textoDigitado === "") {
         mostrarGrabaciones();
@@ -310,6 +356,17 @@ function buscarFiltrarGrabaciones() {
         grabacion.titulo.toLowerCase().includes(textoDigitado) ||
         grabacion.autor.toLowerCase().includes(textoDigitado)
     );
+
+
+    if (grabacionesEncontradas.length === 0)  {
+        const contenedor = document.getElementById("tarjetas-grabaciones");
+        contenedor.innerHTML = `
+            <h3>Tu busqueda no dio resultados.</h3>
+        `;
+        return;
+    }
+
+
     mostrarGrabaciones(grabacionesEncontradas);
 }
 
