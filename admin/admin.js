@@ -109,7 +109,7 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     
     e.preventDefault();
 
-    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+    // let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
 
     let valido = true;
     
