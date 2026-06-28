@@ -67,7 +67,10 @@ const subirVideoCloudinary = async (archivo) => {
         }
 
         const datos = await respuesta.json();
-        return datos.secure_url;
+        return {
+            video: datos.secure_url,
+            thumbnail: `https://res.cloudinary.com/dd9iztlrv/video/upload/so_0/${datos.public_id}.jpg`
+        };
 
 
     } catch (error) {
@@ -113,23 +116,9 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     const tabActiva = document.querySelector(".tabs__list__tab--active").dataset.tab;
     
     let urlFInal = "";
+    let thumbnailFinal = "";
 
-    if (tabActiva === "1") {
-        const archivoVideo = document.querySelector("#videoFile").files[0];
-        urlFInal = await subirVideoCloudinary(archivoVideo)
-    } else {
-        if (inputURL.value === "") {
-            mostrarError(inputURL, "campo vacío")
-            valido = false;
 
-        } else if (!regexURL.test(inputURL.value.trim())) {
-            mostrarError(inputURL, "ingresa una url válida");
-            valido = false;
-        } else {
-            urlFInal = inputURL.value;
-        }
-
-    }
 
 
     camposFormulario.forEach(campo => {
@@ -145,9 +134,32 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
 
     if (!valido) return
 
+        if (tabActiva === "1") {
+        const archivoVideo = document.querySelector("#videoFile").files[0];
+
+        const resultado = await subirVideoCloudinary(archivoVideo);
+
+        urlFInal = resultado.video;
+        thumbnailFinal = resultado.thumbnail;
+    } else {
+        if (inputURL.value === "") {
+            mostrarError(inputURL, "campo vacío")
+            valido = false;
+
+        } else if (!regexURL.test(inputURL.value.trim())) {
+            mostrarError(inputURL, "ingresa una url válida");
+            valido = false;
+        } else {
+            urlFInal = inputURL.value;
+            thumbnailFinal = "";
+        }
+
+    }
+
     const nuevoVideo = {
         id: grabacionesLocalStorage.length + 1,
         link: urlFInal,
+        thumbnail: thumbnailFinal,
         categoria: selectCategoria.value,
         titulo: descriptionArea.value,
         fecha: "Jun 2026",
@@ -160,6 +172,7 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
     
     mostrarGrabaciones();
+    formularioVideo.reset();
 
 })
 
