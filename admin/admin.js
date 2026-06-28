@@ -106,7 +106,8 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     
     e.preventDefault();
 
-    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+    //let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || [];
+    let grabaciones = JSON.parse(localStorage.getItem('grabaciones')) || [];
 
     let valido = true;
     
@@ -146,8 +147,10 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
     if (!valido) return
 
     const nuevoVideo = {
-        id: grabacionesLocalStorage.length + 1,
+        //id: grabacionesLocalStorage.length + 1,
+        id: grabaciones.length + 1,
         link: urlFInal,
+        thumbnail:"img/default-video.png",
         categoria: selectCategoria.value,
         titulo: descriptionArea.value,
         fecha: "Jun 2026",
@@ -155,13 +158,15 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
         duracion: "59:59"
     }
 
-    grabacionesLocalStorage.push(nuevoVideo);
-    
-    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+    // grabacionesLocalStorage.push(nuevoVideo);
+    grabaciones.push(nuevoVideo);
+    formularioVideo.reset();
+    // localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+    localStorage.setItem("grabaciones", JSON.stringify(grabaciones));
 
-    console.log(grabacionesLocalStorage);
-    
+    //console.log(grabacionesLocalStorage);
     mostrarGrabaciones();
+    alert("Agregado correctamente");
 
 })
 
@@ -222,16 +227,16 @@ let grabaciones = [
     }
 ];
 
-function seed () {
-    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
-    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
-}
+// function seed () {
+//     let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+//     localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+// }
 
 
 
 function mostrarGrabaciones() {
     
-    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+    let grabaciones = JSON.parse(localStorage.getItem('grabaciones')) || [];
 
     const contenedor = document.getElementById("tarjetas-grabaciones");
 
