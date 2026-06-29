@@ -1,6 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
+html {
+    font-size: 16px;
+}
 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    background-color: var(--color-azul-suave);
+}
+
+:root {
+    --color-azul-institucional: #003A70;
+    --color-azul-generation: #0066CC;
+    --color-cian-dinamico: #00A8E0;
+    --color-verde-impacto: #00B87D;
+    --color-azul-suave: #E8F3FF;
+    --color-gris-claro: #D1DEEA;
+    --color-gris-texto: #5F6368;
+    --color-oscuro-principal: #1A1A2E;
+    --color-blanco: #FFFFFF;
+    --border-radius-principal: 20px;
+    --border-radius-secundario: 15px;
+    --border-radius-terciario: 10px;
+}
 
 :root {
   --color-background: #cbd5e1;
@@ -27,10 +55,9 @@
   max-width: 800px;
   width: 100%;
   margin: 2rem auto;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   border-radius: 20px;
 }
-
 
 
 *,
@@ -415,11 +442,6 @@ fieldset {
   font-size: 100px;
 }
 
-.subtitulo1 {
-  font-size: 75px;
-  color: var(--color-text-default);
-}
-
 .mensaje{
   color: var(--color-text-default);
   font-size: 20px;
@@ -432,11 +454,10 @@ fieldset {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  min-width: auto;
-  margin: 30px;
-  padding: 0 20px;
-  background-color: #0f172a;
+  
+  margin: 0px;
+  padding: 20px;
+  background-color: var(--color-azul-institucional);
 }
 
 .contacto {
