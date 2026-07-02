@@ -87,103 +87,6 @@ function limpiarError(input) {
     input.nextElementSibling.textContent = "";
 }
 
-<<<<<<< HEAD
-
-btnEnviarFormulario.addEventListener('click', async (e) => {
-    
-    e.preventDefault();
-
-    //let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || [];
-    let grabaciones = JSON.parse(localStorage.getItem('grabaciones')) || [];
-
-    let valido = true;
-    
-    const tabActiva = document.querySelector(".tabs__list__tab--active").dataset.tab;
-    
-    let urlFInal = "";
-    let thumbnailFinal = "";
-
-
-
-
-    camposFormulario.forEach(campo => {
-        limpiarError(campo.input);
-        for (const validacion of campo.validaciones) {
-            if (!validacion.validar(campo.input.value)) {
-                mostrarError(campo.input, validacion.mensaje);
-                valido = false;
-                break;
-            }
-        }
-    });
-
-    if (!valido) return
-
-        if (tabActiva === "1") {
-        const archivoVideo = document.querySelector("#videoFile").files[0];
-
-        const resultado = await subirVideoCloudinary(archivoVideo);
-
-        urlFInal = resultado.video;
-        thumbnailFinal = resultado.thumbnail;
-    } else {
-        if (inputURL.value === "") {
-            mostrarError(inputURL, "campo vacío")
-            valido = false;
-
-        } else if (!regexURL.test(inputURL.value.trim())) {
-            mostrarError(inputURL, "ingresa una url válida");
-            valido = false;
-        } else {
-            urlFInal = inputURL.value;
-            thumbnailFinal = "";
-        }
-
-    }
-
-    const nuevoVideo = {
-        //id: grabacionesLocalStorage.length + 1,
-        id: grabaciones.length + 1,
-        link: urlFInal,
-<<<<<<< HEAD
-        thumbnail:"img/default-video.png",
-=======
-        thumbnail: thumbnailFinal,
->>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
-        categoria: selectCategoria.value,
-        titulo: descriptionArea.value,
-        fecha: "Jun 2026",
-        autor: "Goku",
-        duracion: "59:59"
-    }
-
-<<<<<<< HEAD
-    // grabacionesLocalStorage.push(nuevoVideo);
-    grabaciones.push(nuevoVideo);
-    formularioVideo.reset();
-    // localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
-    localStorage.setItem("grabaciones", JSON.stringify(grabaciones));
-
-    //console.log(grabacionesLocalStorage);
-    mostrarGrabaciones();
-    alert("Agregado correctamente");
-=======
-    grabacionesLocalStorage.push(nuevoVideo);
-    
-    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
-    
-    mostrarGrabaciones();
-    formularioVideo.reset();
->>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
-
-})
-
-// fin  formulario daniel
-
-// cambios Jaime inicio
-// const webinars
-=======
->>>>>>> 265f7103f144afa4d6ecbabfd07f3e80b2d83f79
 let grabaciones = [
     {
         id: 1,
@@ -237,43 +140,19 @@ let grabaciones = [
     }
 ];
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-// function seed () {
-//     let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
-//     localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
-// }
-=======
-let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []  
-
-function seed () {
-    
-=======
 function seed() {
     const grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
->>>>>>> 265f7103f144afa4d6ecbabfd07f3e80b2d83f79
     if (grabacionesLocalStorage.length === 0) {
         localStorage.setItem("grabaciones", JSON.stringify(grabaciones));
     }
 }
->>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
 
 seed();
 
 function mostrarGrabaciones(lista = []) {
-<<<<<<< HEAD
-    
-<<<<<<< HEAD
-    let grabaciones = JSON.parse(localStorage.getItem('grabaciones')) || [];
-=======
-    seed()
-    
-=======
->>>>>>> 265f7103f144afa4d6ecbabfd07f3e80b2d83f79
     if (lista.length === 0) {
         lista = JSON.parse(localStorage.getItem('grabaciones')) || []
     }
->>>>>>> 7dc58834c906c12142200283f8586da639dd22d5
 
     const contenedor = document.getElementById("tarjetas-grabaciones");
     contenedor.innerHTML = "";
