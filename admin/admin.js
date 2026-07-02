@@ -1,23 +1,13 @@
-// inicio formulario daniel
 const formularioVideo = document.querySelector("#formulario_video");
-
 const selectCategoria = document.querySelector("#category")
 const inputURL = document.querySelector("#videoUrl");
 const descriptionArea = document.querySelector("#description");
-
-
 const btnEnviarFormulario = document.querySelector("#send");
-
 const spanError = document.querySelectorAll('.error')
-
-
 const tabSeccion = document.querySelector('.tabs')
 const tabList = document.querySelectorAll('.tabs__list__tab')
 const tabContent = document.querySelectorAll('.tabs__content')
-
 const regexURL = /^(https?:\/\/)([\w\-]+\.)+[\w]{2,}(\/[\w\-._~:/?#[\]@!$&'()*+,;=%]*)?$/
-
-
 
 tabSeccion.addEventListener('click', ({ target }) => {
     const tab = target.closest('.tabs__list__tab');
@@ -33,8 +23,6 @@ tabSeccion.addEventListener('click', ({ target }) => {
     })
     document.querySelector(`.tabs__content--${tab.dataset.tab}`).classList.add("tabs__content--active");
 })
-
-// capturar video 
 
 const subirVideoCloudinary = async (archivo) => {
     try {
@@ -60,22 +48,21 @@ const subirVideoCloudinary = async (archivo) => {
             body: formData
         })
 
-
         if (!respuesta.ok) {
             console.log("Error al subir el video, intenta de nuevo");
             return
         }
 
         const datos = await respuesta.json();
-        return datos.secure_url;
-
+        return {
+            video: datos.secure_url,
+            thumbnail: `https://res.cloudinary.com/dd9iztlrv/video/upload/so_0/${datos.public_id}.jpg`
+        };
 
     } catch (error) {
         console.log(error);
     }
 }
-
-// validar formulario
 
 const camposFormulario = [
     {
@@ -83,12 +70,11 @@ const camposFormulario = [
         validaciones: [
             { validar: (valor) => valor !== "", mensaje: "selecciona una categoría" },
         ],
-
     },
     {
         input: descriptionArea,
         validaciones: [
-            { validar: (valor) => valor !== "", mensaje: "Por favor agregar una descripción", },
+            { validar: (valor) => valor !== "", mensaje: "Por favor agregar una descripción" },
         ]
     }
 ]
@@ -101,33 +87,110 @@ function limpiarError(input) {
     input.nextElementSibling.textContent = "";
 }
 
+let grabaciones = [
+    {
+        id: 1,
+        categoria: "Guest Talk",
+        titulo: "Cómo conseguí trabajo en una startup siendo junior",
+        autor: "Paula Herrera",
+        fecha: "May 2024",
+        duracion: "48:22",
+        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    {
+        id: 2,
+        categoria: "Webinar",
+        titulo: "LinkedIn para graduados: perfil, red y búsqueda activa",
+        autor: "Equipo Generation",
+        fecha: "Abr 2024",
+        duracion: "1:12:05",
+        thumbnail: "https://i.pinimg.com/736x/4b/f8/aa/4bf8aa9325637fbe1d59085741e102a5.jpg",
+        link: "https://www.linkedin.com"
+    },
+    {
+        id: 3,
+        categoria: "Taller",
+        titulo: "Simula tu entrevista técnica",
+        autor: "Equipo Generation",
+        fecha: "Mar 2024",
+        duracion: "55:41",
+        thumbnail: "https://upload.wikimedia.org/wikipedia/en/4/46/JoeCamel.jpg",
+        link: "https://www.generation.org"
+    },
+    {
+        id: 4,
+        categoria: "Guest Talk",
+        titulo: "Cómo conseguí trabajo en una startup siendo junior",
+        autor: "Paula Herrera",
+        fecha: "May 2024",
+        duracion: "48:22",
+        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    {
+        id: 5,
+        categoria: "Guest Talk",
+        titulo: "Cómo conseguí trabajo en una startup siendo junior",
+        autor: "Paula Herrera",
+        fecha: "May 2024",
+        duracion: "48:22",
+        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
+        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
+];
 
-btnEnviarFormulario.addEventListener('click', async (e) => {
+function seed() {
+    const grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+    if (grabacionesLocalStorage.length === 0) {
+        localStorage.setItem("grabaciones", JSON.stringify(grabaciones));
+    }
+}
 
-    e.preventDefault();
-    let valido = true;
+seed();
 
-    const tabActiva = document.querySelector(".tabs__list__tab--active").dataset.tab;
-
-    let urlFInal = "";
-
-    if (tabActiva === "1") {
-        const archivoVideo = document.querySelector("#videoFile").files[0];
-        urlFInal = await subirVideoCloudinary(archivoVideo)
-    } else {
-        if (inputURL.value === "") {
-            mostrarError(inputURL, "campo vacío")
-            valido = false;
-
-        } else if (!regexURL.test(inputURL.value.trim())) {
-            mostrarError(inputURL, "ingresa una url válida");
-            valido = false;
-        } else {
-            urlFInal = inputURL.value;
-        }
-
+function mostrarGrabaciones(lista = []) {
+    if (lista.length === 0) {
+        lista = JSON.parse(localStorage.getItem('grabaciones')) || []
     }
 
+    const contenedor = document.getElementById("tarjetas-grabaciones");
+    contenedor.innerHTML = "";
+
+    if (lista.length === 0) {
+        contenedor.innerHTML = `<h3>No se encontraron grabaciones.</h3>`;
+        return;
+    }
+
+    lista.forEach(grabacion => {
+        contenedor.innerHTML += `
+            <a href="${grabacion.link}" class="card" target="_blank">
+                <div class="thumbnail">
+                    <img src="${grabacion.thumbnail}" alt="${grabacion.titulo}">
+                    <span class="duracion">${grabacion.duracion}</span>
+                </div>
+                <div class="card-content">
+                    <span class="categoria">${grabacion.categoria}</span>
+                    <h3>${grabacion.titulo}</h3>
+                    <p class="info">${grabacion.autor} · ${grabacion.fecha}</p>
+                </div>
+            </a>
+        `;
+    });
+}
+
+mostrarGrabaciones();
+
+btnEnviarFormulario.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    seed();
+    let grabacionesLocalStorage = JSON.parse(localStorage.getItem('grabaciones')) || []
+
+    let valido = true;
+    const tabActiva = document.querySelector(".tabs__list__tab--active").dataset.tab;
+    let urlFInal = "";
+    let thumbnailFinal = "";
 
     camposFormulario.forEach(campo => {
         limpiarError(campo.input);
@@ -142,144 +205,54 @@ btnEnviarFormulario.addEventListener('click', async (e) => {
 
     if (!valido) return
 
+    if (tabActiva === "1") {
+        const archivoVideo = document.querySelector("#videoFile").files[0];
+        const resultado = await subirVideoCloudinary(archivoVideo);
+        urlFInal = resultado.video;
+        thumbnailFinal = resultado.thumbnail;
+    } else {
+        if (inputURL.value === "") {
+            mostrarError(inputURL, "campo vacío")
+            valido = false;
+        } else if (!regexURL.test(inputURL.value.trim())) {
+            mostrarError(inputURL, "ingresa una url válida");
+            valido = false;
+        } else {
+            urlFInal = inputURL.value;
+            thumbnailFinal = "";
+        }
+    }
+
+    if (!valido) return
+
     const nuevoVideo = {
+        id: grabacionesLocalStorage.length + 1,
         link: urlFInal,
+        thumbnail: thumbnailFinal,
         categoria: selectCategoria.value,
         titulo: descriptionArea.value,
         fecha: "Jun 2026",
         autor: "Goku",
         duracion: "59:59"
     }
-    grabaciones.push(nuevoVideo);
-    grabaciones = [...grabaciones, ...JSON.parse(localStorage.getItem('videos')) || []];
 
-    console.log(grabaciones);
-    
-    
-    localStorage.setItem("videos", JSON.stringify(grabaciones));
-    const cargarVideo = JSON.parse(localStorage.getItem('videos'));
-    mostrarGrabaciones(cargarVideo);
-
+    grabacionesLocalStorage.push(nuevoVideo);
+    localStorage.setItem("grabaciones", JSON.stringify(grabacionesLocalStorage));
+    mostrarGrabaciones();
+    formularioVideo.reset();
 })
-
-// fin  formulario daniel
-
-// cambios Jaime inicio
-// const webinars
-let grabaciones = [
-    {
-        categoria: "Guest Talk",
-        titulo: "Cómo conseguí trabajo en una startup siendo junior",
-        autor: "Paula Herrera",
-        fecha: "May 2024",
-        duracion: "48:22",
-        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
-        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    },
-    {
-        categoria: "Webinar",
-        titulo: "LinkedIn para graduados: perfil, red y búsqueda activa",
-        autor: "Equipo Generation",
-        fecha: "Abr 2024",
-        duracion: "1:12:05",
-        thumbnail: "https://i.pinimg.com/736x/4b/f8/aa/4bf8aa9325637fbe1d59085741e102a5.jpg",
-        link: "https://www.linkedin.com"
-    },
-    {
-        categoria: "Taller",
-        titulo: "Simula tu entrevista técnica",
-        autor: "Equipo Generation",
-        fecha: "Mar 2024",
-        duracion: "55:41",
-        thumbnail: "https://upload.wikimedia.org/wikipedia/en/4/46/JoeCamel.jpg",
-        link: "https://www.generation.org"
-    },
-    {
-        categoria: "Guest Talk",
-        titulo: "Cómo conseguí trabajo en una startup siendo junior",
-        autor: "Paula Herrera",
-        fecha: "May 2024",
-        duracion: "48:22",
-        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
-        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    },
-    {
-        categoria: "Guest Talk",
-        titulo: "Cómo conseguí trabajo en una startup siendo junior",
-        autor: "Paula Herrera",
-        fecha: "May 2024",
-        duracion: "48:22",
-        thumbnail: "https://tobacco-img.stanford.edu/wp-content/uploads/antismoking/ad-knockoffs/camel-knockoffs/camel_1-300x211.jpg",
-        link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    }
-];
-
-function mostrarGrabaciones(lista = grabaciones) {
-    const contenedor = document.getElementById("tarjetas-grabaciones");
-
-    contenedor.innerHTML = "";
-
-    if (lista.length === 0) {
-        contenedor.innerHTML = `
-            <h3>No se encontraron grabaciones.</h3>
-        `;
-        return;
-    }
-
-    lista.forEach(grabacion => {
-        contenedor.innerHTML += `
-            <a href="${grabacion.link}" class="card" target="_blank">
-
-                <div class="thumbnail">
-                    <img
-                        src="${grabacion.thumbnail}"
-                        alt="${grabacion.titulo}">
-                    <span class="duracion">
-                        ${grabacion.duracion}
-                    </span>
-                </div>
-
-                <div class="card-content">
-                    <span class="categoria">
-                        ${grabacion.categoria}
-                    </span>
-
-                    <h3>${grabacion.titulo}</h3>
-
-                    <p class="info">
-                        ${grabacion.autor} · ${grabacion.fecha}
-                    </p>
-                </div>
-
-            </a>
-        `;
-    });
-}
-
-mostrarGrabaciones();
-
-
-
-// cambios Jaime final
-
-
-const listaGrabaciones = grabaciones;
 
 const btnBuscarSesiones = document.querySelector('.btn-buscar-sesiones');
 btnBuscarSesiones.addEventListener('click', buscarFiltrarGrabaciones);
 
 function buscarFiltrarGrabaciones() {
-
+    const listaGrabaciones = JSON.parse(localStorage.getItem('grabaciones')) || [];
     const inputBusqueda = document.getElementById('busqueda-sesiones');
-
-
     const textoDigitado = inputBusqueda.value.trim().toLowerCase();
 
-    // Si no escribió nada, mostrar todas
     if (textoDigitado === "") {
         mostrarGrabaciones();
         return;
-
     }
 
     const grabacionesEncontradas = listaGrabaciones.filter(grabacion =>
@@ -287,16 +260,12 @@ function buscarFiltrarGrabaciones() {
         grabacion.titulo.toLowerCase().includes(textoDigitado) ||
         grabacion.autor.toLowerCase().includes(textoDigitado)
     );
+
+    if (grabacionesEncontradas.length === 0) {
+        const contenedor = document.getElementById("tarjetas-grabaciones");
+        contenedor.innerHTML = `<h3>Tu busqueda no dio resultados.</h3>`;
+        return;
+    }
+
     mostrarGrabaciones(grabacionesEncontradas);
 }
-
-
-// function crearTarjetaGrabacionEncontrada(listraGrabaciones) {
-//     const contenedorResultadoGrabaciones = document.querySelector('#tarjetas-grabaciones');
-//     for (let grabacion of listaGrabaciones) {
-//         let tarjeta = document.createElement('div');
-//         tarjeta.innerHTML = `
-            
-//         `
-//     }
-// }
