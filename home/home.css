@@ -3,19 +3,19 @@ html {
 }
 
 :root {
-    --color-azul-institucional: #003A70;
-    --color-azul-generation: #0066CC;
-    --color-cian-dinamico: #00A8E0;
-    --color-verde-impacto: #00B87D;
-    --color-verde-impacto-oscuro: #32b34d;
-    --color-azul-suave: #E8F3FF;
-    --color-gris-claro: #D1DEEA;
-    --color-gris-texto: #5F6368;
-    --color-oscuro-principal: #1A1A2E;
-    --color-blanco: #FFFFFF;
-    --border-radius-principal: 20px;
-    --border-radius-secundario: 15px;
-    --border-radius-terciario: 10px;
+  --color-azul-institucional: #003A70;
+  --color-azul-generation: #0066CC;
+  --color-cian-dinamico: #00A8E0;
+  --color-verde-impacto: #00B87D;
+  --color-verde-impacto-oscuro: #32b34d;
+  --color-azul-suave: #E8F3FF;
+  --color-gris-claro: #D1DEEA;
+  --color-gris-texto: #5F6368;
+  --color-oscuro-principal: #1A1A2E;
+  --color-blanco: #FFFFFF;
+  --border-radius-principal: 20px;
+  --border-radius-secundario: 15px;
+  --border-radius-terciario: 10px;
 }
 
 * {
@@ -28,3 +28,207 @@ body {
   font-family: Montserrat, sans-serif;
   background: var(--color-blanco);
 }
+
+/* cambios Jaime INICIO */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section {
+  margin-bottom: 80px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.section-header h2,
+.recurso-card h3,
+.explora-card h3,
+.historia-card h3 {
+  margin: 0;
+  color: var(--color-oscuro-principal);
+}
+
+.section-header a {
+  color: var(--color-verde-impacto);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.grid-recursos,
+.grid-explora {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.recurso-card,
+.explora-card,
+.historia-card {
+  background: var(--color-blanco);
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-principal);
+  transition: .2s;
+}
+
+.recurso-card:hover,
+.explora-card:hover {
+  transform: translateY(-4px);
+}
+
+.recurso-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  padding: 40px;
+}
+
+.explora-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 28px;
+}
+
+.historia-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 32px;
+}
+
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 8px 14px;
+  margin-bottom: 20px;
+  border-radius: var(--border-radius-terciario);
+  font-weight: 600;
+}
+
+.pdf {
+  background: var(--color-azul-suave);
+  color: var(--color-azul-generation);
+}
+
+.video {
+  background: #EAF8F2;
+  color: var(--color-verde-impacto);
+}
+
+.plantilla {
+  background: #FFF4E6;
+  color: var(--color-cian-dinamico);
+}
+
+.recurso-card h3 {
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.meta,
+.explora-card p,
+.descripcion,
+.frase {
+  color: var(--color-gris-texto);
+  line-height: 1.6;
+}
+
+.meta {
+  margin: 0 0 20px;
+}
+
+.descripcion {
+  flex: 1;
+}
+
+.btn-card {
+  display: block;
+  margin-top: auto;
+  padding: 14px;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-secundario);
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-oscuro-principal);
+  font-weight: 600;
+}
+
+.btn-card:hover {
+  background: var(--color-azul-suave);
+}
+
+.icono,
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--color-azul-suave);
+  color: var(--color-azul-generation);
+}
+
+.icono {
+  width: 58px;
+  height: 58px;
+  border-radius: var(--border-radius-secundario);
+  font-size: 24px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.verde {
+  color: var(--color-verde-impacto);
+  font-weight: 600;
+}
+
+#historia-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.explora-seccion h2,
+.historia-reciente h2 {
+  margin: 20px 0 30px;
+}
+
+@media (max-width:768px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grid-recursos,
+  .grid-explora {
+    grid-template-columns: 1fr;
+  }
+
+  .recurso-card,
+  .explora-card,
+  .historia-card {
+    padding: 24px;
+  }
+
+  .historia-card {
+    flex-direction: column;
+  }
+}
+/* cambios Jaime FINAL */
