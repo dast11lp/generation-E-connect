@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#programs {
+    background-color: blue;
+    padding: 25px;
+}
+
+
+#program-tab-list {
+    display: flex;
+}
+
+#program-tab-list li {
+    list-style: none;
+}
+
+#program-tab-list li {
+    background-color: red;
+    padding: 8px 12px;
+}
+
+#program-tab-list li:not(:last-child) {
+    margin-right: 50px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid: 10px;
+    background-color: orange;
+}
+
+.content__topics__cards {
+    padding: 5px;
+    margin: 10px;
+}
+
+.content__topics__cards__card {
+    background-color: aquamarine;
+    padding: 5px;
+    margin: 10px;
+}
