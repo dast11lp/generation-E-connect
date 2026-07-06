@@ -321,35 +321,35 @@ body {
 /* Inicio stylos valores Henry */
 
 .valores{
-    margin-top: 40px;
+    max-width: 1300px;
+    min-width: auto;
+    margin-top: 20px;
     margin-bottom: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 35px;
+    text-align: center;
+    margin-right: 30px;
 }
+
 
 .titulo{
-    text-align: center;
-    font-size: 70px;
-    color: var(--color-azul-institucional);
+    font-size: 100px;
 }
+
 
 .valor{
-    font-size: 40px;
-    color: var(--color-cian-dinamico);
+    font-size: 75px;
 }
 
-.valores_img{
-    width: 120px;
-    height: 120px;
-    margin-top: 15px;
-    margin-bottom: 20px;
+
+.valores_img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    margin: 15px 0 20px 0;
 }
 
 .descripcion{
     font-size: 20px;
-    text-align: justify;
+    justify-content: center;
     margin-right: 20px;
 }
 
