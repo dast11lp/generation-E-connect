@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+html {
+    font-size: 16px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    background-color: var(--color-azul-suave);
+}
+
+:root {
+    --color-azul-institucional: #003A70;
+    --color-azul-generation: #0066CC;
+    --color-cian-dinamico: #00A8E0;
+    --color-verde-impacto: #00B87D;
+    --color-azul-suave: #E8F3FF;
+    --color-gris-claro: #D1DEEA;
+    --color-gris-texto: #5F6368;
+    --color-oscuro-principal: #1A1A2E;
+    --color-blanco: #FFFFFF;
+    --border-radius-principal: 20px;
+    --border-radius-secundario: 15px;
+    --border-radius-terciario: 10px;
+}
+
+:root {
+    --color-background: #cbd5e1;
+    --color-background-alt: #8ec6ff;
+    --color-border-active: #173db6;
+    --color-border-default: #94a3b8;
+    --color-highlight: #8ec6ff;
+    --color-primary: #144be1;
+    --color-primary-active: #19388f;
+    --color-text-default: #0f172a;
+    --color-text-muted: #475569;
+
+    --font-family-body: "Open Sans", sans-serif;
+    --font-family-display: "Nunito Sans", sans-serif;
+}
+
+
+/*Inicio estilos primer bloque  historias Henry*/
+
+.contenedor.historia {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--color-blanco);
+    border-radius: var(--border-radius-principal);
+    box-shadow: 0 4px 20px var(--color-oscuro-principal);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+.contenedor.historia h1 {
+    color: var(--color-oscuro-principal);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.contenedor.historia p {
+    color: var(--color-azul-institucional);
+    font-size: 25px;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    line-height: 1.6;
+}
+
+
+.contenedor.historia button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius-terciario);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px;
+}
+
+.contenedor.historia .recursos {
+    background-color: var(--color-azul-generation);
+    color: var(--color-blanco);
+}
+
+.contenedor.historia .recursos:hover {
+    background-color: var(--color-azul-institucional);
+    transform: translateY(-2px);
+}
+
+.contenedor.historia .historias {
+    background-color: var(--color-azul-suave);
+    color: var(--color-azul-generation);
+}
+
+.contenedor.historia .historias:hover {
+    background-color: var(--color-gris-claro);
+    transform: translateY(-2px);
+}
+
+.contenedor_recursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.bloque_recurso {
+    background-color: var(--color-azul-suave);
+    padding: 20px;
+    border-radius: var(--border-radius-secundario);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.bloque_recurso:hover {
+    transform: scale(1.05);
+}
+
+.bloque_recurso:nth-child(3) {
+    background-color: var();
+}
+
+.bloque_recurso:nth-child(3) .numero {
+    color: var(--color-azul-generation);
+}
+
+
+.bloque_recurso .numero {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-azul-generation);
+    margin-bottom: 5px;
+}
+
+.bloque_recurso .etiqueta {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-oscuro-principal);
+}
+
+@media (max-width: 600px) {
+    .contenedor.historia {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .contenedor.historia h1 {
+        font-size: 1.8rem;
+    }
+
+    .contenedor.historia button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .contenedor_recursos {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+    }
+}
+/*Fin estilos primer bloque  historias Henry*/
