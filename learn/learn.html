@@ -8,11 +8,18 @@
   </head>
   <body>
     <div class="">
-      <h2>¿Qué aprender después del bootcamp?</h2>
-      <p>
-        Rutas de crecimiento profesional por programa --- explora habilidades y
-        recursos recomendados.
-      </p>
+      <div class="resume">
+        <div>
+          <h2>¿Qué aprender después del bootcamp?</h2>
+          <p>
+            Rutas de crecimiento profesional por programa --- explora habilidades y
+            recursos recomendados.
+          </p>
+        </div>
+        <button id="open-program-form" class="btn-add-program" type="button">
+          + Nuevo programa
+        </button>
+      </div>
     </div>
 
     <div id="programs" class="">
@@ -33,11 +40,17 @@
       </div>
 
       <div class="content__topics">
-        <h3>Habilidades clave --- Fullstack Java</h3>
+        <h3 id="topics-title">Habilidades clave</h3>
         <div class="content__topics__cards"></div>
       </div>
     </div>
 
+    <!-- Web component: modal para crear un nuevo trainingProgram -->
+    <program-form-modal id="program-form-modal"></program-form-modal>
+
+    <script src="seed.js"></script>
+    <script src="storage.js"></script>
+    <script type="module" src="components/program-form/program-form.js"></script>
     <script src="learn.js"></script>
   </body>
 </html>

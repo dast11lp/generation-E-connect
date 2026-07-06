@@ -1,142 +1,26 @@
 const programTabList = document.querySelector('#program-tab-list');
 const contentRoutesCards = document.querySelector('.content__routes__route')
 const contentTopicsCards = document.querySelector('.content__topics__cards')
+const topicsTitle = document.querySelector('#topics-title')
+const openFormBtn = document.querySelector('#open-program-form')
+const programFormModal = document.querySelector('#program-form-modal')
 
-const trainingPrograms = [
-    {
-        id: 1,
-        name: "Fullstack Java",
-        routes: [
-            {
-                id: 1,
-                title: "Backend sólido",
-                topics: [
-                    "Spring Boot",
-                    "APIs REST",
-                    "Bases de datos SQL",
-                    "Testing",
-                    "Git",
-                ],
-            },
-            {
-                id: 2,
-                title: "Cloud Ready",
-                topics: [
-                    "Docker",
-                    "AWS",
-                    "Microservicios",
-                ],
-            },
-            {
-                id: 3,
-                title: "Inglés técnico",
-                topics: [
-                    "Inglés técnico",
-                ],
-            },
-        ],
-    },
-    {
-        id: 2,
-        name: "Desarrollador de Unity",
-        routes: [
-            {
-                id: 1,
-                title: "Fundamentos de desarrollo",
-                topics: [
-                    "Programación en C#",
-                    "Desarrollo de videojuegos en Unity",
-                ],
-            },
-            {
-                id: 2,
-                title: "Diseño y jugabilidad",
-                topics: [
-                    "Diseño de mecánicas de juego",
-                    "Física y animaciones",
-                ],
-            },
-            {
-                id: 3,
-                title: "Producción y publicación",
-                topics: [
-                    "Control de versiones con Git",
-                    "Optimización de rendimiento",
-                    "Publicación de proyectos",
-                ],
-            },
-        ],
-    },
-    {
-        id: 3,
-        name: "IT Support",
-        routes: [
-            {
-                id: 1,
-                title: "Fundamentos de IT",
-                topics: [
-                    "Sistemas operativos (Windows y Linux)",
-                    "Redes y conectividad",
-                ],
-            },
-            {
-                id: 1,
-                title: "Soporte técnico",
-                topics: [
-                    "Soporte técnico a usuarios",
-                    "Gestión de incidencias",
-                    "Herramientas de ticketing",
-                ],
-            },
-            {
-                id: 1,
-                title: "Cloud y seguridad",
-                topics: [
-                    "Ciberseguridad básica",
-                    "Servicios en la nube",
-                    "Inglés técnico",
-                ],
-            },
-        ],
-    },
-    {
-        id: 4,
-        name: "Power BI",
-        routes: [
-            {
-                id: 1,
-                title: "Análisis de datos",
-                topics: [
-                    "Estadística aplicada",
-                    "Visualización de datos",
-                ],
-            },
-            {
-                id: 2,
-                title: "Herramientas",
-                topics: [
-                    "Power BI",
-                    "Python",
-                ],
-            },
-        ],
-    },
-];
 
-const getProgramNames = (trainingPrograms) => programNames = trainingPrograms.map(program => program.name);
+initStorage();
+let trainingPrograms = getPrograms();
 
-// const getProgram = (trainingPrograms) => trainingPrograms.map(({ id, name }) => ({ id, name }));
+const getProgramNames = (trainingPrograms) => trainingPrograms.map(program => program.name);
 
-const getProgramByID = (programs, id = 1) => {
+const getProgramByID = (programs, id) => {
     const program = programs.find(p => p.id === id);
     return program
 }
 
-
-
 const tabsRender = (programNames) => {
+    programTabList.innerHTML = "";
 
     if (trainingPrograms === undefined || trainingPrograms.length === 0) return
+
     programNames.forEach((name, index) => {
         const programListElement = document.createElement("li")
         programListElement.innerHTML = `${name}`
@@ -156,17 +40,13 @@ const tabsRender = (programNames) => {
 }
 
 const getFirstThreeTopics = (topics) => {
-
-    // routes.forEach((route) => {
-    //     console.log(route.topics);
-    // })
-    // topics.slice(0, 3).join(" &rarr; ")
     return topics.slice(0, 3).join(" &rarr; ")
 };
 
 const renderTopics = (route) => {
     if (!route) return
 
+    topicsTitle.textContent = `Habilidades clave --- ${route.title}`
     contentTopicsCards.innerHTML = "";
 
     route.topics.forEach((topic) => {
@@ -181,15 +61,17 @@ const renderTopics = (route) => {
 }
 
 const renderRoutes = (program) => {
-
-    program.routes.topics
     if (!program) return
 
     contentRoutesCards.innerHTML = "";
 
+    if (!program.routes || program.routes.length === 0) {
+        renderTopics(null)
+        contentTopicsCards.innerHTML = "<p>Este programa todavía no tiene rutas.</p>"
+        return
+    }
+
     program.routes.forEach((route, index) => {
-        console.log(route.topics);
-        
         const card = document.createElement("div");
         card.innerHTML = `
             <div class="content__topics__cards__card ${index === 0 ? 'active' : ''}">
@@ -209,7 +91,34 @@ const renderRoutes = (program) => {
     renderTopics(program.routes[0])
 }
 
-tabsRender(getProgramNames(trainingPrograms));
 
-let programByID = getProgramByID(trainingPrograms)
-renderRoutes(programByID)
+function refreshAll(selectedProgramId = null) {
+    trainingPrograms = getPrograms();
+
+    tabsRender(getProgramNames(trainingPrograms));
+
+    const targetId = selectedProgramId ?? trainingPrograms[0]?.id;
+    const program = getProgramByID(trainingPrograms, targetId);
+    renderRoutes(program);
+
+    if (selectedProgramId !== null) {
+        const index = trainingPrograms.findIndex(p => p.id === selectedProgramId);
+        const tabs = document.querySelectorAll('#program-tab-list li');
+        tabs.forEach(li => li.classList.remove('active'));
+        if (tabs[index]) tabs[index].classList.add('active');
+    }
+}
+
+
+
+openFormBtn.addEventListener('click', async () => {
+    await customElements.whenDefined('program-form-modal');
+    programFormModal.open();
+});
+
+programFormModal.addEventListener('program-created', (event) => {
+    const newProgram = addProgram(event.detail); 
+    refreshAll(newProgram.id);
+});
+
+refreshAll();

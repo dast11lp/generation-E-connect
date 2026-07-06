@@ -29,19 +29,30 @@ body {
     max-height: 100vh;
 }
 
-body > div:first-child {
-    padding: 25px 25px 0 25px;
+.resume {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 30px;
 }
 
-body > div:first-child h2 {
-    color: var(--color-azul-institucional);
-    font-size: 1.8rem;
-    margin-bottom: 8px;
+
+.btn-add-program {
+    flex-shrink: 0;
+    background-color: var(--color-verde-impacto);
+    color: var(--color-blanco);
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius-terciario);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-body > div:first-child p {
-    color: var(--color-gris-texto);
-    font-size: 0.95rem;
+.btn-add-program:hover {
+    background-color: var(--color-verde-impacto-oscuro);
 }
 
 #programs {
