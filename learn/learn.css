@@ -1,14 +1,54 @@
+:root {
+  --color-azul-institucional: #003A70;
+  --color-azul-generation: #0066CC;
+  --color-cian-dinamico: #00A8E0;
+  --color-verde-impacto: #00B87D;
+  --color-verde-impacto-oscuro: #32b34d;
+  --color-azul-suave: #E8F3FF;
+  --color-gris-claro: #D1DEEA;
+  --color-gris-texto: #5F6368;
+  --color-oscuro-principal: #1A1A2E;
+  --color-blanco: #FFFFFF;
+  --border-radius-principal: 20px;
+  --border-radius-secundario: 15px;
+  --border-radius-terciario: 10px;
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-#programs {
-    background-color: blue;
-    padding: 25px;
+
+
+
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: var(--color-azul-suave);
+    color: var(--color-oscuro-principal);
 }
 
+body > div:first-child {
+    padding: 25px 25px 0 25px;
+}
+
+body > div:first-child h2 {
+    color: var(--color-azul-institucional);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+body > div:first-child p {
+    color: var(--color-gris-texto);
+    font-size: 0.95rem;
+}
+
+#programs {
+    background-color: var(--color-azul-institucional);
+    padding: 25px;
+}
 
 #program-tab-list {
     display: flex;
@@ -19,19 +59,115 @@
 }
 
 #program-tab-list li {
-    background-color: red;
-    padding: 8px 12px;
+    background-color: transparent;
+    color: var(--color-blanco);
+    padding: 10px 18px;
+    border-radius: var(--border-radius-terciario);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#program-tab-list li:hover {
+    background-color: var(--color-azul-generation);
+}
+
+#program-tab-list li.active {
+    background-color: var(--color-verde-impacto);
+    color: var(--color-blanco);
 }
 
 #program-tab-list li:not(:last-child) {
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
 .content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid: 10px;
-    background-color: orange;
+    background-color: var(--color-azul-suave);
+    padding: 25px;
+    gap: 25px;
+}
+
+.content__routes {
+    background-color: var(--color-blanco);
+    border-radius: var(--border-radius-principal);
+    padding: 20px;
+}
+
+.content__routes h3 {
+    color: var(--color-azul-institucional);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.content__routes .advice {
+    background-color: var(--color-azul-suave);
+    border-left: 4px solid var(--color-cian-dinamico);
+    border-radius: var(--border-radius-terciario);
+    padding: 12px 15px;
+    margin-bottom: 20px;
+}
+
+.content__routes .advice p {
+    color: var(--color-azul-institucional);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.content__routes__route .content__topics__cards__card {
+    background-color: var(--color-blanco);
+    border: 1px solid var(--color-gris-claro);
+    border-radius: var(--border-radius-secundario);
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content__routes__route .content__topics__cards__card:hover {
+    border-color: var(--color-cian-dinamico);
+    box-shadow: 0 2px 10px rgba(0, 168, 224, 0.15);
+}
+
+.content__routes__route .content__topics__cards__card h4 {
+    color: var(--color-oscuro-principal);
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.content__routes__route .content__topics__cards__card span {
+    display: block;
+    color: var(--color-gris-texto);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.content__routes__route .content__topics__cards__card p {
+    color: var(--color-verde-impacto);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.content__routes__route .content__topics__cards__card p span {
+    display: inline;
+    color: var(--color-verde-impacto);
+    font-weight: 700;
+}
+
+.content__topics {
+    background-color: var(--color-blanco);
+    border-radius: var(--border-radius-principal);
+    padding: 20px;
+}
+
+.content__topics h3 {
+    color: var(--color-azul-institucional);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
 }
 
 .content__topics__cards {
@@ -39,8 +175,15 @@
     margin: 10px;
 }
 
-.content__topics__cards__card {
-    background-color: aquamarine;
-    padding: 5px;
+.content__topics__cards .content__topics__cards__card {
+    background-color: var(--color-azul-suave);
+    padding: 12px 15px;
     margin: 10px;
+    border-radius: var(--border-radius-secundario);
+    border-left: 4px solid var(--color-verde-impacto);
+}
+
+.content__topics__cards .content__topics__cards__card h4 {
+    color: var(--color-azul-institucional);
+    font-size: 0.95rem;
 }
