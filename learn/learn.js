@@ -7,6 +7,7 @@ const trainingPrograms = [
         name: "Fullstack Java",
         routes: [
             {
+                id: 1,
                 title: "Backend sólido",
                 topics: [
                     "Spring Boot",
@@ -17,6 +18,7 @@ const trainingPrograms = [
                 ],
             },
             {
+                id: 2,
                 title: "Cloud Ready",
                 topics: [
                     "Docker",
@@ -25,6 +27,7 @@ const trainingPrograms = [
                 ],
             },
             {
+                id: 3,
                 title: "Inglés técnico",
                 topics: [
                     "Inglés técnico",
@@ -37,6 +40,7 @@ const trainingPrograms = [
         name: "Desarrollador de Unity",
         routes: [
             {
+                id: 1,
                 title: "Fundamentos de desarrollo",
                 topics: [
                     "Programación en C#",
@@ -44,6 +48,7 @@ const trainingPrograms = [
                 ],
             },
             {
+                id: 2,
                 title: "Diseño y jugabilidad",
                 topics: [
                     "Diseño de mecánicas de juego",
@@ -51,6 +56,7 @@ const trainingPrograms = [
                 ],
             },
             {
+                id: 3,
                 title: "Producción y publicación",
                 topics: [
                     "Control de versiones con Git",
@@ -65,6 +71,7 @@ const trainingPrograms = [
         name: "IT Support",
         routes: [
             {
+                id: 1,
                 title: "Fundamentos de IT",
                 topics: [
                     "Sistemas operativos (Windows y Linux)",
@@ -72,6 +79,7 @@ const trainingPrograms = [
                 ],
             },
             {
+                id: 1,
                 title: "Soporte técnico",
                 topics: [
                     "Soporte técnico a usuarios",
@@ -80,6 +88,7 @@ const trainingPrograms = [
                 ],
             },
             {
+                id: 1,
                 title: "Cloud y seguridad",
                 topics: [
                     "Ciberseguridad básica",
@@ -94,7 +103,7 @@ const trainingPrograms = [
         name: "Power BI",
         routes: [
             {
-
+                id: 1,
                 title: "Análisis de datos",
                 topics: [
                     "Estadística aplicada",
@@ -102,6 +111,7 @@ const trainingPrograms = [
                 ],
             },
             {
+                id: 2,
                 title: "Herramientas",
                 topics: [
                     "Power BI",
@@ -116,15 +126,11 @@ const trainingPrograms = [
 const getProgramNames = (trainingPrograms) => programNames = trainingPrograms.map(program => program.name);
 
 // const getProgram = (trainingPrograms) => trainingPrograms.map(({ id, name }) => ({ id, name }));
-const getRouteByID = (trainingPrograms) => {
-    
-    const array = trainingPrograms.map((el) => {
-        console.log(el.routes);
-        return el.routes
-    })
-    // console.log(array);
-    
-};
+
+const getProgramByID = (programs, id = 1) => {
+    const program = programs.find(p => p.id === id);
+    return program
+}
 
 
 
@@ -138,33 +144,40 @@ const tabsRender = (programNames) => {
     })
 }
 
-const getFirstThreeTopics = ( topics ) => {
+const getFirstThreeTopics = (topics) => {
+
+    // routes.forEach((route) => {
+    //     console.log(route.topics);
+    // })
+    // topics.slice(0, 3).join(" &rarr; ")
     return topics.slice(0, 3).join(" &rarr; ")
 };
 
-const routesRender = (trainingPrograms) => {
+const renderRoutes = (program) => {
 
-    if (trainingPrograms === undefined || trainingPrograms.length === 0) return
+    program.routes.topics
+    if (!program) return
 
-    trainingPrograms.forEach((program) => {
-        program.routes
+    program.routes.forEach((route) => {
+        console.log(route.topics);
         
-
         const card = document.createElement("div");
         card.innerHTML = `
             <div class="content__topics__cards__card">
-                <h4>${program.name}</h4>
-                <span>${getFirstThreeTopics(program.routes.map((el, i)=> el.topics[i]))}</span>
-                <p>Temas: <span> ${program.routes.length}</span></p>
+                <h4>${route.title}</h4>
+                <span>${getFirstThreeTopics(route.topics)}</span>
+                <p>Temas: <span> ${route.topics.length}</span></p>
             </div>
         `
         contentRoutesCards.appendChild(card)
     })
-
 }
 
 tabsRender(getProgramNames(trainingPrograms));
 
-routesRender(trainingPrograms)
+// renderRoutes()
 
-getRouteByID(trainingPrograms)
+let programByID = getProgramByID(trainingPrograms)
+renderRoutes(programByID)
+
+
