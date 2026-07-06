@@ -1,5 +1,6 @@
 const programTabList = document.querySelector('#program-tab-list');
 const contentRoutesCards = document.querySelector('.content__routes__route')
+const contentTopicsCards = document.querySelector('.content__topics__cards')
 
 const trainingPrograms = [
     {
@@ -122,7 +123,6 @@ const trainingPrograms = [
     },
 ];
 
-
 const getProgramNames = (trainingPrograms) => programNames = trainingPrograms.map(program => program.name);
 
 // const getProgram = (trainingPrograms) => trainingPrograms.map(({ id, name }) => ({ id, name }));
@@ -137,9 +137,14 @@ const getProgramByID = (programs, id = 1) => {
 const tabsRender = (programNames) => {
 
     if (trainingPrograms === undefined || trainingPrograms.length === 0) return
-    programNames.forEach(name => {
+    programNames.forEach((name, index) => {
         const programListElement = document.createElement("li")
         programListElement.innerHTML = `${name}`
+        programListElement.addEventListener("click", () => {
+            const programId = trainingPrograms[index].id;
+            const programByID = getProgramByID(trainingPrograms, programId);
+            renderRoutes(programByID);
+        })
         programTabList.appendChild(programListElement);
     })
 }
@@ -153,10 +158,28 @@ const getFirstThreeTopics = (topics) => {
     return topics.slice(0, 3).join(" &rarr; ")
 };
 
+const renderTopics = (route) => {
+    if (!route) return
+
+    contentTopicsCards.innerHTML = "";
+
+    route.topics.forEach((topic) => {
+        const card = document.createElement("div");
+        card.innerHTML = `
+            <div class="content__topics__cards__card">
+                <h4>${topic}</h4>
+            </div>
+        `
+        contentTopicsCards.appendChild(card)
+    })
+}
+
 const renderRoutes = (program) => {
 
     program.routes.topics
     if (!program) return
+
+    contentRoutesCards.innerHTML = "";
 
     program.routes.forEach((route) => {
         console.log(route.topics);
@@ -169,15 +192,14 @@ const renderRoutes = (program) => {
                 <p>Temas: <span> ${route.topics.length}</span></p>
             </div>
         `
+        card.addEventListener("click", () => renderTopics(route))
         contentRoutesCards.appendChild(card)
     })
+
+    renderTopics(program.routes[0])
 }
 
 tabsRender(getProgramNames(trainingPrograms));
 
-// renderRoutes()
-
 let programByID = getProgramByID(trainingPrograms)
 renderRoutes(programByID)
-
-
