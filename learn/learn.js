@@ -140,7 +140,13 @@ const tabsRender = (programNames) => {
     programNames.forEach((name, index) => {
         const programListElement = document.createElement("li")
         programListElement.innerHTML = `${name}`
+
+        if (index === 0) programListElement.classList.add("active")
+
         programListElement.addEventListener("click", () => {
+            document.querySelectorAll('#program-tab-list li').forEach(li => li.classList.remove("active"))
+            programListElement.classList.add("active")
+
             const programId = trainingPrograms[index].id;
             const programByID = getProgramByID(trainingPrograms, programId);
             renderRoutes(programByID);
@@ -181,18 +187,22 @@ const renderRoutes = (program) => {
 
     contentRoutesCards.innerHTML = "";
 
-    program.routes.forEach((route) => {
+    program.routes.forEach((route, index) => {
         console.log(route.topics);
         
         const card = document.createElement("div");
         card.innerHTML = `
-            <div class="content__topics__cards__card">
+            <div class="content__topics__cards__card ${index === 0 ? 'active' : ''}">
                 <h4>${route.title}</h4>
                 <span>${getFirstThreeTopics(route.topics)}</span>
                 <p>Temas: <span> ${route.topics.length}</span></p>
             </div>
         `
-        card.addEventListener("click", () => renderTopics(route))
+        card.addEventListener("click", () => {
+            contentRoutesCards.querySelectorAll('.content__topics__cards__card').forEach(c => c.classList.remove("active"))
+            card.querySelector('.content__topics__cards__card').classList.add("active")
+            renderTopics(route)
+        })
         contentRoutesCards.appendChild(card)
     })
 
