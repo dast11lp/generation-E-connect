@@ -61,7 +61,7 @@ body {
 
     background:
         linear-gradient(135deg,
-            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, .35),
             rgba(255, 255, 255, .08));
     backdrop-filter: blur(20px);
     box-shadow:
@@ -321,23 +321,20 @@ body {
 /* Inicio stylos valores Henry */
 
 .valores{
-    margin-top: 40px;
+    max-width: 1300px;
+    min-width: auto;
+    margin-top: 20px;
     margin-bottom: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 35px;
+    text-align: center;
+    margin-right: 30px;
 }
 
 .titulo{
-    text-align: center;
-    font-size: 70px;
-    color: var(--color-azul-institucional);
+    font-size: 100px;
 }
 
 .valor{
-    font-size: 40px;
-    color: var(--color-cian-dinamico);
+    font-size: 75px;
 }
 
 .valores_img{
@@ -347,75 +344,13 @@ body {
     margin-bottom: 20px;
 }
 
+
 .descripcion{
     font-size: 20px;
-    text-align: justify;
+    justify-content: center;
     margin-right: 20px;
 }
 
-.valores-card{
-    width: 550px;
-    height: 550px;
-    padding: 50px;
-    margin: 40px;
-    text-align: center;
-    border-radius: var(--border-radius-principal);
-    background-color: var(--color-blanco);
-    box-shadow: 0 8px 20px rgba(0, 58, 112, 0.15);
-}
-
-@media (max-width: 768px) {
-    .valores-card {
-        width: 100%;
-        height: auto;
-        padding: 30px;
-        margin: 10px 0;
-    }
-
-    .titulo {
-        font-size: 45px;
-    }
-
-    .valor {
-        font-size: 28px;
-    }
-
-    .descripcion {
-        font-size: 16px;
-        margin-right: 0;
-    }
-
-    .valores-img {
-        width: 90px;
-        height: 90px;
-    }
-}
-
-@media (max-width: 480px) {
-    .valores-card {
-        width: 100%;
-        height: auto;
-        padding: 20px;
-        margin: 8px 0;
-    }
-
-    .titulo {
-        font-size: 32px;
-    }
-
-    .valor {
-        font-size: 22px;
-    }
-
-    .descripcion {
-        font-size: 14px;
-    }
-
-    .valores-img {
-        width: 70px;
-        height: 70px;
-    }
-}
 /* Fin stylos valores Henry */
 
 
@@ -658,61 +593,17 @@ body {
     
 }
 
-/* ===== TABLET ===== */
-@media (max-width: 1024px) {
-  .hero {
-    padding: 60px 20px;
-    font-size: 28px;
-  }
 
-  .hero h1 {
-    margin-top: 60px;
-  }
+@media (max-width: 750px) {
+    #mision, #vision {
+        flex-direction: column; 
+        width: 85%; 
+        padding: 20px;           
+        gap: 20px;  
+         
+    }
 
-  #mision, #vision {
-    flex-direction: column;
-    width: 85%;
-    padding: 25px;
-    gap: 30px;
-    font-size: 18px;
-  }
-
-  #img-mision, #img-vision {
-    width: 200px;
-  }
+  
 }
 
-/* ===== CELULAR ===== */
-@media (max-width: 480px) {
-  .hero {
-    padding: 40px 15px;
-    font-size: 22px;
-    margin-bottom: 30px;
-  }
-
-  .hero::before {
-    height: 250px;
-  }
-
-  .hero h1 {
-    margin-top: 40px;
-  }
-
-  .contenedor-mision-vision {
-    margin-top: 50px;
-  }
-  #mision, #vision {
-    flex-direction: column;
-    width: 90%;
-    padding: 20px;
-    gap: 20px;
-    font-size: 16px;
-    text-align: center;
-  }
-
-  #img-mision, #img-vision {
-    width: 100%;
-    max-width: 250px;
-  }
-}
 /*Fin cambios maria - misión y visión */
