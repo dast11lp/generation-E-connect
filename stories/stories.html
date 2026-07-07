@@ -7,10 +7,65 @@
     <title>Document</title>
 </head>
 <body>
-     <section class="estudiantes-historial">
+    <div class="hero">
+        <h1 id="titulo">Historias de éxito</h1>
+        <p id="parrafo">Graduados que hicieron el salto.</p>
+    </div>
+    <div class="carrusel" id="carrusel"></div>
+
+    <section class="estudiantes-historial">
         <h2>Estudiantes y su historial</h2>
+        <div class="botones">
+            <button data-filtro="todas" class="activo">Todas</button>
+            <button data-filtro="Java">Java</button>
+            <button data-filtro="Unity">Unity</button>
+            <button data-filtro="IT">IT</button>
+            <button data-filtro="Data">Data</button>
+        </div>
         <div id="tarjetas-historias" class="grid-estudiantes"></div>
+
+        <br>
+        <button id="btn-agregar-historia" class="btn-agregar">+ Agregar mi historia</button>
     </section>
+    <div id="modal-historia" class="modal oculto">
+      <div class="modal-contenido">
+        <button id="btn-cerrar-modal" class="btn-cerrar-modal">&times;</button>
+        <h3>Comparte tu historia de éxito</h3>
+
+        <form id="form-historia">
+          <label for="input-nombre">Nombre completo</label>
+          <input type="text" id="input-nombre" required>
+
+          <label for="input-empresa">Empresa</label>
+          <input type="text" id="input-empresa" required>
+
+          <label for="input-tiempo">Tiempo en conseguir empleo</label>
+          <input type="text" id="input-tiempo" placeholder="Ej: 3 meses" required>
+
+          <label for="input-rol">Rol / puesto</label>
+          <input type="text" id="input-rol" required>
+
+          <label for="input-anio">Año</label>
+          <input type="text" id="input-anio" required>
+
+          <label for="input-categoria">Categoría</label>
+          <select id="input-categoria" required>
+            <option value="Java">Java</option>
+            <option value="Unity">Unity</option>
+            <option value="IT">IT</option>
+            <option value="Data">Data</option>
+          </select>
+
+          <label for="input-foto">URL de tu foto (opcional)</label>
+          <input type="url" id="input-foto" placeholder="https://...">
+
+          <label for="input-testimonio">Tu testimonio</label>
+          <textarea id="input-testimonio" rows="3" required></textarea>
+
+          <button type="submit" class="btn-ver-mas">Publicar historia</button>
+        </form>
+      </div>
+    </div>
     <script src="stories.js"></script>
 </body>
 </html>
