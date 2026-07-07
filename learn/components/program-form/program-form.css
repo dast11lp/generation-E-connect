@@ -1,0 +1,217 @@
+/*
+  program-form.css
+  ------------------------------------------------------------------
+  Estas reglas viven dentro del Shadow DOM de <program-form-modal>.
+  Las variables (--color-azul-institucional, etc.) NO se redefinen
+  aquí: las custom properties de CSS atraviesan el Shadow DOM, así
+  que heredamos las que ya están declaradas en :root de learn.css.
+  ------------------------------------------------------------------
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 46, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.modal {
+  background: var(--color-blanco);
+  border-radius: var(--border-radius-principal);
+  width: min(560px, 92vw);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 25px;
+  background-color: var(--color-azul-institucional);
+}
+
+.modal__header h3 {
+  color: var(--color-blanco);
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.modal__close {
+  background: transparent;
+  border: none;
+  color: var(--color-blanco);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.modal__body {
+  padding: 20px 25px;
+  overflow-y: auto;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  color: var(--color-azul-institucional);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-terciario);
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--color-oscuro-principal);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-cian-dinamico);
+  box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.15);
+}
+
+input.invalid {
+  border-color: #e0454b;
+}
+
+.error {
+  display: block;
+  color: #e0454b;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  min-height: 1em;
+}
+
+.error--general {
+  text-align: center;
+  margin: 10px 0 0;
+}
+
+.route {
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-secundario);
+  background-color: var(--color-azul-suave);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.route__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.route__title-input {
+  flex: 1;
+  background-color: var(--color-blanco);
+}
+
+.topics {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.topic {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topic__input {
+  flex: 1;
+  background-color: var(--color-blanco);
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius-terciario);
+  font-family: inherit;
+  font-weight: 600;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn--primary {
+  background-color: var(--color-verde-impacto);
+  color: var(--color-blanco);
+  padding: 10px 20px;
+  font-size: 0.9rem;
+}
+
+.btn--primary:hover {
+  background-color: var(--color-verde-impacto-oscuro);
+}
+
+.btn--secondary {
+  background-color: transparent;
+  color: var(--color-gris-texto);
+  padding: 10px 16px;
+  font-size: 0.9rem;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-azul-generation);
+  border: 1px dashed var(--color-azul-generation);
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-azul-suave);
+}
+
+.btn--small {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+}
+
+.btn--icon {
+  background: transparent;
+  color: var(--color-gris-texto);
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 6px;
+}
+
+.btn--icon:hover {
+  color: #e0454b;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 1px solid var(--color-gris-claro);
+}
+
+:host(:not([open])) .overlay {
+  display: none;
+}

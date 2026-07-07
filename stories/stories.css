@@ -29,6 +29,256 @@ body {
   background: var(--color-blanco);
 }
 
+.hero {
+    padding: 100px;
+    margin-bottom: 60px;
+    text-align: center;
+    font-size: 40px;
+    color: var(--color-blanco);
+    text-shadow: 3px 3px var(--color-azul-institucional);
+    position: relative;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background-image: url(../assets/images/logos/header.jfif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    filter: blur(3px);
+    z-index: -1;
+}
+
+.hero h1 {
+    margin-top: 50px;
+}
+
+/* Carrusel */
+.carrusel {
+  position: relative;
+  max-width: 900px;
+  margin: 30px auto;
+  overflow: hidden;
+  border-radius: var(--border-radius-principal);
+}
+
+.carrusel-track {
+  display: flex;
+  transition: transform .5s ease-in-out;
+}
+
+.carrusel-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  background: var(--color-azul-institucional);
+  color: var(--color-blanco);
+}
+
+.carrusel-slide img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.carrusel-slide .testimonio {
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.carrusel-slide .nombre {
+  font-weight: 700;
+}
+
+.carrusel-flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: rgba(255,255,255,.25);
+  color: var(--color-blanco);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.carrusel-flecha:hover {
+  background: rgba(255,255,255,.45);
+}
+
+.carrusel-flecha.anterior { left: 12px; }
+.carrusel-flecha.siguiente { right: 12px; }
+
+.carrusel-puntos {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 0;
+  background: var(--color-azul-institucional);
+}
+
+.carrusel-punto {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.4);
+  border: none;
+  cursor: pointer;
+}
+
+.carrusel-punto.activo {
+  background: var(--color-blanco);
+}
+
+/* Botones */
+
+.botones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.botones button {
+  padding: 8px 18px;
+  border: 2px solid var(--color-azul-generation);
+  background: var(--color-blanco);
+  color: var(--color-azul-generation);
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.botones button:hover {
+  background: var(--color-azul-suave);
+}
+
+.botones button.activo {
+  background: var(--color-azul-generation);
+  color: var(--color-blanco);
+}
+
+.card-historia.oculta {
+  display: none;
+}
+
+.btn-agregar {
+  display: inline-block;
+  margin-bottom: 24px;
+
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+
+  background: var(--color-verde-impacto);
+  color: var(--color-blanco);
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-agregar:hover {
+  background: var(--color-verde-impacto-oscuro);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.modal.oculto {
+  display: none;
+}
+
+.modal-contenido {
+  background: var(--color-blanco);
+  padding: 30px;
+  border-radius: var(--border-radius-principal);
+
+  max-width: 480px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+
+  position: relative;
+}
+
+.modal-contenido h3 {
+  margin-bottom: 16px;
+  color: var(--color-azul-institucional);
+}
+
+.btn-cerrar-modal {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-gris-texto);
+}
+
+/* Formulario */
+#form-historia {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#form-historia label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--color-oscuro-principal);
+  margin-top: 10px;
+}
+
+#form-historia input,
+#form-historia select,
+#form-historia textarea {
+  padding: 10px;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-terciario);
+  font-family: inherit;
+  font-size: .95rem;
+}
+
+#form-historia textarea {
+  resize: vertical;
+}
+
+#form-historia button[type="submit"] {
+  margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
 /* HISTORIAS */
 
 .grid-estudiantes {
@@ -128,5 +378,9 @@ body {
   }
   .header-historia {
     align-items: flex-start;
+  }
+  .carrusel-slide {
+    flex-direction: column;
+    text-align: center;
   }
 }

@@ -1,0 +1,76 @@
+<!--
+    Plantilla interna del web component <program-form-modal>.
+    Este archivo se carga por fetch() desde program-form.js y se
+    inyecta dentro del Shadow DOM, junto con program-form.css.
+-->
+<div class="overlay" part="overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pf-title">
+    <header class="modal__header">
+      <h3 id="pf-title">Nuevo programa de formación</h3>
+      <button type="button" class="modal__close" data-action="close" aria-label="Cerrar">&times;</button>
+    </header>
+
+    <form id="pf-form" class="modal__body" novalidate>
+      <div class="field">
+        <label for="pf-name">Nombre del programa</label>
+        <input type="text" id="pf-name" name="name" placeholder="Ej: Data Analytics" required />
+        <span class="error" data-error="name"></span>
+      </div>
+
+      <div class="routes" id="pf-routes"></div>
+
+      <button type="button" class="btn btn--ghost" data-action="add-route">
+        + Agregar ruta
+      </button>
+
+      <p class="error error--general" data-error="general"></p>
+
+      <footer class="modal__footer">
+        <button type="button" class="btn btn--secondary" data-action="close">Cancelar</button>
+        <button type="submit" class="btn btn--primary">Guardar programa</button>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<!-- Template de una RUTA (se clona por JS por cada ruta agregada) -->
+<template id="route-template">
+  <div class="route" data-route>
+    <div class="route__header">
+      <input
+        type="text"
+        class="route__title-input"
+        placeholder="Título de la ruta (ej: Backend sólido)"
+        data-field="route-title"
+        required
+      />
+      <button type="button" class="btn btn--icon" data-action="remove-route" aria-label="Quitar ruta">
+        &times;
+      </button>
+    </div>
+
+    <div class="topics" data-topics></div>
+
+    <button type="button" class="btn btn--ghost btn--small" data-action="add-topic">
+      + Agregar topic
+    </button>
+
+    <span class="error" data-error="route"></span>
+  </div>
+</template>
+
+<!-- Template de un TOPIC (se clona por JS por cada topic agregado) -->
+<template id="topic-template">
+  <div class="topic" data-topic>
+    <input
+      type="text"
+      class="topic__input"
+      placeholder="Ej: Spring Boot"
+      data-field="topic-value"
+      required
+    />
+    <button type="button" class="btn btn--icon" data-action="remove-topic" aria-label="Quitar topic">
+      &times;
+    </button>
+  </div>
+</template>
