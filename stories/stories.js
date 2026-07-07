@@ -33,7 +33,7 @@ function mostrarHistorias() {
     ? historias
     : historias.filter(h => h.categoria === filtroActual);
 
-  historias.forEach(historia => {
+  historiasFiltradas.forEach(historia => {
     contenedor.innerHTML += `
       <div class="card-historia">
 
