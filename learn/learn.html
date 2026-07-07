@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="learn.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="">
+      <div class="resume">
+        <div>
+          <h2>¿Qué aprender después del bootcamp?</h2>
+          <p>
+            Rutas de crecimiento profesional por programa --- explora habilidades y
+            recursos recomendados.
+          </p>
+        </div>
+        <button id="open-program-form" class="btn-add-program" type="button">
+          + Nuevo programa
+        </button>
+      </div>
+    </div>
+
+    <div id="programs" class="">
+      <ul id="program-tab-list"></ul>
+    </div>
+
+    <div class="content">
+      <div class="content__routes">
+        <h3>Rutas sugeridas</h3>
+
+        <div class="advice">
+          <p>
+            Empieza con Spring Boot y APIs Rest. Son las habilidades más
+            solicitadas eb las ofertas para junior
+          </p>
+        </div>
+        <div class="content__routes__route"></div>
+      </div>
+
+      <div class="content__topics">
+        <h3 id="topics-title">Habilidades clave</h3>
+        <div class="content__topics__cards"></div>
+      </div>
+    </div>
+
+    <!-- Web component: modal para crear un nuevo trainingProgram -->
+    <program-form-modal id="program-form-modal"></program-form-modal>
+
+    <script src="seed.js"></script>
+    <script src="storage.js"></script>
+    <script type="module" src="components/program-form/program-form.js"></script>
+    <script src="learn.js"></script>
+  </body>
+</html>
