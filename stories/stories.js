@@ -202,4 +202,4 @@ function inicializarModal() {
 mostrarHistorias();
 inicializarFiltros();
 construirCarrusel();
-inicializarModal(); 
+inicializarModal();
