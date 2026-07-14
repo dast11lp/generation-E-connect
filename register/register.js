@@ -17,10 +17,12 @@ class RegisterForm {
          ******************************/
         this.currentStep = 1;
         this.totalSteps = 3;
+
         /******************************
          * FORMULARIO
          ******************************/
         this.form = document.getElementById("mentor-register-form");
+
         /******************************
          * SECCIONES
          ******************************/
@@ -28,8 +30,7 @@ class RegisterForm {
         this.steps = [
             document.getElementById("step-register"),
             document.getElementById("step-profile"),
-            document.getElementById("step-expertise"),
-            document.getElementById("step-availability")
+            document.getElementById("step-expertise")
         ];
 
         /******************************
@@ -41,8 +42,7 @@ class RegisterForm {
         this.progressIndicators = [
             document.getElementById("step-indicator-1"),
             document.getElementById("step-indicator-2"),
-            document.getElementById("step-indicator-3"),
-            document.getElementById("step-indicator-4")
+            document.getElementById("step-indicator-3")
         ];
 
         /******************************
@@ -51,17 +51,49 @@ class RegisterForm {
 
         this.nextButtons = [
             document.getElementById("btn-next-step-1"),
-            document.getElementById("btn-next-step-2"),
-            document.getElementById("btn-next-step-3")
+            document.getElementById("btn-next-step-2")
         ];
 
         this.backButtons = [
             document.getElementById("btn-back-step-2"),
-            document.getElementById("btn-back-step-3"),
-            document.getElementById("btn-back-step-4")
+            document.getElementById("btn-back-step-3")
         ];
 
         this.submitButton = document.getElementById("btn-submit");
+
+        /******************************
+         * PASO 2 - PERFIL
+         ******************************/
+
+        this.profileImageInput = document.getElementById("profile-image");
+        this.profilePreview = document.getElementById("profile-preview");
+        this.defaultProfilePreview = this.profilePreview
+            ? this.profilePreview.getAttribute("src")
+            : "";
+
+        this.aboutMeInput = document.getElementById("about-me");
+        this.aboutCounter = document.getElementById("about-counter");
+        this.aboutMaxLength = this.aboutMeInput
+            ? parseInt(this.aboutMeInput.getAttribute("maxlength"), 10) || 500
+            : 500;
+
+        this.linkedinInput = document.getElementById("linkedin-profile");
+
+        /******************************
+         * PASO 3 - EXPERIENCIA
+         ******************************/
+
+        this.generationProgramSelect = document.getElementById("generation-program");
+        this.skillSearchInput = document.getElementById("skill-search");
+        this.addSkillButton = document.getElementById("btn-add-skill");
+        this.skillsContainer = document.getElementById("skills-container");
+        this.skills = [];
+
+        /******************************
+         * MENSAJES GLOBALES
+         ******************************/
+
+        this.globalMessage = document.getElementById("global-message");
 
         /******************************
          * INICIALIZAR
@@ -78,6 +110,7 @@ class RegisterForm {
         this.bindEvents();
         this.showStep(this.currentStep);
         this.updateProgress();
+        this.updateAboutCounter();
     }
 
     /****************************************************************
@@ -91,12 +124,10 @@ class RegisterForm {
          ******************************/
 
         this.nextButtons.forEach(button => {
-            
             if (!button) return;
             button.addEventListener("click", () => {
                 this.nextStep();
             });
-
         });
 
         /******************************
@@ -104,12 +135,50 @@ class RegisterForm {
          ******************************/
 
         this.backButtons.forEach(button => {
-
             if (!button) return;
             button.addEventListener("click", () => {
                 this.previousStep();
             });
         });
+
+        /******************************
+         * FOTO DE PERFIL
+         ******************************/
+
+        if (this.profileImageInput) {
+            this.profileImageInput.addEventListener("change", (event) => {
+                this.handleProfileImageChange(event);
+            });
+        }
+
+        /******************************
+         * CONTADOR "SOBRE TI"
+         ******************************/
+
+        if (this.aboutMeInput) {
+            this.aboutMeInput.addEventListener("input", () => {
+                this.updateAboutCounter();
+            });
+        }
+
+        /******************************
+         * HABILIDADES
+         ******************************/
+
+        if (this.addSkillButton) {
+            this.addSkillButton.addEventListener("click", () => {
+                this.addSkill();
+            });
+        }
+
+        if (this.skillSearchInput) {
+            this.skillSearchInput.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    this.addSkill();
+                }
+            });
+        }
 
         /******************************
          * ENVÍO
@@ -118,9 +187,8 @@ class RegisterForm {
         if (this.form) {
             this.form.addEventListener("submit", (event) => {
                 event.preventDefault();
-                console.log("Formulario enviado.");
+                this.handleSubmit();
             });
-
         }
 
     }
@@ -167,7 +235,6 @@ class RegisterForm {
     showStep(step) {
 
         this.steps.forEach((section, index) => {
-            
             if (!section) return;
             section.classList.remove("active");
             if (index + 1 === step) {
@@ -182,8 +249,8 @@ class RegisterForm {
 
     updateProgress() {
 
-        const percentage =
-            (this.currentStep / this.totalSteps) * 100;
+        const percentage = (this.currentStep / this.totalSteps) * 100;
+
         if (this.progressFill) {
             this.progressFill.style.width = percentage + "%";
         }
@@ -198,8 +265,8 @@ class RegisterForm {
     }
 
     /****************************************************************
- * VALIDAR PASO
- ****************************************************************/
+     * VALIDAR PASO
+     ****************************************************************/
 
     validateStep(step) {
 
@@ -213,53 +280,64 @@ class RegisterForm {
             case 3:
                 return this.validateExpertise();
 
-            case 4:
-                return this.validateAvailability();
-
             default:
                 return true;
         }
     }
+
     /****************************************************************
-     * PASO 1
+     * PASO 1 - CREAR CUENTA
      ****************************************************************/
 
     validateRegister() {
 
-        let valid = true;
+        const results = [
+            this.validateRequired("first-name"),
+            this.validateRequired("last-name"),
+            this.validateEmail(),
+            this.validatePassword(),
+            this.validateConfirmPassword(),
+            this.validateTerms()
+        ];
 
-        valid &= this.validateRequired("first-name");
-        valid &= this.validateRequired("last-name");
-
-        valid &= this.validateEmail();
-        valid &= this.validatePassword();
-        valid &= this.validateConfirmPassword();
-        valid &= this.validateTerms();
-
-        return Boolean(valid);
-
+        return results.every(Boolean);
     }
+
     /****************************************************************
-     * PASO 2
+     * PASO 2 - PERFIL PROFESIONAL
      ****************************************************************/
 
     validateProfile() {
 
-        let valid = true;
+        const areasValid = this.validateMentorAreas();
+        const linkedinValid = this.validateLinkedin();
 
-        valid &= this.validateRequired("current-position");
-        valid &= this.validateRequired("current-company");
-        valid &= this.validateSelect("experience-years");
-        valid &= this.validateSelect("country");
-
-        return Boolean(valid);
-
+        return areasValid && linkedinValid;
     }
+
     /****************************************************************
-     * PASO 3
+     * PASO 3 - EXPERIENCIA Y MENTORÍAS
      ****************************************************************/
 
     validateExpertise() {
+
+        const mentorTypes = document.querySelectorAll(
+            'input[name="mentorType"]:checked'
+        );
+
+        if (mentorTypes.length === 0) {
+            alert("Selecciona al menos un tipo de mentoría.");
+            return false;
+        }
+
+        return true;
+    }
+
+    /****************************************************************
+     * ÁREAS DE MENTORÍA
+     ****************************************************************/
+
+    validateMentorAreas() {
 
         const checked = document.querySelectorAll(
             'input[name="mentorAreas"]:checked'
@@ -272,22 +350,36 @@ class RegisterForm {
 
         return true;
     }
+
     /****************************************************************
-     * PASO 4
+     * LINKEDIN (OPCIONAL)
      ****************************************************************/
 
-    validateAvailability() {
+    validateLinkedin() {
 
-        const days = document.querySelectorAll(
-            'input[name="availableDays"]:checked'
-        );
+        if (!this.linkedinInput) return true;
 
-        if (days.length === 0) {
-            alert("Selecciona al menos un día.");
+        const value = this.linkedinInput.value.trim();
+
+        if (value === "") {
+            this.showSuccess(this.linkedinInput);
+            return true;
+        }
+
+        const regex = /^https?:\/\/(www\.)?linkedin\.com\/.+$/i;
+
+        if (!regex.test(value)) {
+            this.showError(
+                this.linkedinInput,
+                "Ingresa una URL válida de LinkedIn."
+            );
             return false;
         }
+
+        this.showSuccess(this.linkedinInput);
         return true;
     }
+
     /****************************************************************
      * CAMPO OBLIGATORIO
      ****************************************************************/
@@ -299,10 +391,7 @@ class RegisterForm {
         if (!input) return true;
 
         if (input.value.trim() === "") {
-            this.showError(
-                input,
-                "Este campo es obligatorio."
-            );
+            this.showError(input, "Este campo es obligatorio.");
             return false;
         }
 
@@ -318,11 +407,10 @@ class RegisterForm {
 
         const select = document.getElementById(id);
 
+        if (!select) return true;
+
         if (select.value === "") {
-            this.showError(
-                select,
-                "Selecciona una opción."
-            );
+            this.showError(select, "Selecciona una opción.");
             return false;
         }
 
@@ -337,6 +425,8 @@ class RegisterForm {
     validateEmail() {
 
         const email = document.getElementById("email");
+        if (!email) return true;
+
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (email.value.trim() === "") {
@@ -360,23 +450,22 @@ class RegisterForm {
     validatePassword() {
 
         const password = document.getElementById("password");
+        if (!password) return true;
 
-        const regex =
-
-            /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
         if (!regex.test(password.value)) {
             this.showError(
                 password,
                 "Debe tener mínimo 8 caracteres, una mayúscula, un número y un símbolo."
             );
-
             return false;
         }
 
         this.showSuccess(password);
         return true;
     }
+
     /****************************************************************
      * CONFIRMAR PASSWORD
      ****************************************************************/
@@ -384,20 +473,15 @@ class RegisterForm {
     validateConfirmPassword() {
 
         const password = document.getElementById("password");
-
         const confirm = document.getElementById("confirm-password");
+        if (!password || !confirm) return true;
 
         if (password.value !== confirm.value) {
-            this.showError(
-                confirm,
-                "Las contraseñas no coinciden."
-            );
-
+            this.showError(confirm, "Las contraseñas no coinciden.");
             return false;
         }
 
         this.showSuccess(confirm);
-
         return true;
     }
 
@@ -408,12 +492,108 @@ class RegisterForm {
     validateTerms() {
 
         const terms = document.getElementById("accept-terms");
+        if (!terms) return true;
 
         if (!terms.checked) {
             alert("Debes aceptar los términos.");
             return false;
         }
+
         return true;
+    }
+
+    /****************************************************************
+     * FOTO DE PERFIL
+     ****************************************************************/
+
+    handleProfileImageChange(event) {
+
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+        const maxSizeBytes = 5 * 1024 * 1024; // 5 MB
+
+        if (!allowedTypes.includes(file.type)) {
+            alert("Formato no válido. Usa JPG, PNG o WEBP.");
+            event.target.value = "";
+            return;
+        }
+
+        if (file.size > maxSizeBytes) {
+            alert("La imagen supera el tamaño máximo de 5 MB.");
+            event.target.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (this.profilePreview) {
+                this.profilePreview.src = e.target.result;
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+
+    /****************************************************************
+     * CONTADOR "SOBRE TI"
+     ****************************************************************/
+
+    updateAboutCounter() {
+
+        if (!this.aboutMeInput || !this.aboutCounter) return;
+
+        const length = this.aboutMeInput.value.length;
+        this.aboutCounter.textContent = `${length} / ${this.aboutMaxLength}`;
+    }
+
+    /****************************************************************
+     * HABILIDADES
+     ****************************************************************/
+
+    addSkill() {
+
+        if (!this.skillSearchInput || !this.skillsContainer) return;
+
+        const value = this.skillSearchInput.value.trim();
+
+        if (value === "") return;
+
+        const normalized = value.toLowerCase();
+        const alreadyAdded = this.skills.some(
+            skill => skill.toLowerCase() === normalized
+        );
+
+        if (alreadyAdded) {
+            this.skillSearchInput.value = "";
+            return;
+        }
+
+        this.skills.push(value);
+        this.renderSkill(value);
+        this.skillSearchInput.value = "";
+        this.skillSearchInput.focus();
+    }
+
+    renderSkill(skill) {
+
+        const tag = document.createElement("span");
+        tag.className = "skill-tag";
+        tag.textContent = skill;
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "skill-remove";
+        removeButton.setAttribute("aria-label", `Eliminar ${skill}`);
+        removeButton.textContent = "×";
+
+        removeButton.addEventListener("click", () => {
+            this.skills = this.skills.filter(item => item !== skill);
+            tag.remove();
+        });
+
+        tag.appendChild(removeButton);
+        this.skillsContainer.appendChild(tag);
     }
 
     /****************************************************************
@@ -424,7 +604,7 @@ class RegisterForm {
 
         input.classList.remove("is-valid");
         input.classList.add("is-invalid");
-        
+
         const error = input.parentElement.querySelector(".error-message");
         if (error) {
             error.textContent = message;
@@ -445,15 +625,65 @@ class RegisterForm {
             error.textContent = "";
         }
     }
+
+    /****************************************************************
+     * MENSAJE GLOBAL
+     ****************************************************************/
+
+    showGlobalMessage(message, type = "success") {
+
+        if (!this.globalMessage) return;
+
+        this.globalMessage.textContent = message;
+        this.globalMessage.classList.remove("hidden", "success", "error");
+        this.globalMessage.classList.add(type);
+    }
+
+    /****************************************************************
+     * ENVÍO DEL FORMULARIO
+     ****************************************************************/
+
+    handleSubmit() {
+
+        if (!this.validateStep(3)) {
+            return;
+        }
+
+        const formData = {
+            firstName: document.getElementById("first-name")?.value.trim(),
+            lastName: document.getElementById("last-name")?.value.trim(),
+            email: document.getElementById("email")?.value.trim(),
+            mentorAreas: Array.from(
+                document.querySelectorAll('input[name="mentorAreas"]:checked')
+            ).map(input => input.value),
+            linkedin: this.linkedinInput ? this.linkedinInput.value.trim() : "",
+            about: this.aboutMeInput ? this.aboutMeInput.value.trim() : "",
+            generationProgram: this.generationProgramSelect
+                ? this.generationProgramSelect.value
+                : "",
+            skills: this.skills,
+            mentorType: Array.from(
+                document.querySelectorAll('input[name="mentorType"]:checked')
+            ).map(input => input.value)
+        };
+
+        console.log("Formulario enviado:", formData);
+
+        this.showGlobalMessage(
+            "¡Tu solicitud para ser mentor fue enviada correctamente!",
+            "success"
+        );
+
+        if (this.submitButton) {
+            this.submitButton.disabled = true;
+        }
+    }
 }
-
-
 
 /********************************************************************
  * INICIAR CUANDO CARGUE EL DOM
  ********************************************************************/
 
 document.addEventListener("DOMContentLoaded", () => {
-
     new RegisterForm();
 });

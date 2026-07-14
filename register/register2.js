@@ -39,13 +39,9 @@ const AppState = {
     skills: [],
     areas: [],
     availability: {
-
         days: [],
-
         schedule: [],
-
         duration: ""
-
     },
 
     formData: {}
