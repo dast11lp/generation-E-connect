@@ -1,0 +1,1284 @@
+/* html {
+    font-size: 16px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+    /* background-color: var(--color-azul-suave); 
+}
+
+:root {
+    --color-azul-institucional: #003A70;
+    --color-azul-generation: #0066CC;
+    --color-cian-dinamico: #00A8E0;
+    --color-verde-impacto: #00B87D;
+    --color-azul-suave: #E8F3FF;
+    --color-gris-claro: #D1DEEA;
+    --color-gris-texto: #5F6368;
+    --color-oscuro-principal: #1A1A2E;
+    --color-blanco: #FFFFFF;
+    --border-radius-principal: 20px;
+    --border-radius-secundario: 15px;
+    --border-radius-terciario: 10px;
+}
+
+.register-container {
+    align-items: center;
+    justify-content: center;
+} */
+
+/* ==========================================================
+   REGISTRO DE MENTORES
+   Generation Alumni
+   register.css
+========================================================== */
+
+
+/* ==========================================================
+   IMPORTACIÓN DE FUENTE
+========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+
+/* ==========================================================
+   VARIABLES
+========================================================== */
+
+:root {
+
+    /* Colores principales */
+    --primary: #0077FF;
+    --primary-dark: #0059C9;
+    --primary-light: #EAF4FF;
+    --secondary: #14B8A6;
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --white: #FFFFFF;
+    --black: #1E293B;
+    --gray-50: #F8FAFC;
+    --gray-100: #F1F5F9;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-700: #334155;
+    --gray-900: #0F172A;
+
+    /* Tipografía */
+    --font-title: "Poppins", sans-serif;
+    --font-body: "Inter", sans-serif;
+
+    /* Bordes */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+
+    /* Sombras */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, .05);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, .08);
+    --shadow-lg: 0 15px 45px rgba(0, 0, 0, .12);
+
+    /* Transiciones */
+    --transition: .30s ease;
+
+    /* Espaciados */
+    --space-xs: 6px;
+    --space-sm: 10px;
+    --space-md: 18px;
+    --space-lg: 30px;
+    --space-xl: 50px;
+
+}
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-body);
+    background: linear-gradient(135deg,
+            #EEF5FF,
+            #F8FAFC);
+    color: var(--black);
+    line-height: 1.6;
+}
+
+/* ==========================================================
+   IMÁGENES
+========================================================== */
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* ==========================================================
+   ENLACES
+========================================================== */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ==========================================================
+   LISTAS
+========================================================== */
+
+ul {
+    list-style: none;
+}
+
+/* ==========================================================
+   BOTONES
+========================================================== */
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+/* ==========================================================
+   CONTENEDOR GENERAL
+========================================================== */
+
+.register-container {
+    width: min(1200px, 92%);
+    margin: 50px auto;
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.register-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.register-title {
+    font-family: var(--font-title);
+    font-size: 2.7rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 15px;
+}
+
+.register-subtitle {
+    max-width: 700px;
+    margin: auto;
+    font-size: 1.05rem;
+    color: var(--gray-500);
+}
+
+/* ==========================================================
+   MAIN
+========================================================== */
+
+.register-main {
+    background: var(--white);
+    border-radius: 25px;
+    box-shadow: var(--shadow-md);
+    padding: 50px;
+}
+
+/* ==========================================================
+   BARRA DE PROGRESO
+========================================================== */
+
+.progress-container {
+    margin-top: 45px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: var(--gray-200);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 25%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            var(--primary),
+            #40A9FF);
+    transition: width .5s ease;
+}
+
+
+
+/* ==========================================================
+   INDICADORES
+========================================================== */
+
+.progress-steps {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.step {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    color: var(--gray-500);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+
+
+.step.active {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 0 15px rgba(0, 119, 255, .35);
+}
+
+/* ==========================================================
+   PASOS DEL FORMULARIO
+========================================================== */
+
+.form-step {
+    display: none;
+    animation: fade .4s ease;
+}
+
+.form-step.active {
+    display: block;
+}
+
+/* ==========================================================
+   ANIMACIÓN
+========================================================== */
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* ==========================================================
+   TITULOS DE CADA PASO
+========================================================== */
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+
+
+.section-description {
+    color: var(--gray-500);
+    margin-bottom: 35px;
+}
+
+/* ==========================================================
+   FORMULARIO
+========================================================== */
+
+.mentor-register-form {
+    width: 100%;
+}
+
+/* ==========================================================
+   GRUPOS DEL FORMULARIO
+========================================================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 28px;
+}
+
+/* ==========================================================
+   LABELS
+========================================================== */
+
+.form-group label,
+.form-label {
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 10px;
+    font-size: .95rem;
+}
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 15px 18px;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    color: var(--gray-900);
+    font-size: 15px;
+    transition: var(--transition);
+}
+
+/* ==========================================================
+   PLACEHOLDER
+========================================================== */
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--gray-400);
+}
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 119, 255, .12);
+}
+
+/* ==========================================================
+   HOVER
+========================================================== */
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+    border-color: var(--primary);
+}
+
+/* ==========================================================
+   TEXTAREA
+========================================================== */
+
+.form-textarea {
+    resize: vertical;
+    min-height: 170px;
+}
+
+/* ==========================================================
+   SELECT
+========================================================== */
+
+.form-select {
+    cursor: pointer;
+}
+
+/* ==========================================================
+   TEXTO DE AYUDA
+========================================================== */
+
+.helper-text {
+    margin-top: 8px;
+    color: var(--gray-500);
+    font-size: .85rem;
+    line-height: 1.5;
+}
+
+/* ==========================================================
+   MENSAJES DE ERROR
+========================================================== */
+
+.error-message {
+    margin-top: 8px;
+    color: var(--danger);
+    font-size: .85rem;
+    font-weight: 500;
+    min-height: 18px;
+}
+
+/* ==========================================================
+   MENSAJES DE ÉXITO
+========================================================== */
+
+.success-message {
+    margin-top: 8px;
+    color: var(--success);
+    font-size: .9rem;
+}
+
+/* ==========================================================
+   CONTADOR DE CARACTERES
+========================================================== */
+
+.textarea-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.character-counter {
+    color: var(--gray-500);
+    font-size: .85rem;
+}
+
+/* ==========================================================
+   SEPARADOR
+========================================================== */
+
+.separator {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--gray-300);
+}
+
+.separator span {
+    padding: 0 18px;
+    color: var(--gray-500);
+    font-size: .9rem;
+}
+
+/* ==========================================================
+   CHECKBOX
+========================================================== */
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.checkbox-group input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    margin-top: 3px;
+}
+
+.checkbox-group label {
+    line-height: 1.6;
+    cursor: pointer;
+}
+
+/* ==========================================================
+   SUBIDA DE FOTO
+========================================================== */
+
+.profile-upload {
+    margin-top: 30px;
+}
+
+.profile-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 18px;
+    padding: 20px;
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-lg);
+    background: var(--gray-50);
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gray-200);
+    flex-shrink: 0;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-information {
+    flex: 1;
+}
+.file-input {
+    margin-top: 12px;
+}
+
+/* ==========================================================
+   BOTONES
+========================================================== */
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* ==========================================================
+   BOTÓN PRINCIPAL
+========================================================== */
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================
+   BOTÓN SECUNDARIO
+========================================================== */
+
+.btn-secondary {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-200);
+}
+
+/* ==========================================================
+   BOTÓN GOOGLE
+========================================================== */
+
+.btn-google {
+    width: 100%;
+    background: var(--white);
+    border: 2px solid var(--gray-300);
+    color: var(--gray-700);
+    margin-bottom: 15px;
+}
+
+.btn-google:hover {
+    background: var(--gray-50);
+    border-color: var(--primary);
+}
+
+/* ==========================================================
+   BOTÓN OUTLINE
+========================================================== */
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: var(--white);
+}
+
+/* ==========================================================
+   CONTENEDOR DE BOTONES
+========================================================== */
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 18px;
+    margin-top: 45px;
+}
+
+/* ==========================================================
+   PASO 3
+   EXPERIENCIA - MENTORÍAS
+==========================================================*/
+
+
+/*==========================================================
+    STEP HEADER
+==========================================================*/
+
+.step-header {
+    margin-bottom: 40px;
+}
+
+/*==========================================================
+    ÁREAS DE MENTORÍA
+==========================================================*/
+
+.mentor-areas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/*==========================================================
+    TAGS
+==========================================================*/
+
+.tag-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: 2px solid var(--gray-300);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--white);
+    user-select: none;
+}
+
+.tag-card:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.tag-card input {
+    display: none;
+}
+
+.tag-card span {
+    font-size: .92rem;
+    font-weight: 500;
+}
+
+.tag-card input:checked+span {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/*==========================================================
+    BUSCADOR HABILIDADES
+==========================================================*/
+
+.skills-search {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.skills-search .form-input {
+    flex: 1;
+}
+
+/*==========================================================
+    CONTENEDOR HABILIDADES
+==========================================================*/
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/*==========================================================
+    CHIP HABILIDAD
+==========================================================*/
+
+.skill-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+    animation: fade .35s ease;
+}
+
+.skill-chip button {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: .8rem;
+}
+
+.skill-chip button:hover {
+    background: var(--danger);
+}
+
+
+
+/*==========================================================
+    TARJETAS DE MENTORÍA
+==========================================================*/
+
+.mentor-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.mentor-card {
+    cursor: pointer;
+}
+
+.mentor-card input {
+    display: none;
+}
+
+.mentor-card-content {
+    border: 2px solid var(--gray-200);
+    border-radius: 18px;
+    padding: 28px;
+    text-align: center;
+    transition: var(--transition);
+    height: 100%;
+}
+
+.mentor-card-content:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.mentor-card img {
+    width: 70px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+
+.mentor-card h3 {
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+}
+
+.mentor-card p {
+    color: var(--gray-500);
+    font-size: .9rem;
+}
+
+.mentor-card input:checked+.mentor-card-content {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+/*==========================================================
+    DISPONIBILIDAD
+==========================================================*/
+
+.availability-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 15px;
+}
+
+.availability-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    border-radius: 16px;
+    border: 2px solid var(--gray-300);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.availability-card input {
+    display: none;
+}
+
+.availability-card:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.availability-card input:checked+span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/*==========================================================
+    DURACIÓN
+==========================================================*/
+
+.duration-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 15px;
+}
+
+
+.duration-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 18px;
+    border: 2px solid var(--gray-300);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.duration-card input {
+    display: none;
+}
+
+.duration-card:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.duration-card input:checked+span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/*==========================================================
+    TARJETA RESUMEN
+==========================================================*/
+
+.summary-card {
+    margin-top: 45px;
+    padding: 30px;
+    background: var(--gray-50);
+    border-radius: 20px;
+    border: 1px solid var(--gray-200);
+}
+
+.summary-card h3 {
+    margin-bottom: 18px;
+    font-family: var(--font-title);
+}
+
+.summary-card p {
+    color: var(--gray-500);
+    margin-bottom: 25px;
+}
+
+.summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.summary-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    border-radius: 12px;
+    background: white;
+    border: 1px solid var(--gray-200);
+}
+
+.summary-list li::before {
+    content: "✔";
+    color: var(--success);
+    font-weight: bold;
+}
+
+/*==========================================================
+    ESTADOS
+==========================================================*/
+
+.selected {
+    border-color: var(--primary) !important;
+    background: var(--primary-light) !important;
+}
+
+.disabled {
+    opacity: .5;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/*==========================================================
+    TRANSICIONES
+==========================================================*/
+
+.tag-card,
+.mentor-card-content,
+.availability-card,
+.duration-card,
+.skill-chip,
+.btn {
+    transition: all .30s ease;
+}
+
+/* ==========================================================
+   PARTE 4
+   RESPONSIVE • VALIDACIONES • ANIMACIONES
+==========================================================*/
+
+/*==========================================================
+    ESTADOS DE VALIDACIÓN
+==========================================================*/
+
+.form-input.is-valid,
+.form-select.is-valid,
+.form-textarea.is-valid {
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, .12);
+}
+
+.form-input.is-invalid,
+.form-select.is-invalid,
+.form-textarea.is-invalid {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, .12);
+}
+.error-message:empty {
+    display: none;
+}
+
+/*==========================================================
+    BOTÓN CARGANDO
+==========================================================*/
+
+.btn-loading {
+    pointer-events: none;
+    opacity: .7;
+    position: relative;
+}
+.btn-loading::after {
+    content: "";
+    width: 18px;
+    height: 18px;
+    margin-left: 12px;
+    border: 3px solid rgba(255, 255, 255, .35);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+}
+
+/*==========================================================
+    ANIMACIONES
+==========================================================*/
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes slideRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes zoom {
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/*==========================================================
+    ANIMACIONES EN TARJETAS
+==========================================================*/
+
+.summary-card,
+.profile-upload,
+.mentor-card-content,
+.tag-card,
+.availability-card,
+.duration-card {
+    animation: zoom .35s ease;
+}
+
+/*==========================================================
+    SCROLL PERSONALIZADO
+==========================================================*/
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--gray-400);
+    border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+
+/*==========================================================
+    FOOTER
+==========================================================*/
+
+.register-footer {
+    margin-top: 45px;
+    text-align: center;
+    color: var(--gray-500);
+}
+.register-footer a {
+    color: var(--primary);
+    font-weight: 600;
+}
+.register-footer a:hover {
+    text-decoration: underline;
+}
+
+/*==========================================================
+    DESKTOP GRANDE
+==========================================================*/
+
+@media (min-width:1400px) {
+    .register-container {
+        max-width: 1300px;
+    }
+}
+
+/*==========================================================
+    LAPTOP
+==========================================================*/
+
+@media (max-width:1200px) {
+    .register-main {
+        padding: 40px;
+    }
+}
+
+/*==========================================================
+    TABLET
+==========================================================*/
+
+@media (max-width:992px) {
+    .mentor-options {
+        grid-template-columns: 1fr;
+    }
+    .availability-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .duration-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .profile-upload-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .register-title {
+        font-size: 2.2rem;
+    }
+}
+
+/*==========================================================
+    TABLET PEQUEÑA
+==========================================================*/
+
+@media (max-width:768px) {
+    .register-container {
+        width: 95%;
+    }
+    .register-main {
+        padding: 30px;
+    }
+    .progress-steps {
+        gap: 10px;
+    }
+    .step {
+        width: 35px;
+        height: 35px;
+        font-size: .9rem;
+    }
+    .availability-grid {
+        grid-template-columns: 1fr;
+    }
+    .duration-grid {
+        grid-template-columns: 1fr;
+    }
+    .mentor-areas {
+        gap: 10px;
+    }
+    .skills-search {
+        flex-direction: column;
+    }
+    .form-buttons {
+        flex-direction: column;
+    }
+    .btn {
+        width: 100%;
+    }
+}
+
+/*==========================================================
+    MÓVILES
+==========================================================*/
+
+@media (max-width:576px) {
+    .register-title {
+        font-size: 1.8rem;
+    }
+    .register-subtitle {
+        font-size: .95rem;
+    }
+    .section-title {
+        font-size: 1.5rem;
+    }
+    .progress-bar {
+        height: 8px;
+    }
+    .step {
+        width: 30px;
+        height: 30px;
+        font-size: .75rem;
+    }
+    .mentor-card-content {
+        padding: 20px;
+    }
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+    .summary-card {
+        padding: 20px;
+    }
+}
+
+/*==========================================================
+    MÓVILES MUY PEQUEÑOS
+==========================================================*/
+
+@media (max-width:380px) {
+    .register-main {
+        padding: 20px;
+    }
+    .register-title {
+        font-size: 1.5rem;
+    }
+    .tag-card {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/*==========================================================
+    UTILIDADES
+==========================================================*/
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+.flex {
+    display: flex !important;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+/*==========================================================
+    EFECTOS
+==========================================================*/
+
+.btn,
+.form-input,
+.form-select,
+.form-textarea,
+.tag-card,
+.mentor-card-content,
+.availability-card,
+.duration-card {
+    will-change: transform;
+}
+
+.btn:active {
+    transform: scale(.97);
+}
+
+.tag-card:active,
+.availability-card:active,
+.duration-card:active {
+
+    transform: scale(.96);
+
+}
+/*==========================================================
+    FIN DEL ARCHIVO
+==========================================================*/

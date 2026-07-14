@@ -211,18 +211,23 @@ body {
     /* display: flex; Coloca el sidebar y el contenido uno al lado del otro */
     display: grid;
     grid-template-columns: 250px 1fr;
+    margin-top: 140px;
     width: 100%;
     height: 100vh;
 }
 
 .barra-lateral {
     /* width: 250px; */
+    display: flex;
+    flex-direction: column;
     width: 250px;
     height: 100vh;
+    
     /* Ocupa el 100% de la altura de la ventana */
     background-color: var(--color-azul-institucional);
     color: white;
     padding: 20px;
+    padding-top: 180px;
     position: fixed;
     /* Mantiene la barra fija en la pantalla */
     top: 0;
@@ -236,10 +241,47 @@ body {
     margin-top: 15px;
 }
 
+.barra-lateral label {
+    padding-left: 20px;
+}
+
+.barra-lateral h2 {
+    padding-bottom: 10px;
+}
+
+.barra-lateral input {
+    margin-right: 10px;
+}
+
+#fecha {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+
+.contenedor-tipo-recursos, .contenedor-ordenar-por {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
 .contenido-principal {
     grid-column: 2;
+    
     /* margin-left: 250px; IMPORTANTE: Deja el mismo ancho del sidebar para que no se superpongan */
     background-color: rgb(255, 255, 255);
     padding: 40px;
     /* width: calc(100% - 250px); */
+}
+
+.contenedor-recursos {
+    height: 100vh;
+    border: 1px solid black;
+}
+
+.card {
+    border: 1px solid black;
+    width: 300px;
+    height: 300px;
 }
