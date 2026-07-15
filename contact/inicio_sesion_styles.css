@@ -1,0 +1,332 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+:root {
+    --color-azul-institucional: #003A70;
+    --color-azul-generation: #0066CC;
+    --color-cian-dinamico: #00A8E0;
+    --color-verde-impacto: #00B87D;
+    --color-azul-suave: #E8F3FF;
+    --color-gris-claro: #D1DEEA;
+    --color-gris-texto: #5F6368;
+    --color-oscuro-principal: #1A1A2E;
+    --color-blanco: #FFFFFF;
+
+    --border-radius-principal: 20px;
+    --border-radius-secundario: 15px;
+    --border-radius-terciario: 10px;
+
+    --color-background: #cbd5e1;
+    --color-background-alt: #8ec6ff;
+    --color-border-active: #173db6;
+    --color-border-default: #94a3b8;
+    --color-highlight: #8ec6ff;
+    --color-primary: #144be1;
+    --color-primary-active: #19388f;
+    --color-text-default: #0f172a;
+    --color-text-muted: #475569;
+
+    --font-family-body: "Open Sans", sans-serif;
+    --font-family-display: "Nunito Sans", sans-serif;
+}
+
+/*Inicio styles inicio session Henry */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family-body);
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+body {
+    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-alt) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+    color: var(--color-text-default);
+}
+
+.login-container {
+    background-color: var(--color-blanco);
+    padding: 32px 24px;
+    border-radius: var(--border-radius-principal);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    width: 100%;
+    max-width: 440px;
+    transition: transform 0.2s ease;
+}
+
+
+.login-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.logo {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.login-header h1 {
+    font-family: var(--font-family-display);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--color-azul-institucional);
+    margin-bottom: 6px;
+}
+
+.login-header p {
+    font-size: 14px;
+    color: var(--color-gris-texto);
+}
+
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-default);
+}
+
+
+.form-group input[type="email"],
+.password-wrapper input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--border-radius-terciario);
+    font-size: 15px;
+    color: var(--color-text-default);
+    background-color: var(--color-blanco);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-border-active);
+    box-shadow: 0 0 0 3px rgba(23, 61, 182, 0.15);
+}
+
+.help-text {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    padding-right: 44px;
+
+}
+
+#toggle-password {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+#toggle-password img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+#toggle-password:hover img {
+    opacity: 1;
+}
+
+
+.form-utilities {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    accent-color: var(--color-primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: var(--color-azul-generation);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-primary);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: var(--border-radius-secundario);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 8px;
+}
+
+.btn-submit:hover {
+    background-color: var(--color-primary-active);
+}
+
+.btn-submit:active {
+    transform: scale(0.98);
+}
+
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--color-border-default);
+    z-index: 1;
+}
+
+.divider span {
+    background-color: var(--color-blanco);
+    padding: 0 12px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+    position: relative;
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+.social-login {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.btn-social {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--border-radius-terciario);
+    text-decoration: none;
+    color: var(--color-text-default);
+    font-size: 14px;
+    font-weight: 600;
+    background-color: var(--color-blanco);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-social img {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-social:hover {
+    background-color: var(--color-azul-suave);
+    border-color: var(--color-highlight);
+}
+
+
+.login-footer {
+    text-align: center;
+    font-size: 14px;
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-gris-claro);
+    padding-top: 16px;
+}
+
+.login-footer a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+
+    .login-container {
+        padding: 24px 16px;
+        border-radius: var(--border-radius-secundario);
+    }
+
+    .login-header h1 {
+        font-size: 21px;
+    }
+
+    .social-login {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-submit {
+        padding: 12px;
+    }
+}
+/*fin styles  inicio session Henry */
