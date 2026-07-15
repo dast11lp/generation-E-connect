@@ -100,6 +100,122 @@ body {
 
 }
 
+.completed{
+
+    background:var(--success);
+
+    color:white;
+
+}
+
+.fade-in{
+
+    animation:fade .35s ease;
+
+}
+
+.fade-out{
+
+    animation:fade .25s reverse;
+
+}
+
+.btn-success{
+
+    background:var(--success)!important;
+
+    color:white;
+
+}
+
+.btn-error{
+
+    background:var(--danger)!important;
+
+    color:white;
+
+}
+
+.disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    pointer-events:none;
+
+}
+
+/*==========================================================
+    MESSAGE MANAGER
+==========================================================*/
+
+.message-container{
+
+    margin-bottom:25px;
+
+}
+
+.message{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:18px 20px;
+
+    border-radius:12px;
+
+    font-size:.95rem;
+
+    font-weight:500;
+
+    animation:fade .30s ease;
+
+}
+
+.message-error{
+
+    background:#FEE2E2;
+
+    border-left:5px solid #DC2626;
+
+    color:#991B1B;
+
+}
+
+.message-success{
+
+    background:#DCFCE7;
+
+    border-left:5px solid #16A34A;
+
+    color:#166534;
+
+}
+
+.message-warning{
+
+    background:#FEF3C7;
+
+    border-left:5px solid #D97706;
+
+    color:#92400E;
+
+}
+
+.message-info{
+
+    background:#DBEAFE;
+
+    border-left:5px solid #2563EB;
+
+    color:#1D4ED8;
+
+}
+
 /* ==========================================================
    RESET
 ========================================================== */
@@ -337,6 +453,7 @@ select {
 .form-group {
     display: flex;
     flex-direction: column;
+    margin-top: 28px;
     margin-bottom: 28px;
 }
 
