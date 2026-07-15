@@ -17,7 +17,12 @@ let mentorData = {
     mentorType: []
 };
 
+// Lista temporal de habilidades
 let skillsList = [];
+
+// ------------------------------------------------------------
+// REFERENCIAS AL DOM
+// ------------------------------------------------------------
 
 const form = document.getElementById('mentor-register-form');
 
@@ -60,6 +65,10 @@ const skillSearchInput = document.getElementById('skill-search');
 const btnAddSkill = document.getElementById('btn-add-skill');
 const skillsContainer = document.getElementById('skills-container');
 
+// ------------------------------------------------------------
+// NAVEGACIÓN ENTRE PASOS
+// ------------------------------------------------------------
+
 function showStep(stepNumber) {
     steps.forEach((section) => section.classList.remove('active'));
 
@@ -95,14 +104,22 @@ function updateProgressBar() {
     });
 }
 
-function showGlobalMessage(text, type = 'success') {
-    globalMessage.textContent = text;
-    globalMessage.className = `message ${type}`;
-    globalMessage.classList.remove('hidden');
+// ------------------------------------------------------------
+// MENSAJES Y ERRORES
+// ------------------------------------------------------------
 
+let globalMessageTimeout = null;
+
+function showGlobalMessage(text, type = 'error') {
+    globalMessage.textContent = text;
+    globalMessage.className = `message message-${type}`;
     globalMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    setTimeout(() => {
+    if (globalMessageTimeout) {
+        clearTimeout(globalMessageTimeout);
+    }
+
+    globalMessageTimeout = setTimeout(() => {
         globalMessage.classList.add('hidden');
     }, 4000);
 }
@@ -122,6 +139,10 @@ function clearFieldError(inputElement, errorElementId) {
     }
     inputElement.classList.remove('input-error');
 }
+
+// ------------------------------------------------------------
+// VALIDACIONES - PASO 1
+// ------------------------------------------------------------
 
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -237,6 +258,10 @@ function saveStep1Data() {
     mentorData.password = passwordInput.value;
 }
 
+// ------------------------------------------------------------
+// PASO 2 - PERFIL PROFESIONAL
+// ------------------------------------------------------------
+
 // Vista previa de la foto de perfil
 profileImageInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
@@ -259,7 +284,7 @@ profileImageInput.addEventListener('change', (event) => {
     reader.readAsDataURL(file);
 });
 
-// Contador de caracteres
+// Contador de caracteres del textarea "Sobre ti"
 aboutInput.addEventListener('input', () => {
     const length = aboutInput.value.length;
     aboutCounter.textContent = `${length} / 500`;
@@ -273,6 +298,10 @@ function saveStep2Data() {
     mentorData.linkedin = linkedinInput.value.trim();
     mentorData.about = aboutInput.value.trim();
 }
+
+// ------------------------------------------------------------
+// PASO 3 - EXPERIENCIA Y HABILIDADES
+// ------------------------------------------------------------
 
 function renderSkills() {
     skillsContainer.innerHTML = '';
@@ -393,6 +422,10 @@ function saveMentorToStorage(mentor) {
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(mentors));
 }
+
+// ------------------------------------------------------------
+// ENVÍO DEL FORMULARIO
+// ------------------------------------------------------------
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
