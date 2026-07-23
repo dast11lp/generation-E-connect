@@ -1,797 +1,470 @@
-/*****************************************************************
- * register.js
- * Generation Alumni
- * Registro de Mentores
- * Arquitectura Modular
- *****************************************************************/
+const STORAGE_KEY = 'generationAlumniMentors';
 
-"use strict";
+let currentStep = 1;
+const totalSteps = 3;
 
-/*****************************************************************
- * CONFIGURACIÓN GLOBAL
- *****************************************************************/
-
-const CONFIG = {
-
-    totalSteps: 3,
-    maxProfileLength: 500,
-    maxNoteLength: 300,
-    maxSkills: 20,
-    allowedImageTypes: [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-    ],
-
-    maxImageSize: 5 * 1024 * 1024,
-    storageKey: "generation-mentor-register"
-};
-
-/*****************************************************************
- * ESTADO GLOBAL
- *****************************************************************/
-
-const AppState = {
-
-    currentStep: 1,
-    totalSteps: CONFIG.totalSteps,
-    profileImage: null,
+let mentorData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    profileImage: '',
+    mentorAreas: [],
+    linkedin: '',
+    about: '',
+    generationProgram: '',
     skills: [],
-    areas: [],
-    availability: {
-        days: [],
-        schedule: [],
-        duration: ""
-    },
-
-    formData: {}
-
+    mentorType: []
 };
 
-/*****************************************************************
- * CACHE DEL DOM
- *****************************************************************/
+// Lista temporal de habilidades
+let skillsList = [];
 
-const DOM = {
+// ------------------------------------------------------------
+// REFERENCIAS AL DOM
+// ------------------------------------------------------------
 
-    form: null,
+const form = document.getElementById('mentor-register-form');
 
-    progressFill: null,
-
-    progressSteps: [],
-
-    sections: [],
-
-    nextButtons: [],
-
-    backButtons: [],
-
-    submitButton: null,
-
-    imageInput: null,
-
-    imagePreview: null,
-
-    skillsContainer: null,
-
-    skillsInput: null,
-
-    summaryContainer: null
-
+// Pasos
+const steps = document.querySelectorAll('.form-step');
+const stepIndicators = {
+    1: document.getElementById('step-indicator-1'),
+    2: document.getElementById('step-indicator-2'),
+    3: document.getElementById('step-indicator-3')
 };
+const progressFill = document.getElementById('progress-fill');
 
-/*****************************************************************
- * CACHE DEL DOM
- *****************************************************************/
+// Botones de navegación
+const btnNextStep1 = document.getElementById('btn-next-step-1');
+const btnNextStep2 = document.getElementById('btn-next-step-2');
+const btnBackStep2 = document.getElementById('btn-back-step-2');
+const btnBackStep3 = document.getElementById('btn-back-step-3');
+const btnGoogle = document.getElementById('btn-google');
 
-function cacheDOM() {
+// Mensaje global
+const globalMessage = document.getElementById('global-message');
 
-    DOM.form = document.getElementById("mentor-register-form");
+// Paso 1 - inputs
+const firstNameInput = document.getElementById('first-name');
+const lastNameInput = document.getElementById('last-name');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('confirm-password');
+const acceptTermsInput = document.getElementById('accept-terms');
 
-    DOM.progressFill = document.getElementById("progress-fill");
+// Paso 2 - inputs
+const profileImageInput = document.getElementById('profile-image');
+const profilePreview = document.getElementById('profile-preview');
+const linkedinInput = document.getElementById('linkedin-profile');
+const aboutInput = document.getElementById('about-me');
+const aboutCounter = document.getElementById('about-counter');
 
-    DOM.progressSteps = [
+// Paso 3 - inputs
+const skillSearchInput = document.getElementById('skill-search');
+const btnAddSkill = document.getElementById('btn-add-skill');
+const skillsContainer = document.getElementById('skills-container');
 
-        document.getElementById("step-indicator-1"),
+// ------------------------------------------------------------
+// NAVEGACIÓN ENTRE PASOS
+// ------------------------------------------------------------
 
-        document.getElementById("step-indicator-2"),
+function showStep(stepNumber) {
+    steps.forEach((section) => section.classList.remove('active'));
 
-        document.getElementById("step-indicator-3"),
+    const stepIds = {
+        1: 'step-register',
+        2: 'step-profile',
+        3: 'step-expertise'
+    };
 
-        document.getElementById("step-indicator-4")
+    document.getElementById(stepIds[stepNumber]).classList.add('active');
+    currentStep = stepNumber;
 
-    ];
+    updateProgressBar();
 
-    DOM.sections = [
-
-        document.getElementById("step-register"),
-
-        document.getElementById("step-profile"),
-
-        document.getElementById("step-expertise"),
-
-        document.getElementById("step-availability")
-
-    ];
-
-    DOM.nextButtons = [
-
-        document.getElementById("btn-next-step-1"),
-
-        document.getElementById("btn-next-step-2"),
-
-        document.getElementById("btn-next-step-3")
-
-    ];
-
-    DOM.backButtons = [
-
-        document.getElementById("btn-back-step-2"),
-
-        document.getElementById("btn-back-step-3"),
-
-        document.getElementById("btn-back-step-4")
-
-    ];
-
-    DOM.submitButton = document.getElementById("btn-submit");
-
-    DOM.imageInput = document.getElementById("profile-photo");
-
-    DOM.imagePreview = document.getElementById("profile-preview");
-
-    DOM.skillsContainer = document.getElementById("skills-container");
-
-    DOM.skillsInput = document.getElementById("skills-input");
-
-    DOM.summaryContainer = document.getElementById("summary-container");
-
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/*****************************************************************
- * UTILIDADES
- *****************************************************************/
+function updateProgressBar() {
+    const percentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+    progressFill.style.width = `${percentage}%`;
 
-const Utils = {
+    Object.keys(stepIndicators).forEach((key) => {
+        const stepNum = parseInt(key);
+        const indicator = stepIndicators[key];
 
-    show(element) {
+        indicator.classList.remove('active', 'completed');
 
-        if (!element) return;
-
-        element.classList.remove("hidden");
-
-    },
-
-    hide(element) {
-
-        if (!element) return;
-
-        element.classList.add("hidden");
-
-    },
-
-    toggle(element) {
-
-        if (!element) return;
-
-        element.classList.toggle("hidden");
-
-    },
-
-    isEmpty(value) {
-
-        return value.trim() === "";
-
-    },
-
-    randomId() {
-
-        return Math.random().toString(36).substring(2, 10);
-
-    },
-
-    create(tag, className) {
-
-        const element = document.createElement(tag);
-
-        if (className) {
-
-            element.className = className;
-
+        if (stepNum < currentStep) {
+            indicator.classList.add('completed');
+        } else if (stepNum === currentStep) {
+            indicator.classList.add('active');
         }
-
-        return element;
-
-    },
-    showFlex(element) {
-
-        if (!element) return;
-
-        element.classList.remove("hidden");
-
-        element.classList.add("flex");
-
-    },
-
-    hideFlex(element) {
-
-        if (!element) return;
-
-        element.classList.remove("flex");
-
-        element.classList.add("hidden");
-
-    },
-
-    enable(element) {
-
-        if (!element) return;
-
-        element.disabled = false;
-
-    },
-
-    disable(element) {
-
-        if (!element) return;
-
-        element.disabled = true;
-
-    },
-    showFlex(element) {
-
-        if (!element) return;
-
-        element.classList.remove("hidden");
-
-        element.classList.add("flex");
-
-    },
-
-    hideFlex(element) {
-
-        if (!element) return;
-
-        element.classList.remove("flex");
-
-        element.classList.add("hidden");
-
-    },
-
-    enable(element) {
-
-        if (!element) return;
-
-        element.disabled = false;
-
-    },
-
-    disable(element) {
-
-        if (!element) return;
-
-        element.disabled = true;
-
-    }
-
-};
-
-/*****************************************************************
- * BUTTON MANAGER
- *****************************************************************/
-
-const ButtonManager = {
-
-    /*************************************************************
-     * Mostrar botón
-     *************************************************************/
-    show(button){
-
-        if(!button) return;
-
-        button.classList.remove("hidden");
-
-    },
-
-    /*************************************************************
-     * Ocultar botón
-     *************************************************************/
-    hide(button){
-
-        if(!button) return;
-
-        button.classList.add("hidden");
-
-    },
-
-    /*************************************************************
-     * Habilitar
-     *************************************************************/
-    enable(button){
-
-        if(!button) return;
-
-        button.disabled = false;
-
-        button.classList.remove("disabled");
-
-    },
-
-    /*************************************************************
-     * Deshabilitar
-     *************************************************************/
-    disable(button){
-
-        if(!button) return;
-
-        button.disabled = true;
-
-        button.classList.add("disabled");
-
-    },
-
-    /*************************************************************
-     * Cambiar texto
-     *************************************************************/
-    setText(button,text){
-
-        if(!button) return;
-
-        button.textContent = text;
-
-    },
-
-    /*************************************************************
-     * Loading
-     *************************************************************/
-    loading(button,text="Procesando..."){
-
-        if(!button) return;
-
-        this.disable(button);
-
-        button.dataset.originalText = button.textContent;
-
-        button.textContent = text;
-
-        button.classList.add("btn-loading");
-
-    },
-
-    /*************************************************************
-     * Restaurar
-     *************************************************************/
-    restore(button){
-
-        if(!button) return;
-
-        this.enable(button);
-
-        button.classList.remove("btn-loading");
-
-        if(button.dataset.originalText){
-
-            button.textContent = button.dataset.originalText;
-
-        }
-
-    },
-
-    /*************************************************************
-     * Mostrar error
-     *************************************************************/
-    error(button,text="Error"){
-
-        if(!button) return;
-
-        button.classList.remove("btn-loading");
-
-        button.classList.add("btn-error");
-
-        this.setText(button,text);
-
-    },
-
-    /*************************************************************
-     * Mostrar éxito
-     *************************************************************/
-    success(button,text="Completado"){
-
-        if(!button) return;
-
-        button.classList.remove("btn-loading");
-
-        button.classList.add("btn-success");
-
-        this.setText(button,text);
-
-    }
-
-};
-
-/*****************************************************************
- * MESSAGE MANAGER
- *****************************************************************/
-
-const MessageManager = {
-
-    container: null,
-
-    timeoutId: null,
-
-    init() {
-
-        this.container = document.getElementById("global-message");
-
-    },
-
-    show(type, text, duration = 5000) {
-
-        if (!this.container) return;
-
-        clearTimeout(this.timeoutId);
-
-        this.container.className = "message";
-
-        this.container.classList.add(`message-${type}`);
-
-        this.container.textContent = text;
-
-        this.container.classList.remove("hidden");
-
-        if (duration > 0) {
-
-            this.timeoutId = setTimeout(() => {
-
-                this.clear();
-
-            }, duration);
-
-        }
-
-    },
-
-    success(text, duration = 5000) {
-
-        this.show("success", text, duration);
-
-    },
-
-    error(text, duration = 5000) {
-
-        this.show("error", text, duration);
-
-    },
-
-    warning(text, duration = 5000) {
-
-        this.show("warning", text, duration);
-
-    },
-
-    info(text, duration = 5000) {
-
-        this.show("info", text, duration);
-
-    },
-
-    clear() {
-
-        if (!this.container) return;
-
-        this.container.className = "message hidden";
-
-        this.container.textContent = "";
-
-    }
-
-};
-
-/*****************************************************************
- * NAVIGATION MODULE
- *****************************************************************/
-
-const Navigation = {
-
-    /*************************************************************
-     * Inicialización
-     *************************************************************/
-    init() {
-
-        this.bindEvents();
-
-        this.showStep(AppState.currentStep);
-
-        this.updateProgress();
-
-    },
-
-    /*************************************************************
-     * Eventos
-     *************************************************************/
-    bindEvents() {
-
-        DOM.nextButtons.forEach(button => {
-
-            if (!button) return;
-
-            button.addEventListener("click", () => {
-
-                this.next();
-
-            });
-
-        });
-
-        DOM.backButtons.forEach(button => {
-
-            if (!button) return;
-
-            button.addEventListener("click", () => {
-
-                this.previous();
-
-            });
-
-        });
-
-    },
-
-    /*************************************************************
-     * Paso siguiente
-     *************************************************************/
-    next() {
-
-        /* En el Bloque 3 se reemplazará por Validation */
-
-        if (typeof Validation !== "undefined") {
-
-            if (!Validation.validateStep(AppState.currentStep)) {
-
-                return;
-
-            }
-
-        }
-
-        if (AppState.currentStep >= AppState.totalSteps) {
-
-            return;
-
-        }
-
-        AppState.currentStep++;
-
-        this.changeStep();
-
-    },
-
-    /*************************************************************
-     * Paso anterior
-     *************************************************************/
-    previous() {
-
-        if (AppState.currentStep <= 1) {
-
-            return;
-
-        }
-
-        AppState.currentStep--;
-
-        this.changeStep();
-
-    },
-
-    /*************************************************************
-     * Cambiar paso
-     *************************************************************/
-    changeStep() {
-
-        this.showStep(AppState.currentStep);
-
-        this.updateProgress();
-
-        this.updateButtons();
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
-
-    },
-
-    /*************************************************************
-     * Mostrar paso
-     *************************************************************/
-    showStep(step) {
-
-        DOM.sections.forEach((section, index) => {
-
-            if (!section) return;
-
-            section.classList.remove("active");
-
-            if ((index + 1) === step) {
-
-                section.classList.add("active");
-
-            }
-
-        });
-
-    },
-
-    /*************************************************************
-     * Barra de progreso
-     *************************************************************/
-    updateProgress() {
-
-        const percentage =
-            (AppState.currentStep / AppState.totalSteps) * 100;
-
-        if (DOM.progressFill) {
-
-            DOM.progressFill.style.width = `${percentage}%`;
-
-        }
-
-        DOM.progressSteps.forEach((step, index) => {
-
-            if (!step) return;
-
-            step.classList.remove("active");
-
-            step.classList.remove("completed");
-
-            if (index < AppState.currentStep - 1) {
-
-                step.classList.add("completed");
-
-            }
-
-            if (index === AppState.currentStep - 1) {
-
-                step.classList.add("active");
-
-            }
-
-        });
-
-    },
-
-    /*************************************************************
-     * Actualizar botones
-     *************************************************************/
-    updateButtons() {
-
-        DOM.backButtons.forEach(button => {
-
-            if (!button) return;
-
-            Utils.hide(button);
-
-        });
-
-        DOM.nextButtons.forEach(button => {
-
-            if (!button) return;
-
-            Utils.hide(button);
-
-        });
-
-        if (AppState.currentStep > 1) {
-
-            const backButton =
-                DOM.backButtons[AppState.currentStep - 2];
-
-            Utils.show(backButton);
-
-        }
-
-        if (AppState.currentStep < AppState.totalSteps) {
-
-            const nextButton =
-                DOM.nextButtons[AppState.currentStep - 1];
-
-            Utils.show(nextButton);
-
-        }
-
-        if (DOM.submitButton) {
-
-            if (AppState.currentStep === AppState.totalSteps) {
-
-                Utils.show(DOM.submitButton);
-
-            } else {
-
-                Utils.hide(DOM.submitButton);
-
-            }
-
-        }
-
-    },
-
-    /*************************************************************
-     * Ir directamente a un paso
-     *************************************************************/
-    goTo(step) {
-
-        if (step < 1 || step > AppState.totalSteps) {
-
-            return;
-
-        }
-
-        AppState.currentStep = step;
-
-        this.changeStep();
-
-    },
-
-    /*************************************************************
-     * Reiniciar navegación
-     *************************************************************/
-    reset() {
-
-        AppState.currentStep = 1;
-
-        this.changeStep();
-
-    }
-
-};
-
-/*****************************************************************
- * CLASE PRINCIPAL
- *****************************************************************/
-
-class RegisterForm {
-
-    constructor() {
-
-        this.init();
-
-    }
-
-    init() {
-
-        cacheDOM();
-
-        MessageManager.init();
-
-        Navigation.init();
-
-        Validation.init();
-
-        ImageManager.init();
-
-        Counter.init();
-
-        Skills.init();
-
-        Storage.init();
-
-        Summary.init();
-
-        Submit.init();
-
-    }
-
+    });
 }
 
-/*****************************************************************
- * INICIO DE LA APLICACIÓN
- *****************************************************************/
+// ------------------------------------------------------------
+// MENSAJES Y ERRORES
+// ------------------------------------------------------------
 
-document.addEventListener("DOMContentLoaded", () => {
+let globalMessageTimeout = null;
 
-    new RegisterForm();
+function showGlobalMessage(text, type = 'error') {
+    globalMessage.textContent = text;
+    globalMessage.className = `message message-${type}`;
+    globalMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+    if (globalMessageTimeout) {
+        clearTimeout(globalMessageTimeout);
+    }
+
+    globalMessageTimeout = setTimeout(() => {
+        globalMessage.classList.add('hidden');
+    }, 4000);
+}
+
+function showFieldError(inputElement, errorElementId, message) {
+    const errorElement = document.getElementById(errorElementId);
+    if (errorElement) {
+        errorElement.textContent = message;
+    }
+    inputElement.classList.add('input-error');
+}
+
+function clearFieldError(inputElement, errorElementId) {
+    const errorElement = document.getElementById(errorElementId);
+    if (errorElement) {
+        errorElement.textContent = '';
+    }
+    inputElement.classList.remove('input-error');
+}
+
+// ------------------------------------------------------------
+// VALIDACIONES - PASO 1
+// ------------------------------------------------------------
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function isValidPassword(password) {
+    // Mínimo 8 caracteres, una mayúscula, un número y un símbolo
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=[\]{};':"\\|,.<>/?~`])[A-Za-z\d\S]{8,}$/;
+    return passwordRegex.test(password);
+}
+
+function validateStep1() {
+    let isValid = true;
+    const missingFields = [];
+
+    // ---- Nombres ----
+    if (firstNameInput.value.trim() === '') {
+        showFieldError(firstNameInput, 'error-first-name', 'Este campo es obligatorio.');
+        missingFields.push('Nombres');
+        isValid = false;
+    } else {
+        clearFieldError(firstNameInput, 'error-first-name');
+    }
+
+    // ---- Apellidos ----
+    if (lastNameInput.value.trim() === '') {
+        showFieldError(lastNameInput, 'error-last-name', 'Este campo es obligatorio.');
+        missingFields.push('Apellidos');
+        isValid = false;
+    } else {
+        clearFieldError(lastNameInput, 'error-last-name');
+    }
+
+    // ---- Correo ----
+    if (emailInput.value.trim() === '') {
+        showFieldError(emailInput, 'error-email', 'Este campo es obligatorio.');
+        missingFields.push('Correo electrónico');
+        isValid = false;
+    } else if (!isValidEmail(emailInput.value.trim())) {
+        showFieldError(emailInput, 'error-email', 'Ingresa un correo electrónico válido.');
+        isValid = false;
+    } else {
+        clearFieldError(emailInput, 'error-email');
+    }
+
+    // ---- Contraseña ----
+    let passwordFormatError = false;
+
+    if (passwordInput.value === '') {
+        passwordInput.classList.add('input-error');
+        missingFields.push('Contraseña');
+        isValid = false;
+    } else if (!isValidPassword(passwordInput.value)) {
+        passwordInput.classList.add('input-error');
+        passwordFormatError = true;
+        isValid = false;
+    } else {
+        passwordInput.classList.remove('input-error');
+    }
+
+    // ---- Confirmar contraseña ----
+    let passwordMismatch = false;
+
+    if (confirmPasswordInput.value === '') {
+        confirmPasswordInput.classList.add('input-error');
+        missingFields.push('Confirmar contraseña');
+        isValid = false;
+    } else if (passwordInput.value !== confirmPasswordInput.value) {
+        confirmPasswordInput.classList.add('input-error');
+        passwordMismatch = true;
+        isValid = false;
+    } else {
+        confirmPasswordInput.classList.remove('input-error');
+    }
+
+    // ---- Términos ----
+    let termsMissing = false;
+    if (!acceptTermsInput.checked) {
+        termsMissing = true;
+        isValid = false;
+    }
+
+    if (!isValid) {
+        const messageParts = [];
+
+        if (missingFields.length > 0) {
+            messageParts.push(`Faltan campos por llenar: ${missingFields.join(', ')}.`);
+        }
+
+        if (passwordFormatError) {
+            messageParts.push('La contraseña debe tener mínimo 8 caracteres, una mayúscula, un número y un símbolo.');
+        }
+
+        if (passwordMismatch) {
+            messageParts.push('Las contraseñas no coinciden.');
+        }
+
+        if (termsMissing) {
+            messageParts.push('Debes aceptar los Términos de uso y la Política de privacidad.');
+        }
+
+        showGlobalMessage(messageParts.join(' '), 'error');
+    }
+
+    return isValid;
+}
+
+function saveStep1Data() {
+    mentorData.firstName = firstNameInput.value.trim();
+    mentorData.lastName = lastNameInput.value.trim();
+    mentorData.email = emailInput.value.trim();
+    mentorData.password = passwordInput.value;
+}
+
+// ------------------------------------------------------------
+// PASO 2 - PERFIL PROFESIONAL
+// ------------------------------------------------------------
+
+// Vista previa de la foto de perfil
+profileImageInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    // Validar tamaño máximo (5 MB)
+    const maxSizeInBytes = 5 * 1024 * 1024;
+    if (file.size > maxSizeInBytes) {
+        showGlobalMessage('La imagen supera el tamaño máximo de 5 MB.', 'error');
+        profileImageInput.value = '';
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        profilePreview.src = e.target.result;
+        mentorData.profileImage = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+
+// Contador de caracteres del textarea "Sobre ti"
+aboutInput.addEventListener('input', () => {
+    const length = aboutInput.value.length;
+    aboutCounter.textContent = `${length} / 500`;
+});
+
+function saveStep2Data() {
+    // Áreas de mentoría seleccionadas
+    const areaCheckboxes = document.querySelectorAll('input[name="mentorAreas"]:checked');
+    mentorData.mentorAreas = Array.from(areaCheckboxes).map((checkbox) => checkbox.value);
+
+    mentorData.linkedin = linkedinInput.value.trim();
+    mentorData.about = aboutInput.value.trim();
+}
+
+// ------------------------------------------------------------
+// PASO 3 - EXPERIENCIA Y HABILIDADES
+// ------------------------------------------------------------
+
+function renderSkills() {
+    skillsContainer.innerHTML = '';
+
+    skillsList.forEach((skill, index) => {
+        const skillTag = document.createElement('div');
+        skillTag.className = 'skill-tag';
+        skillTag.innerHTML = `
+            <span>${skill}</span>
+            <button type="button" class="skill-remove" data-index="${index}" aria-label="Eliminar ${skill}">
+                &times;
+            </button>
+        `;
+        skillsContainer.appendChild(skillTag);
+    });
+
+    // Listeners para eliminar cada habilidad
+    document.querySelectorAll('.skill-remove').forEach((button) => {
+        button.addEventListener('click', (event) => {
+            const index = parseInt(event.currentTarget.dataset.index);
+            skillsList.splice(index, 1);
+            renderSkills();
+        });
+    });
+}
+
+function addSkill() {
+    const value = skillSearchInput.value.trim();
+
+    if (value === '') return;
+
+    // Evitar duplicados
+    const alreadyExists = skillsList.some(
+        (skill) => skill.toLowerCase() === value.toLowerCase()
+    );
+
+    if (alreadyExists) {
+        showGlobalMessage('Esa habilidad ya fue agregada.', 'error');
+        skillSearchInput.value = '';
+        return;
+    }
+
+    skillsList.push(value);
+    skillSearchInput.value = '';
+    renderSkills();
+}
+
+btnAddSkill.addEventListener('click', addSkill);
+
+skillSearchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        addSkill();
+    }
+});
+
+function saveStep3Data() {
+    mentorData.generationProgram = document.getElementById('generation-program').value;
+    mentorData.skills = skillsList;
+
+    const mentorTypeCheckboxes = document.querySelectorAll('input[name="mentorType"]:checked');
+    mentorData.mentorType = Array.from(mentorTypeCheckboxes).map((checkbox) => checkbox.value);
+}
+
+function validateStep3() {
+    if (mentorData.mentorType && document.querySelectorAll('input[name="mentorType"]:checked').length === 0) {
+        showGlobalMessage('Selecciona al menos un tipo de mentoría que puedas ofrecer.', 'error');
+        return false;
+    }
+    return true;
+}
+
+// ------------------------------------------------------------
+// BOTONES DE NAVEGACIÓN
+// ------------------------------------------------------------
+
+btnNextStep1.addEventListener('click', () => {
+    if (validateStep1()) {
+        saveStep1Data();
+        showStep(2);
+    }
+});
+
+btnNextStep2.addEventListener('click', () => {
+    saveStep2Data();
+    showStep(3);
+});
+
+btnBackStep2.addEventListener('click', () => {
+    showStep(1);
+});
+
+btnBackStep3.addEventListener('click', () => {
+    showStep(2);
+});
+
+// ------------------------------------------------------------
+// GUARDADO EN LOCALSTORAGE
+// ------------------------------------------------------------
+
+function getMentorsFromStorage() {
+    try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+    } catch (error) {
+        console.error('Error leyendo mentores desde localStorage:', error);
+        return [];
+    }
+}
+
+function saveMentorToStorage(mentor) {
+    const mentors = getMentorsFromStorage();
+
+    mentor.id = Date.now();
+    mentor.createdAt = new Date().toISOString();
+
+    mentors.push(mentor);
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(mentors));
+}
+
+// ------------------------------------------------------------
+// ENVÍO DEL FORMULARIO
+// ------------------------------------------------------------
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (!validateStep3()) return;
+
+    saveStep3Data();
+
+    // Guardamos el registro completo en localStorage
+    saveMentorToStorage(mentorData);
+
+    showGlobalMessage('¡Solicitud enviada con éxito! Bienvenido/a como mentor de Generation Alumni.', 'success');
+
+    // Reiniciamos el formulario y el estado después de un momento
+    setTimeout(() => {
+        form.reset();
+        skillsList = [];
+        renderSkills();
+        aboutCounter.textContent = '0 / 500';
+        profilePreview.src = '../assets/images/logos/usuario.png';
+
+        mentorData = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            profileImage: '',
+            mentorAreas: [],
+            linkedin: '',
+            about: '',
+            generationProgram: '',
+            skills: [],
+            mentorType: []
+        };
+
+        showStep(1);
+    }, 2000);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    showStep(1);
 });
