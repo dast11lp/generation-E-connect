@@ -20,18 +20,18 @@ form.addEventListener("submit", function(e) {
     let passwordIngresada = document.getElementById("password").value.trim()
 
     // traer usuarios guardados en sessionStorage
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []
+    let usuarios = JSON.parse(localStorage.getItem("generationAlumniMentors")) || []
 
     // buscar si existe un usuario con ese correo y contraseña
     let usuarioEncontrado = usuarios.find(function(usuario) {
-        return usuario.correo === emailIngresado && usuario.contrasenia === passwordIngresada
+        return usuario.email === emailIngresado && usuario.password === passwordIngresada
     })
 
     if (usuarioEncontrado) {
         // guardar sesión activa
         localStorage.setItem("sesionActiva", JSON.stringify(usuarioEncontrado))
         // redirigir a about
-        window.location.href = "../about/about.html"
+        window.location.href = "../home/home.html"
     } else {
         mostrarError("Correo o contraseña incorrectos. Verifica tus datos.")
     }
