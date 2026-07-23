@@ -91,14 +91,119 @@ contenedor.innerHTML = integrantes
   .join("");
 
 
-const header = document.querySelector(".header-navbar");
+// const header = document.querySelector(".header-navbar");
 
-window.addEventListener("scroll", () => {
+// window.addEventListener("scroll", () => {
 
-  if (window.scrollY > 120) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
+//   if (window.scrollY > 120) {
+//     header.classList.add("scrolled");
+//   } else {
+//     header.classList.remove("scrolled");
+//   }
+
+// });
+
+// const shell = document.querySelector('.page-wrapper'); // tu contenedor scrollable
+// const navbar = document.querySelector('.header-navbar');
+
+// shell.addEventListener('scroll', () => {
+//   navbar.classList.toggle('scrolled', shell.scrollTop > 80);
+// });
+
+
+/**
+ * NAVBAR — Hub Alumni Generation
+ * Animación de absorción tipo mercurio al hacer scroll
+ */
+
+(function () {
+  'use strict';
+
+  const navbar     = document.getElementById('header-navbar');
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navLinks   = document.querySelectorAll('.nav-pill a');
+
+  if (!navbar) return;
+
+  /* ── Scroll: absorción tipo mercurio ── */
+  let ticking = false;
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrolled = window.scrollY > 80;
+        navbar.classList.toggle('scrolled', scrolled);
+
+        /* Cierra el menú móvil si se vuelve al tope */
+        if (!scrolled && mobileMenu.classList.contains('open')) {
+          closeMenu();
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
   }
 
-});
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── Menú móvil ── */
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.addEventListener('click', onClickOutside);
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('click', onClickOutside);
+  }
+
+  function toggleMenu() {
+    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+  }
+
+  function onClickOutside(e) {
+    if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+      closeMenu();
+    }
+  }
+
+  if (hamburger) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+  }
+
+  /* Cierra el menú al elegir un enlace en móvil */
+  mobileMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  /* ── Link activo según página actual ── */
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute('href').split('/').pop();
+    if (href === currentPath) {
+      link.classList.add('active');
+    }
+    link.addEventListener('click', () => {
+      navLinks.forEach((l) => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  /* ── Escape cierra el menú ── */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      closeMenu();
+      hamburger.focus();
+    }
+  });
+
+})();

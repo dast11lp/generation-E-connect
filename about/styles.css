@@ -30,181 +30,456 @@ body {
 
 /* INICIO CAMBIOS ALEJANDRO */
 
+
+/* ============================================================
+   NAVBAR — Hub Alumni Generation
+   Animación de absorción tipo mercurio al hacer scroll
+   ============================================================ */
+
 .header-navbar {
     display: grid;
-    position: fixed;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    padding: 0px 40px;
+    padding: 0 40px;
+    position: fixed;
     top: 20px;
-    /* Lo pega al borde superior */
     left: 0;
-    /* Lo pega al borde izquierdo */
     width: 100%;
-    /* Forza a que ocupe todo el ancho de la pantalla */
     z-index: 1000;
-    /* Asegura que el header pase por encima de cualquier otro elemento */
-    transition: all 0.5s cubic-bezier(.22, 1, .36, 1);
+
+    /* Transición con overshoot — efecto mercurio */
+    transition:
+        top 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+        width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+        left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+        transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+        padding 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        gap 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 0.5s ease,
+        border 0.5s ease,
+        box-shadow 0.5s ease,
+        grid-template-columns 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* — Estado scrolled: se absorbe al centro como mercurio — */
 .header-navbar.scrolled {
-
     width: fit-content;
     left: 50%;
     transform: translateX(-50%);
+    top: 12px;
     grid-template-columns: auto auto auto;
-    gap: 20px;
-    padding: 15px 30px;
+    gap: 16px;
+    padding: 10px 22px;
     border-radius: 100px;
-    /* background: rgba(255, 255, 255, .15); */
-    border: 1px solid rgba(255, 255, 255, .25);
-
-    background:
-        linear-gradient(135deg,
-            rgba(255, 255, 255, 0.35),
-            rgba(255, 255, 255, .08));
-    backdrop-filter: blur(20px);
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.28),
+            rgba(255, 255, 255, 0.07));
+    border: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, .15),
-        inset 2px 2px 10px rgba(255, 255, 255, .3);
-
+        0 12px 40px rgba(0, 0, 0, 0.25),
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset 1px 1px 8px rgba(255, 255, 255, 0.25),
+        inset -1px -1px 8px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
 }
 
-.header-navbar.scrolled .navegacion-principal,
-.header-navbar.scrolled .navegacion-secundaria {
-
+/* Cuando el wrapper ya tiene el glass, las pills internas se aplanan */
+.header-navbar.scrolled .nav-pill,
+.header-navbar.scrolled .nav-actions {
     background: transparent;
+    border: none;
     box-shadow: none;
     backdrop-filter: none;
-    border: none;
-
+    -webkit-backdrop-filter: none;
     padding: 0;
+    height: auto;
+    width: auto;
+    border-radius: 0;
 }
 
-.header-navbar.scrolled #logo img {
-    width: 140px;
-    transition: all 2s cubic-bezier(.22, 1, .36, 1);
-}
-
-.header-navbar,
-.navegacion-principal,
-.navegacion-secundaria {
-    transition: all 2s cubic-bezier(.22, 1, .36, 1);
-}
-
-.navegacion-principal {
-    justify-self: center;
-    display: flex;
-    height: 94px;
-    width: 620px;
-    justify-content: space-between;
-    align-items: center;
-    /* align-items: center; */
-    padding: 0px 14.5px;
-    border: 1px solid rgba(255, 255, 255, .25);
-    border-radius: 100px;
-    /* background-color: rgba(255, 255, 255, 0.3); */
-    background:
-        linear-gradient(135deg,
-            rgba(255, 255, 255, .35),
-            rgba(255, 255, 255, .08));
-    box-shadow: 0 0 15px #4c4c4c;
-    /* #4c4c4c */
-    backdrop-filter: blur(10px);
-
-    /* box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.3),
-        inset -4px -5px 10px rgba(255, 255, 255, 0.6); */
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, .15),
-        inset 2px 2px 10px rgba(255, 255, 255, .3);
-}
-
-.navegacion-secundaria {
-    justify-self: end;
-    display: flex;
-    height: 94px;
-    width: 214px;
-    justify-content: space-evenly;
-    align-items: center;
-    /* border: 1px solid rgba(0, 0, 0, 0.06); */
-    border: 1px solid rgba(255, 255, 255, .25);
-    border-radius: 100px;
-    /* background-color: rgba(255, 255, 255, 0.3); */
-    background:
-        linear-gradient(135deg,
-            rgba(255, 255, 255, .35),
-            rgba(255, 255, 255, .08));
-    box-shadow: 0 0 15px #4c4c4c;
-    /* #4c4c4c */
-    backdrop-filter: blur(10px);
-
-    /* box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.3),
-        inset -4px -5px 10px rgba(255, 255, 255, 0.6); */
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, .15),
-        inset 2px 2px 10px rgba(255, 255, 255, .3);
-
-
-}
+/* ============================================================
+   LOGO
+   ============================================================ */
 
 #logo {
     justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 #logo:hover {
-    transform: scale(1.005);
+    transform: scale(1.04);
 }
 
 #logo:active {
-    transform: translateY(2px);
+    transform: translateY(1px) scale(1.01);
 }
 
-.navegacion-principal a {
+.logo-img {
+    width: 160px;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.header-navbar.scrolled .logo-img {
+    width: 120px;
+}
+
+/* ============================================================
+   NAV PRINCIPAL — píldora flotante central
+   ============================================================ */
+
+.nav-pill {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 58px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 100px;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.28),
+            rgba(255, 255, 255, 0.07));
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.18),
+        inset 1px 1px 6px rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition:
+        height 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+        padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        gap 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 0.4s ease,
+        border 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.nav-pill a {
     text-decoration: none;
-    border-radius: 50px;
-    color: rgb(0, 0, 0);
-    font-weight: 600;
-    padding: 20px 30px;
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 9px 18px;
+    border-radius: 100px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    /* transition: transform 0.2s ease, box-shadow 0.1s ease; */
-    font-size: 20px;
-
+    justify-content: center;
+    white-space: nowrap;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
 }
 
-.navegacion-secundaria a {
-    border-radius: 50px;
-    padding: 20px 30px;
+.nav-pill a:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.nav-pill a:active {
+    transform: translateY(1px);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.18);
+}
+
+.nav-pill a.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+}
+
+/* ============================================================
+   NAV SECUNDARIA — acciones de usuario
+   ============================================================ */
+
+.nav-actions {
+    justify-self: end;
     display: flex;
-    justify-content: center;
     align-items: center;
-    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
-    transition: transform 0.2s ease, box-shadow 0.1s ease;
-    font-size: 20px;
+    gap: 4px;
+    height: 58px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 100px;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.28),
+            rgba(255, 255, 255, 0.07));
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.18),
+        inset 1px 1px 6px rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition:
+        height 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+        padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        gap 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 0.4s ease,
+        border 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
-.navegacion-secundaria img {
-    width: 30px;
+.nav-actions a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
 }
 
-.navegacion-principal a:hover,
-.navegacion-secundaria a:hover {
-    padding: 20px 30px;
-
-    /* transform: translateY(2px); */
-    /* box-shadow: inset 1.5px 1.5px 15px rgba(255, 255, 255, 0.2),
-        inset -1.5px -1.5px 15px rgba(255, 255, 255, 0.2),
-        inset 1.5px -1.5px 15px rgba(255, 255, 255, 0.2),
-        inset -1.5px 1.5px 15px rgba(255, 255, 255, 0.2); */
-    box-shadow: inset 0 6px 8px rgba(0, 0, 0, 0.15);
+.nav-actions a:hover {
+    background: rgba(255, 255, 255, 0.14);
 }
 
-.navegacion-principal a:active,
-.navegacion-secundaria a:active {
-    transform: translateY(2px);
-    box-shadow: inset 0 6px 8px rgba(0, 0, 0, 0.15);
+.nav-actions a:active {
+    transform: scale(0.93);
 }
+
+.nav-actions img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.88;
+    transition: opacity 0.2s ease;
+}
+
+.nav-actions a:hover img {
+    opacity: 1;
+}
+
+/* ============================================================
+   HAMBURGER — solo visible en móvil
+   ============================================================ */
+
+.hamburger {
+    display: none;
+    justify-self: end;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        border 0.3s ease;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hamburger:active {
+    transform: scale(0.93);
+}
+
+.hamburger span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
+    transform-origin: center;
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.2s ease;
+}
+
+/* Animación X al abrir */
+.hamburger.open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ============================================================
+   MENÚ MÓVIL — dropdown
+   ============================================================ */
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 16px;
+    right: 16px;
+    z-index: 999;
+    background: linear-gradient(135deg,
+            rgba(20, 16, 60, 0.97),
+            rgba(10, 24, 50, 0.97));
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 20px;
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    overflow: hidden;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        inset 1px 1px 6px rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+    pointer-events: none;
+    transition:
+        opacity 0.35s ease,
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mobile-menu.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.mobile-menu a {
+    display: block;
+    padding: 15px 24px;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        padding-left 0.2s ease;
+}
+
+.mobile-menu a:last-of-type {
+    border-bottom: none;
+}
+
+.mobile-menu a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    padding-left: 32px;
+}
+
+.mobile-menu-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 14px 24px;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-actions a {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border-bottom: none;
+    padding: 0;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.mobile-menu-actions a:hover {
+    background: rgba(255, 255, 255, 0.16);
+    padding-left: 0;
+}
+
+.mobile-menu-actions a:active {
+    transform: scale(0.93);
+}
+
+.mobile-menu-actions img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .nav-pill a {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .logo-img {
+        width: 130px;
+    }
+}
+
+@media (max-width: 720px) {
+    .header-navbar {
+        grid-template-columns: 1fr auto;
+        padding: 0 20px;
+    }
+
+    .nav-pill {
+        display: none;
+    }
+
+    .nav-actions {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .header-navbar.scrolled {
+        grid-template-columns: auto auto;
+        gap: 12px;
+        padding: 8px 16px;
+    }
+
+    .header-navbar.scrolled .hamburger {
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    .logo-img {
+        width: 120px;
+    }
+
+    .header-navbar.scrolled .logo-img {
+        width: 100px;
+    }
+}
+
+@media (max-width: 420px) {
+    .header-navbar {
+        padding: 0 16px;
+    }
+
+    .logo-img {
+        width: 100px;
+    }
+}
+
 
 /* INICIO CAMBIO JAIME - SECCIÓN SOBRE PROYECTO */
 
@@ -214,12 +489,12 @@ body {
 }
 
 .card-proyecto {
-    display: flex;         
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 50px;             
-    padding: 40px;         
-    width: 60%;            
+    gap: 50px;
+    padding: 40px;
+    width: 60%;
     margin: 0 auto 50px auto;
     font-size: 20px;
     background-color: var(--color-blanco);
@@ -230,11 +505,13 @@ body {
 
 .card-body {
     padding: 2rem;
-    flex: 1; /* Hace que el texto use el espacio disponible de forma limpia */
+    flex: 1;
+    /* Hace que el texto use el espacio disponible de forma limpia */
 }
 
 .logo-generation {
-    width: 300px; /* Cambiado a un tamaño fijo inicial igual que los otros para que empuje el corte */
+    width: 300px;
+    /* Cambiado a un tamaño fijo inicial igual que los otros para que empuje el corte */
     height: auto;
     max-height: 180px;
     justify-self: center;
@@ -266,7 +543,7 @@ body {
 .card-text {
     line-height: 1.6;
     margin-bottom: 25px;
-     display: flex;
+    display: flex;
     justify-content: center;
 }
 
@@ -304,15 +581,19 @@ body {
 /* --- EL MISMO COMPORTAMIENTO CUANDO SE QUEDA SIN ESPACIO --- */
 @media (max-width: 750px) {
     .card-proyecto {
-         /* Cambia a columna y manda la imagen abajo */
-        width: 85%;                     /* Agranda el recuadro para que no se aplaste */
-        gap: 20px;                      /* Reduce la distancia entre elementos */
+        /* Cambia a columna y manda la imagen abajo */
+        width: 85%;
+        /* Agranda el recuadro para que no se aplaste */
+        gap: 20px;
+        /* Reduce la distancia entre elementos */
         padding: 30px;
     }
 
     .logo-generation {
-        width: 100%;                    /* Se adapta al ancho en pantallas chicas */
-        max-width: 250px;               /* Controla que no se haga gigante en móviles */
+        width: 100%;
+        /* Se adapta al ancho en pantallas chicas */
+        max-width: 250px;
+        /* Controla que no se haga gigante en móviles */
     }
 }
 
@@ -320,7 +601,7 @@ body {
 
 /* Inicio stylos valores Henry */
 
-.valores{
+.valores {
     margin-top: 40px;
     margin-bottom: 30px;
     display: flex;
@@ -329,31 +610,31 @@ body {
     gap: 35px;
 }
 
-.titulo{
+.titulo {
     text-align: center;
     font-size: 70px;
     color: var(--color-azul-institucional);
 }
 
-.valor{
+.valor {
     font-size: 40px;
     color: var(--color-cian-dinamico);
 }
 
-.valores_img{
+.valores_img {
     width: 120px;
     height: 120px;
     margin-top: 15px;
     margin-bottom: 20px;
 }
 
-.descripcion{
+.descripcion {
     font-size: 20px;
     text-align: justify;
     margin-right: 20px;
 }
 
-.valores-card{
+.valores-card {
     width: 550px;
     height: 550px;
     padding: 50px;
@@ -416,6 +697,7 @@ body {
         height: 70px;
     }
 }
+
 /* Fin stylos valores Henry */
 
 
@@ -629,7 +911,8 @@ body {
     margin-top: 100px;
 }
 
-#mision, #vision {
+#mision,
+#vision {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -645,74 +928,82 @@ body {
 }
 
 
-#mision > div, #vision > div {
+#mision>div,
+#vision>div {
     flex: 1;
 }
 
-#img-mision, #img-vision {
-    
+#img-mision,
+#img-vision {
+
     width: 300px;
     height: auto;
     border-radius: var(--border-radius-principal);
     margin: 0 auto;
-    
+
 }
 
 /* ===== TABLET ===== */
 @media (max-width: 1024px) {
-  .hero {
-    padding: 60px 20px;
-    font-size: 28px;
-  }
+    .hero {
+        padding: 60px 20px;
+        font-size: 28px;
+    }
 
-  .hero h1 {
-    margin-top: 60px;
-  }
+    .hero h1 {
+        margin-top: 60px;
+    }
 
-  #mision, #vision {
-    flex-direction: column;
-    width: 85%;
-    padding: 25px;
-    gap: 30px;
-    font-size: 18px;
-  }
+    #mision,
+    #vision {
+        flex-direction: column;
+        width: 85%;
+        padding: 25px;
+        gap: 30px;
+        font-size: 18px;
+    }
 
-  #img-mision, #img-vision {
-    width: 200px;
-  }
+    #img-mision,
+    #img-vision {
+        width: 200px;
+    }
 }
 
 /* ===== CELULAR ===== */
 @media (max-width: 480px) {
-  .hero {
-    padding: 40px 15px;
-    font-size: 22px;
-    margin-bottom: 30px;
-  }
+    .hero {
+        padding: 40px 15px;
+        font-size: 22px;
+        margin-bottom: 30px;
+    }
 
-  .hero::before {
-    height: 250px;
-  }
+    .hero::before {
+        height: 250px;
+    }
 
-  .hero h1 {
-    margin-top: 40px;
-  }
+    .hero h1 {
+        margin-top: 40px;
+    }
 
-  .contenedor-mision-vision {
-    margin-top: 50px;
-  }
-  #mision, #vision {
-    flex-direction: column;
-    width: 90%;
-    padding: 20px;
-    gap: 20px;
-    font-size: 16px;
-    text-align: center;
-  }
+    .contenedor-mision-vision {
+        margin-top: 50px;
+    }
 
-  #img-mision, #img-vision {
-    width: 100%;
-    max-width: 250px;
-  }
+    #mision,
+    #vision {
+        flex-direction: column;
+        width: 90%;
+        padding: 20px;
+        gap: 20px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    #img-mision,
+    #img-vision {
+        width: 100%;
+        max-width: 250px;
+    }
 }
+
 /*Fin cambios maria - misión y visión */
