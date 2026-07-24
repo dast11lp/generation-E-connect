@@ -82,4 +82,4 @@
 })();
 
 
-fetch("../navbar/navbar.html").then((resp) => resp.text()).then((html) => document.getElementById('navbar').innerHTML = html);
+fetch("/navbar/navbar.html").then((resp) => resp.text()).then((html) => document.getElementById('navbar-container').innerHTML = html);
