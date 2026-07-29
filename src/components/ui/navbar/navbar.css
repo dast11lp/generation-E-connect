@@ -3,6 +3,10 @@
    Animación de absorción tipo mercurio · Paleta institucional
    ============================================================ */
 
+.header {
+    height: 100px;
+}
+
 .header-navbar {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
