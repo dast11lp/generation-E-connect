@@ -8,6 +8,7 @@ const searchInput = document.querySelector("#busqueda-sesiones");
 const resultsContainer = document.querySelector("#tarjetas-grabaciones");
 const tabs = document.querySelectorAll(".tabs__list__tab");
 const tabContents = document.querySelectorAll(".tabs__content");
+const filterLinks = document.querySelectorAll(".filtros-busqueda-sesiones a");
 const urlInput = document.querySelector("#videoUrl");
 const categoryInput = document.querySelector("#category");
 const descriptionInput = document.querySelector("#description");
@@ -15,8 +16,34 @@ const fileError = document.querySelector("#video-file-error");
 const urlPattern = /^(https?:\/\/)([\w-]+\.)+[\w]{2,}(\/[\w-._~:/?#[\]@!$&'()*+,;=%]*)?$/;
 
 initializeVideos(initialVideos);
+let activeFilter = "all";
 
-function renderVideos(videos = readVideos()) {
+function matchesActiveFilter(video) {
+  if (activeFilter === "all") return true;
+
+  const filter = activeFilter.toLowerCase();
+  const category = video.category.toLowerCase();
+
+  if (filter.includes("guest")) return category.includes("guest");
+  if (filter.includes("webinar")) return category.includes("webinar");
+  if (filter.includes("taller")) return category.includes("taller");
+  if (filter.includes("charla")) return category.includes("charla");
+  if (filter.includes("sesion")) return category.includes("sesion");
+
+  return category === filter;
+}
+
+function getFilteredVideos() {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  const videos = readVideos();
+
+  return videos.filter((video) => {
+    const matchesSearch = !searchTerm || [video.category, video.title, video.author].some((value) => value.toLowerCase().includes(searchTerm));
+    return matchesSearch && matchesActiveFilter(video);
+  });
+}
+
+function renderVideos(videos = getFilteredVideos()) {
   resultsContainer.innerHTML = videos.length
     ? videos.map(createVideoCard).join("")
     : "<h3>No se encontraron grabaciones.</h3>";
@@ -41,13 +68,17 @@ tabs.forEach((tab) => tab.addEventListener("click", () => {
 }));
 
 function searchVideos() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
-  const videos = readVideos();
-  const filteredVideos = searchTerm
-    ? videos.filter((video) => [video.category, video.title, video.author].some((value) => value.toLowerCase().includes(searchTerm)))
-    : videos;
-  renderVideos(filteredVideos);
+  renderVideos(getFilteredVideos());
 }
+
+filterLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    activeFilter = link.dataset.filter || "all";
+    filterLinks.forEach((item) => item.classList.toggle("active", item === link));
+    renderVideos(getFilteredVideos());
+  });
+});
 
 document.querySelector(".btn-buscar-sesiones").addEventListener("click", searchVideos);
 searchInput.addEventListener("keydown", (event) => {
