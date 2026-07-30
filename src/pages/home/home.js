@@ -2,8 +2,7 @@ import { createExploreCard } from "../../components/cards/explore-card/explore-c
 import { createFeaturedStoryCard } from "../../components/stories/featured-story-card/featured-story-card.js";
 import { createResourceCard } from "../../components/cards/resource-card/resource-card.js";
 import { createStatCard } from "../../components/cards/stat-card/stat-card.js";
-import { exploreSections, featuredResources, featuredStories } from "../../data/home.data.js";
-import { homeStats } from "../../data/home-stats.data.js";
+import { exploreSections, featuredResources, featuredStories, homeStats } from "../../data/home.data.js";
 
 const resourcesContainer = document.querySelector("#recursos-grid");
 const exploreContainer = document.querySelector("#explora-grid");

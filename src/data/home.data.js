@@ -15,3 +15,11 @@ export const featuredStories = [
   { initials: "MS", name: "Miguel Saldaña", role: "Fullstack Java", cohort: "Cohorte 2026", company: "Contratado en Facebook", timeToHire: "4 horas post-bootcamp", quote: "Tres meses después del bootcamp recibí mi primera oferta. Los recursos de LinkedIn y la guía de entrevistas marcaron la diferencia." },
   { initials: "DL", name: "Daniel Lopez", role: "IT Support", cohort: "Cohorte 2026", company: "Contratado en Google", timeToHire: "2 horas post-bootcamp", quote: "La sección de Networking fue clave. Conecté con un reclutador y a las dos semanas tenía trabajo." },
 ];
+
+export const homeStats = [
+  { id: "recursos", numero: "48+", etiqueta: "Recursos" },
+  { id: "categorias", numero: "8", etiqueta: "Categorías" },
+  { id: "grabaciones", numero: "12", etiqueta: "Grabaciones" },
+  { id: "programas", numero: "4", etiqueta: "Programas" },
+  { id: "alumnos", numero: "200+", etiqueta: "Alumnos activos" },
+];

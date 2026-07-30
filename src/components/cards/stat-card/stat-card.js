@@ -1,4 +1,4 @@
-import { escapeHtml } from "../../../utils/html.js";
+import { escapeHtml } from "../../utils/html.js";
 
 export function createStatCard(stat) {
   return `
