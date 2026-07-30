@@ -217,6 +217,7 @@
   .header-navbar {
     grid-template-columns: unset;
     padding: 0 16px;
+    width: min(1200px, calc(100% - 32px));
   }
   .navegacion-principal,
   .navegacion-secundaria { display: none; }
