@@ -21,10 +21,6 @@ form.addEventListener("submit", function(e) {
 
     // traer usuarios guardados en sessionStorage
     let usuarios = JSON.parse(localStorage.getItem("generationAlumniMentors")) || []
-<<<<<<< HEAD:login/login.js
-
-=======
->>>>>>> 61cdcbdc865220174ad5261680a00202766adda0:src/pages/login/login.js
     // buscar si existe un usuario con ese correo y contraseña
     let usuarioEncontrado = usuarios.find(function(usuario) {
         return usuario.email === emailIngresado && usuario.password === passwordIngresada

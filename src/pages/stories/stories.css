@@ -30,6 +30,7 @@ body {
 }
 
 .hero {
+    margin-top: -100px;
     padding: 100px;
     margin-bottom: 60px;
     text-align: center;
@@ -46,7 +47,7 @@ body {
     left: 0;
     width: 100%;
     height: 400px;
-    background-image: url(../assets/images/logos/header.jfif);
+    background-image: url(/assets/images/header.jfif);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
