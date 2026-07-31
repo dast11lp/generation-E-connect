@@ -38,7 +38,6 @@ body {
     background-color: var(--color-azul-suave);
     color: var(--color-oscuro-principal);
     min-height: 100vh;
-    padding: 2rem 1rem;
 }
 
 .container {
@@ -162,6 +161,7 @@ button:hover {
     padding: 1.5rem;
     text-align: left;
     margin-top: 1rem;
+    margin-bottom: 100px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
 }
 

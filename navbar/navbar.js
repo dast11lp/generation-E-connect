@@ -82,4 +82,14 @@
 })();
 
 
+<<<<<<< HEAD
 fetch("/navbar/navbar.html").then((resp) => resp.text()).then((html) => document.getElementById('navbar-container').innerHTML = html);
+=======
+fetch('../navbar/navbar.html')
+    .then(function(response) {
+        return response.text()
+    })
+    .then(function(html) {
+        document.getElementById('navbar-container').innerHTML = html
+    })
+>>>>>>> fc3f883f2a5626f61f472f9eda971dbab64e1c4a
