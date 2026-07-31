@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources.css">
+    <link rel="stylesheet" href="../../components/ui/footer/footer.css">
+    <link rel="stylesheet" href="../../components/ui/navbar/navbar.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+
+    <div class="contenedor-principal">
+        <aside class="barra-lateral">
+            <div class="contenedor-tipo-recursos">
+                <h2>Tipo de recursos</h2>
+                <label><input type="checkbox">PDF</label>
+                <label><input type="checkbox">Video</label>
+                <label><input type="checkbox">Plantilla</label>
+                <label><input type="checkbox">Guía</label>
+                <label><input type="checkbox">Enlace externo</label>
+            </div>
+
+            <div class="contenedor-ordenar-por">
+                <h2>Ordenar por</h2>
+                <label><input type="radio" name="orden" value="recientes" checked>Más reciente</label>
+                <label><input type="radio" name="orden" value="descargas">Más descargado</label>
+                <label><input type="radio" name="orden" value="destacados">Destacados</label>
+            </div>
+        </aside>
+
+        <main class="contenido-principal">
+            <h1>Biblioteca de recursos</h1>
+            <p>Guías, plantillas, videos y más para impulsar tu búsqueda laboral.</p>
+            <input type="text" placeholder="Buscar recursos">
+            <div class="categorias"></div>
+
+            <div class="contenedor-recursos-filtro">
+                <p>0 recursos encontrados</p>
+            </div>
+
+            <div class="contenedor-recursos"></div>
+        </main>
+    </div>
+
+    <div id="footer-container"></div>
+    <script type="module" src="resources.js"></script>
+    <script src="../../components/ui/footer/footer.js"></script>
+    <script src="../../components/ui/navbar/navbar.js"></script>
+</body>
+
+</html>

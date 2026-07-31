@@ -28,6 +28,9 @@ body {
     --border-radius-principal: 20px;
     --border-radius-secundario: 15px;
     --border-radius-terciario: 10px;
+}
+
+:root {
     --color-background: #cbd5e1;
     --color-background-alt: #8ec6ff;
     --color-border-active: #173db6;
@@ -37,6 +40,7 @@ body {
     --color-primary-active: #19388f;
     --color-text-default: #0f172a;
     --color-text-muted: #475569;
+
     --font-family-body: "Open Sans", sans-serif;
     --font-family-display: "Nunito Sans", sans-serif;
 }

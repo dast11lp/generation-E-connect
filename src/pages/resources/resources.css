@@ -1,0 +1,170 @@
+html {
+    font-size: 16px;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Montserrat, sans-serif;
+}
+
+:root {
+    --color-azul-institucional: #003A70;
+    --color-azul-generation: #0066CC;
+    --color-cian-dinamico: #00A8E0;
+    --color-verde-impacto: #00B87D;
+    --color-azul-suave: #E8F3FF;
+    --color-gris-claro: #D1DEEA;
+    --color-gris-texto: #5F6368;
+    --color-oscuro-principal: #1A1A2E;
+    --color-blanco: #FFFFFF;
+    --border-radius-principal: 20px;
+    --border-radius-secundario: 15px;
+    --border-radius-terciario: 10px;
+}
+
+/* Barra lateral */
+
+.contenedor-principal {
+    /* display: flex; Coloca el sidebar y el contenido uno al lado del otro */
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    margin-top: 140px;
+    width: 100%;
+    height: 100vh;
+}
+
+.barra-lateral {
+    /* width: 250px; */
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 100vh;
+    
+    /* Ocupa el 100% de la altura de la ventana */
+    background-color: var(--color-azul-institucional);
+    color: white;
+    padding: 20px;
+    padding-top: 180px;
+    position: fixed;
+    /* Mantiene la barra fija en la pantalla */
+    top: 0;
+    left: 0;
+}
+
+.barra-lateral a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+.barra-lateral label {
+    padding-left: 20px;
+}
+
+.barra-lateral h2 {
+    padding-bottom: 10px;
+}
+
+.barra-lateral input {
+    margin-right: 10px;
+}
+
+#fecha {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+
+.contenedor-tipo-recursos, .contenedor-ordenar-por {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.contenido-principal {
+    grid-column: 2;
+    
+    /* margin-left: 250px; IMPORTANTE: Deja el mismo ancho del sidebar para que no se superpongan */
+    background-color: rgb(255, 255, 255);
+    padding: 40px;
+    /* width: calc(100% - 250px); */
+}
+
+.categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+}
+
+.filtro-chip {
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 999px;
+    background: white;
+    color: var(--color-azul-institucional);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.filtro-chip.activo {
+    background: var(--color-cian-dinamico);
+    color: white;
+    border-color: var(--color-cian-dinamico);
+}
+
+.contenedor-recursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.recurso-card {
+    border: 1px solid var(--color-gris-claro);
+    border-radius: var(--border-radius-secundario);
+    padding: 1.25rem;
+    background: var(--color-blanco);
+    box-shadow: 0 10px 25px rgba(0, 58, 112, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.recurso-card .badge {
+    display: inline-flex;
+    width: fit-content;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: var(--color-azul-suave);
+    color: var(--color-azul-generation);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.recurso-card .btn-card {
+    margin-top: auto;
+    text-decoration: none;
+    display: inline-block;
+    width: fit-content;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    background: var(--color-verde-impacto);
+    color: white;
+    font-weight: 600;
+}
+
+.empty-state {
+    padding: 2rem;
+    border: 1px dashed var(--color-gris-claro);
+    border-radius: var(--border-radius-secundario);
+    color: var(--color-gris-texto);
+    grid-column: 1 / -1;
+}
