@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Mentor — Hub Alumni</title>
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="../../components/ui/footer/footer.css">
+    <link rel="stylesheet" href="../../components/ui/navbar/navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+    <!-- ══════════════════════════════════════
+       ORB — luces de fondo decorativas
+       ══════════════════════════════════════ -->
+    <div class="bg-orb orb-1" aria-hidden="true"></div>
+    <div class="bg-orb orb-2" aria-hidden="true"></div>
+    <div class="bg-orb orb-3" aria-hidden="true"></div>
+
+    <!-- ══════════════════════════════════════
+       HERO — ocupa ancho completo
+       ══════════════════════════════════════ -->
+    <section class="profile-hero" aria-label="Información principal del mentor">
+
+        <div class="hero-inner">
+
+            <!-- Avatar -->
+            <div class="hero-avatar-wrap">
+                <!-- <div class="hero-avatar" id="avatarCircle">AS</div> -->
+                <div class="hero-avatar" id="avatarCircle">
+                    <img src="/assets/images/header.jfif" alt="Foto de Alejandro Saldaña">
+                </div>
+                <div class="hero-avatar-ring" aria-hidden="true"></div>
+                <div class="hero-status" aria-label="Activo esta semana">
+                    <i class="ti ti-check" aria-hidden="true"></i>
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="hero-info">
+                <div class="hero-name-row">
+                    <h1 class="hero-name">Alejandro Saldaña</h1>
+                    <span class="chip chip-purple">
+                        <i class="ti ti-shield-check" aria-hidden="true"></i> Mentor verificado
+                    </span>
+                </div>
+                <p class="hero-role">Senior Backend Engineer · <span id="hero-company">Nombre empresa</span></p>
+                <div class="hero-chips">
+                    <span class="chip chip-green">
+                        <i class="ti ti-circle" aria-hidden="true"></i> Activo esta semana
+                    </span>
+                    <span class="chip chip-glass">
+                        <i class="ti ti-map-pin" aria-hidden="true"></i>
+                        <span id="hero-location">Bogotá, Colombia</span>
+                    </span>
+                    <span class="chip chip-blue">Fullstack Java</span>
+                    <span class="chip chip-glass">6–10 años exp.</span>
+                </div>
+                <div class="hero-meta">
+                    <div class="meta-item">
+                        <div class="stars" aria-label="Valoración 4.9 de 5">
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                        </div>
+                        <strong class="rating-num">4.9</strong>
+                        <span class="rating-count">(12 reseñas)</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="ti ti-clock" aria-hidden="true"></i>
+                        Responde en &lt; 24 h
+                    </div>
+                    <div class="meta-item">
+                        <i class="ti ti-calendar-check" aria-hidden="true"></i>
+                        Desde enero 2024
+                    </div>
+                    <div class="meta-item">
+                        <a href="#" class="meta-link" aria-label="Ver perfil de LinkedIn">
+                            <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
+                            Ver LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="hero-cta">
+                <button class="btn-cta btn-cta-primary" onclick="openModal('modal-sesion')">
+                    <i class="ti ti-calendar-plus" aria-hidden="true"></i>
+                    Solicitar sesión
+                </button>
+                <button class="btn-cta btn-cta-ghost" onclick="openModal('modal-mensaje')">
+                    <i class="ti ti-message-2" aria-hidden="true"></i>
+                    Enviar mensaje
+                </button>
+                <div class="cta-social">
+                    <a href="#" class="cta-social-btn" aria-label="LinkedIn">
+                        <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" class="cta-social-btn" aria-label="Instagram">
+                        <i class="ti ti-brand-instagram" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tagline -->
+        <blockquote class="hero-tagline">
+            "Desarrollador backend con más de 7 años en Java y Spring Boot. Fui alumno de bootcamp — entiendo
+            exactamente lo que están viviendo y cómo ayudarlos a dar el siguiente paso con confianza real."
+        </blockquote>
+
+        <!-- Estadísticas globales -->
+        <div class="hero-stats" role="list" aria-label="Estadísticas del mentor">
+            <div class="hstat" role="listitem">
+                <div class="hstat-val">12</div>
+                <div class="hstat-lbl">Sesiones realizadas</div>
+            </div>
+            <div class="hstat" role="listitem">
+                <div class="hstat-val">8</div>
+                <div class="hstat-lbl">Alumni activos</div>
+            </div>
+            <div class="hstat hstat-green" role="listitem">
+                <div class="hstat-val">6</div>
+                <div class="hstat-lbl">Empleos conseguidos</div>
+            </div>
+            <div class="hstat hstat-purple" role="listitem">
+                <div class="hstat-val">100%</div>
+                <div class="hstat-lbl">Satisfacción</div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════
+       BODY — grid 2 columnas
+       ══════════════════════════════════════ -->
+    <div class="profile-body">
+
+        <!-- ── Columna izquierda ── -->
+        <div class="col-main">
+
+            <!-- Sobre el mentor -->
+            <article class="glass-card" aria-labelledby="sobre-title">
+                <div class="card-hdr">
+                    <h2 id="sobre-title">
+                        <i class="ti ti-user" aria-hidden="true"></i> Sobre Alejandro
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="about-text">
+                        <p>
+                            <strong class="about-hl">En qué puedo ayudarte:</strong><br>
+                            • Prepararte para entrevistas técnicas con confianza real<br>
+                            • Construir un CV y LinkedIn que te abran puertas de verdad<br>
+                            • Entender cómo negociar tu primera (o segunda) oferta<br>
+                            • Darte un plan claro para crecer como developer backend
+                        </p>
+                        <p>
+                            <strong class="about-hl">Mi experiencia:</strong><br>
+                            Llevo más de 7 años como ingeniero backend con Java y Spring Boot. Actualmente lidero
+                            proyectos de arquitectura de microservicios. Antes pasé por startups donde aprendí a hacer
+                            mucho con poco. Fui alumno de bootcamp — sé exactamente lo que están viviendo y lo que
+                            necesitan oír.
+                        </p>
+                    </div>
+
+                    <!-- Proceso -->
+                    <div class="process-wrap">
+                        <h3 class="process-title">
+                            <i class="ti ti-list-numbers" aria-hidden="true"></i> Mi proceso de mentoría
+                        </h3>
+                        <ol class="process-list" aria-label="Pasos del proceso de mentoría">
+                            <li class="proc-item">
+                                <div class="proc-num" aria-hidden="true">1</div>
+                                <div class="proc-body">
+                                    <h4>Diagnóstico</h4>
+                                    <p>Entiendo tus metas, tu situación actual y tus bloqueos reales.</p>
+                                </div>
+                            </li>
+                            <li class="proc-item">
+                                <div class="proc-num" aria-hidden="true">2</div>
+                                <div class="proc-body">
+                                    <h4>Plan personalizado</h4>
+                                    <p>Construimos juntos una ruta clara con pasos concretos y fechas.</p>
+                                </div>
+                            </li>
+                            <li class="proc-item">
+                                <div class="proc-num" aria-hidden="true">3</div>
+                                <div class="proc-body">
+                                    <h4>Ejecución con recursos</h4>
+                                    <p>Cada sesión termina con tareas accionables y materiales de referencia.</p>
+                                </div>
+                            </li>
+                            <li class="proc-item">
+                                <div class="proc-num" aria-hidden="true">4</div>
+                                <div class="proc-body">
+                                    <h4>Seguimiento y ajuste</h4>
+                                    <p>Revisamos el progreso y ajustamos el plan cuando hace falta.</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Áreas de expertise -->
+            <article class="glass-card" aria-labelledby="areas-title">
+                <div class="card-hdr">
+                    <h2 id="areas-title">
+                        <i class="ti ti-bulb" aria-hidden="true"></i> Áreas de expertise
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <ul class="areas-grid" aria-label="Áreas de mentoría">
+                        <li class="area-pill"><i class="ti ti-code" aria-hidden="true"></i><span>Programación</span>
+                        </li>
+                        <li class="area-pill"><i class="ti ti-microphone" aria-hidden="true"></i><span>Entrevistas
+                                técnicas</span></li>
+                        <li class="area-pill"><i class="ti ti-file-text" aria-hidden="true"></i><span>CV y
+                                LinkedIn</span></li>
+                        <li class="area-pill"><i class="ti ti-coin" aria-hidden="true"></i><span>Negociación
+                                salarial</span></li>
+                        <li class="area-pill"><i class="ti ti-search" aria-hidden="true"></i><span>Búsqueda de
+                                empleo</span></li>
+                        <li class="area-pill"><i class="ti ti-rocket" aria-hidden="true"></i><span>Crecimiento
+                                profesional</span></li>
+                        <li class="area-pill"><i class="ti ti-users" aria-hidden="true"></i><span>Networking</span></li>
+                        <li class="area-pill"><i class="ti ti-language" aria-hidden="true"></i><span>Inglés
+                                técnico</span></li>
+                    </ul>
+                    <div class="skills-wrap" aria-label="Habilidades y tecnologías">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">APIs REST</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Microservicios</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">Testing</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Tipo de mentoría -->
+            <article class="glass-card" aria-labelledby="tipo-title">
+                <div class="card-hdr">
+                    <h2 id="tipo-title">
+                        <i class="ti ti-video" aria-hidden="true"></i> Tipo de mentoría
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <ul class="tipo-grid" aria-label="Modalidades de mentoría disponibles">
+                        <li class="tipo-card">
+                            <i class="ti ti-video" aria-hidden="true"></i>
+                            <div>
+                                <h4>Videollamada</h4>
+                                <p>Google Meet o Zoom</p>
+                            </div>
+                        </li>
+                        <li class="tipo-card">
+                            <i class="ti ti-file-check" aria-hidden="true"></i>
+                            <div>
+                                <h4>Revisión de CV</h4>
+                                <p>Feedback escrito detallado</p>
+                            </div>
+                        </li>
+                        <li class="tipo-card">
+                            <i class="ti ti-message-2" aria-hidden="true"></i>
+                            <div>
+                                <h4>Chat / escrito</h4>
+                                <p>Preguntas entre sesiones</p>
+                            </div>
+                        </li>
+                        <li class="tipo-card tipo-card-off" aria-label="No disponible">
+                            <i class="ti ti-users" aria-hidden="true"></i>
+                            <div>
+                                <h4>Grupal</h4>
+                                <p>No disponible ahora</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Reseñas -->
+            <article class="glass-card" aria-labelledby="resenas-title">
+                <div class="card-hdr">
+                    <h2 id="resenas-title">
+                        <i class="ti ti-star" aria-hidden="true"></i> Lo que dicen los alumni
+                    </h2>
+                    <div class="hdr-rating" aria-label="Valoración promedio 4.9 de 12 reseñas">
+                        <div class="stars">
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                            <i class="ti ti-star" aria-hidden="true"></i>
+                        </div>
+                        <span class="hdr-rating-num">4.9</span>
+                        <span class="hdr-rating-count">· 12 reseñas</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Reseña destacada -->
+                    <figure class="review-featured">
+                        <blockquote class="review-featured-quote">
+                            "Alejandro me ayudó a estructurar mis respuestas para entrevistas técnicas. Conseguí el
+                            trabajo a la semana. Tiene una claridad brutal para explicar conceptos y es honesto cuando
+                            algo no está bien."
+                        </blockquote>
+                        <figcaption class="review-featured-author">
+                            <div class="rev-ava rev-ava-green" aria-hidden="true">LC</div>
+                            <div>
+                                <div class="rev-name">Laura Cárdenas</div>
+                                <div class="rev-meta">Fullstack Java · 3 meses · Enero 2026</div>
+                            </div>
+                            <div class="stars review-stars" aria-label="5 estrellas">
+                                <i class="ti ti-star" aria-hidden="true"></i>
+                                <i class="ti ti-star" aria-hidden="true"></i>
+                                <i class="ti ti-star" aria-hidden="true"></i>
+                                <i class="ti ti-star" aria-hidden="true"></i>
+                                <i class="ti ti-star" aria-hidden="true"></i>
+                            </div>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Reseñas lista -->
+                    <ul class="reviews-list" aria-label="Reseñas de alumni">
+                        <li class="review-item">
+                            <div class="review-top">
+                                <div class="rev-ava rev-ava-purple" aria-hidden="true">PV</div>
+                                <div class="rev-info">
+                                    <h4>Pedro Vargas</h4>
+                                    <p>IT Support · 2 meses · Mayo 2026</p>
+                                </div>
+                                <div class="stars" aria-label="5 estrellas">
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <p class="review-text">"Excelente claridad para dar un plan de búsqueda concreto y
+                                accionable. Salí de cada sesión con tareas claras, no con buenas intenciones vacías."
+                            </p>
+                        </li>
+                        <li class="review-item">
+                            <div class="review-top">
+                                <div class="rev-ava rev-ava-blue" aria-hidden="true">JR</div>
+                                <div class="rev-info">
+                                    <h4>Juan Rodríguez</h4>
+                                    <p>IT Support · 4 meses · Marzo 2026</p>
+                                </div>
+                                <div class="stars" aria-label="5 estrellas">
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <p class="review-text">"Me ayudó a negociar mi primer salario. Gracias a sus consejos logré
+                                un 15% más de lo que me ofrecieron. El impacto de una sola sesión fue enorme."</p>
+                        </li>
+                        <li class="review-item">
+                            <div class="review-top">
+                                <div class="rev-ava rev-ava-amber" aria-hidden="true">AM</div>
+                                <div class="rev-info">
+                                    <h4>Ana Martínez</h4>
+                                    <p>Fullstack Java · 1 mes · Junio 2026</p>
+                                </div>
+                                <div class="stars" aria-label="5 estrellas">
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                    <i class="ti ti-star" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <p class="review-text">"Revisó mi CV en menos de 24 horas con comentarios específicos y
+                                directos. A la semana de aplicar me llamaron de tres empresas."</p>
+                        </li>
+                    </ul>
+
+                    <button class="btn-load-more" aria-label="Ver todas las reseñas">
+                        <i class="ti ti-chevron-down" aria-hidden="true"></i> Ver las 12 reseñas
+                    </button>
+                </div>
+            </article>
+
+            <!-- Solo vs con mentor -->
+            <article class="glass-card" aria-labelledby="vs-title">
+                <div class="card-hdr">
+                    <h2 id="vs-title">
+                        <i class="ti ti-arrows-exchange" aria-hidden="true"></i> Solo vs. con Alejandro
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <p class="vs-subtitle">Mismo punto de partida. Una primera semana muy diferente.</p>
+                    <div class="vs-grid" role="list">
+                        <div class="vs-col" role="listitem">
+                            <h3 class="vs-col-title">Por tu cuenta</h3>
+                            <ul class="vs-list">
+                                <li><i class="ti ti-x vs-icon-no" aria-hidden="true"></i> Aplicar sin saber qué corregir
+                                </li>
+                                <li><i class="ti ti-x vs-icon-no" aria-hidden="true"></i> Entrevistas donde no sabes qué
+                                    falló</li>
+                                <li><i class="ti ti-x vs-icon-no" aria-hidden="true"></i> Aceptar la primera oferta sin
+                                    negociar</li>
+                                <li><i class="ti ti-x vs-icon-no" aria-hidden="true"></i> Avanzar lento sin dirección
+                                    clara</li>
+                            </ul>
+                        </div>
+                        <div class="vs-divider" aria-hidden="true">
+                            <i class="ti ti-user-star"></i>
+                            <span>vs</span>
+                        </div>
+                        <div class="vs-col vs-col-win" role="listitem">
+                            <h3 class="vs-col-title">Con Alejandro</h3>
+                            <ul class="vs-list">
+                                <li><i class="ti ti-check vs-icon-yes" aria-hidden="true"></i> Plan claro desde la
+                                    primera sesión</li>
+                                <li><i class="ti ti-check vs-icon-yes" aria-hidden="true"></i> Feedback honesto, aunque
+                                    duela</li>
+                                <li><i class="ti ti-check vs-icon-yes" aria-hidden="true"></i> Saber exactamente cómo
+                                    negociar</li>
+                                <li><i class="ti ti-check vs-icon-yes" aria-hidden="true"></i> Momentum desde la primera
+                                    semana</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="vs-footer">
+                        <p class="vs-footer-lbl">Alumni con mentor 3+ meses alcanzan sus metas</p>
+                        <div class="vs-big-num" aria-label="Dos veces más rápido">2× más rápido</div>
+                        <div class="vs-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                            <div class="vs-bar-fill" style="width: 85%"></div>
+                        </div>
+                        <p class="vs-footer-sub">97% de satisfacción en el Hub</p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- ── Columna derecha ── -->
+        <aside class="col-aside" aria-label="Información adicional del mentor">
+
+            <!-- CTA sticky -->
+            <div class="glass-card aside-cta">
+                <div class="card-body">
+                    <button class="btn-cta btn-cta-primary btn-full" onclick="openModal('modal-sesion')">
+                        <i class="ti ti-calendar-plus" aria-hidden="true"></i> Solicitar sesión
+                    </button>
+                    <button class="btn-cta btn-cta-ghost btn-full" onclick="openModal('modal-mensaje')">
+                        <i class="ti ti-phone" aria-hidden="true"></i> Llamada introductoria gratis
+                    </button>
+                    <div class="guarantee">
+                        <i class="ti ti-shield-check" aria-hidden="true"></i>
+                        <span>Si no estás satisfecho en las primeras 2 semanas, te devolvemos el 100%.</span>
+                    </div>
+                </div>
+                <ul class="aside-meta-list" aria-label="Información rápida del mentor">
+                    <li class="aside-meta-item">
+                        <i class="ti ti-clock" aria-hidden="true"></i>
+                        <span class="aside-meta-lbl">Respuesta promedio</span>
+                        <span class="aside-meta-val">menos de 24 h</span>
+                    </li>
+                    <li class="aside-meta-item">
+                        <i class="ti ti-calendar" aria-hidden="true"></i>
+                        <span class="aside-meta-lbl">Disponibilidad</span>
+                        <span class="aside-meta-val">Ma, Ju, Vi — tarde</span>
+                    </li>
+                    <li class="aside-meta-item">
+                        <i class="ti ti-users" aria-hidden="true"></i>
+                        <span class="aside-meta-lbl">Alumni activos</span>
+                        <span class="aside-meta-val">8 / máx. 10</span>
+                    </li>
+                    <li class="aside-meta-item">
+                        <i class="ti ti-world" aria-hidden="true"></i>
+                        <span class="aside-meta-lbl">Idioma</span>
+                        <span class="aside-meta-val">Español · Inglés</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="glass-card">
+                <div class="card-hdr">
+                    <h2><i class="ti ti-chart-bar" aria-hidden="true"></i> Estadísticas</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="stats-grid" aria-label="Estadísticas numéricas">
+                        <li class="stat-box">
+                            <div class="stat-val">12</div>
+                            <div class="stat-lbl">Sesiones</div>
+                        </li>
+                        <li class="stat-box">
+                            <div class="stat-val">8</div>
+                            <div class="stat-lbl">Alumni</div>
+                        </li>
+                        <li class="stat-box stat-box-green">
+                            <div class="stat-val">4.9</div>
+                            <div class="stat-lbl">Valoración</div>
+                        </li>
+                        <li class="stat-box stat-box-purple">
+                            <div class="stat-val">6</div>
+                            <div class="stat-lbl">Empleados</div>
+                        </li>
+                    </ul>
+                    <div class="stats-extra">
+                        <div class="stats-extra-item">
+                            <span class="stats-extra-lbl">Tiempo de respuesta</span>
+                            <span class="stats-extra-val">Menos de 24 h</span>
+                        </div>
+                        <div class="stats-extra-item">
+                            <span class="stats-extra-lbl">Miembro desde</span>
+                            <span class="stats-extra-val">Enero 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disponibilidad -->
+            <div class="glass-card">
+                <div class="card-hdr">
+                    <h2><i class="ti ti-calendar" aria-hidden="true"></i> Disponibilidad</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="days-row" aria-label="Días disponibles">
+                        <li class="day-chip" aria-label="Lunes, no disponible">Lu</li>
+                        <li class="day-chip day-on" aria-label="Martes, disponible">Ma</li>
+                        <li class="day-chip" aria-label="Miércoles, no disponible">Mi</li>
+                        <li class="day-chip day-on" aria-label="Jueves, disponible">Ju</li>
+                        <li class="day-chip day-on" aria-label="Viernes, disponible">Vi</li>
+                        <li class="day-chip" aria-label="Sábado, no disponible">Sá</li>
+                        <li class="day-chip" aria-label="Domingo, no disponible">Do</li>
+                    </ul>
+                    <ul class="avail-meta" aria-label="Detalles de disponibilidad">
+                        <li><i class="ti ti-clock" aria-hidden="true"></i> Tardes · 4:00 pm – 8:00 pm</li>
+                        <li><i class="ti ti-hourglass" aria-hidden="true"></i> 45–60 min por sesión</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contacto y redes -->
+            <div class="glass-card">
+                <div class="card-hdr">
+                    <h2><i class="ti ti-link" aria-hidden="true"></i> Contacto y redes</h2>
+                </div>
+                <div class="card-body contact-list">
+                    <a href="#" class="contact-row">
+                        <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
+                        <span>linkedin.com/in/alejandro-saldana</span>
+                    </a>
+                    <a href="mailto:alejandro@empresa.com" class="contact-row">
+                        <i class="ti ti-mail" aria-hidden="true"></i>
+                        <span>alejandro@empresa.com</span>
+                    </a>
+                    <div class="contact-row">
+                        <i class="ti ti-map-pin" aria-hidden="true"></i>
+                        <span>Bogotá, Colombia</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentores similares -->
+            <div class="glass-card">
+                <div class="card-hdr">
+                    <h2><i class="ti ti-users" aria-hidden="true"></i> Mentores similares</h2>
+                </div>
+                <ul class="similar-list" aria-label="Otros mentores recomendados">
+                    <li>
+                        <a href="#" class="similar-card">
+                            <div class="rev-ava rev-ava-blue" aria-hidden="true">MG</div>
+                            <div class="similar-info">
+                                <h4>María González</h4>
+                                <p>IT Support Lead · TCS · 4.8 ★</p>
+                            </div>
+                            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="similar-card">
+                            <div class="rev-ava rev-ava-amber" aria-hidden="true">RT</div>
+                            <div class="similar-info">
+                                <h4>Ricardo Torres</h4>
+                                <p>Data Engineer · Rappi · 5.0 ★</p>
+                            </div>
+                            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="similar-card">
+                            <div class="rev-ava rev-ava-green" aria-hidden="true">AP</div>
+                            <div class="similar-info">
+                                <h4>Andrea Pinto</h4>
+                                <p>Senior Dev · Platzi · 4.9 ★</p>
+                            </div>
+                            <i class="ti ti-chevron-right" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- ══════════════════════════════════════
+       MODALES
+       ══════════════════════════════════════ -->
+
+    <!-- Modal: solicitar sesión -->
+    <div class="modal-overlay" id="modal-sesion" role="dialog" aria-modal="true" aria-labelledby="modal-sesion-title"
+        hidden>
+        <div class="modal-box">
+            <div class="modal-hdr">
+                <h2 id="modal-sesion-title">
+                    <i class="ti ti-calendar-plus" aria-hidden="true"></i> Solicitar sesión
+                </h2>
+                <button class="modal-close" onclick="closeModal('modal-sesion')" aria-label="Cerrar modal">
+                    <i class="ti ti-x" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-subtitle">Con <strong>Alejandro Saldaña</strong> · Senior Backend Engineer</p>
+                <label class="form-label" for="sesion-tipo">Tipo de sesión</label>
+                <select class="form-select" id="sesion-tipo">
+                    <option value="">Seleccionar...</option>
+                    <option>Videollamada — 60 min</option>
+                    <option>Videollamada — 45 min</option>
+                    <option>Revisión de CV (escrita)</option>
+                    <option>Chat / preguntas escritas</option>
+                </select>
+                <label class="form-label" for="sesion-tema">¿Sobre qué quieres hablar?</label>
+                <textarea class="form-textarea" id="sesion-tema" rows="4"
+                    placeholder="Cuéntale a Alejandro qué necesitas — cuánto más específico, más útil será la sesión..."></textarea>
+                <label class="form-label" for="sesion-fecha">Fecha preferida</label>
+                <input class="form-input" type="date" id="sesion-fecha">
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cta btn-cta-ghost" onclick="closeModal('modal-sesion')">Cancelar</button>
+                <button class="btn-cta btn-cta-primary">
+                    <i class="ti ti-send" aria-hidden="true"></i> Enviar solicitud
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: enviar mensaje -->
+    <div class="modal-overlay" id="modal-mensaje" role="dialog" aria-modal="true" aria-labelledby="modal-mensaje-title"
+        hidden>
+        <div class="modal-box">
+            <div class="modal-hdr">
+                <h2 id="modal-mensaje-title">
+                    <i class="ti ti-message-2" aria-hidden="true"></i> Enviar mensaje
+                </h2>
+                <button class="modal-close" onclick="closeModal('modal-mensaje')" aria-label="Cerrar modal">
+                    <i class="ti ti-x" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-subtitle">Escríbele a <strong>Alejandro</strong> antes de solicitar una sesión.</p>
+                <label class="form-label" for="msg-asunto">Asunto</label>
+                <input class="form-input" type="text" id="msg-asunto"
+                    placeholder="Ej: Consulta sobre preparación para entrevistas en Java">
+                <label class="form-label" for="msg-texto">Mensaje</label>
+                <textarea class="form-textarea" id="msg-texto" rows="5"
+                    placeholder="Hola Alejandro, me gustaría..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cta btn-cta-ghost" onclick="closeModal('modal-mensaje')">Cancelar</button>
+                <button class="btn-cta btn-cta-primary">
+                    <i class="ti ti-send" aria-hidden="true"></i> Enviar mensaje
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="footer-container"></div>
+    <script src="../../components/ui/footer/footer.js"></script>
+    <script src="../../components/ui/navbar/navbar.js"></script>
+
+    <script src="profile.js"></script>
+</body>
+
+</html>
