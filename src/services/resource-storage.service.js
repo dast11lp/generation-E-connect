@@ -28,3 +28,20 @@ export function saveUserResource(resource) {
   saveUserResources(resources);
   return resource;
 }
+
+export function updateUserResource(id, updates) {
+  const resources = readUserResources();
+  const index = resources.findIndex((r) => r.id === id);
+  if (index === -1) return null;
+
+  resources[index] = { ...resources[index], ...updates };
+  saveUserResources(resources);
+  return resources[index];
+}
+
+export function deleteUserResource(id) {
+  const resources = readUserResources();
+  const filtered = resources.filter((r) => r.id !== id);
+  saveUserResources(filtered);
+  return filtered.length !== resources.length;
+}

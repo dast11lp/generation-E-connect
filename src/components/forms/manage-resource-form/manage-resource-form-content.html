@@ -1,0 +1,63 @@
+<form id="mrf-form" class="resource-form" novalidate>
+  <div class="field">
+    <label for="mrf-select">Selecciona un recurso</label>
+    <select id="mrf-select">
+      <option value="">Seleccionar recurso...</option>
+    </select>
+  </div>
+
+  <div id="mrf-details" class="mrf-details" hidden>
+    <p class="mrf-static-note" data-static-note hidden>
+      Este recurso es predeterminado del sistema y no se puede editar ni eliminar.
+    </p>
+
+    <div class="field">
+      <label for="mrf-title">Título del recurso</label>
+      <input type="text" id="mrf-title" name="title" />
+      <span class="error" data-error="title"></span>
+    </div>
+
+    <div class="field">
+      <label for="mrf-category">Categoría</label>
+      <select id="mrf-category" name="category">
+        <option value="">Seleccione una categoría</option>
+        <option value="Hoja de vida">Hoja de vida</option>
+        <option value="LinkedIn">LinkedIn</option>
+        <option value="Entrevistas">Entrevistas</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Networking">Networking</option>
+        <option value="Inglés">Inglés</option>
+        <option value="Portafolio">Portafolio</option>
+        <option value="Negociación">Negociación</option>
+        <option value="Desarrollo">Desarrollo</option>
+      </select>
+      <span class="error" data-error="category"></span>
+    </div>
+
+    <div class="field">
+      <label for="mrf-description">Descripción</label>
+      <textarea id="mrf-description" name="description"></textarea>
+      <span class="error" data-error="description"></span>
+    </div>
+
+    <div class="field">
+      <label>Archivo actual</label>
+      <div class="mrf-current-file">
+        <span class="mrf-current-file-name" data-current-file-name></span>
+        <span class="mrf-current-file-meta" data-current-file-meta></span>
+      </div>
+    </div>
+
+    <div id="mrf-form-file" class="form">
+      <p>Cambiar archivo (opcional)</p>
+      <input type="file" id="mrf-file" />
+      <span class="error" data-error="file"></span>
+    </div>
+  </div>
+</form>
+
+<footer class="modal__footer" id="mrf-footer">
+  <button type="button" class="btn btn--danger" id="mrf-delete" data-action="delete" disabled>Eliminar recurso</button>
+  <button type="button" class="btn btn--secondary" data-action="close">Cerrar</button>
+  <button type="submit" form="mrf-form" class="btn btn--primary" id="mrf-save" disabled>Guardar cambios</button>
+</footer>

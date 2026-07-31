@@ -2,12 +2,14 @@ import { createVideoCard } from "../../components/cards/video-card/video-card.js
 import { initialVideos } from "../../data/videos.data.js";
 import { initializeVideos, readVideos, saveVideo } from "../../services/video-storage.service.js";
 import { createVideoForm } from "../../components/forms/video-form/video-form.js";
+import { createManageVideoForm } from "../../components/forms/manage-video-form/manage-video-form.js";
 
 const searchInput = document.querySelector("#busqueda-sesiones");
 const resultsContainer = document.querySelector("#tarjetas-grabaciones");
 const filterLinks = document.querySelectorAll(".filtros-busqueda-sesiones a");
 const openFormBtn = document.querySelector("#open-video-form");
 const videoFormModal = document.querySelector("#video-form-modal");
+const openManageVideoBtn = document.querySelector("#open-manage-video-form");
 
 initializeVideos(initialVideos);
 let activeFilter = "all";
@@ -82,6 +84,32 @@ openFormBtn.addEventListener("click", async () => {
     title: "Agregar video",
     content: videoForm.element,
     footer: videoForm.footerElement,
+  });
+});
+
+openManageVideoBtn.addEventListener("click", async () => {
+  await customElements.whenDefined("base-modal");
+
+  const manageForm = await createManageVideoForm();
+
+  manageForm.element.addEventListener("video-updated", () => {
+    renderVideos();
+    videoFormModal.close();
+  });
+
+  manageForm.element.addEventListener("video-deleted", () => {
+    renderVideos();
+    videoFormModal.close();
+  });
+
+  manageForm.element.addEventListener("manage-video-cancel", () => {
+    videoFormModal.close();
+  });
+
+  videoFormModal.open({
+    title: "Administrar videos",
+    content: manageForm.element,
+    footer: manageForm.footerElement,
   });
 });
 

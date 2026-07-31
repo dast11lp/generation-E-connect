@@ -119,6 +119,7 @@ export async function createVideoForm() {
         date: "Jun 2026",
         author: "UsuarioActual",
         duration: "59:59",
+        sourceType: getActiveTab() === "1" ? "file" : "url",
       },
     };
   }

@@ -1,3 +1,13 @@
+/* ============================================================
+   REDISEÑO VISUAL — JERARQUÍA PROGRAMA > RUTA > TOPIC
+   Adaptado a las clases y variables reales del proyecto.
+   Solo se agregan/ajustan reglas CSS. No se toca HTML ni JS.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   BASE — tu CSS existente, se mantiene tal cual.
+   ------------------------------------------------------------ */
+
 .field {
   margin-bottom: 18px;
 }
@@ -43,40 +53,192 @@ input.invalid {
   margin: 10px 0 0;
 }
 
+/* ============================================================
+   NIVEL 1 — PROGRAMA
+   El .field de "Nombre del programa" debe destacar sobre el
+   resto. AJUSTA el selector si no es el primer .field del form
+   (ideal: agrega class="field field--programa" en ese input).
+   ------------------------------------------------------------ */
+
+form > .field:first-of-type label,
+.field--programa label {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+form > .field:first-of-type input[type="text"],
+.field--programa input[type="text"] {
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  border-width: 1.5px;
+}
+
+form > .field:first-of-type input[type="text"]:focus,
+.field--programa input[type="text"]:focus {
+  border-color: var(--color-azul-institucional);
+  box-shadow: 0 0 0 3px rgba(0, 58, 112, 0.12);
+}
+
+/* Separador fuerte: cierra el "nivel programa" antes de las rutas */
+form > .field:first-of-type,
+.field--programa {
+  padding-bottom: 20px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--color-gris-claro);
+}
+
+/* ============================================================
+   NIVEL 2 — RUTA
+   .route ya existe como card; se refuerza con borde lateral +
+   más contraste de fondo para que se lea como subcontenedor.
+   ------------------------------------------------------------ */
+
 .route {
+  position: relative;
   border: 1px solid var(--color-gris-claro);
+  border-left: 4px solid var(--color-cian-dinamico);
   border-radius: var(--border-radius-secundario);
   background-color: var(--color-azul-suave);
-  padding: 14px;
-  margin-bottom: 14px;
+  padding: 16px 16px 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .route__header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .route__title-input {
   flex: 1;
   background-color: var(--color-blanco);
+  font-weight: 600;
+  border-color: rgba(0, 168, 224, 0.35);
 }
+
+.route__title-input:focus {
+  border-color: var(--color-cian-dinamico);
+}
+
+/* ============================================================
+   NIVEL 3 — TOPIC
+   .topics/.topic ya existen; se agrega indentación + línea
+   conectora para leerse como hijos de la ruta.
+   ------------------------------------------------------------ */
 
 .topics {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 10px;
+  padding-left: 16px;
+  border-left: 2px dashed rgb(18, 221, 0);
 }
 
 .topic {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+.topic::before {
+  content: "";
+  width: 10px;
+  height: 1px;
+  background: rgba(18, 221, 0);
+  flex-shrink: 0;
+}
+
 .topic__input {
   flex: 1;
+  width: 200px;
   background-color: var(--color-blanco);
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+
+.topic__input:focus {
+  border-color: var(--color-cian-dinamico);
+}
+
+/* ============================================================
+   BOTONES DINÁMICOS
+   AJUSTA estos selectores a tus clases reales de botón.
+   ------------------------------------------------------------ */
+
+#btn-add-topic {
+  align-self: flex-start;
+  margin-left: 36px;
+  padding: 6px 12px;
+  width: 400px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-cian-dinamico);
+  background: rgba(0, 168, 224, 0.08);
+  border: 1px dashed rgba(0, 168, 224, 0.4);
+  border-radius: var(--border-radius-terciario);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#btn-add-topic:hover {
+  background: rgba(0, 168, 224, 0.15);
+  border-color: var(--color-cian-dinamico);
+}
+
+#btn-add-route {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-azul-institucional);
+  background: rgba(0, 58, 112, 0.05);
+  border: 1.5px dashed rgba(0, 58, 112, 0.35);
+  border-radius: var(--border-radius-secundario);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+#btn-add-route:hover {
+  background: rgba(0, 58, 112, 0.1);
+  border-color: var(--color-azul-institucional);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+  .route {
+    padding: 12px 12px 14px 14px;
+  }
+
+  .topics {
+    padding-left: 10px;
+  }
+
+  .btn-add-topic {
+    margin-left: 10px;
+    width: calc(100% - 10px);
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   ACCESIBILIDAD
+   ------------------------------------------------------------ */
+
+.route__title-input:focus-visible,
+.topic__input:focus-visible,
+.btn-add-route:focus-visible,
+.btn-add-topic:focus-visible {
+  outline: 2px solid var(--color-azul-institucional);
+  outline-offset: 2px;
 }

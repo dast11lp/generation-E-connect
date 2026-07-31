@@ -1,40 +1,40 @@
-.tabs__list {
+.video-form .tabs__list {
   display: flex;
   gap: 15px;
 }
 
-.tabs__list li {
+.video-form .tabs__list li {
   list-style: none;
   padding: 10px 15px;
   border-radius: var(--border-radius-terciario);
 }
 
-.tabs__list__tab {
+.video-form .tabs__list__tab {
   background: var(--color-gris-claro);
   cursor: pointer;
 }
 
-.tabs__list__tab--active {
+.video-form .tabs__list__tab--active {
   background: var(--color-azul-generation);
   color: var(--color-blanco);
   transform: scale(1.1) translateY(-2px);
 }
 
-#vf-form .tabs__content {
+.video-form .tabs__content {
   display: none;
 }
 
-#vf-form .tabs__content--active {
+.video-form .tabs__content--active {
   display: block;
 }
 
-#vf-form {
+.video-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-#vf-form label {
+.video-form label {
   display: block;
   color: var(--color-azul-institucional);
   font-size: 14px;
@@ -42,7 +42,7 @@
   margin-bottom: 6px;
 }
 
-#vf-form-file.form {
+.form {
   background-color: var(--color-azul-suave);
   border: 2px dashed var(--color-azul-generation);
   border-radius: var(--border-radius-secundario);
@@ -52,14 +52,14 @@
   font-weight: 500;
 }
 
-#vf-form-file.form input[type="file"] {
+.form input[type="file"] {
   margin-top: 10px;
   color: var(--color-gris-texto);
 }
 
-#vf-form input[type="url"],
-#vf-form select,
-#vf-form textarea {
+.video-form input[type="url"],
+.video-form select,
+.video-form textarea {
   width: 100%;
   padding: 12px 14px;
   border: 2px solid var(--color-gris-claro);
@@ -71,21 +71,21 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#vf-form input::placeholder,
-#vf-form textarea::placeholder {
+.video-form input::placeholder,
+.video-form textarea::placeholder {
   color: var(--color-gris-texto);
   opacity: 0.7;
 }
 
-#vf-form input[type="url"]:focus,
-#vf-form select:focus,
-#vf-form textarea:focus {
+.video-form input[type="url"]:focus,
+.video-form select:focus,
+.video-form textarea:focus {
   outline: none;
   border-color: var(--color-cian-dinamico);
   box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.2);
 }
 
-#vf-form textarea {
+.video-form textarea {
   resize: vertical;
   min-height: 90px;
 }

@@ -7,17 +7,12 @@
 
   <div class="routes" id="pf-routes"></div>
 
-  <button type="button" class="btn btn--ghost" data-action="add-route">
+  <button type="button" id="btn-add-route" class="btn btn--ghost" data-action="add-route">
     + Agregar ruta
   </button>
 
   <p class="error error--general" data-error="general"></p>
 </form>
-
-<footer class="modal__footer" id="pf-footer">
-  <button type="button" class="btn btn--secondary" data-action="cancel">Cancelar</button>
-  <button type="submit" form="pf-form" class="btn btn--primary">Guardar programa</button>
-</footer>
 
 <template id="route-template">
   <div class="route" data-route>
@@ -26,14 +21,19 @@
       <button type="button" class="btn btn--icon" data-action="remove-route" aria-label="Quitar ruta">&times;</button>
     </div>
     <div class="topics" data-topics></div>
-    <button type="button" class="btn btn--ghost btn--small" data-action="add-topic">+ Agregar topic</button>
+    <button type="button" id="btn-add-topic" class="btn btn--ghost btn--small" data-action="add-topic">+ Agregar topic</button>
     <span class="error" data-error="route"></span>
   </div>
 </template>
 
 <template id="topic-template">
   <div class="topic" data-topic>
-    <input type="text" class="topic__input" placeholder="Ej: Spring Boot" data-field="topic-value" required />
+    <input type="text" class="topic__input" placeholder="Ej: Spring Boot" data-field="topic-value" required /> <input type="text" id="link" class="topic__input" placeholder="https://ejemplo.com">
     <button type="button" class="btn btn--icon" data-action="remove-topic" aria-label="Quitar topic">&times;</button>
   </div>
 </template>
+
+<div class="modal__footer" id="pf-footer">
+  <button type="button" class="btn btn--secondary" data-action="cancel">Cancelar</button>
+  <button type="submit" form="pf-form" class="btn btn--primary">Guardar programa</button>
+</div>

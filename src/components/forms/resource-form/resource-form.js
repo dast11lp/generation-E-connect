@@ -24,7 +24,8 @@ const TYPE_RULES = [
   { extensions: ["ppt", "pptx", "doc", "docx", "xls", "xlsx"], type: "Plantilla", action: "Usar plantilla" },
 ];
 
-function detectResourceType(fileName) {
+// cambio 1: exportar para reutilizar en manage-resource-form.js
+export function detectResourceType(fileName) {
   const ext = fileName.split(".").pop().toLowerCase();
   const rule = TYPE_RULES.find((r) => r.extensions.includes(ext));
   return rule ?? { type: "Guía", action: "Descargar" };
@@ -125,6 +126,8 @@ export async function createResourceForm() {
         downloads: 0,
         featured: false,
         fileUrl,
+        fileName: file.name,
+        fileSize: file.size,
       },
     };
   }

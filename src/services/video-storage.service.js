@@ -23,11 +23,27 @@ export function saveVideo(video) {
   return newVideo;
 }
 
+export function updateVideo(id, updates) {
+  const videos = readVideos();
+  const index = videos.findIndex((v) => v.id === id);
+  if (index === -1) return null;
+
+  videos[index] = { ...videos[index], ...updates };
+  writeVideos(videos);
+  return videos[index];
+}
+
+export function deleteVideo(id) {
+  const videos = readVideos();
+  const filtered = videos.filter((v) => v.id !== id);
+  writeVideos(filtered);
+  return filtered.length !== videos.length;
+}
+
 function writeVideos(videos) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(videos));
 }
 
-// Compatibilidad con los datos que la primera versión guardaba en español.
 function normalizeVideo(video) {
   return {
     id: video.id,
@@ -38,5 +54,14 @@ function normalizeVideo(video) {
     duration: video.duration ?? video.duracion ?? "",
     thumbnail: video.thumbnail ?? "",
     link: video.link ?? "",
+    sourceType: video.sourceType ?? inferSourceType(video), // <-- nuevo
   };
+}
+
+// Compatibilidad: videos guardados antes de que existiera sourceType.
+// Los archivos subidos siempre generan URL de Cloudinary; si el link
+// no pertenece a ese dominio, asumimos que fue registrado por URL externa.
+function inferSourceType(video) {
+  const link = video.link ?? video.link;
+  return link.includes("res.cloudinary.com") ? "file" : "url";
 }

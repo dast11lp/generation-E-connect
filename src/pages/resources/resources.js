@@ -3,6 +3,7 @@ import { createFilterButton } from "../../components/ui/resource-filters.js";
 import { resourceCategories, resources } from "../../data/resources.data.js";
 import { initializeUserResources, readUserResources, saveUserResource } from "../../services/resource-storage.service.js";
 import { createResourceForm } from "../../components/forms/resource-form/resource-form.js";
+import { createManageResourceForm } from "../../components/forms/manage-resource-form/manage-resource-form.js";
 
 const resourcesContainer = document.querySelector(".contenedor-recursos");
 const filtersContainer = document.querySelector(".categorias");
@@ -12,6 +13,7 @@ const sortInputs = document.querySelectorAll("input[name='orden']");
 const dateInput = document.querySelector("#fecha");
 const openFormBtn = document.querySelector("#open-resource-form");
 const resourceFormModal = document.querySelector("#resource-form-modal");
+const openManageBtn = document.querySelector("#open-manage-resource-form");
 
 initializeUserResources(); // asegura la clave en localStorage
 
@@ -115,6 +117,32 @@ function bindEvents() {
       title: "Agregar recurso",
       content: resourceForm.element,
       footer: resourceForm.footerElement,
+    });
+  });
+
+  openManageBtn?.addEventListener("click", async () => {
+    await customElements.whenDefined("base-modal");
+
+    const manageForm = await createManageResourceForm();
+
+    manageForm.element.addEventListener("resource-updated", () => {
+      renderResources();
+      resourceFormModal.close();
+    });
+
+    manageForm.element.addEventListener("resource-deleted", () => {
+      renderResources();
+      resourceFormModal.close();
+    });
+
+    manageForm.element.addEventListener("manage-resource-cancel", () => {
+      resourceFormModal.close();
+    });
+
+    resourceFormModal.open({
+      title: "Administrar recursos",
+      content: manageForm.element,
+      footer: manageForm.footerElement,
     });
   });
 }

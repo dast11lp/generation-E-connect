@@ -1,4 +1,4 @@
-#rf-form {
+.resource-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -12,9 +12,9 @@
   margin-bottom: 6px;
 }
 
-#rf-form input[type="text"],
-#rf-form select,
-#rf-form textarea {
+.resource-form input[type="text"],
+.resource-form select,
+.resource-form textarea {
   width: 100%;
   padding: 12px 14px;
   border: 2px solid var(--color-gris-claro);
@@ -26,26 +26,26 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#rf-form input::placeholder,
-#rf-form textarea::placeholder {
+.resource-form input::placeholder,
+.resource-form textarea::placeholder {
   color: var(--color-gris-texto);
   opacity: 0.7;
 }
 
-#rf-form input:focus,
-#rf-form select:focus,
-#rf-form textarea:focus {
+.resource-form input:focus,
+.resource-form select:focus,
+.resource-form textarea:focus {
   outline: none;
   border-color: var(--color-cian-dinamico);
   box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.2);
 }
 
-#rf-form textarea {
+.resource-form textarea {
   resize: vertical;
   min-height: 90px;
 }
 
-#rf-form-file.form {
+.form {
   background-color: var(--color-azul-suave);
   border: 2px dashed var(--color-azul-generation);
   border-radius: var(--border-radius-secundario);
@@ -55,7 +55,7 @@
   font-weight: 500;
 }
 
-#rf-form-file.form input[type="file"] {
+.form input[type="file"] {
   margin-top: 10px;
   color: var(--color-gris-texto);
 }

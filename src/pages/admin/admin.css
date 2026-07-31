@@ -224,7 +224,7 @@ body {
 }
 
 .filtros-busqueda-sesiones a,
-#open-video-form {
+#open-video-form, #open-manage-video-form {
     text-decoration: none;
     color: black;
     font-weight: bold;
@@ -237,17 +237,17 @@ body {
 }
 
 .filtros-busqueda-sesiones a:hover,
-#open-video-form:hover {
+#open-video-form:hover, #open-manage-video-form:hover{
     background-color: var(--color-verde-impacto-oscuro);
     box-shadow: 0 0 10px rgb(232, 232, 232);
 }
 
 .filtros-busqueda-sesiones a:active,
-#open-video-form:active {
+#open-video-form:active, #open-manage-video-form:active{
     transform: translateY(2px);
 }
 
-#open-video-form {
+#open-video-form, #open-manage-video-form {
     display: block;
     margin: 30px auto;
 }
