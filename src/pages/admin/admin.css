@@ -223,7 +223,8 @@ body {
     gap: 10px;
 }
 
-.filtros-busqueda-sesiones a {
+.filtros-busqueda-sesiones a,
+#open-video-form {
     text-decoration: none;
     color: black;
     font-weight: bold;
@@ -231,148 +232,24 @@ body {
     padding: 12px 22px;
     border: 2px solid #1A1A2E;
     border-radius: 50px;
+    background-color: var(--color-blanco);
+    cursor: pointer;
 }
 
-.filtros-busqueda-sesiones a:hover {
+.filtros-busqueda-sesiones a:hover,
+#open-video-form:hover {
     background-color: var(--color-verde-impacto-oscuro);
     box-shadow: 0 0 10px rgb(232, 232, 232);
 }
 
-.filtros-busqueda-sesiones a:active {
+.filtros-busqueda-sesiones a:active,
+#open-video-form:active {
     transform: translateY(2px);
 }
 
-/*Inicio stylos formulario henry */
-
-#formulario_video {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 400px;
-    color: var(--color-oscuro-principal);
+#open-video-form {
+    display: block;
+    margin: 30px auto;
 }
 
 
-textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-
-#formulario_video {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 480px;
-    margin: 20px auto;
-    margin-bottom: 80px;
-    padding: 30px;
-    background-color: var(--color-azul-institucional);
-    border-radius: var(--border-radius-principal);
-    font-family: Montserrat, sans-serif;
-    box-shadow: 0 8px 24px rgba(0, 58, 112, 0.2);
-}
-
-
-#formulario_video label {
-    color: var(--color-blanco);
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: -4px;
-}
-
-
-#form.form {
-    background-color: var(--color-azul-suave);
-    border: 2px dashed var(--color-azul-generation);
-    border-radius: var(--border-radius-secundario);
-    padding: 24px;
-    text-align: center;
-    color: var(--color-oscuro-principal);
-    font-weight: 500;
-}
-
-#form.form input[type="file"] {
-    margin-top: 10px;
-    color: var(--color-gris-texto);
-}
-
-
-#formulario_video input[type="url"],
-#formulario_video select,
-#formulario_video textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 2px solid var(--color-gris-claro);
-    border-radius: var(--border-radius-terciario);
-    background-color: var(--color-blanco);
-    color: var(--color-oscuro-principal);
-    font-size: 15px;
-    box-sizing: border-box;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-
-#formulario_video input::placeholder,
-#formulario_video textarea::placeholder {
-    color: var(--color-gris-texto);
-    opacity: 0.7;
-}
-
-
-#formulario_video input[type="url"]:focus,
-#formulario_video select:focus,
-#formulario_video textarea:focus {
-    outline: none;
-    border-color: var(--color-cian-dinamico);
-    box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.2);
-}
-
-
-#formulario_video textarea {
-    resize: vertical;
-    min-height: 90px;
-}
-
-#formulario_video button[type="submit"] {
-    background-color: var(--color-verde-impacto);
-    color: var(--color-blanco);
-    border: none;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: var(--border-radius-terciario);
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    margin-top: 10px;
-}
-
-#formulario_video button[type="submit"]:hover {
-    background-color: #009e6a;
-}
-
-#formulario_video button[type="submit"]:active {
-    transform: scale(0.98);
-}
-
-@media (max-width: 480px) {
-    #formulario_video {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 20px 16px;
-        box-shadow: none;
-        box-sizing: border-box;
-    }
-
-    #form.form {
-        padding: 16px;
-    }
-
-    #formulario_video button[type="submit"] {
-        padding: 16px;
-        font-size: 16px;
-    }
-}
-
-/*Fin stilos formulario Henry */

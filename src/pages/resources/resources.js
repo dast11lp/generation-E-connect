@@ -1,6 +1,8 @@
 import { createResourceCard } from "../../components/cards/resource-card/resource-card.js";
 import { createFilterButton } from "../../components/ui/resource-filters.js";
 import { resourceCategories, resources } from "../../data/resources.data.js";
+import { initializeUserResources, readUserResources, saveUserResource } from "../../services/resource-storage.service.js";
+import { createResourceForm } from "../../components/forms/resource-form/resource-form.js";
 
 const resourcesContainer = document.querySelector(".contenedor-recursos");
 const filtersContainer = document.querySelector(".categorias");
@@ -8,6 +10,10 @@ const summary = document.querySelector(".contenedor-recursos-filtro p");
 const searchInput = document.querySelector(".contenido-principal input[type='text']");
 const sortInputs = document.querySelectorAll("input[name='orden']");
 const dateInput = document.querySelector("#fecha");
+const openFormBtn = document.querySelector("#open-resource-form");
+const resourceFormModal = document.querySelector("#resource-form-modal");
+
+initializeUserResources(); // asegura la clave en localStorage
 
 let activeCategory = "Todos";
 let activeSort = "recientes";
@@ -18,8 +24,15 @@ function normalizeText(value = "") {
   return String(value).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+// fusiona estáticos + creados por el usuario
+function getAllResources() {
+  return [...resources, ...readUserResources()];
+}
+
 function getFilteredResources() {
-  const filtered = resources.filter((resource) => {
+  const allResources = getAllResources(); // <-- antes era "resources"
+
+  const filtered = allResources.filter((resource) => {
     const matchesCategory = activeCategory === "Todos" || resource.category === activeCategory;
     const matchesSearch = normalizeText(resource.title).includes(normalizeText(searchQuery))
       || normalizeText(resource.description).includes(normalizeText(searchQuery));
@@ -80,6 +93,29 @@ function bindEvents() {
   dateInput?.addEventListener("change", (event) => {
     activeDate = event.target.value;
     renderResources();
+  });
+
+  // apertura del modal con el formulario de recursos
+  openFormBtn?.addEventListener("click", async () => {
+    await customElements.whenDefined("base-modal");
+
+    const resourceForm = await createResourceForm();
+
+    resourceForm.element.addEventListener("resource-created", (event) => {
+      saveUserResource(event.detail);
+      renderResources();
+      resourceFormModal.close();
+    });
+
+    resourceForm.element.addEventListener("resource-form-cancel", () => {
+      resourceFormModal.close();
+    });
+
+    resourceFormModal.open({
+      title: "Agregar recurso",
+      content: resourceForm.element,
+      footer: resourceForm.footerElement,
+    });
   });
 }
 
