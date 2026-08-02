@@ -63,6 +63,34 @@
 }
 .header-navbar.scrolled .logo-img { width: 115px; }
 
+.logo-container {
+  position: relative;
+  width: 155px;
+  height: 50px;
+}
+
+.logo-container img {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.4s ease;
+}
+
+.logo-normal {
+  opacity: 1;
+}
+
+.logo-scroll {
+  opacity: 0;
+}
+
+.header-navbar.scrolled .logo-normal {
+  opacity: 0;
+}
+
+.header-navbar.scrolled .logo-scroll {
+  opacity: 1;
+}
+
 /* nav principal */
 .navegacion-principal {
   display: flex;

@@ -34,3 +34,20 @@ function addProgram(program) {
     savePrograms(programs);
     return newProgram;
 }
+
+function updateProgram(id, updates) {
+  const programs = getPrograms();
+  const index = programs.findIndex((p) => p.id === id);
+  if (index === -1) return null;
+
+  programs[index] = { ...programs[index], ...updates, id }; // conserva el id original
+  savePrograms(programs);
+  return programs[index];
+}
+
+function deleteProgram(id) {
+  const programs = getPrograms();
+  const filtered = programs.filter((p) => p.id !== id);
+  savePrograms(filtered);
+  return filtered.length !== programs.length;
+}

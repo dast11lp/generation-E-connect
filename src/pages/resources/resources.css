@@ -134,7 +134,7 @@ body {
     margin: 1.25rem 0;
 }
 
-.filtro-chip, #open-resource-form, #open-manage-resource-form {
+.filtro-chip{
     border: 1px solid var(--color-gris-claro);
     border-radius: 999px;
     background: white;
@@ -145,9 +145,19 @@ body {
 }
 
 #open-resource-form, #open-manage-resource-form{
-    display: block;
-    margin: 30px auto;
+    flex-shrink: 0;
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 999px;
+    background: var(--color-verde-impacto);
+    color: var(--color-blanco);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
 }
+#open-resource-form{
+    margin-left: 250px;
+}
+
 
 .filtro-chip.activo {
     background: var(--color-cian-dinamico);

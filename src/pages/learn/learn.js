@@ -1,10 +1,12 @@
 import { createProgramForm } from "../../components/forms/program-form/program-form.js";
+import { createManageProgramForm } from "../../components/forms/manage-program-form/manage-program-form.js";
 
 const programTabList = document.querySelector('#program-tab-list');
 const contentRoutesCards = document.querySelector('.content__routes__route')
 const contentTopicsCards = document.querySelector('.content__topics__cards')
 const topicsTitle = document.querySelector('#topics-title')
 const openFormBtn = document.querySelector('#open-program-form')
+const openManageProgramBtn = document.querySelector('#open-manage-program-form');
 const programFormModal = document.querySelector('#program-form-modal')
 
 
@@ -133,6 +135,32 @@ openFormBtn.addEventListener('click', async () => {
         title: "Nuevo programa de formación",
         content: programForm.element,
         footer: programForm.footerElement,
+    });
+});
+
+openManageProgramBtn.addEventListener('click', async () => {
+    await customElements.whenDefined('base-modal');
+
+    const manageForm = await createManageProgramForm();
+
+    manageForm.element.addEventListener('program-form-updated', () => {
+        refreshAll();
+        programFormModal.close();
+    });
+
+    manageForm.element.addEventListener('program-form-deleted', () => {
+        refreshAll();
+        programFormModal.close();
+    });
+
+    manageForm.element.addEventListener('manage-program-cancel', () => {
+        programFormModal.close();
+    });
+
+    programFormModal.open({
+        title: "Administrar programas",
+        content: manageForm.element,
+        footer: manageForm.footerElement,
     });
 });
 

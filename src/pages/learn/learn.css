@@ -37,8 +37,24 @@ body {
     padding: 20px 30px;
 }
 
+.resume h1 {
+    font-weight: 800;
+    font-size: 45px;
+}
 
-.btn-add-program {
+.resume p {
+    padding: 10px 0;
+    font-size: 18px;
+}
+
+.resume-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.btn-add-program, #open-manage-program-form {
     flex-shrink: 0;
     background-color: var(--color-verde-impacto);
     color: var(--color-blanco);

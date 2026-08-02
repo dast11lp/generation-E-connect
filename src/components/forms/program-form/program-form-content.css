@@ -1,11 +1,10 @@
 /* ============================================================
-   REDISEÑO VISUAL — JERARQUÍA PROGRAMA > RUTA > TOPIC
+   REDISEÑO VISUAL — JERARQUÍA PROGRAMA > RUTA > TOPIC > LINK
    Adaptado a las clases y variables reales del proyecto.
-   Solo se agregan/ajustan reglas CSS. No se toca HTML ni JS.
    ============================================================ */
 
 /* ------------------------------------------------------------
-   BASE — tu CSS existente, se mantiene tal cual.
+   BASE
    ------------------------------------------------------------ */
 
 .field {
@@ -20,7 +19,8 @@
   margin-bottom: 6px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="url"] {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--color-gris-claro);
@@ -30,7 +30,8 @@ input[type="text"] {
   color: var(--color-oscuro-principal);
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="url"]:focus {
   outline: none;
   border-color: var(--color-cian-dinamico);
   box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.15);
@@ -55,9 +56,6 @@ input.invalid {
 
 /* ============================================================
    NIVEL 1 — PROGRAMA
-   El .field de "Nombre del programa" debe destacar sobre el
-   resto. AJUSTA el selector si no es el primer .field del form
-   (ideal: agrega class="field field--programa" en ese input).
    ------------------------------------------------------------ */
 
 form > .field:first-of-type label,
@@ -80,7 +78,6 @@ form > .field:first-of-type input[type="text"]:focus,
   box-shadow: 0 0 0 3px rgba(0, 58, 112, 0.12);
 }
 
-/* Separador fuerte: cierra el "nivel programa" antes de las rutas */
 form > .field:first-of-type,
 .field--programa {
   padding-bottom: 20px;
@@ -90,8 +87,7 @@ form > .field:first-of-type,
 
 /* ============================================================
    NIVEL 2 — RUTA
-   .route ya existe como card; se refuerza con borde lateral +
-   más contraste de fondo para que se lea como subcontenedor.
+   Borde lateral cian. Sin cambios respecto a tu versión.
    ------------------------------------------------------------ */
 
 .route {
@@ -125,72 +121,119 @@ form > .field:first-of-type,
 
 /* ============================================================
    NIVEL 3 — TOPIC
-   .topics/.topic ya existen; se agrega indentación + línea
-   conectora para leerse como hijos de la ruta.
+   Antes era una fila simple (input + botón eliminar). Ahora es
+   un mini-contenedor (título + links + "agregar link"), igual
+   patrón que .route pero un nivel más liviano visualmente:
+   conserva el conector verde punteado como seña de "soy hijo
+   de la ruta", pero ya no es solo una línea, es una card chica.
    ------------------------------------------------------------ */
 
 .topics {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 10px;
   padding-left: 16px;
-  border-left: 2px dashed rgb(18, 221, 0);
+  border-left: 2px dashed var(--color-verde-impacto);
 }
 
 .topic {
+  position: relative;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-terciario);
+  background-color: var(--color-blanco);
+  padding: 10px 10px 10px 14px;
+}
+
+.topic::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 18px;
+  width: 14px;
+  height: 1px;
+  background: var(--color-verde-impacto);
+}
+
+.topic__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.topic__title-input {
+  flex: 1;
+  width: auto;
+  background-color: var(--color-blanco);
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-color: rgba(0, 184, 125, 0.35);
+}
+
+.topic__title-input:focus {
+  border-color: var(--color-verde-impacto);
+}
+
+/* ============================================================
+   NIVEL 4 — LINK
+   Mismo patrón visual que .topics/.topic (conector + indentación),
+   un nivel más adentro, con su propio color de acento para no
+   confundirse con el verde del topic. Se usa azul institucional
+   punteado, ya en uso en el nivel 1 como color "serio/cierre".
+   ------------------------------------------------------------ */
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-left: 14px;
+  border-left: 2px dotted var(--color-azul-institucional);
+}
+
+.link {
   position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.topic::before {
+.link::before {
   content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
   width: 10px;
   height: 1px;
-  background: rgba(18, 221, 0);
-  flex-shrink: 0;
+  background: var(--color-azul-institucional);
+  opacity: 0.4;
 }
 
-.topic__input {
+.link__input {
   flex: 1;
-  width: 200px;
+  width: auto;
   background-color: var(--color-blanco);
-  padding: 8px 10px;
-  font-size: 0.85rem;
+  padding: 7px 10px;
+  font-size: 0.8rem;
+  border-color: rgba(0, 58, 112, 0.25);
 }
 
-.topic__input:focus {
-  border-color: var(--color-cian-dinamico);
+.link__input:focus {
+  border-color: var(--color-azul-institucional);
 }
 
 /* ============================================================
    BOTONES DINÁMICOS
-   AJUSTA estos selectores a tus clases reales de botón.
+   Ajustado a las clases reales del proyecto (.btn .btn--ghost),
+   no a IDs. Se diferencian por tamaño/color según el nivel al
+   que pertenecen, conservando la escala de "importancia":
+   ruta > topic > link.
    ------------------------------------------------------------ */
 
-#btn-add-topic {
-  align-self: flex-start;
-  margin-left: 36px;
-  padding: 6px 12px;
-  width: 400px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-cian-dinamico);
-  background: rgba(0, 168, 224, 0.08);
-  border: 1px dashed rgba(0, 168, 224, 0.4);
-  border-radius: var(--border-radius-terciario);
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-#btn-add-topic:hover {
-  background: rgba(0, 168, 224, 0.15);
-  border-color: var(--color-cian-dinamico);
-}
-
-#btn-add-route {
+/* + Agregar ruta (nivel 2) — el más prominente, ancho completo */
+[data-action="add-route"] {
   display: block;
   width: 100%;
   padding: 12px 16px;
@@ -201,12 +244,49 @@ form > .field:first-of-type,
   background: rgba(0, 58, 112, 0.05);
   border: 1.5px dashed rgba(0, 58, 112, 0.35);
   border-radius: var(--border-radius-secundario);
-  cursor: pointer;
   text-align: center;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-#btn-add-route:hover {
+[data-action="add-route"]:hover {
+  background: rgba(0, 58, 112, 0.1);
+  border-color: var(--color-azul-institucional);
+}
+
+/* + Agregar topic (nivel 3) — mediano, color verde del nivel */
+[data-action="add-topic"] {
+  align-self: flex-start;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-verde-impacto);
+  background: rgba(0, 184, 125, 0.08);
+  border: 1px dashed rgba(0, 184, 125, 0.4);
+  border-radius: var(--border-radius-terciario);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+[data-action="add-topic"]:hover {
+  background: rgba(0, 184, 125, 0.15);
+  border-color: var(--color-verde-impacto);
+}
+
+/* + Agregar link (nivel 4) — el más pequeño, color azul institucional */
+[data-action="add-link"] {
+  align-self: flex-start;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-azul-institucional);
+  background: rgba(0, 58, 112, 0.05);
+  border: 1px dashed rgba(0, 58, 112, 0.3);
+  border-radius: var(--border-radius-terciario);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+[data-action="add-link"]:hover {
   background: rgba(0, 58, 112, 0.1);
   border-color: var(--color-azul-institucional);
 }
@@ -224,10 +304,13 @@ form > .field:first-of-type,
     padding-left: 10px;
   }
 
-  .btn-add-topic {
-    margin-left: 10px;
-    width: calc(100% - 10px);
-    text-align: center;
+  .links {
+    padding-left: 8px;
+  }
+
+  [data-action="add-topic"],
+  [data-action="add-link"] {
+    width: 100%;
   }
 }
 
@@ -236,9 +319,11 @@ form > .field:first-of-type,
    ------------------------------------------------------------ */
 
 .route__title-input:focus-visible,
-.topic__input:focus-visible,
-.btn-add-route:focus-visible,
-.btn-add-topic:focus-visible {
+.topic__title-input:focus-visible,
+.link__input:focus-visible,
+[data-action="add-route"]:focus-visible,
+[data-action="add-topic"]:focus-visible,
+[data-action="add-link"]:focus-visible {
   outline: 2px solid var(--color-azul-institucional);
   outline-offset: 2px;
 }

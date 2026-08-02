@@ -28,8 +28,40 @@
 
 <template id="topic-template">
   <div class="topic" data-topic>
-    <input type="text" class="topic__input" placeholder="Ej: Spring Boot" data-field="topic-value" required /> <input type="text" id="link" class="topic__input" placeholder="https://ejemplo.com">
-    <button type="button" class="btn btn--icon" data-action="remove-topic" aria-label="Quitar topic">&times;</button>
+    <div class="topic__header">
+      <input
+        type="text"
+        class="topic__title-input"
+        placeholder="Ej: Spring Boot"
+        data-field="topic-title"
+        required
+      />
+      <button type="button" class="btn btn--icon" data-action="remove-topic" aria-label="Quitar topic">
+        &times;
+      </button>
+    </div>
+
+    <div class="links" data-links></div>
+
+    <button type="button" class="btn btn--ghost btn--small" data-action="add-link">
+      + Agregar link
+    </button>
+
+    <span class="error" data-error="topic"></span>
+  </div>
+</template>
+
+<template id="link-template">
+  <div class="link" data-link>
+    <input
+      type="url"
+      class="link__input"
+      placeholder="https://ejemplo.com"
+      data-field="link-value"
+    />
+    <button type="button" class="btn btn--icon" data-action="remove-link" aria-label="Quitar link">
+      &times;
+    </button>
   </div>
 </template>
 

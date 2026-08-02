@@ -1,0 +1,20 @@
+.mpf-form-slot {
+  margin-top: 16px;
+}
+
+.btn--danger {
+  background-color: transparent;
+  color: #e0454b;
+  border: 1px solid #e0454b;
+}
+
+.btn--danger:hover:not(:disabled) {
+  background-color: #e0454b;
+  color: var(--color-blanco);
+}
+
+.btn--danger:disabled,
+#mpf-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
