@@ -7,61 +7,126 @@
   'use strict';
 
   /* ══════════════════════════════════════
-     NAVBAR — absorción tipo mercurio
+     DATOS DEL PERFIL
+     Mismo esquema que mentorData en register.js,
+     para que ambos formularios sean compatibles.
      ══════════════════════════════════════ */
-  const navbar     = document.getElementById('header-navbar');
-  const hamburger  = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const PROFILE_STORAGE_KEY = 'generationAlumniMentorProfile';
 
-  if (navbar) {
-    let ticking = false;
+  const AREA_OPTIONS = [
+    { value: 'programacion',  label: 'Programación',            icon: 'ti-code' },
+    { value: 'empleo',        label: 'Búsqueda de empleo',      icon: 'ti-search' },
+    { value: 'networking',    label: 'Networking',              icon: 'ti-users' },
+    { value: 'cv',            label: 'CV y LinkedIn',           icon: 'ti-file-text' },
+    { value: 'entrevistas',   label: 'Entrevistas',             icon: 'ti-microphone' },
+    { value: 'salario',       label: 'Negociación salarial',    icon: 'ti-coin' },
+    { value: 'ingles',        label: 'Inglés técnico',          icon: 'ti-language' },
+    { value: 'crecimiento',   label: 'Crecimiento profesional', icon: 'ti-rocket' },
+  ];
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrolled = window.scrollY > 80;
-          navbar.classList.toggle('scrolled', scrolled);
-          if (!scrolled && mobileMenu.classList.contains('open')) closeMenu();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
+  const MENTOR_TYPE_OPTIONS = [
+    { value: 'video', label: 'Videollamada',    desc: 'Google Meet o Zoom',        icon: 'ti-video' },
+    { value: 'chat',  label: 'Chat / escrito',  desc: 'Preguntas entre sesiones',  icon: 'ti-message-2' },
+    { value: 'cv',    label: 'Revisión de CV',  desc: 'Feedback escrito detallado',icon: 'ti-file-check' },
+    { value: 'group', label: 'Grupal',          desc: 'Sesiones para varios Alumni', icon: 'ti-users' },
+  ];
 
-    function openMenu() {
-      mobileMenu.classList.add('open');
-      hamburger.classList.add('open');
-      hamburger.setAttribute('aria-expanded', 'true');
-      document.addEventListener('click', onClickOutside);
+  const PROGRAM_LABELS = {
+    java: 'FullStack Java',
+    unity: 'Desarrollador Unity',
+    support: 'IT Support',
+    analytics: 'Data Analytics',
+  };
+
+  const defaultProfileData = {
+    firstName: 'Alejandro',
+    lastName: 'Saldaña',
+    email: 'alejandro@empresa.com',
+    profileImage: '../assets/images/logos/usuario-negra.png',
+    linkedin: 'https://linkedin.com/in/alejandro-saldana',
+    about: '"Desarrollador backend con más de 7 años en Java y Spring Boot. Fui alumno de bootcamp — entiendo exactamente lo que están viviendo y cómo ayudarlos a dar el siguiente paso con confianza real."',
+    generationProgram: 'java',
+    skills: ['Java', 'Spring Boot', 'APIs REST', 'Docker', 'AWS', 'Microservicios', 'PostgreSQL', 'Git', 'CI/CD', 'Testing'],
+    mentorAreas: ['programacion', 'entrevistas', 'cv', 'salario', 'empleo', 'crecimiento', 'networking', 'ingles'],
+    mentorType: ['video', 'cv', 'chat'],
+  };
+
+  function loadProfileData() {
+    try {
+      const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+      if (!raw) return { ...defaultProfileData };
+      return { ...defaultProfileData, ...JSON.parse(raw) };
+    } catch (error) {
+      console.error('Error leyendo el perfil desde localStorage:', error);
+      return { ...defaultProfileData };
     }
-
-    function closeMenu() {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.removeEventListener('click', onClickOutside);
-    }
-
-    function onClickOutside(e) {
-      if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
-    }
-
-    if (hamburger) {
-      hamburger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
-      });
-    }
-
-    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-        closeMenu();
-        hamburger.focus();
-      }
-    });
   }
+
+  let profileData = loadProfileData();
+
+  function renderProfile(data) {
+    document.getElementById('avatarPhoto').src = data.profileImage;
+    document.getElementById('editPhotoPreview').src = data.profileImage;
+    document.getElementById('profileFullName').textContent = `${data.firstName} ${data.lastName}`.trim();
+    document.getElementById('profileQuote').textContent = data.about || '';
+
+    const programChip = document.getElementById('programChip');
+    if (data.generationProgram && PROGRAM_LABELS[data.generationProgram]) {
+      programChip.textContent = PROGRAM_LABELS[data.generationProgram];
+      programChip.hidden = false;
+    } else {
+      programChip.hidden = true;
+    }
+
+    const linkedinTop = document.getElementById('linkedinBtnTop');
+    if (linkedinTop) linkedinTop.href = data.linkedin || '#';
+
+    const contactLinkedin = document.getElementById('contactLinkedinRow');
+    const contactLinkedinText = document.getElementById('contactLinkedinText');
+    if (contactLinkedin && contactLinkedinText) {
+      contactLinkedin.href = data.linkedin || '#';
+      contactLinkedinText.textContent = data.linkedin
+        ? data.linkedin.replace(/^https?:\/\//, '')
+        : 'Sin LinkedIn registrado';
+    }
+
+    const contactEmail = document.getElementById('contactEmailRow');
+    const contactEmailText = document.getElementById('contactEmailText');
+    if (contactEmail && contactEmailText) {
+      contactEmail.href = `mailto:${data.email}`;
+      contactEmailText.textContent = data.email;
+    }
+
+    /* Áreas de expertise */
+    const areasGrid = document.getElementById('areasGridDisplay');
+    if (areasGrid) {
+      areasGrid.innerHTML = AREA_OPTIONS
+        .filter(opt => data.mentorAreas.includes(opt.value))
+        .map(opt => `<li class="area-pill"><i class="ti ${opt.icon}" aria-hidden="true"></i><span>${opt.label}</span></li>`)
+        .join('');
+    }
+
+    /* Habilidades */
+    const skillsWrap = document.getElementById('skillsWrapDisplay');
+    if (skillsWrap) {
+      skillsWrap.innerHTML = data.skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
+    }
+
+    /* Tipo de mentoría */
+    const tipoGrid = document.getElementById('tipoGridDisplay');
+    if (tipoGrid) {
+      tipoGrid.innerHTML = MENTOR_TYPE_OPTIONS.map(opt => {
+        const active = data.mentorType.includes(opt.value);
+        return `
+          <li class="tipo-card ${active ? 'tipo-card-active' : 'tipo-card-off'}">
+            <i class="ti ${opt.icon}" aria-hidden="true"></i>
+            <div><h4>${opt.label}</h4><p>${active ? opt.desc : 'No disponible ahora'}</p></div>
+          </li>`;
+      }).join('');
+    }
+  }
+
+  renderProfile(profileData);
 
   /* ══════════════════════════════════════
      MODALES
@@ -181,42 +246,182 @@
     }, 3500);
   }
 
-  /* Solicitar sesión */
-  const btnSesion = document.querySelector('#modal-sesion .btn-cta-primary');
-  if (btnSesion) {
-    btnSesion.addEventListener('click', () => {
-      const tipo  = document.getElementById('sesion-tipo')?.value;
-      const tema  = document.getElementById('sesion-tema')?.value.trim();
-      const fecha = document.getElementById('sesion-fecha')?.value;
+  /* ══════════════════════════════════════
+     EDITAR PERFIL — modal basado en register
+     ══════════════════════════════════════ */
+  let editSkillsTemp = [];
+  let editPhotoTemp  = null;
 
-      if (!tipo || !tema || !fecha) {
-        showToast('Por favor completa todos los campos.', 'error');
-        return;
-      }
-      closeModal('modal-sesion');
-      showToast('¡Solicitud enviada! Alejandro te responderá en menos de 24 h.');
-      /* Resetear */
-      document.getElementById('sesion-tipo').value = '';
-      document.getElementById('sesion-tema').value = '';
-      document.getElementById('sesion-fecha').value = '';
+  function renderEditSkills() {
+    const list = document.getElementById('editSkillsList');
+    if (!list) return;
+    list.innerHTML = editSkillsTemp.map((skill, i) => `
+      <span class="skill-tag-edit">
+        <span>${skill}</span>
+        <button type="button" data-index="${i}" aria-label="Eliminar ${skill}">&times;</button>
+      </span>
+    `).join('');
+
+    list.querySelectorAll('button[data-index]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.currentTarget.dataset.index, 10);
+        editSkillsTemp.splice(idx, 1);
+        renderEditSkills();
+      });
     });
   }
 
-  /* Enviar mensaje */
-  const btnMensaje = document.querySelector('#modal-mensaje .btn-cta-primary');
-  if (btnMensaje) {
-    btnMensaje.addEventListener('click', () => {
-      const asunto = document.getElementById('msg-asunto')?.value.trim();
-      const texto  = document.getElementById('msg-texto')?.value.trim();
+  function addEditSkill() {
+    const input = document.getElementById('editSkillInput');
+    const value = input.value.trim();
+    if (!value) return;
 
-      if (!asunto || !texto) {
-        showToast('Por favor completa el asunto y el mensaje.', 'error');
+    const exists = editSkillsTemp.some(s => s.toLowerCase() === value.toLowerCase());
+    if (exists) {
+      showToast('Esa habilidad ya fue agregada.', 'error');
+      input.value = '';
+      return;
+    }
+    editSkillsTemp.push(value);
+    input.value = '';
+    renderEditSkills();
+  }
+
+  function renderEditAreasGrid(selected) {
+    const grid = document.getElementById('editAreasGrid');
+    if (!grid) return;
+    grid.innerHTML = AREA_OPTIONS.map(opt => `
+      <label class="tag-select">
+        <input type="checkbox" name="editMentorAreas" value="${opt.value}" ${selected.includes(opt.value) ? 'checked' : ''}>
+        <span>${opt.label}</span>
+      </label>
+    `).join('');
+  }
+
+  function renderEditMentorTypeGrid(selected) {
+    const grid = document.getElementById('editMentorTypeGrid');
+    if (!grid) return;
+    grid.innerHTML = MENTOR_TYPE_OPTIONS.map(opt => `
+      <label class="mentor-type-select">
+        <input type="checkbox" name="editMentorType" value="${opt.value}" ${selected.includes(opt.value) ? 'checked' : ''}>
+        <i class="ti ${opt.icon}" aria-hidden="true"></i>
+        <span>${opt.label}</span>
+      </label>
+    `).join('');
+  }
+
+  function openEditProfileModal() {
+    document.getElementById('editFirstName').value = profileData.firstName;
+    document.getElementById('editLastName').value  = profileData.lastName;
+    document.getElementById('editEmail').value     = profileData.email;
+    document.getElementById('editLinkedin').value  = profileData.linkedin;
+    document.getElementById('editAbout').value     = profileData.about;
+    document.getElementById('editProgram').value   = profileData.generationProgram;
+
+    const counter = document.getElementById('editAboutCounter');
+    if (counter) counter.textContent = `${profileData.about.length} / 500`;
+
+    document.getElementById('editPhotoPreview').src = profileData.profileImage;
+    editPhotoTemp = null;
+
+    editSkillsTemp = [...profileData.skills];
+    renderEditSkills();
+
+    renderEditAreasGrid(profileData.mentorAreas);
+    renderEditMentorTypeGrid(profileData.mentorType);
+
+    openModal('modal-editar-perfil');
+  }
+  window.openEditProfileModal = openEditProfileModal;
+
+  const editAboutInput = document.getElementById('editAbout');
+  if (editAboutInput) {
+    editAboutInput.addEventListener('input', () => {
+      const counter = document.getElementById('editAboutCounter');
+      if (counter) counter.textContent = `${editAboutInput.value.length} / 500`;
+    });
+  }
+
+  const editSkillAddBtn = document.getElementById('editSkillAddBtn');
+  if (editSkillAddBtn) editSkillAddBtn.addEventListener('click', addEditSkill);
+
+  const editSkillInput = document.getElementById('editSkillInput');
+  if (editSkillInput) {
+    editSkillInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addEditSkill();
+      }
+    });
+  }
+
+  const editProfileImageInput = document.getElementById('editProfileImage');
+  if (editProfileImageInput) {
+    editProfileImageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const maxSizeInBytes = 5 * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        showToast('La imagen supera el tamaño máximo de 5 MB.', 'error');
+        editProfileImageInput.value = '';
         return;
       }
-      closeModal('modal-mensaje');
-      showToast('Mensaje enviado. Alejandro te responderá pronto.');
-      document.getElementById('msg-asunto').value = '';
-      document.getElementById('msg-texto').value  = '';
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('editPhotoPreview').src = e.target.result;
+        editPhotoTemp = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function isValidEmailProfile(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  const btnGuardarPerfil = document.getElementById('btnGuardarPerfil');
+  if (btnGuardarPerfil) {
+    btnGuardarPerfil.addEventListener('click', () => {
+      const firstName = document.getElementById('editFirstName').value.trim();
+      const lastName  = document.getElementById('editLastName').value.trim();
+      const email     = document.getElementById('editEmail').value.trim();
+
+      if (!firstName || !lastName) {
+        showToast('Nombres y apellidos son obligatorios.', 'error');
+        return;
+      }
+      if (!email || !isValidEmailProfile(email)) {
+        showToast('Ingresa un correo electrónico válido.', 'error');
+        return;
+      }
+
+      const selectedAreas = Array.from(
+        document.querySelectorAll('#editAreasGrid input[name="editMentorAreas"]:checked')
+      ).map(el => el.value);
+
+      const selectedTypes = Array.from(
+        document.querySelectorAll('#editMentorTypeGrid input[name="editMentorType"]:checked')
+      ).map(el => el.value);
+
+      profileData = {
+        firstName,
+        lastName,
+        email,
+        profileImage: editPhotoTemp || profileData.profileImage,
+        linkedin: document.getElementById('editLinkedin').value.trim(),
+        about: document.getElementById('editAbout').value.trim(),
+        generationProgram: document.getElementById('editProgram').value,
+        skills: [...editSkillsTemp],
+        mentorAreas: selectedAreas,
+        mentorType: selectedTypes,
+      };
+
+      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
+      renderProfile(profileData);
+      closeModal('modal-editar-perfil');
+      showToast('¡Perfil actualizado correctamente!');
     });
   }
 
@@ -287,7 +492,7 @@
   `;
   document.head.appendChild(animStyle);
 
-  const cards = document.querySelectorAll('.glass-card, .profile-hero .hero-inner, .profile-hero .hero-tagline, .profile-hero .hero-stats');
+  const cards = document.querySelectorAll('.glass-card, .description-mentor, .statistics-mentor');
   cards.forEach((el, i) => {
     el.classList.add('reveal');
     el.style.transitionDelay = `${i * 60}ms`;
