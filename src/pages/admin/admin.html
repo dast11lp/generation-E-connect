@@ -12,107 +12,36 @@
   <body>
     <!-- Inicio cambios Alejandro navbar y main -->
     <div id="navbar-container"></div>
-
     <main class="contenedor-main">
-        <div class="contenedor-main-header">
-            <h1>Grabaciones y webinars</h1>
-            <p>Sesiones grabadas por el equipo Generation para seguir aprendiendo.</p>
-            <input id="busqueda-sesiones" type="text" placeholder="Buscar sesiones...">
-            <button class="btn-buscar-sesiones">Buscar</button>
-            <div class="filtros-busqueda-sesiones">
-                <a href="#" data-filter="all" class="active">Todas</a>
-                <a href="#" data-filter="guest-talks">Guest Talks</a>
-                <a href="#" data-filter="webinars">Webinars</a>
-                <a href="#" data-filter="talleres">Talleres</a>
-                <a href="#" data-filter="charlas-tecnicas">Charlas técnicas</a>
-                <a href="#" data-filter="sesiones-informativas">Sesiones informativas</a>
-            </div>
-
+    <div class="contenedor-main-header">
+        <h1>Grabaciones y webinars</h1>
+        <p>Sesiones grabadas por el equipo Generation para seguir aprendiendo.</p>
+        <input id="busqueda-sesiones" type="text" placeholder="Buscar sesiones...">
+        <button class="btn-buscar-sesiones">Buscar</button>
+        <div class="filtros-busqueda-sesiones">
+            <a href="#" data-filter="all" class="active">Todas</a>
+            <a href="#" data-filter="guest-talks">Guest Talks</a>
+            <a href="#" data-filter="webinars">Webinars</a>
+            <a href="#" data-filter="talleres">Talleres</a>
+            <a href="#" data-filter="charlas-tecnicas">Charlas técnicas</a>
+            <a href="#" data-filter="sesiones-informativas">Sesiones informativas</a>
         </div>
-      </div>
+    </div>
     </main>
 
-    <!-- <div class="grabaciones">
-
-    </div> -->
-
-
-    <!-- Fin cambios Alejandro navbar y main -->
-
-    <!--  cambios Jaime inicio -->
     <section class="section-grabaciones">
-        <!-- <h2>Grabaciones y webinars</h2> -->
-        <div id="tarjetas-grabaciones" class="grid-grabaciones">
-
-        </div>
+        <div id="tarjetas-grabaciones" class="grid-grabaciones"></div>
     </section>
-    <!-- cambios Jaime final -->
 
-    <!--Inicio formulario Henry-->
-    <form id="formulario_video">
-      <div class="tabs">
-        <ul class="tabs__list">
-          <li class="tabs__list__tab tabs__list__tab--active" data-tab="1">
-            Archivo De Video
-          </li>
-          <li class="tabs__list__tab" data-tab="2">Url</li>
-        </ul>
-      </div>
+    <button type="button" id="open-video-form" class="btn btn--primary">+ Agregar video</button>
+    <button type="button" id="open-manage-video-form" class="btn btn--secondary">Administrar videos</button>
+    
+    <base-modal id="video-form-modal"></base-modal>
 
-      <div
-        id="form"
-        class="form tabs__content tabs__content--1 tabs__content--active"
-        data-content="1"
-      >
-        <p>Sube aquí tu video o archivo.</p>
-        <input type="file" id="videoFile" accept="video/*" />
-        <span class="error" id="video-file-error"></span>
-      </div>
-
-      <div class="tabs__content tabs__content--2" data-content="2">
-        <label for="videoUrl" id="url">Aquí el enlace de tu video:</label>
-        <input
-          type="url"
-          id="videoUrl"
-          name="videoUrl"
-          placeholder="https://ejemplo.com"
-        />
-        <span class="error"></span>
-      </div>
-
-      <div>
-        <label for="category">Tu categoria</label>
-        <select id="category" name="categoria-cohorte">
-          <option value="">Seleccione una categoría</option>
-          <option value="java">Full-Stack/Javak</option>
-          <option value="soporte">Soporte TI</option>
-          <option value="unity">Unity</option>
-          <option value="marketing">Marketing digital</option>
-        </select>
-        <span class="error"></span>
-      </div>
-
-      <!-- Descripción -->
-      <div>
-        <label for="description">Descripción:</label>
-        <textarea
-          id="description"
-          placeholder="Realiza una breve descripion."
-          name="description"
-        ></textarea>
-        <span class="error"></span>
-      </div>
-
-      <!-- Campos ocultos o automáticos -->
-      <input type="hidden" id="username" value="UsuarioActual" />
-      <input type="hidden" id="uploadDate" />
-
-      <button type="submit" id="send">Agregar video</button>
-    </form>
-    <!--Fin formularo Henry-->
     <div id="footer-container"></div>
     <script src="../../components/ui/footer/footer.js"></script>
     <script src="../../components/ui/navbar/navbar.js"></script>
+    <script type="module" src="../../components/ui/modal/base-modal/base-modal.js"></script>
     <script type="module" src="admin.js"></script>
   </body>
 </html>

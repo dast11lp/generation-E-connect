@@ -1,0 +1,99 @@
+.video-form .tabs__list {
+  display: flex;
+  gap: 15px;
+}
+
+.video-form .tabs__list li {
+  list-style: none;
+  padding: 10px 15px;
+  border-radius: var(--border-radius-terciario);
+}
+
+.video-form .tabs__list__tab {
+  background: var(--color-gris-claro);
+  cursor: pointer;
+}
+
+.video-form .tabs__list__tab--active {
+  background: var(--color-azul-generation);
+  color: var(--color-blanco);
+  transform: scale(1.1) translateY(-2px);
+}
+
+.video-form .tabs__content {
+  display: none;
+}
+
+.video-form .tabs__content--active {
+  display: block;
+}
+
+.video-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.video-form label {
+  display: block;
+  color: var(--color-azul-institucional);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form {
+  background-color: var(--color-azul-suave);
+  border: 2px dashed var(--color-azul-generation);
+  border-radius: var(--border-radius-secundario);
+  padding: 24px;
+  text-align: center;
+  color: var(--color-oscuro-principal);
+  font-weight: 500;
+}
+
+.form input[type="file"] {
+  margin-top: 10px;
+  color: var(--color-gris-texto);
+}
+
+.video-form input[type="url"],
+.video-form select,
+.video-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-terciario);
+  background-color: var(--color-blanco);
+  color: var(--color-oscuro-principal);
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-form input::placeholder,
+.video-form textarea::placeholder {
+  color: var(--color-gris-texto);
+  opacity: 0.7;
+}
+
+.video-form input[type="url"]:focus,
+.video-form select:focus,
+.video-form textarea:focus {
+  outline: none;
+  border-color: var(--color-cian-dinamico);
+  box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.2);
+}
+
+.video-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.error {
+  display: block;
+  color: #e0454b;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  min-height: 1em;
+}

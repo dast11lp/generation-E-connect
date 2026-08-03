@@ -1,0 +1,71 @@
+<form id="pf-form" novalidate>
+  <div class="field">
+    <label for="pf-name">Nombre del programa</label>
+    <input type="text" id="pf-name" name="name" placeholder="Ej: Data Analytics" required />
+    <span class="error" data-error="name"></span>
+  </div>
+
+  <div class="routes" id="pf-routes"></div>
+
+  <button type="button" id="btn-add-route" class="btn btn--ghost" data-action="add-route">
+    + Agregar ruta
+  </button>
+
+  <p class="error error--general" data-error="general"></p>
+</form>
+
+<template id="route-template">
+  <div class="route" data-route>
+    <div class="route__header">
+      <input type="text" class="route__title-input" placeholder="Título de la ruta (ej: Backend sólido)" data-field="route-title" required />
+      <button type="button" class="btn btn--icon" data-action="remove-route" aria-label="Quitar ruta">&times;</button>
+    </div>
+    <div class="topics" data-topics></div>
+    <button type="button" id="btn-add-topic" class="btn btn--ghost btn--small" data-action="add-topic">+ Agregar topic</button>
+    <span class="error" data-error="route"></span>
+  </div>
+</template>
+
+<template id="topic-template">
+  <div class="topic" data-topic>
+    <div class="topic__header">
+      <input
+        type="text"
+        class="topic__title-input"
+        placeholder="Ej: Spring Boot"
+        data-field="topic-title"
+        required
+      />
+      <button type="button" class="btn btn--icon" data-action="remove-topic" aria-label="Quitar topic">
+        &times;
+      </button>
+    </div>
+
+    <div class="links" data-links></div>
+
+    <button type="button" class="btn btn--ghost btn--small" data-action="add-link">
+      + Agregar link
+    </button>
+
+    <span class="error" data-error="topic"></span>
+  </div>
+</template>
+
+<template id="link-template">
+  <div class="link" data-link>
+    <input
+      type="url"
+      class="link__input"
+      placeholder="https://ejemplo.com"
+      data-field="link-value"
+    />
+    <button type="button" class="btn btn--icon" data-action="remove-link" aria-label="Quitar link">
+      &times;
+    </button>
+  </div>
+</template>
+
+<div class="modal__footer" id="pf-footer">
+  <button type="button" class="btn btn--secondary" data-action="cancel">Cancelar</button>
+  <button type="submit" form="pf-form" class="btn btn--primary">Guardar programa</button>
+</div>

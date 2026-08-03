@@ -1,8 +1,12 @@
+import { createProgramForm } from "../../components/forms/program-form/program-form.js";
+import { createManageProgramForm } from "../../components/forms/manage-program-form/manage-program-form.js";
+
 const programTabList = document.querySelector('#program-tab-list');
 const contentRoutesCards = document.querySelector('.content__routes__route')
 const contentTopicsCards = document.querySelector('.content__topics__cards')
 const topicsTitle = document.querySelector('#topics-title')
 const openFormBtn = document.querySelector('#open-program-form')
+const openManageProgramBtn = document.querySelector('#open-manage-program-form');
 const programFormModal = document.querySelector('#program-form-modal')
 
 
@@ -110,15 +114,54 @@ function refreshAll(selectedProgramId = null) {
 }
 
 
+// ============ Apertura del modal con el formulario específico de programas ============
 
 openFormBtn.addEventListener('click', async () => {
-    await customElements.whenDefined('program-form-modal');
-    programFormModal.open();
+    await customElements.whenDefined('base-modal');
+
+    const programForm = await createProgramForm();
+
+    programForm.element.addEventListener('program-created', (event) => {
+        const newProgram = addProgram(event.detail);
+        refreshAll(newProgram.id);
+        programFormModal.close();
+    });
+
+    programForm.element.addEventListener('program-form-cancel', () => {
+        programFormModal.close();
+    });
+
+    programFormModal.open({
+        title: "Nuevo programa de formación",
+        content: programForm.element,
+        footer: programForm.footerElement,
+    });
 });
 
-programFormModal.addEventListener('program-created', (event) => {
-    const newProgram = addProgram(event.detail); 
-    refreshAll(newProgram.id);
+openManageProgramBtn.addEventListener('click', async () => {
+    await customElements.whenDefined('base-modal');
+
+    const manageForm = await createManageProgramForm();
+
+    manageForm.element.addEventListener('program-form-updated', () => {
+        refreshAll();
+        programFormModal.close();
+    });
+
+    manageForm.element.addEventListener('program-form-deleted', () => {
+        refreshAll();
+        programFormModal.close();
+    });
+
+    manageForm.element.addEventListener('manage-program-cancel', () => {
+        programFormModal.close();
+    });
+
+    programFormModal.open({
+        title: "Administrar programas",
+        content: manageForm.element,
+        footer: manageForm.footerElement,
+    });
 });
 
 refreshAll();

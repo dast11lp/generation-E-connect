@@ -1,4 +1,3 @@
-
 const trainingProgramsSeed = [
     {
         id: 1,

@@ -1,0 +1,41 @@
+<form id="rf-form" class="resource-form" novalidate>
+  <div class="field">
+    <label for="rf-title">Título del recurso</label>
+    <input type="text" id="rf-title" name="title" placeholder="Ej: Guía de CV impactante" />
+    <span class="error" data-error="title"></span>
+  </div>
+
+  <div class="field">
+    <label for="rf-category">Categoría</label>
+    <select id="rf-category" name="category">
+      <option value="">Seleccione una categoría</option>
+      <option value="Hoja de vida">Hoja de vida</option>
+      <option value="LinkedIn">LinkedIn</option>
+      <option value="Entrevistas">Entrevistas</option>
+      <option value="JavaScript">JavaScript</option>
+      <option value="Networking">Networking</option>
+      <option value="Inglés">Inglés</option>
+      <option value="Portafolio">Portafolio</option>
+      <option value="Negociación">Negociación</option>
+      <option value="Desarrollo">Desarrollo</option>
+    </select>
+    <span class="error" data-error="category"></span>
+  </div>
+
+  <div class="field">
+    <label for="rf-description">Descripción</label>
+    <textarea id="rf-description" name="description" placeholder="Realiza una breve descripción."></textarea>
+    <span class="error" data-error="description"></span>
+  </div>
+
+  <div id="rf-form-file" class="form">
+    <p>Sube aquí tu recurso.</p>
+    <input type="file" id="rf-file" />
+    <span class="error" data-error="file"></span>
+  </div>
+</form>
+
+<footer class="modal__footer" id="rf-footer">
+  <button type="button" class="btn btn--secondary" data-action="cancel">Cancelar</button>
+  <button type="submit" form="rf-form" class="btn btn--primary">Agregar recurso</button>
+</footer>

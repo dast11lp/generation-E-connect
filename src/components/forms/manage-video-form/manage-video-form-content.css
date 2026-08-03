@@ -1,0 +1,36 @@
+.mvf-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.mvf-current-file {
+  padding: 10px 14px;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-terciario);
+  background: var(--color-blanco);
+}
+
+.mvf-current-file-name {
+  font-weight: 600;
+  color: var(--color-oscuro-principal);
+  word-break: break-all;
+}
+
+.btn--danger {
+  background-color: transparent;
+  color: #e0454b;
+  border: 1px solid #e0454b;
+}
+
+.btn--danger:hover:not(:disabled) {
+  background-color: #e0454b;
+  color: var(--color-blanco);
+}
+
+.btn--danger:disabled,
+#mvf-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

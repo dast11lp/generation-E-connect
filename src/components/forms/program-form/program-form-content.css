@@ -1,0 +1,329 @@
+/* ============================================================
+   REDISEÑO VISUAL — JERARQUÍA PROGRAMA > RUTA > TOPIC > LINK
+   Adaptado a las clases y variables reales del proyecto.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   BASE
+   ------------------------------------------------------------ */
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  color: var(--color-azul-institucional);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="url"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-terciario);
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--color-oscuro-principal);
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  border-color: var(--color-cian-dinamico);
+  box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.15);
+}
+
+input.invalid {
+  border-color: #e0454b;
+}
+
+.error {
+  display: block;
+  color: #e0454b;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  min-height: 1em;
+}
+
+.error--general {
+  text-align: center;
+  margin: 10px 0 0;
+}
+
+/* ============================================================
+   NIVEL 1 — PROGRAMA
+   ------------------------------------------------------------ */
+
+form > .field:first-of-type label,
+.field--programa label {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+form > .field:first-of-type input[type="text"],
+.field--programa input[type="text"] {
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  border-width: 1.5px;
+}
+
+form > .field:first-of-type input[type="text"]:focus,
+.field--programa input[type="text"]:focus {
+  border-color: var(--color-azul-institucional);
+  box-shadow: 0 0 0 3px rgba(0, 58, 112, 0.12);
+}
+
+form > .field:first-of-type,
+.field--programa {
+  padding-bottom: 20px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--color-gris-claro);
+}
+
+/* ============================================================
+   NIVEL 2 — RUTA
+   Borde lateral cian. Sin cambios respecto a tu versión.
+   ------------------------------------------------------------ */
+
+.route {
+  position: relative;
+  border: 1px solid var(--color-gris-claro);
+  border-left: 4px solid var(--color-cian-dinamico);
+  border-radius: var(--border-radius-secundario);
+  background-color: var(--color-azul-suave);
+  padding: 16px 16px 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.route__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.route__title-input {
+  flex: 1;
+  background-color: var(--color-blanco);
+  font-weight: 600;
+  border-color: rgba(0, 168, 224, 0.35);
+}
+
+.route__title-input:focus {
+  border-color: var(--color-cian-dinamico);
+}
+
+/* ============================================================
+   NIVEL 3 — TOPIC
+   Antes era una fila simple (input + botón eliminar). Ahora es
+   un mini-contenedor (título + links + "agregar link"), igual
+   patrón que .route pero un nivel más liviano visualmente:
+   conserva el conector verde punteado como seña de "soy hijo
+   de la ruta", pero ya no es solo una línea, es una card chica.
+   ------------------------------------------------------------ */
+
+.topics {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-left: 16px;
+  border-left: 2px dashed var(--color-verde-impacto);
+}
+
+.topic {
+  position: relative;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: var(--border-radius-terciario);
+  background-color: var(--color-blanco);
+  padding: 10px 10px 10px 14px;
+}
+
+.topic::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 18px;
+  width: 14px;
+  height: 1px;
+  background: var(--color-verde-impacto);
+}
+
+.topic__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.topic__title-input {
+  flex: 1;
+  width: auto;
+  background-color: var(--color-blanco);
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-color: rgba(0, 184, 125, 0.35);
+}
+
+.topic__title-input:focus {
+  border-color: var(--color-verde-impacto);
+}
+
+/* ============================================================
+   NIVEL 4 — LINK
+   Mismo patrón visual que .topics/.topic (conector + indentación),
+   un nivel más adentro, con su propio color de acento para no
+   confundirse con el verde del topic. Se usa azul institucional
+   punteado, ya en uso en el nivel 1 como color "serio/cierre".
+   ------------------------------------------------------------ */
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-left: 14px;
+  border-left: 2px dotted var(--color-azul-institucional);
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  background: var(--color-azul-institucional);
+  opacity: 0.4;
+}
+
+.link__input {
+  flex: 1;
+  width: auto;
+  background-color: var(--color-blanco);
+  padding: 7px 10px;
+  font-size: 0.8rem;
+  border-color: rgba(0, 58, 112, 0.25);
+}
+
+.link__input:focus {
+  border-color: var(--color-azul-institucional);
+}
+
+/* ============================================================
+   BOTONES DINÁMICOS
+   Ajustado a las clases reales del proyecto (.btn .btn--ghost),
+   no a IDs. Se diferencian por tamaño/color según el nivel al
+   que pertenecen, conservando la escala de "importancia":
+   ruta > topic > link.
+   ------------------------------------------------------------ */
+
+/* + Agregar ruta (nivel 2) — el más prominente, ancho completo */
+[data-action="add-route"] {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-azul-institucional);
+  background: rgba(0, 58, 112, 0.05);
+  border: 1.5px dashed rgba(0, 58, 112, 0.35);
+  border-radius: var(--border-radius-secundario);
+  text-align: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+[data-action="add-route"]:hover {
+  background: rgba(0, 58, 112, 0.1);
+  border-color: var(--color-azul-institucional);
+}
+
+/* + Agregar topic (nivel 3) — mediano, color verde del nivel */
+[data-action="add-topic"] {
+  align-self: flex-start;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-verde-impacto);
+  background: rgba(0, 184, 125, 0.08);
+  border: 1px dashed rgba(0, 184, 125, 0.4);
+  border-radius: var(--border-radius-terciario);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+[data-action="add-topic"]:hover {
+  background: rgba(0, 184, 125, 0.15);
+  border-color: var(--color-verde-impacto);
+}
+
+/* + Agregar link (nivel 4) — el más pequeño, color azul institucional */
+[data-action="add-link"] {
+  align-self: flex-start;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-azul-institucional);
+  background: rgba(0, 58, 112, 0.05);
+  border: 1px dashed rgba(0, 58, 112, 0.3);
+  border-radius: var(--border-radius-terciario);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+[data-action="add-link"]:hover {
+  background: rgba(0, 58, 112, 0.1);
+  border-color: var(--color-azul-institucional);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ------------------------------------------------------------ */
+
+@media (max-width: 480px) {
+  .route {
+    padding: 12px 12px 14px 14px;
+  }
+
+  .topics {
+    padding-left: 10px;
+  }
+
+  .links {
+    padding-left: 8px;
+  }
+
+  [data-action="add-topic"],
+  [data-action="add-link"] {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   ACCESIBILIDAD
+   ------------------------------------------------------------ */
+
+.route__title-input:focus-visible,
+.topic__title-input:focus-visible,
+.link__input:focus-visible,
+[data-action="add-route"]:focus-visible,
+[data-action="add-topic"]:focus-visible,
+[data-action="add-link"]:focus-visible {
+  outline: 2px solid var(--color-azul-institucional);
+  outline-offset: 2px;
+}

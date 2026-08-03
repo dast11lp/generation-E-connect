@@ -1,0 +1,61 @@
+<form id="vf-form" class="video-form" novalidate>
+  <div class="tabs">
+    <ul class="tabs__list">
+      <li class="tabs__list__tab tabs__list__tab--active" data-tab="1">
+        Archivo De Video
+      </li>
+      <li class="tabs__list__tab" data-tab="2">Url</li>
+    </ul>
+  </div>
+
+  <div
+    id="vf-form-file"
+    class="form tabs__content tabs__content--1 tabs__content--active"
+    data-content="1"
+  >
+    <p>Sube aquí tu video o archivo.</p>
+    <input type="file" id="vf-videoFile" accept="video/*" />
+    <span class="error" data-error="file"></span>
+  </div>
+
+  <div class="tabs__content tabs__content--2" data-content="2">
+    <label for="vf-videoUrl">Aquí el enlace de tu video:</label>
+    <input
+      type="url"
+      id="vf-videoUrl"
+      name="videoUrl"
+      placeholder="https://ejemplo.com"
+    />
+    <span class="error" data-error="url"></span>
+  </div>
+
+  <div>
+    <label for="vf-category">Tu categoria</label>
+    <select id="vf-category" name="categoria-cohorte">
+      <option value="">Seleccione una categoría</option>
+      <option value="java">Full-Stack/Java</option>
+      <option value="soporte">Soporte TI</option>
+      <option value="unity">Unity</option>
+      <option value="marketing">Marketing digital</option>
+    </select>
+    <span class="error" data-error="category"></span>
+  </div>
+
+  <div>
+    <label for="vf-description">Descripción:</label>
+    <textarea
+      id="vf-description"
+      placeholder="Realiza una breve descripion."
+      name="description"
+    ></textarea>
+    <span class="error" data-error="description"></span>
+  </div>
+
+  <input type="hidden" id="vf-username" value="UsuarioActual" />
+  <input type="hidden" id="vf-uploadDate" />
+</form>
+
+<footer class="modal__footer" id="vf-footer">
+  <button type="button" class="btn btn--secondary" data-action="cancel">Cancelar</button>
+  <button type="submit" form="vf-form" class="btn btn--primary" id="vf-submit">Agregar video</button>
+</footer>

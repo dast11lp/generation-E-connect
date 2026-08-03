@@ -1,0 +1,56 @@
+<form id="mvf-form" class="video-form" novalidate>
+  <div class="field">
+    <label for="mvf-select">Selecciona un video</label>
+    <select id="mvf-select">
+      <option value="">Seleccionar video...</option>
+    </select>
+  </div>
+
+  <div id="mvf-details" class="mvf-details" hidden>
+
+    <div>
+      <label for="mvf-category">Tu categoria</label>
+      <select id="mvf-category" name="categoria-cohorte">
+        <option value="">Seleccione una categoría</option>
+        <option value="java">Full-Stack/Java</option>
+        <option value="soporte">Soporte TI</option>
+        <option value="unity">Unity</option>
+        <option value="marketing">Marketing digital</option>
+      </select>
+      <span class="error" data-error="category"></span>
+    </div>
+
+    <div>
+      <label for="mvf-description">Descripción:</label>
+      <textarea id="mvf-description" name="description" placeholder="Realiza una breve descripcion."></textarea>
+      <span class="error" data-error="description"></span>
+    </div>
+
+    <!-- Bloque MODO ARCHIVO: se muestra solo si sourceType === "file" -->
+    <div id="mvf-file-block" class="mvf-content-block" hidden>
+      <label>Archivo actual</label>
+      <div class="mvf-current-file">
+        <span class="mvf-current-file-name" data-current-file-name></span>
+      </div>
+      <div id="mvf-form-file" class="form">
+        <p>Cambiar archivo (opcional)</p>
+        <input type="file" id="mvf-file" accept="video/*" />
+        <span class="error" data-error="file"></span>
+      </div>
+    </div>
+
+    <!-- Bloque MODO URL: se muestra solo si sourceType === "url" -->
+    <div id="mvf-url-block" class="mvf-content-block" hidden>
+      <label for="mvf-url">URL actual</label>
+      <input type="url" id="mvf-url" name="videoUrl" placeholder="https://ejemplo.com" />
+      <span class="error" data-error="url"></span>
+    </div>
+
+  </div>
+</form>
+
+<footer class="modal__footer" id="mvf-footer">
+  <button type="button" class="btn btn--danger" id="mvf-delete" data-action="delete" disabled>Eliminar video</button>
+  <button type="button" class="btn btn--secondary" data-action="close">Cerrar</button>
+  <button type="submit" form="mvf-form" class="btn btn--primary" id="mvf-save" disabled>Guardar cambios</button>
+</footer>
