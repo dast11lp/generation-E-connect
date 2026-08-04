@@ -103,8 +103,10 @@ export async function createResourceForm() {
     if (hasError) return { errors: true };
 
     let fileUrl;
+    console.log("me ejecuto?");
     try {
       fileUrl = await uploadVideo(file);
+      console.log("me ejecuto? x2");
     } catch (error) {
       errors.file.textContent = error.message ?? "No se pudo subir el archivo.";
       return { errors: true };
