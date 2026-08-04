@@ -2,10 +2,7 @@ import { escapeHtml } from "../../utils/html.js";
 
 export function createResourceCard(resource) {
   const typeClass = resource.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  console.log("Prueba-------- apertura");
-  console.log(resource);
-  console.log("Prueba-------- cierre ");
-  
+ 
   return `
     <article class="recurso-card">
       <span class="badge ${typeClass}">${escapeHtml(resource.type)}</span>
