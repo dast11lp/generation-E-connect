@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources.css">
+    <link rel="stylesheet" href="../../components/ui/footer/footer.css">
     <link rel="stylesheet" href="../../components/ui/navbar/navbar.css">
     <title>Document</title>
 </head>
@@ -16,11 +17,11 @@
         <aside class="barra-lateral">
             <div class="contenedor-tipo-recursos">
                 <h2>Tipo de recursos</h2>
-                 <label><input type="checkbox" name="tipo-recurso" value="PDF">PDF</label>
-                 <label><input type="checkbox" name="tipo-recurso" value="Video">Video</label>
-                 <label><input type="checkbox" name="tipo-recurso" value="Plantilla">Plantilla</label>
-                 <label><input type="checkbox" name="tipo-recurso" value="Guía">Guía</label>
-                  <label><input type="checkbox" name="tipo-recurso" value="Enlace externo">Enlace externo</label>
+                <label><input type="checkbox" name="tipo-recurso" value="PDF">PDF</label>
+                <label><input type="checkbox" name="tipo-recurso" value="Video">Video</label>
+                <label><input type="checkbox" name="tipo-recurso" value="Plantilla">Plantilla</label>
+                <label><input type="checkbox" name="tipo-recurso" value="Guía">Guía</label>
+                <label><input type="checkbox" name="tipo-recurso" value="Enlace externo">Enlace externo</label>
     </div>
 
     <div class="contenedor-ordenar-por">
@@ -34,9 +35,13 @@
         <main class="contenido-principal">
             <h1>Biblioteca de recursos</h1>
             <p>Guías, plantillas, videos y más para impulsar tu búsqueda laboral.</p>
-            <input type="text" placeholder="Buscar recursos">
-            <button type="button" id="open-resource-form" class="btn btn--primary">+ Agregar recurso</button>
-            <button type="button" id="open-manage-resource-form" class="btn btn--secondary">Administrar recursos</button>
+            
+            <div class="contenido-principal-toolbar">
+                <input type="text" placeholder="Buscar recursos">
+                <button type="button" id="open-resource-form">+ Agregar recurso</button>
+                <button type="button" id="open-manage-resource-form">Administrar recursos</button>
+            </div>
+            
             <div class="categorias"></div>
 
             <div class="contenedor-recursos-filtro">
@@ -49,6 +54,8 @@
             <base-modal id="resource-form-modal"></base-modal>
         </main>
     </div>
+
+    <div id="footer-container"></div>
 
     <script type="module" src="../../components/ui/modal/base-modal/base-modal.js"></script>
     <script type="module" src="resources.js"></script>

@@ -18,6 +18,10 @@
         <p>Sesiones grabadas por el equipo Generation para seguir aprendiendo.</p>
         <input id="busqueda-sesiones" type="text" placeholder="Buscar sesiones...">
         <button class="btn-buscar-sesiones">Buscar</button>
+
+        <button type="button" id="open-video-form" class="btn btn--primary">+ Agregar video</button>
+        <button type="button" id="open-manage-video-form" class="btn btn--secondary">Administrar videos</button>
+        
         <div class="filtros-busqueda-sesiones">
             <a href="#" data-filter="all" class="active">Todas</a>
             <a href="#" data-filter="guest-talks">Guest Talks</a>
@@ -33,9 +37,6 @@
         <div id="tarjetas-grabaciones" class="grid-grabaciones"></div>
     </section>
 
-    <button type="button" id="open-video-form" class="btn btn--primary">+ Agregar video</button>
-    <button type="button" id="open-manage-video-form" class="btn btn--secondary">Administrar videos</button>
-    
     <base-modal id="video-form-modal"></base-modal>
 
     <div id="footer-container"></div>

@@ -1,0 +1,62 @@
+<form id="mjf-form" class="resource-form" novalidate>
+  <div class="field">
+    <label for="mjf-select">Selecciona un portal de empleo</label>
+    <select id="mjf-select">
+      <option value="">Seleccionar portal de empleo...</option>
+    </select>
+  </div>
+
+  <div id="mjf-details" class="mjf-details" hidden>
+    <p class="mjf-static-note" data-static-note hidden>
+      Este portal es predeterminado del sistema y no se puede editar ni eliminar.
+    </p>
+
+    <div class="field">
+      <label for="mjf-name">Nombre del portal</label>
+      <input type="text" id="mjf-name" name="name" />
+      <span class="error" data-error="name"></span>
+    </div>
+
+    <div class="field">
+      <label for="mjf-description">Descripción</label>
+      <textarea id="mjf-description" name="description"></textarea>
+      <span class="error" data-error="description"></span>
+    </div>
+
+    <div class="field">
+      <label for="mjf-url">URL</label>
+      <input type="url" id="mjf-url" name="url" />
+      <span class="error" data-error="url"></span>
+    </div>
+
+    <div class="field">
+      <label for="mjf-category">Categoría</label>
+      <select id="mjf-category" name="category">
+        <option value="">Seleccione una categoría</option>
+        <option value="global">Global</option>
+        <option value="local">Local</option>
+        <option value="remota">Remota</option>
+      </select>
+      <span class="error" data-error="category"></span>
+    </div>
+
+    <div class="field">
+      <label>Imagen actual</label>
+      <div class="mjf-current-image">
+        <img data-current-image-preview alt="Imagen actual del portal" />
+      </div>
+    </div>
+
+    <div id="mjf-form-file" class="form">
+      <p>Cambiar imagen (opcional)</p>
+      <input type="file" id="mjf-image" accept="image/*" />
+      <span class="error" data-error="image"></span>
+    </div>
+  </div>
+</form>
+
+<footer class="modal__footer" id="mjf-footer">
+  <button type="button" class="btn btn--danger" id="mjf-delete" data-action="delete" disabled>Eliminar empleo</button>
+  <button type="button" class="btn btn--secondary" data-action="close">Cerrar</button>
+  <button type="submit" form="mjf-form" class="btn btn--primary" id="mjf-save" disabled>Guardar cambios</button>
+</footer>

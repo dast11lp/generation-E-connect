@@ -1,0 +1,41 @@
+<form id="jf-form" class="resource-form" novalidate>
+  <div class="field">
+    <label for="jf-name">Nombre del portal</label>
+    <input type="text" id="jf-name" name="name" placeholder="Ej: LinkedIn" />
+    <span class="error" data-error="name"></span>
+  </div>
+
+  <div class="field">
+    <label for="jf-description">Descripción</label>
+    <textarea id="jf-description" name="description" placeholder="Breve descripción del portal."></textarea>
+    <span class="error" data-error="description"></span>
+  </div>
+
+  <div class="field">
+    <label for="jf-url">URL</label>
+    <input type="url" id="jf-url" name="url" placeholder="https://ejemplo.com" />
+    <span class="error" data-error="url"></span>
+  </div>
+
+  <div class="field">
+    <label for="jf-category">Categoría</label>
+    <select id="jf-category" name="category">
+      <option value="">Seleccione una categoría</option>
+      <option value="global">Global</option>
+      <option value="local">Local</option>
+      <option value="remota">Remota</option>
+    </select>
+    <span class="error" data-error="category"></span>
+  </div>
+
+  <div id="jf-form-file" class="form">
+    <p>Sube el logo o imagen del portal.</p>
+    <input type="file" id="jf-image" accept="image/*" />
+    <span class="error" data-error="image"></span>
+  </div>
+</form>
+
+<footer class="modal__footer" id="jf-footer">
+  <button type="button" class="btn btn--secondary" data-action="cancel">Cancelar</button>
+  <button type="submit" form="jf-form" class="btn btn--primary">Guardar empleo</button>
+</footer>
