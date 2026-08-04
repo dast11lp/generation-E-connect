@@ -103,8 +103,6 @@ export async function createResourceForm() {
     if (hasError) return { errors: true };
 
     let fileUrl;
-    console.log("me ejecuto?");
-
     try {
       const fileType = file.type.split("/")[0];
 

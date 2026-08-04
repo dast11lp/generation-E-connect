@@ -4,9 +4,7 @@ const CLOUDINARY_CLOUD_NAME = "dkfb1wppj";
 const CLOUDINARY_UPLOAD_PRESET = "ml_default";
 
 export async function uploadVideo(file) {
-  console.log("me ejecuto? antes primer if");
   if (!file || file.type.split("/")[0] !== "video") return null;
-  console.log("me ejecuto? después if");
 
   const formData = new FormData();
   formData.append("file", file);
