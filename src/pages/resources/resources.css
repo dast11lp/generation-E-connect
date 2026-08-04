@@ -1,43 +1,6 @@
 /* ============================================================
-   VARIABLES
+   BASE DE LAYOUT DE RECURSOS
    ============================================================ */
-
-:root {
-  --color-azul-institucional: #003A70;
-  --color-azul-generation: #0066CC;
-  --color-cian-dinamico: #00A8E0;
-  --color-verde-impacto: #00B87D;
-  --color-azul-suave: #E8F3FF;
-  --color-gris-claro: #D1DEEA;
-  --color-gris-texto: #5F6368;
-  --color-oscuro-principal: #1A1A2E;
-  --color-blanco: #FFFFFF;
-  --border-radius-principal: 20px;
-  --border-radius-secundario: 15px;
-  --border-radius-terciario: 10px;
-  --sidebar-width: 280px;
-}
-
-/* ============================================================
-   BASE
-   ============================================================ */
-
-html {
-  font-size: 16px;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Montserrat, sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 
 #footer-container {
   margin-top: auto;
@@ -56,8 +19,9 @@ body {
 .barra-lateral {
   display: flex;
   flex-direction: column;
-  height: 1000px;
-  width: 100%;
+  height:auto;
+  width: 300px;
+  margin-top: 20px;
   padding: 24px;
   padding-top: 70px;
   border-radius: var(--border-radius-terciario);
@@ -269,7 +233,7 @@ body {
 
 @media (min-width: 768px) {
   .contenedor-principal {
-    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-columns: 300px minmax(0, 1fr);
     align-items: start;
   }
 
