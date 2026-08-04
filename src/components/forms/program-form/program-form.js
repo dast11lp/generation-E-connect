@@ -105,6 +105,15 @@ export async function createProgramForm({ program = null } = {}) {
     root.querySelectorAll(".invalid").forEach((el) => el.classList.remove("invalid"));
   }
 
+  function isValidLink(value) {
+    try {
+      const url = new URL(value);
+      return ["http:", "https:"].includes(url.protocol) && Boolean(url.hostname);
+    } catch {
+      return false;
+    }
+  }
+
   function collectAndValidate() {
     clearErrors();
     let hasError = false;
@@ -155,6 +164,10 @@ export async function createProgramForm({ program = null } = {}) {
         const links = linkInputs
           .map((input) => input.value.trim())
           .filter((value) => value.length > 0);
+        const invalidLinkInputs = linkInputs.filter((input) => {
+          const link = input.value.trim();
+          return link.length > 0 && !isValidLink(link);
+        });
 
         let topicHasError = false;
 
@@ -167,8 +180,17 @@ export async function createProgramForm({ program = null } = {}) {
           topicHasError = true;
         }
 
+        if (invalidLinkInputs.length > 0) {
+          invalidLinkInputs.forEach((input) => input.classList.add("invalid"));
+          topicHasError = true;
+        }
+
         if (topicHasError) {
           routeHasTopicError = true;
+          if (invalidLinkInputs.length > 0) {
+            topicError.textContent = "Ingresa una URL válida que comience con http:// o https://.";
+            return;
+          }
           topicError.textContent = !topicTitle
             ? links.length === 0
               ? "Título y al menos un link son obligatorios."
