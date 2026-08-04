@@ -72,12 +72,16 @@ button {
     transition: all 0.3s ease;
 }
 
-button:hover {
+#open-job-form, #open-manage-job-form{
+    background-color: var(--color-verde-impacto);
+    color: var(--color-blanco);
+}
+
+button:hover, #open-job-form:hover, #open-manage-job-form:hover {
     background-color: var(--color-azul-generation);
     color: var(--color-blanco);
     border-color: var(--color-azul-generation);
 }
-
 
 .grid_portales {
     display: grid;

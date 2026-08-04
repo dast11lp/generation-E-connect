@@ -23,7 +23,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 200px;
+  margin-top: 300px;
   gap: 40px;
   padding: 50px 60px;
   background-color: var(--color-azul-institucional);

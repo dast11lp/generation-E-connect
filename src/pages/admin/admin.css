@@ -229,15 +229,16 @@ body {
 .filtros-busqueda-sesiones a,
 #open-video-form,
 #open-manage-video-form {
-   text-decoration: none;
-   color: black;
-   font-weight: bold;
-   font-size: 18px;
-   padding: 12px 22px;
-   border: 2px solid #1A1A2E;
-   border-radius: 50px;
-   background-color: var(--color-blanco);
-   cursor: pointer;
+
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 12px 22px;
+    border: 2px solid #1A1A2E;
+    border-radius: 50px;
+    background-color: var(--color-blanco);
+    cursor: pointer;
 }
 
 .filtros-busqueda-sesiones a:hover,
@@ -252,8 +253,9 @@ body {
 }
 
 #open-video-form, #open-manage-video-form {
-    display: block;
-    margin: 30px auto;
+    background-color: var(--color-cian-dinamico);
+    display: inline-block;
+    margin: 15px 5 0 10px;
 }
 
 @media (max-width: 480px) {

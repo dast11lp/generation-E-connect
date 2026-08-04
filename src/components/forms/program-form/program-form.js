@@ -1,3 +1,5 @@
+import { normalizeTopic } from "../../utils/topics.js";
+
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./program-form-content.html", COMPONENT_URL);
 const CSS_URL = new URL("./program-form-content.css", COMPONENT_URL);
@@ -79,13 +81,6 @@ export async function createProgramForm({ program = null } = {}) {
     const topicsContainer = topicEl.closest("[data-topics]");
     if (topicsContainer.children.length <= 1) return;
     topicEl.remove();
-  }
-
-  function normalizeTopic(topic) {
-    if (typeof topic === "string") {
-      return { title: topic, links: [] };
-    }
-    return topic;
   }
 
   function addLink(topicEl, linkValue = null) {
