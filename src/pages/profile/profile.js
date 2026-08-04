@@ -426,56 +426,6 @@
   }
 
   /* ══════════════════════════════════════
-     VER MÁS RESEÑAS
-     ══════════════════════════════════════ */
-  const btnLoadMore = document.querySelector('.btn-load-more');
-  if (btnLoadMore) {
-    const extraReviews = [
-      { ava: 'SP', avaCls: 'rev-ava-purple', name: 'Sandra Patiño', meta: 'Unity · 2 meses · Abril 2026',
-        text: 'Construí mi portafolio siguiendo sus consejos. A la semana de publicarlo me contactaron tres empresas.' },
-      { ava: 'DM', avaCls: 'rev-ava-green',  name: 'Diego Mora',    meta: 'IT Support · 1 mes · Mayo 2026',
-        text: 'Muy puntual, muy directo. Valoro especialmente que no te da respuestas genéricas, sino adaptadas a tu caso.' },
-    ];
-
-    btnLoadMore.addEventListener('click', () => {
-      const list = document.querySelector('.reviews-list');
-      extraReviews.forEach(r => {
-        const li = document.createElement('li');
-        li.className = 'review-item';
-        li.innerHTML = `
-          <div class="review-top">
-            <div class="rev-ava ${r.avaCls}" aria-hidden="true">${r.ava}</div>
-            <div class="rev-info">
-              <h4>${r.name}</h4>
-              <p>${r.meta}</p>
-            </div>
-            <div class="stars" aria-label="5 estrellas">
-              <i class="ti ti-star" aria-hidden="true"></i>
-              <i class="ti ti-star" aria-hidden="true"></i>
-              <i class="ti ti-star" aria-hidden="true"></i>
-              <i class="ti ti-star" aria-hidden="true"></i>
-              <i class="ti ti-star" aria-hidden="true"></i>
-            </div>
-          </div>
-          <p class="review-text">"${r.text}"</p>
-        `;
-        li.style.opacity = '0';
-        li.style.transform = 'translateY(10px)';
-        li.style.transition = 'opacity .4s ease, transform .4s ease';
-        list.appendChild(li);
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          li.style.opacity = '1';
-          li.style.transform = 'none';
-        }));
-      });
-      btnLoadMore.textContent = 'No hay más reseñas';
-      btnLoadMore.disabled = true;
-      btnLoadMore.style.opacity = '.5';
-      btnLoadMore.style.cursor  = 'default';
-    });
-  }
-
-  /* ══════════════════════════════════════
      ANIMACIÓN DE ENTRADA — IntersectionObserver
      ══════════════════════════════════════ */
   const animStyle = document.createElement('style');
