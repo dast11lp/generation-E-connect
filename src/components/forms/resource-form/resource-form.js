@@ -1,4 +1,4 @@
-import { uploadVideo } from "../../../services/cloudinary.service.js";
+import { uploadVideo, uploadImage, uploadResource } from "../../../services/cloudinary.service.js";
 // ⚠️ Si cloudinary.service.js solo acepta video, cambia esta línea por
 // import { uploadFile } from "../../../services/cloudinary.service.js";
 // y renombra la llamada más abajo (uploadVideo -> uploadFile).
@@ -104,7 +104,21 @@ export async function createResourceForm() {
 
     let fileUrl;
     try {
-      fileUrl = await uploadVideo(file);
+      const fileType = file.type.split("/")[0];
+
+      switch (fileType) {
+        case "video":
+          fileUrl = await uploadVideo(file);
+          break;
+        case "image":
+          fileUrl = await uploadImage(file);
+          break;
+        case "application":
+          fileUrl = await uploadResource(file);
+          break;
+      }
+
+      console.log("me ejecuto? x2");
     } catch (error) {
       errors.file.textContent = error.message ?? "No se pudo subir el archivo.";
       return { errors: true };

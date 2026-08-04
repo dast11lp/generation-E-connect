@@ -204,19 +204,19 @@ body {
     width: 500px;
     margin-top: 15px;
     padding: 0 18px;
-    font-size: 18px;
+    font-size: 1.1rem;
+    border: 1px solid var(--color-gris-claro);
     border-radius: var(--border-radius-terciario);
 }
 
 .btn-buscar-sesiones {
-    height: 55px;
-    width: 115px;
-    font-size: 18px;
-    border-radius: var(--border-radius-terciario);
-}
-
-.btn-buscar-sesiones:active {
-    transform: translateY(2px);
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 999px;
+    background: var(--color-verde-impacto);
+    color: var(--color-blanco);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .filtros-busqueda-sesiones {
@@ -226,39 +226,34 @@ body {
     gap: 10px;
 }
 
-.filtros-busqueda-sesiones a,
-#open-video-form,
-#open-manage-video-form {
-   text-decoration: none;
-   color: black;
-   font-weight: bold;
-   font-size: 18px;
-   padding: 12px 22px;
-   border: 2px solid #1A1A2E;
-   border-radius: 50px;
-   background-color: var(--color-blanco);
-   cursor: pointer;
-}
-
-.filtros-busqueda-sesiones a:hover,
-#open-video-form:hover, #open-manage-video-form:hover{
-    background-color: var(--color-verde-impacto-oscuro);
-    box-shadow: 0 0 10px rgb(232, 232, 232);
-}
-
-.filtros-busqueda-sesiones a:active,
-#open-video-form:active, #open-manage-video-form:active{
-    transform: translateY(2px);
+.filtros-busqueda-sesiones a {
+    text-decoration: none;
+    color: var(--color-azul-institucional);
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 999px;
+    background-color: var(--color-blanco);
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 #open-video-form, #open-manage-video-form {
-    display: block;
-    margin: 30px auto;
+    border: 1px solid var(--color-gris-claro);
+    border-radius: 999px;
+    background: var(--color-cian-dinamico);
+    color: var(--color-blanco);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#open-video-form{
+  margin-left: 270px;
 }
 
 @media (max-width: 480px) {
   .filtros-busqueda-sesiones a {
-    padding: 10px 16px;
-    font-size: 15px;
+    padding: 0.6rem 1rem;
   }
 }

@@ -1,3 +1,5 @@
+import { normalizeTopic } from "../../utils/topics.js";
+
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./program-form-content.html", COMPONENT_URL);
 const CSS_URL = new URL("./program-form-content.css", COMPONENT_URL);
@@ -81,13 +83,6 @@ export async function createProgramForm({ program = null } = {}) {
     topicEl.remove();
   }
 
-  function normalizeTopic(topic) {
-    if (typeof topic === "string") {
-      return { title: topic, links: [] };
-    }
-    return topic;
-  }
-
   function addLink(topicEl, linkValue = null) {
     if (!topicEl) return;
     const linksContainer = topicEl.querySelector("[data-links]");
@@ -108,6 +103,15 @@ export async function createProgramForm({ program = null } = {}) {
   function clearErrors() {
     root.querySelectorAll(".error").forEach((el) => (el.textContent = ""));
     root.querySelectorAll(".invalid").forEach((el) => el.classList.remove("invalid"));
+  }
+
+  function isValidLink(value) {
+    try {
+      const url = new URL(value);
+      return ["http:", "https:"].includes(url.protocol) && Boolean(url.hostname);
+    } catch {
+      return false;
+    }
   }
 
   function collectAndValidate() {
@@ -160,6 +164,10 @@ export async function createProgramForm({ program = null } = {}) {
         const links = linkInputs
           .map((input) => input.value.trim())
           .filter((value) => value.length > 0);
+        const invalidLinkInputs = linkInputs.filter((input) => {
+          const link = input.value.trim();
+          return link.length > 0 && !isValidLink(link);
+        });
 
         let topicHasError = false;
 
@@ -172,8 +180,17 @@ export async function createProgramForm({ program = null } = {}) {
           topicHasError = true;
         }
 
+        if (invalidLinkInputs.length > 0) {
+          invalidLinkInputs.forEach((input) => input.classList.add("invalid"));
+          topicHasError = true;
+        }
+
         if (topicHasError) {
           routeHasTopicError = true;
+          if (invalidLinkInputs.length > 0) {
+            topicError.textContent = "Ingresa una URL válida que comience con http:// o https://.";
+            return;
+          }
           topicError.textContent = !topicTitle
             ? links.length === 0
               ? "Título y al menos un link son obligatorios."

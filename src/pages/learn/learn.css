@@ -67,8 +67,8 @@ body {
     transition: background-color 0.2s ease;
 }
 
-.btn-add-program:hover {
-    background-color: var(--color-verde-impacto-oscuro);
+.btn-add-program:hover, #open-manage-program-form:hover {
+    background-color: var(--color-cian-dinamico);
 }
 
 #programs {
@@ -219,4 +219,78 @@ body {
     border-color: var(--color-verde-impacto);
     background-color: var(--color-azul-suave);
     box-shadow: 0 2px 10px rgba(0, 184, 125, 0.2);
+}
+
+/* Acordeón de topics — extensión visual */
+
+.content__topics__cards__card {
+  overflow: hidden;
+}
+
+.topic-acordeon__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+}
+
+.topic-acordeon__header h4 {
+  margin: 0;
+}
+
+.topic-acordeon__flecha {
+  display: inline-block;
+  color: var(--color-verde-impacto);
+  font-size: 0.75rem;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.content__topics__cards__card--abierto .topic-acordeon__flecha {
+  transform: rotate(90deg);
+}
+
+.topic-acordeon__contenido {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease;
+  margin-top: 0;
+}
+
+.content__topics__cards__card--abierto .topic-acordeon__contenido {
+  max-height: 400px;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+.topic-acordeon__links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 22px;
+  border-left: 2px dashed var(--color-gris-claro);
+}
+
+.topic-acordeon__link {
+  color: var(--color-azul-institucional);
+  text-decoration: none;
+  font-size: 0.85rem;
+  word-break: break-word;
+}
+
+.topic-acordeon__link:hover {
+  color: var(--color-cian-dinamico);
+  text-decoration: underline;
 }
