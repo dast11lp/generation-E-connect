@@ -17,11 +17,15 @@
     <div class="contenedor-main-header">
         <h1>Grabaciones y webinars</h1>
         <p>Sesiones grabadas por el equipo Generation para seguir aprendiendo.</p>
-        <input id="busqueda-sesiones" type="text" placeholder="Buscar sesiones...">
-        <button class="btn-buscar-sesiones">Buscar</button>
+        <div class="admin-toolbar">
+            <input id="busqueda-sesiones" type="text" placeholder="Buscar sesiones...">
+            <button class="btn-buscar-sesiones">Buscar</button>
 
-        <button type="button" id="open-video-form" class="btn btn--primary">+ Agregar video</button>
-        <button type="button" id="open-manage-video-form" class="btn btn--secondary">Administrar videos</button>
+            <div class="video-actions">
+                <button type="button" id="open-video-form" class="btn btn--primary">+ Agregar video</button>
+                <button type="button" id="open-manage-video-form" class="btn btn--secondary">Administrar videos</button>
+            </div>
+        </div>
         
         <div class="filtros-busqueda-sesiones">
             <a href="#" data-filter="all" class="active">Todas</a>

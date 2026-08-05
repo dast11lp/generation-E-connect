@@ -178,6 +178,21 @@
     border-radius: var(--border-radius-terciario);
 }
 
+.admin-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 15px;
+}
+
+.admin-toolbar input {
+    flex: 1 1 260px;
+    min-width: 0;
+    max-width: 500px;
+    margin-top: 0;
+}
+
 .btn-buscar-sesiones {
     border: 1px solid var(--color-gris-claro);
     border-radius: 999px;
@@ -217,11 +232,39 @@
     font-weight: 600;
 }
 
-#open-video-form{
-  margin-left: 270px;
+.video-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .video-actions {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 480px) {
+  .admin-toolbar {
+    align-items: stretch;
+  }
+
+  .admin-toolbar input,
+  .btn-buscar-sesiones {
+    width: 100%;
+  }
+
+  .video-actions {
+    gap: 0.6rem;
+  }
+
+  .video-actions button {
+    width: 100%;
+  }
+
   .filtros-busqueda-sesiones a {
     padding: 0.6rem 1rem;
   }
