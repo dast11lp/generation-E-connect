@@ -3,6 +3,7 @@ import { jobPortals } from "../../data/jobs.data.js";
 import { initializeUserJobs, readUserJobs, saveUserJob } from "../../services/job-storage.service.js";
 import { createJobForm } from "../../components/forms/job-form/job-form.js";
 import { createManageJobForm } from "../../components/forms/manage-job-form/manage-job-form.js";
+import { syncAdminControls } from "../../services/auth.service.js";
 
 const grid = document.querySelector(".grid_portales");
 const filtersContainer = document.querySelector(".filtros-portales");
@@ -78,6 +79,7 @@ openManageBtn?.addEventListener("click", async () => {
 });
 
 function init() {
+  syncAdminControls();
   renderJobs();
   updateActiveButton();
   bindFilterEvents();

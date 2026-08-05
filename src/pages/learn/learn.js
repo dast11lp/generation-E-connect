@@ -2,6 +2,7 @@ import { createProgramForm } from "../../components/forms/program-form/program-f
 import { createManageProgramForm } from "../../components/forms/manage-program-form/manage-program-form.js";
 import { escapeHtml } from "../../components/utils/html.js";
 import { normalizeTopic } from "../../components/utils/topics.js";
+import { syncAdminControls } from "../../services/auth.service.js";
 
 const programTabList = document.querySelector('#program-tab-list');
 const contentRoutesCards = document.querySelector('.content__routes__route')
@@ -12,6 +13,7 @@ const openManageProgramBtn = document.querySelector('#open-manage-program-form')
 const programFormModal = document.querySelector('#program-form-modal')
 
 
+syncAdminControls();
 initStorage();
 let trainingPrograms = getPrograms();
 

@@ -4,6 +4,7 @@ import { resourceCategories, resources } from "../../data/resources.data.js";
 import { initializeUserResources, readUserResources, saveUserResource } from "../../services/resource-storage.service.js";
 import { createResourceForm } from "../../components/forms/resource-form/resource-form.js";
 import { createManageResourceForm } from "../../components/forms/manage-resource-form/manage-resource-form.js";
+import { syncAdminControls } from "../../services/auth.service.js";
 
 const resourcesContainer = document.querySelector(".contenedor-recursos");
 const filtersContainer = document.querySelector(".categorias");
@@ -185,6 +186,7 @@ function bindEvents() {
 }
 
 function init() {
+  syncAdminControls();
   renderFilters();
   renderResources();
   bindEvents();

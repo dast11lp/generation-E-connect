@@ -3,6 +3,7 @@ import { initialVideos } from "../../data/videos.data.js";
 import { initializeVideos, readVideos, saveVideo } from "../../services/video-storage.service.js";
 import { createVideoForm } from "../../components/forms/video-form/video-form.js";
 import { createManageVideoForm } from "../../components/forms/manage-video-form/manage-video-form.js";
+import { syncAdminControls } from "../../services/auth.service.js";
 
 const searchInput = document.querySelector("#busqueda-sesiones");
 const resultsContainer = document.querySelector("#tarjetas-grabaciones");
@@ -11,6 +12,7 @@ const openFormBtn = document.querySelector("#open-video-form");
 const videoFormModal = document.querySelector("#video-form-modal");
 const openManageVideoBtn = document.querySelector("#open-manage-video-form");
 
+syncAdminControls();
 initializeVideos(initialVideos);
 let activeFilter = "all";
 
