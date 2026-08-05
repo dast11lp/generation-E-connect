@@ -1,285 +1,348 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil Mentor — Hub Alumni</title>
   <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" href="../../components/ui/footer/footer.css">
+  <link rel="stylesheet" href="../../components/ui/navbar/navbar.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head>
+
 <body>
 
-  <!-- Banner superior -->
-  <main></main>
+  <div id="navbar-container"></div>
+  <div class="">
 
-  <!-- ══════════════════════════════════════
+    <!-- Banner superior -->
+    <main></main>
+
+    <!-- ══════════════════════════════════════
        FRANJA DE PERFIL — foto + info + contacto
        ══════════════════════════════════════ -->
-  <div class="info-profile">
+    <div class="info-profile">
 
-    <div class="photo-profile">
-      <img src="../assets/images/logos/usuario-negra.png" alt="Foto de Alejandro Saldaña" id="avatarPhoto">
-      <span class="status-badge" aria-label="Activo esta semana"><i class="ti ti-check" aria-hidden="true"></i></span>
-    </div>
-
-    <div class="info-mentor">
-      <div class="name-row">
-        <h2 id="profileFullName">Alejandro Saldaña</h2>
-        <span class="chip chip-purple"><i class="ti ti-shield-check" aria-hidden="true"></i> Mentor verificado</span>
-        <span class="chip chip-blue" id="programChip" hidden></span>
+      <div class="photo-profile">
+        <img src="../assets/images/logos/usuario-negra.png" alt="Foto de Alejandro Saldaña" id="avatarPhoto">
+        <span class="status-badge" aria-label="Activo esta semana"><i class="ti ti-check" aria-hidden="true"></i></span>
       </div>
-      <h4>Senior Backend Engineer · <span id="hero-company">Nombre empresa</span></h4>
-      <a href="#" class="location-link"><i class="ti ti-map-pin" aria-hidden="true"></i> Dónde se ubica</a>
 
-      <div class="container-buttons">
-        <a href="#" id="linkedinBtnTop" target="_blank" rel="noopener"><i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn</a>
-        <a href="#"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Instagram</a>
+      <div class="info-mentor">
+        <div class="name-row">
+          <h2 id="profileFullName">Alejandro Saldaña</h2>
+          <span class="chip chip-purple"><i class="ti ti-shield-check" aria-hidden="true"></i> Mentor verificado</span>
+          <span class="chip chip-blue" id="programChip" hidden></span>
+        </div>
+        <h4>Senior Backend Engineer · <span id="hero-company">Nombre empresa</span></h4>
+        <a href="#" class="location-link"><i class="ti ti-map-pin" aria-hidden="true"></i> Dónde se ubica</a>
+
+        <div class="container-buttons">
+          <a href="#" id="linkedinBtnTop" target="_blank" rel="noopener"><i class="ti ti-brand-linkedin"
+              aria-hidden="true"></i> LinkedIn</a>
+          <a href="#"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Instagram</a>
+        </div>
       </div>
+
+      <div class="contact-mentor">
+        <a href="#" class="btn-cta btn-cta-primary" onclick="openEditProfileModal(); return false;">
+          <i class="ti ti-edit" aria-hidden="true"></i> Editar perfil
+        </a>
+      </div>
+
     </div>
 
-    <div class="contact-mentor">
-      <a href="#" class="btn-cta btn-cta-primary" onclick="openEditProfileModal(); return false;">
-        <i class="ti ti-edit" aria-hidden="true"></i> Editar perfil
-      </a>
-    </div>
-
-  </div>
-
-  <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
        DESCRIPCIÓN + ESTADÍSTICAS RÁPIDAS
        ══════════════════════════════════════ -->
-  <div class="container-info-profile">
+    <div class="container-info-profile">
 
-    <div class="description-mentor">
-      <p id="profileQuote">"Desarrollador backend con más de 7 años en Java y Spring Boot. Fui alumno de bootcamp — entiendo exactamente lo que están viviendo y cómo ayudarlos a dar el siguiente paso con confianza real."</p>
+      <div class="description-mentor">
+        <p id="profileQuote">"Desarrollador backend con más de 7 años en Java y Spring Boot. Fui alumno de bootcamp —
+          entiendo exactamente lo que están viviendo y cómo ayudarlos a dar el siguiente paso con confianza real."</p>
+      </div>
+
+      <div class="statistics-mentor">
+        <div>
+          <label for="">12</label>
+          <p>Sesiones realizadas</p>
+        </div>
+        <div>
+          <label for="">8</label>
+          <p>Alumni activos</p>
+        </div>
+        <div>
+          <label for="">6</label>
+          <p>Empleos conseguidos</p>
+        </div>
+        <div>
+          <label for="">100%</label>
+          <p>Satisfacción</p>
+        </div>
+      </div>
+
     </div>
 
-    <div class="statistics-mentor">
-      <div>
-        <label for="">12</label>
-        <p>Sesiones realizadas</p>
-      </div>
-      <div>
-        <label for="">8</label>
-        <p>Alumni activos</p>
-      </div>
-      <div>
-        <label for="">6</label>
-        <p>Empleos conseguidos</p>
-      </div>
-      <div>
-        <label for="">100%</label>
-        <p>Satisfacción</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
        GRID PRINCIPAL — sobre / aside
        ══════════════════════════════════════ -->
-  <div class="container-info-grid">
+    <div class="container-info-grid">
 
-    <!-- ── Columna izquierda ── -->
-    <div class="about-mentor">
+      <!-- ── Columna izquierda ── -->
+      <div class="about-mentor">
 
-      <!-- Sobre Alejandro -->
-      <div class="glass-card">
-        <div class="card-hdr">
-          <h3><i class="ti ti-user" aria-hidden="true"></i> Sobre Alejandro</h3>
-        </div>
-        <div class="card-body">
-          <label for="">En qué puedo ayudarte:</label>
-          <ul>
-            <li>Prepararte para entrevistas técnicas con confianza real</li>
-            <li>Construir un CV y LinkedIn que te abran puertas de verdad</li>
-            <li>Entender cómo negociar tu primera (o segunda) oferta</li>
-            <li>Darte un plan claro para crecer como developer backend</li>
-          </ul>
-
-          <p class="about-text" style="margin-top:1rem;">
-            <strong class="about-hl">Mi experiencia:</strong><br>
-            Llevo más de 7 años como ingeniero backend con Java y Spring Boot. Actualmente lidero proyectos de arquitectura de microservicios. Antes pasé por startups donde aprendí a hacer mucho con poco. Fui alumno de bootcamp — sé exactamente lo que están viviendo y lo que necesitan oír.
-          </p>
-
-          <div class="process-wrap">
-            <h4 class="process-title"><i class="ti ti-list-numbers" aria-hidden="true"></i> Mi proceso de mentoría</h4>
-            <ol class="process-list">
-              <li class="proc-item">
-                <div class="proc-num">1</div>
-                <div class="proc-body"><h4>Diagnóstico</h4><p>Entiendo tus metas, tu situación actual y tus bloqueos reales.</p></div>
-              </li>
-              <li class="proc-item">
-                <div class="proc-num">2</div>
-                <div class="proc-body"><h4>Plan personalizado</h4><p>Construimos juntos una ruta clara con pasos concretos y fechas.</p></div>
-              </li>
-              <li class="proc-item">
-                <div class="proc-num">3</div>
-                <div class="proc-body"><h4>Ejecución con recursos</h4><p>Cada sesión termina con tareas accionables y materiales de referencia.</p></div>
-              </li>
-              <li class="proc-item">
-                <div class="proc-num">4</div>
-                <div class="proc-body"><h4>Seguimiento y ajuste</h4><p>Revisamos el progreso y ajustamos el plan cuando hace falta.</p></div>
-              </li>
-            </ol>
+        <!-- Sobre Alejandro -->
+        <div class="glass-card">
+          <div class="card-hdr">
+            <h3><i class="ti ti-user" aria-hidden="true"></i> Sobre Alejandro</h3>
           </div>
-        </div>
-      </div>
+          <div class="card-body">
+            <label for="">En qué puedo ayudarte:</label>
+            <ul>
+              <li>Prepararte para entrevistas técnicas con confianza real</li>
+              <li>Construir un CV y LinkedIn que te abran puertas de verdad</li>
+              <li>Entender cómo negociar tu primera (o segunda) oferta</li>
+              <li>Darte un plan claro para crecer como developer backend</li>
+            </ul>
 
-      <!-- Áreas de expertise -->
-      <div class="glass-card">
-        <div class="card-hdr"><h3><i class="ti ti-bulb" aria-hidden="true"></i> Áreas de expertise</h3></div>
-        <div class="card-body">
-          <ul class="areas-grid" id="areasGridDisplay"></ul>
-          <div class="skills-wrap" id="skillsWrapDisplay"></div>
-        </div>
-      </div>
+            <p class="about-text" style="margin-top:1rem;">
+              <strong class="about-hl">Mi experiencia:</strong><br>
+              Llevo más de 7 años como ingeniero backend con Java y Spring Boot. Actualmente lidero proyectos de
+              arquitectura de microservicios. Antes pasé por startups donde aprendí a hacer mucho con poco. Fui alumno
+              de bootcamp — sé exactamente lo que están viviendo y lo que necesitan oír.
+            </p>
 
-      <!-- Tipo de mentoría -->
-      <div class="glass-card">
-        <div class="card-hdr"><h3><i class="ti ti-video" aria-hidden="true"></i> Tipo de mentoría</h3></div>
-        <div class="card-body">
-          <ul class="tipo-grid" id="tipoGridDisplay"></ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Columna derecha (aside) ── -->
-    <div class="container-statistics">
-
-      <!-- Estadísticas -->
-      <div class="glass-card">
-        <div class="card-hdr"><h3><i class="ti ti-chart-bar" aria-hidden="true"></i> Estadísticas</h3></div>
-        <div class="card-body">
-          <ul class="stats-grid">
-            <li class="stat-box"><div class="stat-val">12</div><div class="stat-lbl">Sesiones</div></li>
-            <li class="stat-box"><div class="stat-val">8</div><div class="stat-lbl">Alumni</div></li>
-            <li class="stat-box stat-box-green"><div class="stat-val">4.9</div><div class="stat-lbl">Valoración</div></li>
-            <li class="stat-box stat-box-purple"><div class="stat-val">6</div><div class="stat-lbl">Empleados</div></li>
-          </ul>
-          <div class="stats-extra">
-            <div class="stats-extra-item"><span class="stats-extra-lbl">Miembro desde</span><span class="stats-extra-val">Enero 2024</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contacto y redes -->
-      <div class="glass-card">
-        <div class="card-hdr"><h3><i class="ti ti-link" aria-hidden="true"></i> Contacto y redes</h3></div>
-        <div class="card-body contact-list">
-          <a href="#" class="contact-row" id="contactLinkedinRow" target="_blank" rel="noopener"><i class="ti ti-brand-linkedin" aria-hidden="true"></i><span id="contactLinkedinText">linkedin.com/in/alejandro-saldana</span></a>
-          <a href="mailto:alejandro@empresa.com" class="contact-row" id="contactEmailRow"><i class="ti ti-mail" aria-hidden="true"></i><span id="contactEmailText">alejandro@empresa.com</span></a>
-          <div class="contact-row"><i class="ti ti-map-pin" aria-hidden="true"></i><span>Bogotá, Colombia</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════
-       MODAL — EDITAR PERFIL (basado en register)
-       ══════════════════════════════════════ -->
-  <div class="modal-overlay" id="modal-editar-perfil" role="dialog" aria-modal="true" aria-labelledby="modal-editar-title" hidden>
-    <div class="modal-box modal-box-lg">
-      <div class="modal-hdr">
-        <h2 id="modal-editar-title"><i class="ti ti-edit" aria-hidden="true"></i> Editar perfil</h2>
-        <button class="modal-close" onclick="closeModal('modal-editar-perfil')" aria-label="Cerrar modal"><i class="ti ti-x" aria-hidden="true"></i></button>
-      </div>
-
-      <div class="modal-body modal-body-scroll">
-        <p class="modal-subtitle">Esta información es la que ven los Alumni en tu tarjeta y perfil de mentor.</p>
-
-        <!-- Foto de perfil -->
-        <div class="edit-section">
-          <h3 class="edit-section-title"><i class="ti ti-camera" aria-hidden="true"></i> Foto de perfil</h3>
-          <div class="edit-photo-row">
-            <div class="edit-photo-preview">
-              <img id="editPhotoPreview" src="../assets/images/logos/usuario-negra.png" alt="Vista previa de tu foto de perfil">
-            </div>
-            <div class="edit-photo-info">
-              <label class="btn-cta btn-cta-ghost file-btn" for="editProfileImage"><i class="ti ti-upload" aria-hidden="true"></i> Subir foto</label>
-              <input type="file" id="editProfileImage" class="file-input" accept="image/png,image/jpeg,image/webp" hidden>
-              <p class="helper-text-sm">JPG, PNG o WEBP. Tamaño máximo: 5 MB.</p>
+            <div class="process-wrap">
+              <h4 class="process-title"><i class="ti ti-list-numbers" aria-hidden="true"></i> Mi proceso de mentoría
+              </h4>
+              <ol class="process-list">
+                <li class="proc-item">
+                  <div class="proc-num">1</div>
+                  <div class="proc-body">
+                    <h4>Diagnóstico</h4>
+                    <p>Entiendo tus metas, tu situación actual y tus bloqueos reales.</p>
+                  </div>
+                </li>
+                <li class="proc-item">
+                  <div class="proc-num">2</div>
+                  <div class="proc-body">
+                    <h4>Plan personalizado</h4>
+                    <p>Construimos juntos una ruta clara con pasos concretos y fechas.</p>
+                  </div>
+                </li>
+                <li class="proc-item">
+                  <div class="proc-num">3</div>
+                  <div class="proc-body">
+                    <h4>Ejecución con recursos</h4>
+                    <p>Cada sesión termina con tareas accionables y materiales de referencia.</p>
+                  </div>
+                </li>
+                <li class="proc-item">
+                  <div class="proc-num">4</div>
+                  <div class="proc-body">
+                    <h4>Seguimiento y ajuste</h4>
+                    <p>Revisamos el progreso y ajustamos el plan cuando hace falta.</p>
+                  </div>
+                </li>
+              </ol>
             </div>
           </div>
         </div>
 
-        <!-- Datos básicos -->
-        <div class="edit-section">
-          <h3 class="edit-section-title"><i class="ti ti-user" aria-hidden="true"></i> Datos básicos</h3>
-          <div class="edit-grid-2">
-            <div>
-              <label class="form-label" for="editFirstName">Nombres</label>
-              <input class="form-input" type="text" id="editFirstName" placeholder="Ingresa tus nombres">
-            </div>
-            <div>
-              <label class="form-label" for="editLastName">Apellidos</label>
-              <input class="form-input" type="text" id="editLastName" placeholder="Ingresa tus apellidos">
-            </div>
+        <!-- Áreas de expertise -->
+        <div class="glass-card">
+          <div class="card-hdr">
+            <h3><i class="ti ti-bulb" aria-hidden="true"></i> Áreas de expertise</h3>
           </div>
-          <label class="form-label" for="editEmail">Correo electrónico</label>
-          <input class="form-input" type="email" id="editEmail" placeholder="correo@ejemplo.com">
-
-          <label class="form-label" for="editLinkedin">Perfil de LinkedIn</label>
-          <input class="form-input" type="url" id="editLinkedin" placeholder="https://linkedin.com/in/tuusuario">
-          <small class="helper-text-sm">Comparte tu perfil profesional.</small>
-        </div>
-
-        <!-- Sobre ti -->
-        <div class="edit-section">
-          <h3 class="edit-section-title"><i class="ti ti-align-left" aria-hidden="true"></i> Sobre ti</h3>
-          <textarea class="form-textarea" id="editAbout" rows="4" maxlength="500"
-            placeholder="Cuéntale a los Alumni quién eres, tu trayectoria profesional y cómo puedes ayudarlos."></textarea>
-          <div class="textarea-footer">
-            <small class="helper-text-sm">Este texto aparecerá en tu tarjeta de mentor.</small>
-            <span class="character-counter" id="editAboutCounter">0 / 500</span>
+          <div class="card-body">
+            <ul class="areas-grid" id="areasGridDisplay"></ul>
+            <div class="skills-wrap" id="skillsWrapDisplay"></div>
           </div>
-        </div>
-
-        <!-- Programa Generation -->
-        <div class="edit-section">
-          <h3 class="edit-section-title"><i class="ti ti-school" aria-hidden="true"></i> Programa Generation</h3>
-          <select class="form-select" id="editProgram">
-            <option value="">Todos los programas</option>
-            <option value="java">FullStack Java</option>
-            <option value="unity">Desarrollador Unity</option>
-            <option value="support">IT Support</option>
-            <option value="analytics">Data Analytics</option>
-          </select>
-          <small class="helper-text-sm">Ayuda a conectar con Alumni de tu mismo perfil.</small>
-        </div>
-
-        <!-- Habilidades -->
-        <div class="edit-section">
-          <h3 class="edit-section-title"><i class="ti ti-tools" aria-hidden="true"></i> Habilidades y tecnologías</h3>
-          <div class="skills-search">
-            <input class="form-input" type="text" id="editSkillInput" placeholder="Ejemplo: Java, Spring Boot, React...">
-            <button type="button" class="btn-cta btn-cta-ghost" id="editSkillAddBtn"><i class="ti ti-plus" aria-hidden="true"></i> Agregar</button>
-          </div>
-          <small class="helper-text-sm">Presiona Agregar (o Enter) para incluir la habilidad.</small>
-          <div class="skills-edit-list" id="editSkillsList"></div>
-        </div>
-
-        <!-- Áreas de mentoría -->
-        <div class="edit-section">
-          <h3 class="edit-section-title"><i class="ti ti-bulb" aria-hidden="true"></i> ¿En qué áreas puedes mentorear?</h3>
-          <div class="tag-select-grid" id="editAreasGrid"></div>
         </div>
 
         <!-- Tipo de mentoría -->
-        <div class="edit-section">
-          <h3 class="edit-section-title"><i class="ti ti-video" aria-hidden="true"></i> Tipo de mentoría que ofreces</h3>
-          <div class="mentor-type-select-grid" id="editMentorTypeGrid"></div>
+        <div class="glass-card">
+          <div class="card-hdr">
+            <h3><i class="ti ti-video" aria-hidden="true"></i> Tipo de mentoría</h3>
+          </div>
+          <div class="card-body">
+            <ul class="tipo-grid" id="tipoGridDisplay"></ul>
+          </div>
         </div>
       </div>
 
-      <div class="modal-footer">
-        <button class="btn-cta btn-cta-ghost" onclick="closeModal('modal-editar-perfil')">Cancelar</button>
-        <button class="btn-cta btn-cta-primary" id="btnGuardarPerfil"><i class="ti ti-device-floppy" aria-hidden="true"></i> Guardar cambios</button>
+      <!-- ── Columna derecha (aside) ── -->
+      <div class="container-statistics">
+
+        <!-- Estadísticas -->
+        <div class="glass-card">
+          <div class="card-hdr">
+            <h3><i class="ti ti-chart-bar" aria-hidden="true"></i> Estadísticas</h3>
+          </div>
+          <div class="card-body">
+            <ul class="stats-grid">
+              <li class="stat-box">
+                <div class="stat-val">12</div>
+                <div class="stat-lbl">Sesiones</div>
+              </li>
+              <li class="stat-box">
+                <div class="stat-val">8</div>
+                <div class="stat-lbl">Alumni</div>
+              </li>
+              <li class="stat-box stat-box-green">
+                <div class="stat-val">4.9</div>
+                <div class="stat-lbl">Valoración</div>
+              </li>
+              <li class="stat-box stat-box-purple">
+                <div class="stat-val">6</div>
+                <div class="stat-lbl">Empleados</div>
+              </li>
+            </ul>
+            <div class="stats-extra">
+              <div class="stats-extra-item"><span class="stats-extra-lbl">Miembro desde</span><span
+                  class="stats-extra-val">Enero 2024</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contacto y redes -->
+        <div class="glass-card">
+          <div class="card-hdr">
+            <h3><i class="ti ti-link" aria-hidden="true"></i> Contacto y redes</h3>
+          </div>
+          <div class="card-body contact-list">
+            <a href="#" class="contact-row" id="contactLinkedinRow" target="_blank" rel="noopener"><i
+                class="ti ti-brand-linkedin" aria-hidden="true"></i><span
+                id="contactLinkedinText">linkedin.com/in/alejandro-saldana</span></a>
+            <a href="mailto:alejandro@empresa.com" class="contact-row" id="contactEmailRow"><i class="ti ti-mail"
+                aria-hidden="true"></i><span id="contactEmailText">alejandro@empresa.com</span></a>
+            <div class="contact-row"><i class="ti ti-map-pin" aria-hidden="true"></i><span>Bogotá, Colombia</span></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script src="profile.js"></script>
+    <!-- ══════════════════════════════════════
+       MODAL — EDITAR PERFIL (basado en register)
+       ══════════════════════════════════════ -->
+    <div class="modal-overlay" id="modal-editar-perfil" role="dialog" aria-modal="true"
+      aria-labelledby="modal-editar-title" hidden>
+      <div class="modal-box modal-box-lg">
+        <div class="modal-hdr">
+          <h2 id="modal-editar-title"><i class="ti ti-edit" aria-hidden="true"></i> Editar perfil</h2>
+          <button class="modal-close" onclick="closeModal('modal-editar-perfil')" aria-label="Cerrar modal"><i
+              class="ti ti-x" aria-hidden="true"></i></button>
+        </div>
+
+        <div class="modal-body modal-body-scroll">
+          <p class="modal-subtitle">Esta información es la que ven los Alumni en tu tarjeta y perfil de mentor.</p>
+
+          <!-- Foto de perfil -->
+          <div class="edit-section">
+            <h3 class="edit-section-title"><i class="ti ti-camera" aria-hidden="true"></i> Foto de perfil</h3>
+            <div class="edit-photo-row">
+              <div class="edit-photo-preview">
+                <img id="editPhotoPreview" src="../assets/images/logos/usuario-negra.png"
+                  alt="Vista previa de tu foto de perfil">
+              </div>
+              <div class="edit-photo-info">
+                <label class="btn-cta btn-cta-ghost file-btn" for="editProfileImage"><i class="ti ti-upload"
+                    aria-hidden="true"></i> Subir foto</label>
+                <input type="file" id="editProfileImage" class="file-input" accept="image/png,image/jpeg,image/webp"
+                  hidden>
+                <p class="helper-text-sm">JPG, PNG o WEBP. Tamaño máximo: 5 MB.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Datos básicos -->
+          <div class="edit-section">
+            <h3 class="edit-section-title"><i class="ti ti-user" aria-hidden="true"></i> Datos básicos</h3>
+            <div class="edit-grid-2">
+              <div>
+                <label class="form-label" for="editFirstName">Nombres</label>
+                <input class="form-input" type="text" id="editFirstName" placeholder="Ingresa tus nombres">
+              </div>
+              <div>
+                <label class="form-label" for="editLastName">Apellidos</label>
+                <input class="form-input" type="text" id="editLastName" placeholder="Ingresa tus apellidos">
+              </div>
+            </div>
+            <label class="form-label" for="editEmail">Correo electrónico</label>
+            <input class="form-input" type="email" id="editEmail" placeholder="correo@ejemplo.com">
+
+            <label class="form-label" for="editLinkedin">Perfil de LinkedIn</label>
+            <input class="form-input" type="url" id="editLinkedin" placeholder="https://linkedin.com/in/tuusuario">
+            <small class="helper-text-sm">Comparte tu perfil profesional.</small>
+          </div>
+
+          <!-- Sobre ti -->
+          <div class="edit-section">
+            <h3 class="edit-section-title"><i class="ti ti-align-left" aria-hidden="true"></i> Sobre ti</h3>
+            <textarea class="form-textarea" id="editAbout" rows="4" maxlength="500"
+              placeholder="Cuéntale a los Alumni quién eres, tu trayectoria profesional y cómo puedes ayudarlos."></textarea>
+            <div class="textarea-footer">
+              <small class="helper-text-sm">Este texto aparecerá en tu tarjeta de mentor.</small>
+              <span class="character-counter" id="editAboutCounter">0 / 500</span>
+            </div>
+          </div>
+
+          <!-- Programa Generation -->
+          <div class="edit-section">
+            <h3 class="edit-section-title"><i class="ti ti-school" aria-hidden="true"></i> Programa Generation</h3>
+            <select class="form-select" id="editProgram">
+              <option value="">Todos los programas</option>
+              <option value="java">FullStack Java</option>
+              <option value="unity">Desarrollador Unity</option>
+              <option value="support">IT Support</option>
+              <option value="analytics">Data Analytics</option>
+            </select>
+            <small class="helper-text-sm">Ayuda a conectar con Alumni de tu mismo perfil.</small>
+          </div>
+
+          <!-- Habilidades -->
+          <div class="edit-section">
+            <h3 class="edit-section-title"><i class="ti ti-tools" aria-hidden="true"></i> Habilidades y tecnologías</h3>
+            <div class="skills-search">
+              <input class="form-input" type="text" id="editSkillInput"
+                placeholder="Ejemplo: Java, Spring Boot, React...">
+              <button type="button" class="btn-cta btn-cta-ghost" id="editSkillAddBtn"><i class="ti ti-plus"
+                  aria-hidden="true"></i> Agregar</button>
+            </div>
+            <small class="helper-text-sm">Presiona Agregar (o Enter) para incluir la habilidad.</small>
+            <div class="skills-edit-list" id="editSkillsList"></div>
+          </div>
+
+          <!-- Áreas de mentoría -->
+          <div class="edit-section">
+            <h3 class="edit-section-title"><i class="ti ti-bulb" aria-hidden="true"></i> ¿En qué áreas puedes mentorear?
+            </h3>
+            <div class="tag-select-grid" id="editAreasGrid"></div>
+          </div>
+
+          <!-- Tipo de mentoría -->
+          <div class="edit-section">
+            <h3 class="edit-section-title"><i class="ti ti-video" aria-hidden="true"></i> Tipo de mentoría que ofreces
+            </h3>
+            <div class="mentor-type-select-grid" id="editMentorTypeGrid"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-cta btn-cta-ghost" onclick="closeModal('modal-editar-perfil')">Cancelar</button>
+          <button class="btn-cta btn-cta-primary" id="btnGuardarPerfil"><i class="ti ti-device-floppy"
+              aria-hidden="true"></i> Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer-container"></div>
+    <script src="../../components/ui/footer/footer.js"></script>
+    <script src="../../components/ui/navbar/navbar.js"></script>
+    
+    <script src="profile.js"></script>
 
 </body>
+
 </html>
