@@ -13,40 +13,41 @@
 
   <link rel="stylesheet" href="styles.css" />
 <style>
-    /* Controla aquí el tamaño: súbele o bájale los píxeles a 'height' para hacerlo tan grande como quieras */
     .hero-slider-container {
       width: 100%;
-      height: 520px; /* <--- Aumentado de tamaño para que se vea grande y proporciones idénticas a tu captura */
+      max-width: 100%;
+      height: 520px;
       overflow: hidden;
       position: relative;
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       background: #f8fafc;
+      box-sizing: border-box;
     }
     .hero-slider-track {
       display: flex;
-      width: calc(178px * 16);
+      width: max-content;
       height: 100%;
       animation: scrollSlider 120s linear infinite;
     }
     .hero-slider-track img {
-      width: 1738px;
+      width: 500px; /* Ajustado para que encaje de forma fluida sin desbordar */
       height: 100%;
       object-fit: cover;
-      object-position: center center; /* Centra la imagen perfectamente en el cuadro grande */
+      object-position: center center;
       pointer-events: none;
       user-select: none;
+      flex-shrink: 0;
     }
     @keyframes scrollSlider {
       0% {
         transform: translateX(0);
       }
       100% {
-        transform: translateX(calc(-1738px * 8));
+        transform: translateX(calc(-500px * 8));
       }
     }
-
-  </style>
+</style>
 </head>
 <body>
 
@@ -97,11 +98,11 @@
 
  
 
-    <section class="bg-suave" id="recursos">
+<section class="bg-suave" id="recursos">
       <div class="container">
         <div class="split-grid">
-          <div class="img-placeholder split-img reveal">
-            <img src="https://infonative.net/uploads/content_images/cover_258VpUT5oEolJmP.jpg" width="500" height="300" alt="Software Development Icon">
+          <div class="img-placeholder split-img reveal" style="overflow: hidden; border-radius: 20px;">
+            <img src="https://infonative.net/uploads/content_images/cover_258VpUT5oEolJmP.jpg" alt="Software Development Icon" style="width: 100%; height: 100%; object-fit: cover; display: block;">
           </div>
           <div class="split-content reveal" style="transition-delay:.15s">
             <span class="badge badge-azul">Recursos y Grabaciones</span>
@@ -116,7 +117,6 @@
         </div>
       </div>
     </section>
-
 
     <section>
       <div class="container">

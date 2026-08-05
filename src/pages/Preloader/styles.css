@@ -21,6 +21,13 @@
   --r-sm: 10px;
 }
 
+.responsive-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Mantiene la imagen completa sin recortar dentro de su espacio */
+  display: block;
+}
+
 *, *::before, *::after { 
   margin: 0; 
   padding: 0; 
