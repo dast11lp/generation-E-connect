@@ -2,7 +2,7 @@ const integrantes = [
   {
     nombre: "Daniel López",
     cargo: "Desarrollador Web",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQFqiXGCelU5LA/profile-displayphoto-shrink_400_400/B4EZVduNzOGYAk-/0/1741034151496?e=1783555200&v=beta&t=jxt8rIx_KtiSBhfX2J5rVT_e6-ydyHQ13dHrXHHwjcQ",
+    imagen: "daniel.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/daniel-steven-lopez-perez-desarrollador-full-stack-java",
@@ -11,7 +11,7 @@ const integrantes = [
   {
     nombre: "María",
     cargo: "Diseñadora UX/UI",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQHyHm_pjyUwRQ/profile-displayphoto-scale_400_400/B4EZ65FlL4KgAg-/0/1781221711312?e=1783555200&v=beta&t=SWzMraqb-ISaSZ_KwSuJQn_9cjgGWPDS4KTzjKAXmWQ",
+    imagen: "maria.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/mariagongora-fullstackdeveloper",
@@ -20,7 +20,7 @@ const integrantes = [
   {
     nombre: "Miguel",
     cargo: "Backend Developer",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQHhChRhyt9LvQ/profile-displayphoto-scale_400_400/B4EZ4FRfsNKAAg-/0/1778204937829?e=1783555200&v=beta&t=bJKnmtxFuvKFogBYTLqTmUoTLfVSWHkkM-Da7KWpUcg",
+    imagen: "miguel.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/miguel-alejandro-saldana-castro-software-web-developer/",
@@ -29,7 +29,7 @@ const integrantes = [
   {
     nombre: "Henry",
     cargo: "QA Tester",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQGSyGzs2OCWIA/profile-displayphoto-scale_400_400/B4EZ5wWETHIwAk-/0/1780001296871?e=1784160000&v=beta&t=sEzljfNh75YeoznTznTAEekdIXk2E-iS3FN1CegKXiE",
+    imagen: "henry.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/henry-alfonso-bol%C3%ADvar-unriza-dearrollador-fullstack/",
@@ -38,7 +38,7 @@ const integrantes = [
   {
     nombre: "Jaime",
     cargo: "Project Manager",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQEXryrvxaca4w/profile-displayphoto-scale_400_400/B4EZy2OOYaHgAg-/0/1772583713984?e=1783555200&v=beta&t=aVBvQVWoXD7GQvxQM417iWTK2waUbZi42rR7EvKmtug",
+    imagen: "jaime.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/jaime-pena/",
@@ -63,7 +63,7 @@ function crearTarjeta(persona) {
     <div class="tarjeta">
       <div class="tarjeta__forma">
       <div class="targeta-contenedor-imagen"> 
-       <img src="${persona.imagen}" alt="${persona.nombre}" class="tarjeta__imagen" />
+       <img src="/assets/images/${persona.imagen}" alt="${persona.nombre}" class="tarjeta__imagen" />
       </div>
        
         <figcaption class="tarjeta__nombre">${persona.nombre}</figcaption>
