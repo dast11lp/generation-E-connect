@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generation E-Connect</title>
+  <title>Generation E-Connect - Repositorio de Recursos y Grabaciones</title>
   
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,15 +12,45 @@
   
 
   <link rel="stylesheet" href="styles.css" />
+<style>
+    /* Controla aquí el tamaño: súbele o bájale los píxeles a 'height' para hacerlo tan grande como quieras */
+    .hero-slider-container {
+      width: 100%;
+      height: 520px; /* <--- Aumentado de tamaño para que se vea grande y proporciones idénticas a tu captura */
+      overflow: hidden;
+      position: relative;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      background: #f8fafc;
+    }
+    .hero-slider-track {
+      display: flex;
+      width: calc(178px * 16);
+      height: 100%;
+      animation: scrollSlider 120s linear infinite;
+    }
+    .hero-slider-track img {
+      width: 1738px;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center; /* Centra la imagen perfectamente en el cuadro grande */
+      pointer-events: none;
+      user-select: none;
+    }
+    @keyframes scrollSlider {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-1738px * 8));
+      }
+    }
+
+  </style>
 </head>
 <body>
 
-
   <div id="page">
-
-
-
-
 
     <section id="hero">
       <div class="container">
@@ -28,104 +58,59 @@
           <div class="reveal">
             <div class="hero-badge">
               <div class="hero-badge-dot"></div>
-              <span class="hero-badge-text">Portal exclusivo para egresados</span>
+              <span class="hero-badge-text">Portal exclusivo de recursos y grabaciones</span>
             </div>
-            <h1>Tu carrera comienza <span>aquí</span></h1>
-            <p>Generation E-Connect es el portal que conecta a los egresados de <strong>Generation Colombia</strong> con las mejores oportunidades laborales de todos sus programas.</p>
+            <h1>Tu biblioteca de <span>recursos y grabaciones</span></h1>
+            <p>Generation E-Connect es el portal que conecta a los egresados de <strong>Generation Colombia</strong> con los mejores recursos y grabaciones disponibles para todos los programas.</p>
             <div class="hero-btns">
-              <a href="#" class="btn btn-solid-azul">Iniciar Sesión</a>
-              
+              <a href="#recursos" class="btn btn-solid-azul">Explorar recursos</a>
             </div>
           </div>
-          <div class="img-placeholder hero-img reveal" style="transition-delay:.15s">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="bg-suave" style="padding:56px 0;">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-card reveal">
-            <div class="stat-value color-azul">6</div>
-            <div class="stat-label">Programas académicos</div>
-          </div>
-          <div class="stat-card reveal" style="transition-delay:.08s">
-            <div class="stat-value color-azul">2,400+</div>
-            <div class="stat-label">Egresados activos</div>
-          </div>
-          <div class="stat-card reveal" style="transition-delay:.16s">
-            <div class="stat-value color-verde">380+</div>
-            <div class="stat-label">Empresas aliadas</div>
-          </div>
-          <div class="stat-card reveal" style="transition-delay:.24s">
-            <div class="stat-value color-verde">89%</div>
-            <div class="stat-label">Tasa de empleabilidad</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section>
-      <div class="container">
-        <div class="section-header reveal">
-          <div class="section-eyebrow">¿Cómo funciona?</div>
-          <div class="section-header-row">
-            <div>
-              <h2>De egresado a profesional en tres pasos</h2>
-              <p>Nuestra plataforma fue diseñada para que encontrar empleo sea simple, rápido y efectivo.</p>
+          
+          <!-- Contenedor exacto respetando la clase original img-placeholder y hero-img -->
+          <div class="img-placeholder hero-img reveal hero-slider-container" style="transition-delay:.15s">
+            <div class="hero-slider-track">
+              <!-- Set original de 8 imágenes (.png desde Preloader/preloader-images) -->
+              <img src="../Preloader/preloader-images/img1.png" alt="Slide 1" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img2.png" alt="Slide 2" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img3.png" alt="Slide 3" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img4.png" alt="Slide 4" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img5.png" alt="Slide 5" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img6.png" alt="Slide 6" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img7.png" alt="Slide 7" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img8.png" alt="Slide 8" width="1738" height="1020">
+              <!-- Duplicado para bucle continuo fluido -->
+              <img src="../Preloader/preloader-images/img1.png" alt="Slide 1" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img2.png" alt="Slide 2" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img3.png" alt="Slide 3" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img4.png" alt="Slide 4" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img5.png" alt="Slide 5" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img6.png" alt="Slide 6" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img7.png" alt="Slide 7" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img8.png" alt="Slide 8" width="1738" height="1020">
             </div>
           </div>
-        </div>
-        <div class="steps-grid">
-          <div class="step-card reveal">
-            <div class="step-number">PASO 01</div>
-            <div class="icon-box icon-box-azul">👤</div>
-            <h3>Crea tu perfil</h3>
-            <p>Completa tu perfil con tu programa, habilidades y experiencias. Valida tus certificaciones de Generation.</p>
-          </div>
-          <div class="step-card reveal" style="transition-delay:.1s">
-            <div class="step-number">PASO 02</div>
-            <div class="icon-box icon-box-verde">🔍</div>
-            <h3>Explora ofertas</h3>
-            <p>Accede a cientos de vacantes filtradas por programa, ciudad y tipo de contrato. Nuevas ofertas cada día.</p>
-          </div>
-          <div class="step-card reveal" style="transition-delay:.2s">
-            <div class="step-number">PASO 03</div>
-            <div class="icon-box icon-box-amber">🚀</div>
-            <h3>Postúlate y conecta</h3>
-            <p>Aplica con un clic, haz seguimiento de tus postulaciones y conecta directamente con reclutadores.</p>
-          </div>
+
         </div>
       </div>
     </section>
 
+ 
 
-    <section class="bg-suave">
+    <section class="bg-suave" id="recursos">
       <div class="container">
         <div class="split-grid">
           <div class="img-placeholder split-img reveal">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-            </svg>
+            <img src="https://infonative.net/uploads/content_images/cover_258VpUT5oEolJmP.jpg" width="500" height="300" alt="Software Development Icon">
           </div>
           <div class="split-content reveal" style="transition-delay:.15s">
-            <span class="badge badge-azul">Empleos</span>
-            <h2>Vacantes seleccionadas para ti</h2>
-            <p>Nuestro sistema filtra las mejores ofertas según tu programa, región y perfil. Cada vacante es verificada por el equipo de Generation Colombia.</p>
+            <span class="badge badge-azul">Recursos y Grabaciones</span>
+            <h2>Material formativo seleccionado para ti</h2>
+            <p>Generation E-Connect es el portal que conecta a los egresados de Generation Colombia con los mejores recursos disponibles para todos los programas.</p>
             <div class="check-list">
-              <div class="check-item"><div class="check-dot">✓</div><span>Ofertas filtradas por programa y ciudad</span></div>
-              <div class="check-item"><div class="check-dot">✓</div><span>Postulación directa desde la plataforma</span></div>
-              <div class="check-item"><div class="check-dot">✓</div><span>Alertas de nuevas vacantes en tiempo real</span></div>
+              <div class="check-item"><div class="check-dot">✓</div><span>Grabaciones de clases y talleres técnicos</span></div>
+              <div class="check-item"><div class="check-dot">✓</div><span>Documentación y guías actualizadas por programa</span></div>
+              <div class="check-item"><div class="check-dot">✓</div><span>Repositorio de herramientas y plantillas descargables</span></div>
             </div>
           </div>
         </div>
@@ -134,110 +119,67 @@
 
 
     <section>
-      <div class="container">
-        <div class="split-grid">
-          <div class="split-content reveal">
-            <span class="badge badge-verde">Perfil profesional</span>
-            <h2>Construye tu hoja de vida digital</h2>
-            <p>Crea un perfil profesional que destaque tus habilidades técnicas y blandas. Incluye tus certificaciones de Generation de forma automática, validadas y verificables por empleadores.</p>
-            <a href="#" class="btn btn-solid-verde">Crear mi perfil</a>
-          </div>
-          <div class="img-placeholder split-img reveal" style="transition-delay:.15s">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="bg-suave">
       <div class="container">
         <div class="section-header reveal">
           <div class="section-eyebrow">Recursos</div>
           <div class="section-header-row">
             <div>
-              <h2>Herramientas para tu desarrollo</h2>
-              <p>Guías, plantillas y videos para prepararte en cada etapa de la búsqueda de empleo.</p>
+              <h2>Herramientas y grabaciones destacadas</h2>
+              <p>Guías, grabaciones de talleres y plantillas para potenciar tu proceso de aprendizaje continuo.</p>
             </div>
             <a href="#" class="section-link">Ver todos →</a>
           </div>
         </div>
         <div class="recursos-grid">
           <div class="recurso-card reveal">
-            <span class="badge badge-azul">PDF</span>
-            <h3>Guía para una hoja de vida efectiva</h3>
-            <p class="recurso-meta">📄 Guía · 12 páginas</p>
-            <p class="recurso-desc">Aprende a estructurar tu CV de forma que llame la atención de los reclutadores desde el primer segundo.</p>
-            <button class="btn-card">Descargar guía</button>
+            <span class="badge badge-azul">Grabación</span>
+            <h3>Masterclass: Fundamentos de Arquitectura Web</h3>
+            <p class="recurso-meta">🎬 Grabación · 1h 20min</p>
+            <p class="recurso-desc">Repasa los conceptos clave de backend, bases de datos y patrones de diseño explicados por expertos.</p>
+            <button class="btn-card">Ver grabación</button>
           </div>
           <div class="recurso-card reveal" style="transition-delay:.1s">
             <span class="badge badge-verde">Video</span>
-            <h3>Cómo prepararte para una entrevista</h3>
-            <p class="recurso-meta">🎬 Video · 18 min</p>
-            <p class="recurso-desc">Estrategias prácticas para responder preguntas difíciles, manejar los nervios y causar una gran primera impresión.</p>
+            <h3>Taller: Resolución de Retos Técnicos</h3>
+            <p class="recurso-meta">🎬 Grabación · 45 min</p>
+            <p class="recurso-desc">Estrategias prácticas para abordar problemas de código y debugging en entornos de desarrollo reales.</p>
             <button class="btn-card">Ver video</button>
           </div>
           <div class="recurso-card reveal" style="transition-delay:.2s">
             <span class="badge badge-amber">Plantilla</span>
-            <h3>Carta de presentación profesional</h3>
-            <p class="recurso-meta">✏️ Plantilla editable</p>
-            <p class="recurso-desc">Plantilla lista para personalizar con ejemplos reales de egresados que consiguieron su primer empleo.</p>
-            <button class="btn-card">Descargar plantilla</button>
+            <h3>Kit de recursos y documentación técnica</h3>
+            <p class="recurso-meta">✏️ Repositorio editable</p>
+            <p class="recurso-desc">Plantillas y diagramas listos para utilizar en tus proyectos de programación y soporte.</p>
+            <button class="btn-card">Descargar recursos</button>
           </div>
         </div>
       </div>
     </section>
 
 
-    <section>
+    <section class="bg-suave">
       <div class="container">
         <div class="section-header reveal">
           <div class="section-header-row">
             <div>
-              <h2>Explora por programa</h2>
-              <p>Todos los programas de Generation Colombia tienen su espacio en E-Connect.</p>
+              <h2>Explora recursos por programa</h2>
+              <p>Encuentra grabaciones y material de estudio específico para cada programa de Generation Colombia.</p>
             </div>
-            <a href="#" class="section-link">Ver todos →</a>
           </div>
         </div>
         <div class="explora-grid">
-          <div class="explora-card reveal"><div class="icon-box icon-box-azul">☕</div><div><h3>Desarrollador(a) Jr. en Java</h3><p>Vacantes enfocadas en desarrollo backend, bases de datos y arquitectura web utilizando Java.</p></div></div>
-          <div class="explora-card reveal" style="transition-delay:.08s"><div class="icon-box icon-box-verde">🎮</div><div><h3>Desarrollador(a) Jr. en Unity</h3><p>Oportunidades en programación de entornos 3D, videojuegos, simuladores y tecnologías AR/VR.</p></div></div>
-          <div class="explora-card reveal" style="transition-delay:.16s"><div class="icon-box icon-box-azul">🔧</div><div><h3>Esp. de Soporte TI – Español</h3><p>Roles especializados en soporte técnico, redes e infraestructura informática local.</p></div></div>
-          <div class="explora-card reveal" style="transition-delay:.24s"><div class="icon-box icon-box-amber">🗣️</div><div><h3>Esp. de Soporte TI – Bilingüe</h3><p>Servicios de mesa de ayuda y troubleshooting con dominio fluido de un segundo idioma.</p></div></div>
-          <div class="explora-card reveal" style="transition-delay:.32s"><div class="icon-box icon-box-verde">🤖</div><div><h3>Marketing Digital + IA</h3><p>Oportunidades de crecimiento de marca aplicando herramientas avanzadas de inteligencia artificial.</p></div></div>
-          <div class="explora-card reveal" style="transition-delay:.4s"><div class="icon-box icon-box-azul">🤝</div><div><h3>Representante de Ventas</h3><p>Vacantes para perfiles comerciales, negociación estratégica y gestión de cuentas corporativas.</p></div></div>
+          <div class="explora-card reveal"><div class="icon-box icon-box-azul">☕</div><div><h3>Desarrollador(a) Jr. en Java</h3><p>Grabaciones de sesiones de backend, bases de datos y arquitectura web utilizando Java.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.08s"><div class="icon-box icon-box-verde">🎮</div><div><h3>Desarrollador(a) Jr. en Unity</h3><p>Talleres y grabaciones sobre programación de entornos 3D, videojuegos y tecnologías AR/VR.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.16s"><div class="icon-box icon-box-azul">🔧</div><div><h3>Esp. de Soporte TI – Español</h3><p>Material y grabaciones especializadas en soporte técnico, redes e infraestructura.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.24s"><div class="icon-box icon-box-amber">🗣️</div><div><h3>Esp. de Soporte TI – Bilingüe</h3><p>Sesiones de mesa de ayuda y troubleshooting técnico en un segundo idioma.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.32s"><div class="icon-box icon-box-verde">🤖</div><div><h3>Marketing Digital + IA</h3><p>Talleres de crecimiento de marca aplicando herramientas avanzadas de inteligencia artificial.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.4s"><div class="icon-box icon-box-azul">🤝</div><div><h3>Representante de Ventas</h3><p>Grabaciones y recursos para perfiles comerciales y negociación estratégica.</p></div></div>
         </div>
       </div>
     </section>
 
 
-    <section class="bg-azul">
-      <div class="container">
-        <div class="cta-grid">
-          <div class="cta-content reveal">
-            <h2>¿Listo para encontrar tu primer empleo?</h2>
-            <p>Únete a miles de egresados de Generation Colombia que ya encontraron trabajo a través de E-Connect. Regístrate gratis y empieza hoy.</p>
-            <div class="cta-btns">
-              <a href="#" class="btn btn-white">Crear cuenta gratis</a>
-              <a href="#" class="btn btn-outline-white">Conocer más</a>
-            </div>
-          </div>
-          <div class="img-placeholder cta-img reveal" style="transition-delay:.15s">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
+   
 
     <section>
       <div class="container">
@@ -246,19 +188,20 @@
           <div class="section-header-row">
             <div>
               <h2>Egresados que lo lograron</h2>
-              <p>Conoce cómo otros graduados de Generation Colombia encontraron su primer empleo.</p>
+              <p>Conoce cómo los recursos y grabaciones de E-Connect ayudaron a otros graduados en su camino profesional.</p>
             </div>
             <a href="#" class="section-link">Ver todas →</a>
           </div>
         </div>
-        <div class="historias-list">
+        <!-- Conectado al archivo data/stories.data.js -->
+        <div class="historias-list" id="success-stories-container">
           <div class="historia-card reveal">
             <div class="avatar">LM</div>
             <div>
               <div class="historia-nombre">Laura Martínez</div>
               <div class="historia-prog">Marketing Digital + IA · Medellín</div>
-              <p class="historia-texto">Después de graduarme del programa, encontré tres ofertas en E-Connect en menos de una semana. El portal me ayudó a filtrar por ciudad y tipo de contrato. En dos semanas ya tenía empleo.</p>
-              <span class="historia-result">✓ Contratada en Bancolombia como Especialista en Marketing</span>
+              <p class="historia-texto">Las grabaciones y recursos de E-Connect me permitieron repasar las clases clave en menos de una semana. El material de apoyo facilitó mi actualización profesional.</p>
+              <span class="historia-result">✓ Especialista en Marketing y creadora de contenido digital</span>
             </div>
           </div>
           <div class="historia-card reveal" style="transition-delay:.1s">
@@ -266,70 +209,9 @@
             <div>
               <div class="historia-nombre">Carlos Rincón</div>
               <div class="historia-prog">Desarrollador(a) Jr. en Java · Bogotá</div>
-              <p class="historia-texto">Los recursos de preparación para entrevistas marcaron la diferencia. Pude practicar preguntas técnicas y llegar seguro a mi entrevista. La guía de hoja de vida también me ayudó mucho.</p>
-              <span class="historia-result">✓ Desarrollador Jr. en Java en Rappi Tech</span>
+              <p class="historia-texto">Las grabaciones de los talleres técnicos marcaron la diferencia. Pude repasar los conceptos de código y llegar con total seguridad a mis proyectos.</p>
+              <span class="historia-result">✓ Desarrollador Jr. en Java en proyectos tecnológicos</span>
             </div>
-          </div>
-          <div class="historia-card reveal" style="transition-delay:.2s">
-            <div class="avatar">VM</div>
-            <div>
-              <div class="historia-nombre">Valentina Moreno</div>
-              <div class="historia-prog">Esp. de Soporte TI – Bilingüe · Cali</div>
-              <p class="historia-texto">Pensé que sería difícil encontrar trabajo sin experiencia previa, pero E-Connect tiene vacantes para juniors. Me postulé a cuatro y fui seleccionada en la tercera entrevista.</p>
-              <span class="historia-result">✓ Especialista de Soporte TI Bilingüe en Claro Colombia</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="bg-suave">
-      <div class="container">
-        <div class="section-header reveal">
-          <div class="section-header-row">
-            <div>
-              <h2>Todos los programas, una sola plataforma</h2>
-              <p>E-Connect es para todos los egresados de Generation Colombia, sin importar tu programa o ciudad.</p>
-            </div>
-          </div>
-        </div>
-        <div class="programs-pills reveal">
-          <button class="pill">Desarrollador(a) Jr. en Java</button>
-          <button class="pill">Desarrollador(a) Jr. en Unity</button>
-          <button class="pill">Esp. de Soporte TI – Español</button>
-          <button class="pill">Esp. de Soporte TI – Bilingüe</button>
-          <button class="pill">Marketing Digital + IA</button>
-          <button class="pill">Representante de Ventas</button>
-        </div>
-        <div class="programs-img-grid reveal" style="transition-delay:.1s">
-          <div class="img-placeholder prog-img">
-            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-            </svg>
-          </div>
-          <div class="img-placeholder prog-img">
-            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-            </svg>
-          </div>
-          <div class="img-placeholder prog-img">
-            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-            </svg>
-          </div>
-          <div class="img-placeholder prog-img">
-            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-              <rect x="4" y="4" width="40" height="40" rx="4" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="4" y1="4" x2="44" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-              <line x1="44" y1="4" x2="4" y2="44" stroke="#D1DEEA" stroke-width="2"/>
-            </svg>
           </div>
         </div>
       </div>
@@ -344,15 +226,15 @@
               <div class="footer-logo-circle">E</div>
               <span class="footer-logo-text">E-Connect</span>
             </div>
-            <p class="footer-desc">El portal de empleo exclusivo para egresados de Generation Colombia. Transformamos vidas a través del empleo.</p>
+            <p class="footer-desc">El portal de recursos y grabaciones exclusivo para egresados de Generation Colombia. Transformamos vidas a través del aprendizaje.</p>
           </div>
           <div class="footer-col">
             <h4>Plataforma</h4>
             <div class="footer-links">
-              <a href="#">Buscar empleos</a>
-              <a href="#">Mi perfil</a>
-              <a href="#">Mis postulaciones</a>
-              <a href="#">Recursos</a>
+              <a href="#recursos">Ver recursos</a>
+              <a href="#">Grabaciones</a>
+              <a href="#">Talleres</a>
+              <a href="#">Biblioteca</a>
             </div>
           </div>
           <div class="footer-col">
@@ -375,7 +257,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <span class="footer-copy">© 2025 Generation E-Connect · Generation Colombia. Todos los derechos reservados.</span>
+          <span class="footer-copy">© 2026 Generation E-Connect · Generation Colombia. Todos los derechos reservados.</span>
           <span class="footer-heart">Hecho con ❤️ para nuestros egresados</span>
         </div>
       </div>
@@ -384,6 +266,7 @@
   </div>
 
 
+  <script src="data/stories.data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
