@@ -6,6 +6,7 @@
   gap: 40px;
   padding: 50px 60px;
   background-color: var(--color-azul-institucional);
+  flex-wrap: wrap;
 }
 
 .footer-izquierda {
@@ -92,4 +93,36 @@
 
 .footer-col a:hover {
   color: white;
+}
+
+@media (max-width: 677px) {
+  .footer-columnas {
+    justify-content: left;
+  }
+
+  .final {
+    justify-content: left;
+  }
+
+  .footer-izquierda {
+    justify-content: left;
+  }
+
+  .footer-logo {
+    display: flex;
+    justify-content: left;
+  }
+
+  .footer-sobre {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  /* .redes {
+    margin: auto;
+  }
+
+  .copy {
+    margin: auto;
+  } */
 }

@@ -18,3 +18,11 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+@media (max-width: 429px) {
+  .field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+} 
