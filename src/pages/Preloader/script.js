@@ -1,3 +1,5 @@
+import { seedMentorsIfEmpty } from "../../services/mentor-storage.service.js";
+
 document.addEventListener("DOMContentLoaded", function () {
 
   const els = document.querySelectorAll('.reveal');
@@ -16,3 +18,5 @@ document.addEventListener("DOMContentLoaded", function () {
     obs.observe(el); 
   });
 });
+
+seedMentorsIfEmpty();
