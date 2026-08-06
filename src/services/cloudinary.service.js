@@ -1,15 +1,15 @@
-const CLOUDINARY_CLOUD_NAME = "dd9iztlrv";
+//dd9iztlrv
+//dkfb1wppj
+const CLOUDINARY_CLOUD_NAME = "dkfb1wppj";
 const CLOUDINARY_UPLOAD_PRESET = "ml_default";
 
 export async function uploadVideo(file) {
-  console.log("me ejecuto? antes primer if");
   if (!file || file.type.split("/")[0] !== "video") return null;
-  console.log("me ejecuto? después if");
 
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  formData.append("folder", "alumni/cursos/");
+  formData.append("folder", "assets/recording/");
 
   const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`, {
     method: "POST",
@@ -30,7 +30,7 @@ export async function uploadImage(file) {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  formData.append("folder", "alumni/empleo/");
+  formData.append("folder", "assets/image/");
 
   const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
     method: "POST",
@@ -42,13 +42,13 @@ export async function uploadImage(file) {
   return { url: data.secure_url };
 }
 
-export async function uploadResource(file, folder = "library") {
+export async function uploadResource(file) {
   if (!file) return null;
 
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-  formData.append("folder", `assets/${folder}`);
+  formData.append("folder", "assets/library/");
 
   const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`, {
     method: "POST",
