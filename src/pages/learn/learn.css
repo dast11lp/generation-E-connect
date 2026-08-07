@@ -6,8 +6,16 @@ body {
     max-height: 100vh;
 }
 
+#learn-container{
+    max-width: 1400px;
+    margin: 0 auto 100px;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
 .helper{
-    max-width: 500px;
+    width: 100%;
+    max-width: none;
 }
 
 .resume {
@@ -56,6 +64,7 @@ body {
 #programs {
     background-color: var(--color-azul-institucional);
     padding: 25px;
+    border-radius: var(--border-radius-principal);
 }
 
 #program-tab-list {
@@ -93,14 +102,19 @@ body {
 }
 
 .content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-height: 100%;
-    grid: 10px;
-    background-color: var(--color-azul-suave);
-    padding: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 25px;
+    width: 100%;
+    background-color: transparent;
+    padding: 40px;
+    align-items: start;
+}
+
+.content__routes,
+.content__topics {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .content__routes {
@@ -184,6 +198,12 @@ body {
 .content__topics__cards {
     padding: 5px;
     margin: 10px;
+}
+
+@media (max-width: 900px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
 }
 
 .content__topics__cards .content__topics__cards__card {
