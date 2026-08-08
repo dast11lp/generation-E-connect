@@ -1,47 +1,49 @@
-const STORAGE_KEY = "userJobs";
+import { apiFetch } from "./api-client.js";
 
-export function initializeUserJobs() {
-  const existing = localStorage.getItem(STORAGE_KEY);
-  if (existing === null) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
-  }
+function toJobBoardPayload(job) {
+  return {
+    name: job.name,
+    description: job.description,
+    url: job.url,
+    category: job.category,
+    logoUrl: job.image,
+  };
 }
 
-export function readUserJobs() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return [];
-  try {
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error("No se pudo leer userJobs de localStorage:", err);
-    return [];
-  }
+function fromJobBoardDTO(dto) {
+  return {
+    id: dto.id,
+    name: dto.name,
+    description: dto.description,
+    url: dto.url,
+    category: dto.category,
+    image: dto.logoUrl,
+    active: dto.active,
+  };
 }
 
-function saveUserJobs(jobs) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(jobs));
+export async function fetchJobBoards() {
+  const dtos = await apiFetch("/job-boards", { auth: false });
+  return dtos.map(fromJobBoardDTO);
 }
 
-export function saveUserJob(job) {
-  const jobs = readUserJobs();
-  jobs.push(job);
-  saveUserJobs(jobs);
-  return job;
+export async function createJobBoard(job) {
+  const dto = await apiFetch("/job-boards", {
+    method: "POST",
+    body: toJobBoardPayload(job),
+  });
+  return fromJobBoardDTO(dto);
 }
 
-export function updateUserJob(id, updates) {
-  const jobs = readUserJobs();
-  const index = jobs.findIndex((j) => j.id === id);
-  if (index === -1) return null;
-
-  jobs[index] = { ...jobs[index], ...updates };
-  saveUserJobs(jobs);
-  return jobs[index];
+export async function updateJobBoard(id, updates) {
+  const dto = await apiFetch(`/job-boards/${id}`, {
+    method: "PUT",
+    body: toJobBoardPayload(updates),
+  });
+  return fromJobBoardDTO(dto);
 }
 
-export function deleteUserJob(id) {
-  const jobs = readUserJobs();
-  const filtered = jobs.filter((j) => j.id !== id);
-  saveUserJobs(filtered);
-  return filtered.length !== jobs.length;
+export async function deleteJobBoard(id) {
+  await apiFetch(`/job-boards/${id}`, { method: "DELETE" });
+  return true;
 }

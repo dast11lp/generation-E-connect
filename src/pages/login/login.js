@@ -1,3 +1,6 @@
+import { login } from "../../services/auth.service.js";
+import { ApiError } from "../../services/api-client.js";
+
 // mostrar/ocultar contraseña
 let togglePassword = document.getElementById("toggle-password")
 let inputPassword = document.getElementById("password")
@@ -12,32 +15,32 @@ togglePassword.addEventListener("click", function() {
 
 // login
 let form = document.getElementById("login-form")
+let submitButton = form.querySelector(".btn-submit")
 
-form.addEventListener("submit", function(e) {
+form.addEventListener("submit", async function(e) {
     e.preventDefault()  // evita que el form recargue la página
 
     let emailIngresado = document.getElementById("email").value.trim()
     let passwordIngresada = document.getElementById("password").value.trim()
 
-    // traer usuarios guardados en sessionStorage
-    let usuarios = JSON.parse(localStorage.getItem("generationAlumniMentors")) || []
-    // buscar si existe un usuario con ese correo y contraseña
-    let usuarioEncontrado = usuarios.find(function(usuario) {
-        return usuario.email === emailIngresado && usuario.password === passwordIngresada
-    })
+    submitButton.disabled = true
+    submitButton.textContent = "Ingresando..."
 
-    if (usuarioEncontrado) {
-        // guardar sesión activa
-        localStorage.setItem("sesionActiva", JSON.stringify(usuarioEncontrado))
-        // redirigir a about
+    try {
+        await login(emailIngresado, passwordIngresada)
         window.location.href = "../home/home.html"
-    } else {
-        mostrarError("Correo o contraseña incorrectos. Verifica tus datos.")
+    } catch (error) {
+        const mensaje = error instanceof ApiError
+            ? error.message
+            : "No fue posible conectar con el servidor. Intenta de nuevo."
+        mostrarError(mensaje)
+    } finally {
+        submitButton.disabled = false
+        submitButton.textContent = "Ingresar al Portal"
     }
 })
 
 function mostrarError(mensaje) {
-    // verificar si ya existe un mensaje de error
     let errorExistente = document.getElementById("login-error")
     if (errorExistente) {
         errorExistente.remove()

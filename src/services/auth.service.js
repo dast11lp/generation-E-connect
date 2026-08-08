@@ -1,4 +1,9 @@
+
+
+import { apiFetch } from "./api-client.js";
+
 const ACTIVE_SESSION_KEY = "sesionActiva";
+const TOKEN_KEY = "authToken";
 
 const ADMIN_CONTROL_IDS = [
   "open-resource-form",
@@ -10,6 +15,10 @@ const ADMIN_CONTROL_IDS = [
   "open-video-form",
   "open-manage-video-form",
 ];
+
+export function getToken() {
+  return localStorage.getItem(TOKEN_KEY);
+}
 
 export function getCurrentUser() {
   const session = localStorage.getItem(ACTIVE_SESSION_KEY);
@@ -25,7 +34,33 @@ export function getCurrentUser() {
 }
 
 export function isLoggedIn() {
-  return getCurrentUser() !== null;
+  return getCurrentUser() !== null && getToken() !== null;
+}
+
+/**
+ * Llama al backend real, guarda el token y los datos del usuario en localStorage.
+ * Cualquier página puede llamar a esto (login.html) y cualquier otra puede
+ * leer la sesión después con getCurrentUser() / getToken() / isLoggedIn().
+ */
+export async function login(email, password) {
+  const response = await apiFetch("/auth/login", {
+    method: "POST",
+    auth: false,
+    body: { email, password },
+  });
+
+  localStorage.setItem(TOKEN_KEY, response.token);
+  localStorage.setItem(
+    ACTIVE_SESSION_KEY,
+    JSON.stringify({ name: response.name, email: response.email, role: response.role })
+  );
+
+  return response;
+}
+
+export function logout() {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(ACTIVE_SESSION_KEY);
 }
 
 export function syncAdminControls(root = document) {
