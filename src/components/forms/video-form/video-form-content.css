@@ -57,6 +57,7 @@
   color: var(--color-gris-texto);
 }
 
+.video-form input[type="text"],
 .video-form input[type="url"],
 .video-form select,
 .video-form textarea {
@@ -77,9 +78,14 @@
   opacity: 0.7;
 }
 
+.video-form input[type="text"]:focus,
+.video-form input[type="text"]:focus-visible,
 .video-form input[type="url"]:focus,
+.video-form input[type="url"]:focus-visible,
 .video-form select:focus,
-.video-form textarea:focus {
+.video-form select:focus-visible,
+.video-form textarea:focus,
+.video-form textarea:focus-visible {
   outline: none;
   border-color: var(--color-cian-dinamico);
   box-shadow: 0 0 0 3px rgba(0, 168, 224, 0.2);

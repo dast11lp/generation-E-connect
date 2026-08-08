@@ -16,10 +16,11 @@ export const CATEGORY_LABELS = {
 
   // Grabaciones y webinars
 
-  GENERAL: "General",
+  GUEST_TALKS: "Guest Talks",
+  WEBINARS: "Webinars",
   WORKSHOPS: "Talleres",
-  CONFERENCES: "Conferencias",
-  TUTORIALS: "Tutoriales",
+  TECH_TALKS: "Charlas técnicas",
+  INFO_SESSIONS: "Sesiones informativas",
 };
 
 function formatDateEs(dateStr) {
