@@ -1,7 +1,7 @@
 import { uploadVideo, uploadImage, uploadResource } from "../../../services/cloudinary.service.js";
-// ⚠️ Si cloudinary.service.js solo acepta video, cambia esta línea por
-// import { uploadFile } from "../../../services/cloudinary.service.js";
-// y renombra la llamada más abajo (uploadVideo -> uploadFile).
+import { fetchCategories } from "../../../services/category-storage.service.js";
+import { fetchResourceTypes } from "../../../services/resource-type-storage.service.js";
+import { CATEGORY_LABELS } from "../../../services/resource-storage.service.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./resource-form-content.html", COMPONENT_URL);
@@ -24,21 +24,16 @@ const TYPE_RULES = [
   { extensions: ["ppt", "pptx", "doc", "docx", "xls", "xlsx"], type: "Plantilla", action: "Usar plantilla" },
 ];
 
-// cambio 1: exportar para reutilizar en manage-resource-form.js
+// exportado para reutilizar en manage-resource-form.js
 export function detectResourceType(fileName) {
   const ext = fileName.split(".").pop().toLowerCase();
   const rule = TYPE_RULES.find((r) => r.extensions.includes(ext));
   return rule ?? { type: "Guía", action: "Descargar" };
 }
 
-function formatDateEs(date) {
-  const formatted = new Intl.DateTimeFormat("es", { month: "short", year: "numeric" }).format(date);
-  return formatted.charAt(0).toUpperCase() + formatted.slice(1).replace(".", "");
-}
-
 /**
  * Construye el DOM del formulario de recursos, listo para pasarle
- * a base-modal.open({ content, footer }). No conoce el modal ni localStorage.
+ * a base-modal.open({ content, footer }). No conoce el modal ni la API.
  */
 export async function createResourceForm() {
   const [html, css] = await loadTemplates();
@@ -63,7 +58,28 @@ export async function createResourceForm() {
     file: root.querySelector('[data-error="file"]'),
   };
 
-  footer.remove(); // se entrega aparte para el slot de footer del modal
+  footer.remove();
+
+  let resourceTypes = [];
+
+  async function loadOptions() {
+    try {
+      const [categories, types] = await Promise.all([fetchCategories(), fetchResourceTypes()]);
+      resourceTypes = types;
+
+      categoryInput.innerHTML =
+        '<option value="">Seleccione una categoría</option>' +
+        categories
+          .map((c) => `<option value="${c.id}">${CATEGORY_LABELS[c.categoryType] ?? c.description ?? c.categoryType}</option>`)
+          .join("");
+
+      if (categories.length === 0) {
+        errors.category.textContent = "Aún no hay categorías creadas en el backend.";
+      }
+    } catch (error) {
+      errors.category.textContent = "No se pudieron cargar las categorías.";
+    }
+  }
 
   function clearErrors() {
     Object.values(errors).forEach((el) => (el.textContent = ""));
@@ -79,66 +95,59 @@ export async function createResourceForm() {
     let hasError = false;
 
     const title = titleInput.value.trim();
-    const category = categoryInput.value;
+    const categoryId = categoryInput.value;
     const description = descriptionInput.value.trim();
     const file = fileInput.files[0];
 
-    if (!title) {
-      errors.title.textContent = "El título es obligatorio.";
-      hasError = true;
-    }
-    if (!category) {
-      errors.category.textContent = "Selecciona una categoría.";
-      hasError = true;
-    }
-    if (!description) {
-      errors.description.textContent = "Agrega una descripción.";
-      hasError = true;
-    }
-    if (!file) {
-      errors.file.textContent = "Selecciona un archivo.";
-      hasError = true;
-    }
+    if (!title) { errors.title.textContent = "El título es obligatorio."; hasError = true; }
+    if (!categoryId) { errors.category.textContent = "Selecciona una categoría."; hasError = true; }
+    if (!description) { errors.description.textContent = "Agrega una descripción."; hasError = true; }
+    if (!file) { errors.file.textContent = "Selecciona un archivo."; hasError = true; }
 
     if (hasError) return { errors: true };
+
+    const { type } = detectResourceType(file.name);
+    const matchingType = resourceTypes.find((t) => t.name.toLowerCase() === type.toLowerCase());
+
+    if (!matchingType) {
+      errors.file.textContent = `No existe un tipo de recurso "${type}" en el backend. Créalo en /api/resource-types.`;
+      return { errors: true };
+    }
 
     let fileUrl;
     try {
       const fileType = file.type.split("/")[0];
 
       switch (fileType) {
-        case "video":
-          fileUrl = await uploadVideo(file);
+        case "video": {
+          const uploaded = await uploadVideo(file);
+          fileUrl = uploaded?.link;
           break;
-        case "image":
-          fileUrl = await uploadImage(file);
+        }
+        case "image": {
+          const uploaded = await uploadImage(file);
+          fileUrl = uploaded?.url;
           break;
-        case "application":
+        }
+        default:
           fileUrl = await uploadResource(file);
-          break;
       }
 
-      console.log("me ejecuto? x2");
+      if (!fileUrl) {
+        errors.file.textContent = "No se pudo subir el archivo.";
+        return { errors: true };
+      }
     } catch (error) {
       errors.file.textContent = error.message ?? "No se pudo subir el archivo.";
       return { errors: true };
     }
 
-    const { type, action } = detectResourceType(file.name);
-    const now = new Date();
-
     return {
       resource: {
-        id: `resource-${Date.now()}`,
-        type,
         title,
-        category,
+        categoryId: Number(categoryId),
+        resourceTypeId: matchingType.id,
         description,
-        action,
-        date: formatDateEs(now),
-        dateValue: now.toISOString().slice(0, 10),
-        downloads: 0,
-        featured: false,
         fileUrl,
         fileName: file.name,
         fileSize: file.size,
@@ -163,6 +172,8 @@ export async function createResourceForm() {
       })
     );
   });
+
+  await loadOptions();
 
   return { element: root, footerElement: footer, reset: resetForm };
 }

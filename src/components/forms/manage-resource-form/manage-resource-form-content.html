@@ -7,9 +7,9 @@
   </div>
 
   <div id="mrf-details" class="mrf-details" hidden>
-    <p class="mrf-static-note" data-static-note hidden>
-      Este recurso es predeterminado del sistema y no se puede editar ni eliminar.
-    </p>
+    <select id="mrf-category" name="category">
+      <option value="">Seleccione una categoría</option>
+    </select>
 
     <div class="field">
       <label for="mrf-title">Título del recurso</label>
@@ -57,7 +57,25 @@
 </form>
 
 <footer class="modal__footer" id="mrf-footer">
-  <button type="button" class="btn btn--danger" id="mrf-delete" data-action="delete" disabled>Eliminar recurso</button>
-  <button type="button" class="btn btn--secondary" data-action="close">Cerrar</button>
-  <button type="submit" form="mrf-form" class="btn btn--primary" id="mrf-save" disabled>Guardar cambios</button>
+  <button
+    type="button"
+    class="btn btn--danger"
+    id="mrf-delete"
+    data-action="delete"
+    disabled
+  >
+    Eliminar recurso
+  </button>
+  <button type="button" class="btn btn--secondary" data-action="close">
+    Cerrar
+  </button>
+  <button
+    type="submit"
+    form="mrf-form"
+    class="btn btn--primary"
+    id="mrf-save"
+    disabled
+  >
+    Guardar cambios
+  </button>
 </footer>
