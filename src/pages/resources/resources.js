@@ -1,6 +1,7 @@
 import { createResourceCard } from "../../components/cards/resource-card/resource-card.js";
 import { createFilterButton } from "../../components/ui/resource-filters.js";
-import { resourceCategories } from "../../data/resources.data.js";
+import { fetchCategories } from "../../services/category-storage.service.js";
+import { CATEGORY_LABELS } from "../../services/resource-storage.service.js";
 import { fetchResources, createResource } from "../../services/resource-storage.service.js";
 import { createResourceForm } from "../../components/forms/resource-form/resource-form.js";
 import { createManageResourceForm } from "../../components/forms/manage-resource-form/manage-resource-form.js";
@@ -19,11 +20,24 @@ const resourceFormModal = document.querySelector("#resource-form-modal");
 const openManageBtn = document.querySelector("#open-manage-resource-form");
 
 let activeCategory = "Todos";
+
 let activeSort = "recientes";
 let activeDate = "";
 let searchQuery = "";
 let activeTypes = new Set();
 let allResources = [];
+
+let categoryLabels = ["Todos"];
+
+async function loadCategoryLabels() {
+  try {
+    const categories = await fetchCategories("library");
+    categoryLabels = ["Todos", ...categories.map((c) => CATEGORY_LABELS[c.categoryType] ?? c.description ?? c.categoryType)];
+  } catch (error) {
+    console.error("No se pudieron cargar las categorías:", error);
+    categoryLabels = ["Todos"];
+  }
+}
 
 function normalizeText(value = "") {
   return String(value)
@@ -66,7 +80,7 @@ function getFilteredResources() {
 function renderFilters() {
   if (!filtersContainer) return;
 
-  filtersContainer.innerHTML = resourceCategories
+  filtersContainer.innerHTML = categoryLabels
     .map((category) => createFilterButton(category, category === activeCategory))
     .join("");
 }
@@ -193,6 +207,7 @@ function bindEvents() {
 
 async function init() {
   syncAdminControls();
+  await loadCategoryLabels();
   renderFilters();
   bindEvents();
   await loadResources();

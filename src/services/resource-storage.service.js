@@ -13,6 +13,13 @@ export const CATEGORY_LABELS = {
   PORTFOLIO: "Portafolio",
   NEGOTIATION: "Negociación",
   PERSONAL_DEV: "Desarrollo",
+
+  // Grabaciones y webinars
+
+  GENERAL: "General",
+  WORKSHOPS: "Talleres",
+  CONFERENCES: "Conferencias",
+  TUTORIALS: "Tutoriales",
 };
 
 function formatDateEs(dateStr) {
@@ -75,7 +82,7 @@ async function loadCategoryAndTypeMaps() {
 
 export async function fetchResources() {
   const [dtos, { categoryMap, typeMap }] = await Promise.all([
-    apiFetch("/resources", { auth: false }),
+    apiFetch("/resources?section=library", { auth: false }),
     loadCategoryAndTypeMaps(),
   ]);
   return dtos.map((dto) => fromResourceDTO(dto, categoryMap, typeMap));

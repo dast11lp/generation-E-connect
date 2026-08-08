@@ -64,7 +64,7 @@ export async function createResourceForm() {
 
   async function loadOptions() {
     try {
-      const [categories, types] = await Promise.all([fetchCategories(), fetchResourceTypes()]);
+      const [categories, types] = await Promise.all([fetchCategories("library"), fetchResourceTypes()]);
       resourceTypes = types;
 
       categoryInput.innerHTML =

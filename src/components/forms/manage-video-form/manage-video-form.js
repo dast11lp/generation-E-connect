@@ -215,7 +215,7 @@ export async function createManageVideoForm() {
     root.dispatchEvent(new CustomEvent("manage-video-cancel", { bubbles: true, composed: true }));
   });
 
-  const [videos, categories] = await Promise.all([fetchVideos(), fetchCategories()]);
+  const [videos, categories] = await Promise.all([fetchVideos(),fetchCategories("recording")]);
   allVideos = videos;
   populateSelect();
   populateCategorySelect(categories);

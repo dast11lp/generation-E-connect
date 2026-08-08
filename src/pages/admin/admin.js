@@ -4,7 +4,8 @@ import { createVideoForm } from "../../components/forms/video-form/video-form.js
 import { createManageVideoForm } from "../../components/forms/manage-video-form/manage-video-form.js";
 import { syncAdminControls } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
-import { resourceCategories } from "../../data/resources.data.js";
+import { fetchCategories } from "../../services/category-storage.service.js";
+import { CATEGORY_LABELS } from "../../services/resource-storage.service.js";
 
 const searchInput = document.querySelector("#busqueda-sesiones");
 const resultsContainer = document.querySelector("#tarjetas-grabaciones");
@@ -17,6 +18,18 @@ syncAdminControls();
 
 let activeFilter = "Todos";
 let allVideos = [];
+
+let categoryLabels = ["Todos"];
+
+async function loadCategoryLabels() {
+  try {
+    const categories = await fetchCategories("recording");
+    categoryLabels = ["Todos", ...categories.map((c) => CATEGORY_LABELS[c.categoryType] ?? c.description ?? c.categoryType)];
+  } catch (error) {
+    console.error("No se pudieron cargar las categorías:", error);
+    categoryLabels = ["Todos"];
+  }
+}
 
 function matchesActiveFilter(video) {
   return activeFilter === "Todos" || video.category === activeFilter;
@@ -34,7 +47,7 @@ function getFilteredVideos() {
 function renderFilters() {
   if (!filtersContainer) return;
 
-  filtersContainer.innerHTML = resourceCategories
+  filtersContainer.innerHTML = categoryLabels
     .map((category) => `<a href="#" data-filter="${category}" class="${category === activeFilter ? "active" : ""}">${category}</a>`)
     .join("");
 }
@@ -131,6 +144,7 @@ openManageVideoBtn.addEventListener("click", async () => {
 });
 
 async function init() {
+  await loadCategoryLabels();
   renderFilters();
   await loadVideos();
 }

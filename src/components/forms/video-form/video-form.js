@@ -57,7 +57,7 @@ export async function createVideoForm() {
 
   async function loadOptions() {
     try {
-      const [categories, types] = await Promise.all([fetchCategories(), fetchResourceTypes()]);
+      const [categories, types] = await Promise.all([fetchCategories("recording"), fetchResourceTypes()]);
       resourceTypes = types;
 
       categoryInput.innerHTML =

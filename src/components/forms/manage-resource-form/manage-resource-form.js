@@ -235,7 +235,7 @@ export async function createManageResourceForm() {
 
   const [resources, categories, types] = await Promise.all([
     fetchResources(),
-    fetchCategories(),
+    fetchCategories("library"),
     fetchResourceTypes(),
   ]);
   allResources = resources;
