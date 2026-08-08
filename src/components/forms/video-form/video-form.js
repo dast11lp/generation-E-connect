@@ -1,4 +1,7 @@
 import { uploadVideo } from "../../../services/cloudinary.service.js";
+import { fetchCategories } from "../../../services/category-storage.service.js";
+import { fetchResourceTypes } from "../../../services/resource-type-storage.service.js";
+import { CATEGORY_LABELS } from "../../../services/resource-storage.service.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./video-form-content.html", COMPONENT_URL);
@@ -19,7 +22,7 @@ const urlPattern = /^(https?:\/\/)([\w-]+\.)+[\w]{2,}(\/[\w-._~:/?#[\]@!$&'()*+,
 
 /**
  * Construye el DOM del formulario de video, listo para pasarle
- * a base-modal.open({ content, footer }). No conoce el modal ni localStorage.
+ * a base-modal.open({ content, footer }). No conoce el modal ni la API.
  */
 export async function createVideoForm() {
   const [html, css] = await loadTemplates();
@@ -34,12 +37,14 @@ export async function createVideoForm() {
   const form = root.querySelector("#vf-form");
   const tabs = root.querySelectorAll(".tabs__list__tab");
   const tabContents = root.querySelectorAll(".tabs__content");
+  const titleInput = root.querySelector("#vf-title");
   const fileInput = root.querySelector("#vf-videoFile");
   const urlInput = root.querySelector("#vf-videoUrl");
   const categoryInput = root.querySelector("#vf-category");
   const descriptionInput = root.querySelector("#vf-description");
   const footer = root.querySelector("#vf-footer");
   const errors = {
+    title: root.querySelector('[data-error="title"]'),
     file: root.querySelector('[data-error="file"]'),
     url: root.querySelector('[data-error="url"]'),
     category: root.querySelector('[data-error="category"]'),
@@ -47,6 +52,27 @@ export async function createVideoForm() {
   };
 
   footer.remove(); // se entrega aparte para el slot de footer del modal
+
+  let resourceTypes = [];
+
+  async function loadOptions() {
+    try {
+      const [categories, types] = await Promise.all([fetchCategories(), fetchResourceTypes()]);
+      resourceTypes = types;
+
+      categoryInput.innerHTML =
+        '<option value="">Seleccione una categoría</option>' +
+        categories
+          .map((c) => `<option value="${c.id}">${CATEGORY_LABELS[c.categoryType] ?? c.description ?? c.categoryType}</option>`)
+          .join("");
+
+      if (categories.length === 0) {
+        errors.category.textContent = "Aún no hay categorías creadas en el backend.";
+      }
+    } catch (error) {
+      errors.category.textContent = "No se pudieron cargar las categorías.";
+    }
+  }
 
   function getActiveTab() {
     return root.querySelector(".tabs__list__tab--active").dataset.tab;
@@ -76,28 +102,40 @@ export async function createVideoForm() {
     clearErrors();
     let hasError = false;
 
-    if (!categoryInput.value) {
-      errors.category.textContent = "Selecciona una categoría.";
-      hasError = true;
-    }
-    if (!descriptionInput.value.trim()) {
-      errors.description.textContent = "Agrega una descripción.";
-      hasError = true;
-    }
+    const title = titleInput.value.trim();
+    const categoryId = categoryInput.value;
+    const description = descriptionInput.value.trim();
 
-    let videoSource;
+    if (!title) { errors.title.textContent = "El título es obligatorio."; hasError = true; }
+    if (!categoryId) { errors.category.textContent = "Selecciona una categoría."; hasError = true; }
+    if (!description) { errors.description.textContent = "Agrega una descripción."; hasError = true; }
+
+    let fileUrl;
+    let thumbnailUrl = null;
+    let fileName = null;
+    let fileSize = null;
 
     if (getActiveTab() === "1") {
       const file = fileInput.files[0];
-      try {
-        videoSource = await uploadVideo(file);
-        if (!videoSource) {
-          errors.file.textContent = "Selecciona un archivo de video válido.";
+      if (!file) {
+        errors.file.textContent = "Selecciona un archivo de video.";
+        hasError = true;
+      } else {
+        try {
+          const uploaded = await uploadVideo(file);
+          if (!uploaded) {
+            errors.file.textContent = "Selecciona un archivo de video válido.";
+            hasError = true;
+          } else {
+            fileUrl = uploaded.link;
+            thumbnailUrl = uploaded.thumbnail;
+            fileName = file.name;
+            fileSize = file.size;
+          }
+        } catch (error) {
+          errors.file.textContent = error.message ?? "No se pudo subir el video.";
           hasError = true;
         }
-      } catch (error) {
-        errors.file.textContent = error.message;
-        hasError = true;
       }
     } else if (!urlInput.value.trim()) {
       errors.url.textContent = "Este campo es obligatorio.";
@@ -106,19 +144,23 @@ export async function createVideoForm() {
       errors.url.textContent = "Ingresa una URL válida.";
       hasError = true;
     } else {
-      videoSource = { link: urlInput.value.trim(), thumbnail: "" };
+      fileUrl = urlInput.value.trim();
     }
 
     if (hasError) return { errors: true };
 
+    const matchingType = resourceTypes.find((t) => t.name.toLowerCase() === "video");
+
     return {
       video: {
-        ...videoSource,
-        category: categoryInput.value,
-        title: descriptionInput.value.trim(),
-        date: "Jun 2026",
-        author: "UsuarioActual",
-        duration: "59:59",
+        title,
+        categoryId: Number(categoryId),
+        resourceTypeId: matchingType?.id ?? null,
+        description,
+        link: fileUrl,
+        thumbnail: thumbnailUrl,
+        fileName,
+        fileSize,
         sourceType: getActiveTab() === "1" ? "file" : "url",
       },
     };
@@ -141,6 +183,8 @@ export async function createVideoForm() {
       })
     );
   });
+
+  await loadOptions();
 
   return { element: root, footerElement: footer, reset: resetForm };
 }

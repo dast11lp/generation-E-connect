@@ -1,44 +1,42 @@
 import { createVideoCard } from "../../components/cards/video-card/video-card.js";
-import { initialVideos } from "../../data/videos.data.js";
-import { initializeVideos, readVideos, saveVideo } from "../../services/video-storage.service.js";
+import { fetchVideos, createVideo } from "../../services/video-storage.service.js";
 import { createVideoForm } from "../../components/forms/video-form/video-form.js";
 import { createManageVideoForm } from "../../components/forms/manage-video-form/manage-video-form.js";
 import { syncAdminControls } from "../../services/auth.service.js";
+import { ApiError } from "../../services/api-client.js";
+import { resourceCategories } from "../../data/resources.data.js";
 
 const searchInput = document.querySelector("#busqueda-sesiones");
 const resultsContainer = document.querySelector("#tarjetas-grabaciones");
-const filterLinks = document.querySelectorAll(".filtros-busqueda-sesiones a");
+const filtersContainer = document.querySelector(".filtros-busqueda-sesiones");
 const openFormBtn = document.querySelector("#open-video-form");
 const videoFormModal = document.querySelector("#video-form-modal");
 const openManageVideoBtn = document.querySelector("#open-manage-video-form");
 
 syncAdminControls();
-initializeVideos(initialVideos);
-let activeFilter = "all";
+
+let activeFilter = "Todos";
+let allVideos = [];
 
 function matchesActiveFilter(video) {
-  if (activeFilter === "all") return true;
-
-  const filter = activeFilter.toLowerCase();
-  const category = video.category.toLowerCase();
-
-  if (filter.includes("guest")) return category.includes("guest");
-  if (filter.includes("webinar")) return category.includes("webinar");
-  if (filter.includes("taller")) return category.includes("taller");
-  if (filter.includes("charla")) return category.includes("charla");
-  if (filter.includes("sesion")) return category.includes("sesion");
-
-  return category === filter;
+  return activeFilter === "Todos" || video.category === activeFilter;
 }
 
 function getFilteredVideos() {
   const searchTerm = searchInput.value.trim().toLowerCase();
-  const videos = readVideos();
 
-  return videos.filter((video) => {
+  return allVideos.filter((video) => {
     const matchesSearch = !searchTerm || [video.category, video.title, video.author].some((value) => value.toLowerCase().includes(searchTerm));
     return matchesSearch && matchesActiveFilter(video);
   });
+}
+
+function renderFilters() {
+  if (!filtersContainer) return;
+
+  filtersContainer.innerHTML = resourceCategories
+    .map((category) => `<a href="#" data-filter="${category}" class="${category === activeFilter ? "active" : ""}">${category}</a>`)
+    .join("");
 }
 
 function renderVideos(videos = getFilteredVideos()) {
@@ -47,17 +45,29 @@ function renderVideos(videos = getFilteredVideos()) {
     : "<h3>No se encontraron grabaciones.</h3>";
 }
 
+async function loadVideos() {
+  try {
+    allVideos = await fetchVideos();
+    renderVideos();
+  } catch (error) {
+    const mensaje = error instanceof ApiError
+      ? error.message
+      : "No fue posible cargar las grabaciones.";
+    resultsContainer.innerHTML = `<p class="error-state">${mensaje}</p>`;
+  }
+}
+
 function searchVideos() {
   renderVideos(getFilteredVideos());
 }
 
-filterLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-    activeFilter = link.dataset.filter || "all";
-    filterLinks.forEach((item) => item.classList.toggle("active", item === link));
-    renderVideos(getFilteredVideos());
-  });
+filtersContainer?.addEventListener("click", (event) => {
+  const link = event.target.closest("a[data-filter]");
+  if (!link) return;
+  event.preventDefault();
+  activeFilter = link.dataset.filter;
+  renderFilters();
+  renderVideos(getFilteredVideos());
 });
 
 document.querySelector(".btn-buscar-sesiones").addEventListener("click", searchVideos);
@@ -65,17 +75,22 @@ searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") searchVideos();
 });
 
-// ============ Apertura del modal con el formulario específico de video ============
-
 openFormBtn.addEventListener("click", async () => {
   await customElements.whenDefined("base-modal");
 
   const videoForm = await createVideoForm();
 
-  videoForm.element.addEventListener("video-created", (event) => {
-    saveVideo(event.detail);
-    renderVideos();
-    videoFormModal.close();
+  videoForm.element.addEventListener("video-created", async (event) => {
+    try {
+      await createVideo(event.detail);
+      await loadVideos();
+      videoFormModal.close();
+    } catch (error) {
+      const mensaje = error instanceof ApiError
+        ? error.message
+        : "No fue posible guardar el video.";
+      window.alert(mensaje);
+    }
   });
 
   videoForm.element.addEventListener("video-form-cancel", () => {
@@ -94,13 +109,13 @@ openManageVideoBtn.addEventListener("click", async () => {
 
   const manageForm = await createManageVideoForm();
 
-  manageForm.element.addEventListener("video-updated", () => {
-    renderVideos();
+  manageForm.element.addEventListener("video-updated", async () => {
+    await loadVideos();
     videoFormModal.close();
   });
 
-  manageForm.element.addEventListener("video-deleted", () => {
-    renderVideos();
+  manageForm.element.addEventListener("video-deleted", async () => {
+    await loadVideos();
     videoFormModal.close();
   });
 
@@ -115,4 +130,9 @@ openManageVideoBtn.addEventListener("click", async () => {
   });
 });
 
-renderVideos();
+async function init() {
+  renderFilters();
+  await loadVideos();
+}
+
+init();

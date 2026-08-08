@@ -5,41 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Administración</title>
     <link rel="stylesheet" href="../../../global.css" />
-    <link rel="stylesheet" href="admin.css"/>
-    <link rel="stylesheet" href="../../components/ui/navbar/navbar.css">
-    <link rel="stylesheet" href="../../components/ui/footer/footer.css">
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="../../components/ui/navbar/navbar.css" />
+    <link rel="stylesheet" href="../../components/ui/footer/footer.css" />
   </head>
 
   <body>
     <!-- Inicio cambios Alejandro navbar y main -->
     <div id="navbar-container"></div>
     <main class="contenedor-main">
-    <div class="contenedor-main-header">
+      <div class="contenedor-main-header">
         <h1>Grabaciones y webinars</h1>
-        <p>Sesiones grabadas por el equipo Generation para seguir aprendiendo.</p>
+        <p>
+          Sesiones grabadas por el equipo Generation para seguir aprendiendo.
+        </p>
         <div class="admin-toolbar">
-            <input id="busqueda-sesiones" type="text" placeholder="Buscar sesiones...">
-            <button class="btn-buscar-sesiones">Buscar</button>
+          <input
+            id="busqueda-sesiones"
+            type="text"
+            placeholder="Buscar sesiones..."
+          />
+          <button class="btn-buscar-sesiones">Buscar</button>
 
-            <div class="video-actions">
-                <button type="button" id="open-video-form" class="btn btn--primary" hidden style="display: none">+ Agregar video</button>
-                <button type="button" id="open-manage-video-form" class="btn btn--secondary" hidden style="display: none">Administrar videos</button>
-            </div>
+          <div class="video-actions">
+            <button
+              type="button"
+              id="open-video-form"
+              class="btn btn--primary"
+              hidden
+              style="display: none"
+            >
+              + Agregar video
+            </button>
+            <button
+              type="button"
+              id="open-manage-video-form"
+              class="btn btn--secondary"
+              hidden
+              style="display: none"
+            >
+              Administrar videos
+            </button>
+          </div>
         </div>
-        
-        <div class="filtros-busqueda-sesiones">
-            <a href="#" data-filter="all" class="active">Todas</a>
-            <a href="#" data-filter="guest-talks">Guest Talks</a>
-            <a href="#" data-filter="webinars">Webinars</a>
-            <a href="#" data-filter="talleres">Talleres</a>
-            <a href="#" data-filter="charlas-tecnicas">Charlas técnicas</a>
-            <a href="#" data-filter="sesiones-informativas">Sesiones informativas</a>
-        </div>
-    </div>
+
+        <div class="filtros-busqueda-sesiones"></div>
+      </div>
     </main>
 
     <section class="section-grabaciones">
-        <div id="tarjetas-grabaciones" class="grid-grabaciones"></div>
+      <div id="tarjetas-grabaciones" class="grid-grabaciones"></div>
     </section>
 
     <base-modal id="video-form-modal"></base-modal>
@@ -47,7 +62,10 @@
     <div id="footer-container"></div>
     <script src="../../components/ui/footer/footer.js"></script>
     <script src="../../components/ui/navbar/navbar.js"></script>
-    <script type="module" src="../../components/ui/modal/base-modal/base-modal.js"></script>
+    <script
+      type="module"
+      src="../../components/ui/modal/base-modal/base-modal.js"
+    ></script>
     <script type="module" src="admin.js"></script>
   </body>
 </html>

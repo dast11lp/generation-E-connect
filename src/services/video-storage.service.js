@@ -1,67 +1,96 @@
-const STORAGE_KEY = "grabaciones";
+import { apiFetch } from "./api-client.js";
+import { fetchCategories } from "./category-storage.service.js";
+import { CATEGORY_LABELS } from "./resource-storage.service.js";
 
-export function initializeVideos(seedVideos) {
-  const savedVideos = readVideos();
-  if (!savedVideos.length) writeVideos(seedVideos);
+function formatDuration(minutes) {
+  if (minutes === null || minutes === undefined) return "";
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return mins ? `${hours}h ${mins}min` : `${hours}h`;
 }
 
-export function readVideos() {
-  try {
-    const savedVideos = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    return savedVideos.map(normalizeVideo);
-  } catch {
-    return [];
-  }
+function formatDateEs(dateStr) {
+  if (!dateStr) return "";
+  const date = new Date(`${dateStr}T00:00:00`);
+  const formatted = new Intl.DateTimeFormat("es", { month: "short", year: "numeric" }).format(date);
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1).replace(".", "");
 }
 
-export function saveVideo(video) {
-  const videos = readVideos();
-  const nextId = videos.length ? Math.max(...videos.map((item) => item.id)) + 1 : 1;
-  const newVideo = { ...video, id: nextId };
-  videos.push(newVideo);
-  writeVideos(videos);
-  return newVideo;
+function inferLinkSourceType(link = "") {
+  return link.includes("res.cloudinary.com") ? "file" : "url";
 }
 
-export function updateVideo(id, updates) {
-  const videos = readVideos();
-  const index = videos.findIndex((v) => v.id === id);
-  if (index === -1) return null;
-
-  videos[index] = { ...videos[index], ...updates };
-  writeVideos(videos);
-  return videos[index];
-}
-
-export function deleteVideo(id) {
-  const videos = readVideos();
-  const filtered = videos.filter((v) => v.id !== id);
-  writeVideos(filtered);
-  return filtered.length !== videos.length;
-}
-
-function writeVideos(videos) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(videos));
-}
-
-function normalizeVideo(video) {
+function toVideoPayload(video) {
   return {
-    id: video.id,
-    category: video.category ?? video.categoria ?? "",
-    title: video.title ?? video.titulo ?? "",
-    author: video.author ?? video.autor ?? "",
-    date: video.date ?? video.fecha ?? "",
-    duration: video.duration ?? video.duracion ?? "",
-    thumbnail: video.thumbnail ?? "",
-    link: video.link ?? "",
-    sourceType: video.sourceType ?? inferSourceType(video), // <-- nuevo
+    title: video.title,
+    description: video.description ?? "",
+    categoryId: video.categoryId,
+    resourceTypeId: video.resourceTypeId ?? null,
+    section: "recording",
+    url: video.link,
+    thumbnailUrl: video.thumbnail ?? null,
+    durationMinutes: video.durationMinutes ?? null,
+    publicationDate: video.publicationDate ?? new Date().toISOString().slice(0, 10),
+    featured: video.featured ?? false,
+    active: video.active ?? true,
+    fileName: video.fileName ?? null,
+    fileSize: video.fileSize ?? null,
   };
 }
 
-// Compatibilidad: videos guardados antes de que existiera sourceType.
-// Los archivos subidos siempre generan URL de Cloudinary; si el link
-// no pertenece a ese dominio, asumimos que fue registrado por URL externa.
-function inferSourceType(video) {
-  const link = video.link ?? video.link;
-  return link.includes("res.cloudinary.com") ? "file" : "url";
+function fromRecordingDTO(dto, categoryMap) {
+  const dateValue = dto.publicationDate ?? (dto.createdAt ? dto.createdAt.slice(0, 10) : "");
+
+  return {
+    id: dto.id,
+    categoryId: dto.categoryId,
+    resourceTypeId: dto.resourceTypeId ?? null,
+    category: categoryMap.get(dto.categoryId) ?? "Sin categoría",
+    title: dto.title,
+    description: dto.description ?? "",
+    author: "Equipo Generation", // el backend aún no guarda un presentador por grabación
+    date: formatDateEs(dateValue),
+    dateValue,
+    duration: formatDuration(dto.durationMinutes),
+    thumbnail: dto.thumbnailUrl ?? "",
+    link: dto.url,
+    sourceType: inferLinkSourceType(dto.url),
+    featured: !!dto.featured,
+    active: !!dto.active,
+    fileName: dto.fileName,
+    fileSize: dto.fileSize,
+  };
+}
+
+async function loadCategoryMap() {
+  const categories = await fetchCategories();
+  return new Map(
+    categories.map((c) => [c.id, CATEGORY_LABELS[c.categoryType] ?? c.description ?? c.categoryType])
+  );
+}
+
+export async function fetchVideos() {
+  const [dtos, categoryMap] = await Promise.all([
+    apiFetch("/resources?section=recording", { auth: false }),
+    loadCategoryMap(),
+  ]);
+  return dtos.map((dto) => fromRecordingDTO(dto, categoryMap));
+}
+
+export async function createVideo(video) {
+  const dto = await apiFetch("/resources", { method: "POST", body: toVideoPayload(video) });
+  const categoryMap = await loadCategoryMap();
+  return fromRecordingDTO(dto, categoryMap);
+}
+
+export async function updateVideo(id, updates) {
+  const dto = await apiFetch(`/resources/${id}`, { method: "PUT", body: toVideoPayload(updates) });
+  const categoryMap = await loadCategoryMap();
+  return fromRecordingDTO(dto, categoryMap);
+}
+
+export async function deleteVideo(id) {
+  await apiFetch(`/resources/${id}`, { method: "DELETE" });
+  return true;
 }
