@@ -39,6 +39,11 @@ section {
   gap: 24px;
   align-items: start;
   justify-items: center;
+}
+
+.recurso-card,
+.explora-card,
+.historia-card {
   background: var(--color-blanco);
   border: 1px solid var(--color-gris-claro);
   border-radius: var(--border-radius-principal);
@@ -54,10 +59,17 @@ section {
   display: flex;
   flex-direction: column;
   min-height: 420px;
-  padding: 40px;
   max-width: 420px;
   width: 100%;
   padding: 28px;
+}
+
+.explora-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 28px;
+  width: 100%;
 }
 
 .historia-card {
