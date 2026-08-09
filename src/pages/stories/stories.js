@@ -1,8 +1,9 @@
 import { createStoryCard } from "../../components/cards/story-card/story-card.js";
 import { renderStoriesCarousel } from "../../components/stories/stories-carousel/stories-carousel.js";
-import { initialStories } from "../../data/stories.data.js";
+import { fetchStories, createStory } from "../../services/story-storage.service.js";
+import { ApiError } from "../../services/api-client.js";
 
-const stories = [...initialStories];
+let stories = [];
 let activeFilter = "todas";
 
 const storiesContainer = document.querySelector("#tarjetas-historias");
@@ -10,6 +11,7 @@ const carouselContainer = document.querySelector("#carrusel");
 const filterButtons = document.querySelectorAll("[data-filtro]");
 const modal = document.querySelector("#modal-historia");
 const storyForm = document.querySelector("#form-historia");
+const submitButton = storyForm.querySelector("button[type='submit']");
 
 const getVisibleStories = () => activeFilter === "todas"
   ? stories
@@ -41,10 +43,10 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !modal.classList.contains("oculto")) closeModal();
 });
 
-storyForm.addEventListener("submit", (event) => {
+storyForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const formData = new FormData(storyForm);
-  stories.push({
+  const payload = {
     name: formData.get("name").trim(),
     company: formData.get("company").trim(),
     timeToHire: formData.get("timeToHire").trim(),
@@ -52,13 +54,42 @@ storyForm.addEventListener("submit", (event) => {
     role: formData.get("role").trim(),
     year: formData.get("year").trim(),
     category: formData.get("category"),
-    photo: formData.get("photo").trim() || "https://randomuser.me/api/portraits/lego/1.jpg",
-  });
-  storyForm.reset();
-  closeModal();
-  renderStories();
-  renderStoriesCarousel(carouselContainer, stories);
+    photo: formData.get("photo").trim(),
+  };
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Publicando...";
+
+  try {
+    const savedStory = await createStory(payload);
+    stories.push(savedStory);
+    storyForm.reset();
+    closeModal();
+    renderStories();
+    renderStoriesCarousel(carouselContainer, stories);
+  } catch (error) {
+    const message = error instanceof ApiError
+      ? error.message
+      : "No pudimos publicar tu historia. Intenta de nuevo en unos minutos.";
+    alert(message);
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Publicar historia";
+  }
 });
 
-renderStories();
-renderStoriesCarousel(carouselContainer, stories);
+async function init() {
+  storiesContainer.innerHTML = "<p>Cargando historias...</p>";
+  try {
+    stories = await fetchStories();
+  } catch (error) {
+    stories = [];
+    storiesContainer.innerHTML = "<p>No pudimos cargar las historias. Intenta más tarde.</p>";
+    console.error("Error al cargar historias:", error);
+    return;
+  }
+  renderStories();
+  renderStoriesCarousel(carouselContainer, stories);
+}
+
+init();
