@@ -3,6 +3,12 @@ import { createManageProgramForm } from "../../components/forms/manage-program-f
 import { escapeHtml } from "../../components/utils/html.js";
 import { normalizeTopic } from "../../components/utils/topics.js";
 import { syncAdminControls } from "../../services/auth.service.js";
+import {
+  fetchPrograms,
+  fetchFullProgram,
+  createFullProgram,
+} from "../../services/program-storage.service.js";
+import { ApiError } from "../../services/api-client.js";
 
 const programTabList = document.querySelector('#program-tab-list');
 const contentRoutesCards = document.querySelector('.content__routes__route')
@@ -12,22 +18,19 @@ const openFormBtn = document.querySelector('#open-program-form')
 const openManageProgramBtn = document.querySelector('#open-manage-program-form');
 const programFormModal = document.querySelector('#program-form-modal')
 
-
 syncAdminControls();
-initStorage();
-let trainingPrograms = getPrograms();
 
-const getProgramNames = (trainingPrograms) => trainingPrograms.map(program => program.name);
+let trainingPrograms = [];
 
-const getProgramByID = (programs, id) => {
-    const program = programs.find(p => p.id === id);
-    return program
-}
+
+let activeFullProgram = null;
+
+const getProgramNames = (programs) => programs.map((program) => program.name);
 
 const tabsRender = (programNames) => {
     programTabList.innerHTML = "";
 
-    if (trainingPrograms === undefined || trainingPrograms.length === 0) return
+    if (!trainingPrograms.length) return;
 
     programNames.forEach((name, index) => {
         const programListElement = document.createElement("li")
@@ -35,13 +38,12 @@ const tabsRender = (programNames) => {
 
         if (index === 0) programListElement.classList.add("active")
 
-        programListElement.addEventListener("click", () => {
+        programListElement.addEventListener("click", async () => {
             document.querySelectorAll('#program-tab-list li').forEach(li => li.classList.remove("active"))
             programListElement.classList.add("active")
 
             const programId = trainingPrograms[index].id;
-            const programByID = getProgramByID(trainingPrograms, programId);
-            renderRoutes(programByID);
+            await loadAndRenderProgram(programId);
         })
         programTabList.appendChild(programListElement);
     })
@@ -62,7 +64,12 @@ const renderTopics = (route) => {
 }
 
 const renderRoutes = (program) => {
-    if (!program) return
+    if (!program) {
+        contentRoutesCards.innerHTML = "";
+        topicsTitle.textContent = "Habilidades clave"
+        contentTopicsCards.innerHTML = "<p>Todavía no hay programas de formación creados.</p>"
+        return
+    }
 
     contentRoutesCards.innerHTML = "";
 
@@ -76,7 +83,7 @@ const renderRoutes = (program) => {
         const card = document.createElement("div");
         card.innerHTML = `
             <div class="content__topics__cards__card ${index === 0 ? 'active' : ''}">
-                <h4>${route.title}</h4>
+                <h4>${escapeHtml(route.title)}</h4>
                 <span>${getFirstThreeTopics(route.topics)}</span>
                 <p>Temas: <span> ${route.topics.length}</span></p>
             </div>
@@ -92,14 +99,38 @@ const renderRoutes = (program) => {
     renderTopics(program.routes[0])
 }
 
-function refreshAll(selectedProgramId = null) {
-    trainingPrograms = getPrograms();
+async function loadAndRenderProgram(id) {
+    try {
+        activeFullProgram = await fetchFullProgram(id);
+        renderRoutes(activeFullProgram);
+    } catch (error) {
+        const mensaje = error instanceof ApiError
+            ? error.message
+            : "No fue posible cargar este programa.";
+        contentRoutesCards.innerHTML = `<p class="error-state">${mensaje}</p>`;
+    }
+}
+
+async function refreshAll(selectedProgramId = null) {
+    try {
+        trainingPrograms = await fetchPrograms();
+    } catch (error) {
+        const mensaje = error instanceof ApiError
+            ? error.message
+            : "No fue posible cargar los programas.";
+        contentRoutesCards.innerHTML = `<p class="error-state">${mensaje}</p>`;
+        return;
+    }
 
     tabsRender(getProgramNames(trainingPrograms));
 
-    const targetId = selectedProgramId ?? trainingPrograms[0]?.id;
-    const program = getProgramByID(trainingPrograms, targetId);
-    renderRoutes(program);
+    if (!trainingPrograms.length) {
+        renderRoutes(null);
+        return;
+    }
+
+    const targetId = selectedProgramId ?? trainingPrograms[0].id;
+    await loadAndRenderProgram(targetId);
 
     if (selectedProgramId !== null) {
         const index = trainingPrograms.findIndex(p => p.id === selectedProgramId);
@@ -150,17 +181,22 @@ contentTopicsCards.addEventListener("click", (event) => {
   header.setAttribute("aria-expanded", String(isOpen));
 });
 
-// ============ Apertura del modal con el formulario específico de programas ============
-
 openFormBtn.addEventListener('click', async () => {
     await customElements.whenDefined('base-modal');
 
     const programForm = await createProgramForm();
 
-    programForm.element.addEventListener('program-created', (event) => {
-        const newProgram = addProgram(event.detail);
-        refreshAll(newProgram.id);
-        programFormModal.close();
+    programForm.element.addEventListener('program-created', async (event) => {
+        try {
+            const newProgram = await createFullProgram(event.detail);
+            await refreshAll(newProgram.id);
+            programFormModal.close();
+        } catch (error) {
+            const mensaje = error instanceof ApiError
+                ? error.message
+                : "No fue posible crear el programa.";
+            window.alert(mensaje);
+        }
     });
 
     programForm.element.addEventListener('program-form-cancel', () => {

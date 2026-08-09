@@ -3,28 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../../global.css">
+    <link rel="stylesheet" href="../../../global.css" />
     <link rel="stylesheet" href="learn.css" />
-    <link rel="stylesheet" href="../../components/ui/footer/footer.css">
-    <link rel="stylesheet" href="../../components/ui/navbar/navbar.css">
+    <link rel="stylesheet" href="../../components/ui/footer/footer.css" />
+    <link rel="stylesheet" href="../../components/ui/navbar/navbar.css" />
     <title>Document</title>
   </head>
   <body>
-  <div id="navbar-container"></div>
+    <div id="navbar-container"></div>
     <div id="learn-container">
-        <div class="resume">
-          <div>
-            <h1>¿Qué aprender después del bootcamp?</h1>
-            <p>
-              Rutas de crecimiento profesional por programa, explora habilidades y
-              recursos recomendados.
-            </p>
-          </div>
-          <div class="resume-buttons">
-            <button id="open-program-form" class="btn-add-program" type="button" hidden style="display: none">+ Nuevo programa</button>
-            <button type="button" id="open-manage-program-form" class="btn btn--secondary" hidden style="display: none">Administrar programas</button>
-          </div>
+      <div class="resume">
+        <div>
+          <h1>¿Qué aprender después del bootcamp?</h1>
+          <p>
+            Rutas de crecimiento profesional por programa, explora habilidades y
+            recursos recomendados.
+          </p>
         </div>
+        <div class="resume-buttons">
+          <button
+            id="open-program-form"
+            class="btn-add-program"
+            type="button"
+            hidden
+            style="display: none"
+          >
+            + Nuevo programa
+          </button>
+          <button
+            type="button"
+            id="open-manage-program-form"
+            class="btn btn--secondary"
+            hidden
+            style="display: none"
+          >
+            Administrar programas
+          </button>
+        </div>
+      </div>
 
       <div id="programs" class="">
         <ul id="program-tab-list"></ul>
@@ -48,9 +64,10 @@
     <!-- Web component: modal para crear un nuevo trainingProgram -->
     <base-modal id="program-form-modal"></base-modal>
 
-    <script src="seed.js"></script>
-    <script src="storage.js"></script>
-    <script type="module" src="../../components/ui/modal/base-modal/base-modal.js"></script>
+    <script
+      type="module"
+      src="../../components/ui/modal/base-modal/base-modal.js"
+    ></script>
     <script type="module" src="learn.js"></script>
   </body>
 </html>
