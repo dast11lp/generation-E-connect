@@ -7,6 +7,7 @@ import { createResourceForm } from "../../components/forms/resource-form/resourc
 import { createManageResourceForm } from "../../components/forms/manage-resource-form/manage-resource-form.js";
 import { syncAdminControls } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
+import { trackResourceEvent } from "../../services/interaction-storage.service.js";
 
 const resourcesContainer = document.querySelector(".contenedor-recursos");
 const filtersContainer = document.querySelector(".categorias");
@@ -113,6 +114,12 @@ async function loadResources() {
 }
 
 function bindEvents() {
+  resourcesContainer?.addEventListener("click", (event) => {
+    const link = event.target.closest(".btn-card[data-resource-id]");
+    if (!link) return;
+    trackResourceEvent(link.dataset.resourceId, link.dataset.eventType);
+  });
+
   filtersContainer?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-category]");
     if (!button) return;
