@@ -53,3 +53,30 @@ export async function createStory(story) {
   });
   return fromStoryDTO(dto);
 }
+
+function getInitials(name = "") {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
+
+function toFeaturedStory(story) {
+  return {
+    id: story.id,
+    initials: getInitials(story.name),
+    name: story.name,
+    role: story.role,
+    cohort: story.year ? `Cohorte ${story.year}` : story.category,
+    company: story.company,
+    timeToHire: story.timeToHire,
+    quote: story.testimony,
+  };
+}
+
+export async function fetchRecentStories() {
+  const dtos = await apiFetch("/stories/recent", { auth: false });
+  return dtos.map(fromStoryDTO).map(toFeaturedStory);
+}

@@ -2,8 +2,9 @@ import { createExploreCard } from "../../components/cards/explore-card/explore-c
 import { createFeaturedStoryCard } from "../../components/stories/featured-story-card/featured-story-card.js";
 import { createResourceCard } from "../../components/cards/resource-card/resource-card.js";
 import { createStatCard } from "../../components/cards/stat-card/stat-card.js";
-import { exploreSections, featuredResources, featuredStories } from "../../data/home.data.js";
+import { exploreSections, featuredResources } from "../../data/home.data.js";
 import { fetchHomeStats } from "../../services/stats-storage.service.js";
+import { fetchRecentStories } from "../../services/story-storage.service.js";
 
 const resourcesContainer = document.querySelector("#recursos-grid");
 const exploreContainer = document.querySelector("#explora-grid");
@@ -20,8 +21,19 @@ function renderResources() {
 
 function renderHome() {
   exploreContainer.innerHTML = exploreSections.map(createExploreCard).join("");
-  storiesContainer.innerHTML = featuredStories.map(createFeaturedStoryCard).join("");
   renderResources();
+}
+
+async function loadRecentStories() {
+  try {
+    const stories = await fetchRecentStories();
+    storiesContainer.innerHTML = stories.length
+      ? stories.map(createFeaturedStoryCard).join("")
+      : "<p>Todavía no hay historias publicadas.</p>";
+  } catch (error) {
+    console.error("No se pudieron cargar las historias recientes:", error);
+    storiesContainer.innerHTML = "<p>No pudimos cargar las historias.</p>";
+  }
 }
 
 async function loadStats() {
@@ -42,3 +54,4 @@ toggleResourcesLink.addEventListener("click", (event) => {
 
 renderHome();
 loadStats();
+loadRecentStories();
