@@ -89,6 +89,14 @@ export async function fetchResources() {
   return dtos.map((dto) => fromResourceDTO(dto, categoryMap, typeMap));
 }
 
+export async function fetchFeaturedResources() {
+  const [dtos, { categoryMap, typeMap }] = await Promise.all([
+    apiFetch("/resources?featured=true", { auth: false }),
+    loadCategoryAndTypeMaps(),
+  ]);
+  return dtos.map((dto) => fromResourceDTO(dto, categoryMap, typeMap));
+}
+
 export async function createResource(resource) {
   const dto = await apiFetch("/resources", { method: "POST", body: toResourcePayload(resource) });
   const { categoryMap, typeMap } = await loadCategoryAndTypeMaps();
