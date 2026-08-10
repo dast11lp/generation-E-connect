@@ -13,3 +13,7 @@ export async function fetchHomeStats() {
   const dto = await apiFetch("/stats/dashboard", { auth: false });
   return fromDashboardStatsDTO(dto);
 }
+
+export async function fetchDashboardStats() {
+  return apiFetch("/stats/dashboard", { auth: false });
+}
