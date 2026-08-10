@@ -1,13 +1,12 @@
-import { register } from "../../services/auth.service.js";
+import { register, isLoggedIn } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
-import { isLoggedIn } from "../../services/auth.service.js";
+import { uploadImage } from "../../services/cloudinary.service.js";
 
 let currentStep = 1;
 const totalSteps = 3;
 
 let mentorData = {
-    firstName: '',
-    lastName: '',
+    name: '',
     email: '',
     password: '',
     profileImage: '',
@@ -415,14 +414,56 @@ form.addEventListener('submit', async (event) => {
     submitButton.disabled = true;
 
     try {
-        await register(mentorData.name, mentorData.email, mentorData.password);
+        const profileImageFile = profileImageInput.files[0];
+        if (profileImageFile) {
+            const uploaded = await uploadImage(profileImageFile);
+            mentorData.profileImage = uploaded ? uploaded.url : '';
+        }
+
+        await register({
+            name: mentorData.name,
+            email: mentorData.email,
+            password: mentorData.password,
+            profile: {
+                profileImageUrl: mentorData.profileImage,
+                linkedin: mentorData.linkedin,
+                about: mentorData.about,
+                generationProgram: mentorData.generationProgram,
+                mentorAreas: mentorData.mentorAreas,
+                skills: mentorData.skills,
+                mentorType: mentorData.mentorType,
+            },
+        });
+
         showGlobalMessage('Cuenta creada con éxito.', 'success');
-        form.reset();
-        showStep(1);
+
+        setTimeout(() => {
+            form.reset();
+            skillsList = [];
+            renderSkills();
+            aboutCounter.textContent = '0 / 500';
+            profilePreview.src = '../assets/images/logos/usuario.png';
+
+            mentorData = {
+                name: '',
+                email: '',
+                password: '',
+                profileImage: '',
+                mentorAreas: [],
+                linkedin: '',
+                about: '',
+                generationProgram: '',
+                skills: [],
+                mentorType: []
+            };
+
+            showStep(1);
+        }, 2000);
+
     } catch (error) {
         const mensaje = error instanceof ApiError
             ? error.message
-            : 'No fue posible conectar con el servidor. Intenta de nuevo.';
+            : (error.message || 'No fue posible conectar con el servidor. Intenta de nuevo.');
         showGlobalMessage(mensaje, 'error');
     } finally {
         submitButton.disabled = false;

@@ -58,10 +58,10 @@ export async function login(email, password) {
   return response;
 }
 
-export async function register(name, email, password) {
+export async function register({ name, email, password, profile }) {
   return apiFetch("/auth/register", {
     method: "POST",
-    body: { name, email, password },
+    body: { name, email, password, profile },
   });
 }
 
