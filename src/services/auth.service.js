@@ -86,3 +86,12 @@ export function syncAdminControls(root = document) {
     }
   });
 }
+
+export function setToken(token) {
+  localStorage.setItem(TOKEN_KEY, token);
+}
+
+export function updateStoredSession(patch) {
+  const current = getCurrentUser() || {};
+  localStorage.setItem(ACTIVE_SESSION_KEY, JSON.stringify({ ...current, ...patch }));
+}

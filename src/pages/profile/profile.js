@@ -3,15 +3,13 @@
  * Lógica de la vista de perfil del mentor
  */
 
+import { getMyProfile, updateMyProfile } from '../../services/profile.service.js';
+import { uploadImage } from '../../services/cloudinary.service.js';
+import { isLoggedIn, setToken, updateStoredSession } from '../../services/auth.service.js';
+import { ApiError } from '../../services/api-client.js';
+
 (function () {
   'use strict';
-
-  /* ══════════════════════════════════════
-     DATOS DEL PERFIL
-     Mismo esquema que mentorData en register.js,
-     para que ambos formularios sean compatibles.
-     ══════════════════════════════════════ */
-  const PROFILE_STORAGE_KEY = 'generationAlumniMentorProfile';
 
   const AREA_OPTIONS = [
     { value: 'programacion',  label: 'Programación',            icon: 'ti-code' },
@@ -38,31 +36,35 @@
     analytics: 'Data Analytics',
   };
 
-  const defaultProfileData = {
-    firstName: 'Alejandro',
-    lastName: 'Saldaña',
-    email: 'alejandro@empresa.com',
-    profileImage: '../assets/images/logos/usuario-negra.png',
-    linkedin: 'https://linkedin.com/in/alejandro-saldana',
-    about: '"Desarrollador backend con más de 7 años en Java y Spring Boot. Fui alumno de bootcamp — entiendo exactamente lo que están viviendo y cómo ayudarlos a dar el siguiente paso con confianza real."',
-    generationProgram: 'java',
-    skills: ['Java', 'Spring Boot', 'APIs REST', 'Docker', 'AWS', 'Microservicios', 'PostgreSQL', 'Git', 'CI/CD', 'Testing'],
-    mentorAreas: ['programacion', 'entrevistas', 'cv', 'salario', 'empleo', 'crecimiento', 'networking', 'ingles'],
-    mentorType: ['video', 'cv', 'chat'],
-  };
+  /* ══════════════════════════════════════
+     DATOS DEL PERFIL — ahora vienen del backend real,
+     ya no de localStorage.
+     ══════════════════════════════════════ */
+  let profileData = null;
 
-  function loadProfileData() {
-    try {
-      const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
-      if (!raw) return { ...defaultProfileData };
-      return { ...defaultProfileData, ...JSON.parse(raw) };
-    } catch (error) {
-      console.error('Error leyendo el perfil desde localStorage:', error);
-      return { ...defaultProfileData };
-    }
+  function splitName(fullName) {
+    const parts = (fullName || '').trim().split(/\s+/);
+    return {
+      firstName: parts[0] || '',
+      lastName: parts.slice(1).join(' ') || '',
+    };
   }
 
-  let profileData = loadProfileData();
+  function mapApiProfileToLocal(apiProfile) {
+    const { firstName, lastName } = splitName(apiProfile.name);
+    return {
+      firstName,
+      lastName,
+      email: apiProfile.email || '',
+      profileImage: apiProfile.profileImageUrl || '../assets/images/logos/usuario-negra.png',
+      linkedin: apiProfile.linkedin || '',
+      about: apiProfile.about || '',
+      generationProgram: apiProfile.generationProgram || '',
+      skills: apiProfile.skills || [],
+      mentorAreas: apiProfile.mentorAreas || [],
+      mentorType: apiProfile.mentorType || [],
+    };
+  }
 
   function renderProfile(data) {
     document.getElementById('avatarPhoto').src = data.profileImage;
@@ -97,7 +99,6 @@
       contactEmailText.textContent = data.email;
     }
 
-    /* Áreas de expertise */
     const areasGrid = document.getElementById('areasGridDisplay');
     if (areasGrid) {
       areasGrid.innerHTML = AREA_OPTIONS
@@ -106,13 +107,11 @@
         .join('');
     }
 
-    /* Habilidades */
     const skillsWrap = document.getElementById('skillsWrapDisplay');
     if (skillsWrap) {
       skillsWrap.innerHTML = data.skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
     }
 
-    /* Tipo de mentoría */
     const tipoGrid = document.getElementById('tipoGridDisplay');
     if (tipoGrid) {
       tipoGrid.innerHTML = MENTOR_TYPE_OPTIONS.map(opt => {
@@ -126,7 +125,20 @@
     }
   }
 
-  renderProfile(profileData);
+  async function bootstrapProfile() {
+    if (!isLoggedIn()) {
+      window.location.href = '../login/login.html';
+      return;
+    }
+    try {
+      const apiProfile = await getMyProfile();
+      profileData = mapApiProfileToLocal(apiProfile);
+      renderProfile(profileData);
+    } catch (error) {
+      console.error('Error cargando el perfil:', error);
+      showToast('No se pudo cargar tu perfil desde el servidor.', 'error');
+    }
+  }
 
   /* ══════════════════════════════════════
      MODALES
@@ -135,18 +147,15 @@
     const modal = document.getElementById(id);
     if (!modal) return;
     modal.removeAttribute('hidden');
-    /* Fuerza reflow para que la transición dispare */
     modal.offsetHeight;
     modal.style.opacity = '1';
     document.body.style.overflow = 'hidden';
 
-    /* Foco al primer campo */
     const firstFocusable = modal.querySelector(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     if (firstFocusable) setTimeout(() => firstFocusable.focus(), 50);
 
-    /* Trampa de foco */
     modal.addEventListener('keydown', trapFocus);
   }
 
@@ -175,25 +184,22 @@
     }
   }
 
-  /* Cierra el modal al hacer clic en el overlay */
   document.querySelectorAll('.modal-overlay').forEach(overlay => {
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay) closeModal(overlay.id);
     });
   });
 
-  /* Cierra con Escape */
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     document.querySelectorAll('.modal-overlay:not([hidden])').forEach(m => closeModal(m.id));
   });
 
-  /* Exponer globalmente para los onclick del HTML */
   window.openModal  = openModal;
   window.closeModal = closeModal;
 
   /* ══════════════════════════════════════
-     ENVÍO DE FORMULARIOS (mocked)
+     TOAST
      ══════════════════════════════════════ */
   function showToast(message, type = 'success') {
     const existing = document.querySelector('.profile-toast');
@@ -247,10 +253,11 @@
   }
 
   /* ══════════════════════════════════════
-     EDITAR PERFIL — modal basado en register
+     EDITAR PERFIL
      ══════════════════════════════════════ */
   let editSkillsTemp = [];
   let editPhotoTemp  = null;
+  let editPhotoFile  = null; // NUEVO: archivo real, para subirlo a Cloudinary al guardar
 
   function renderEditSkills() {
     const list = document.getElementById('editSkillsList');
@@ -311,6 +318,11 @@
   }
 
   function openEditProfileModal() {
+    if (!profileData) {
+      showToast('Tu perfil aún se está cargando, espera un segundo.', 'error');
+      return;
+    }
+
     document.getElementById('editFirstName').value = profileData.firstName;
     document.getElementById('editLastName').value  = profileData.lastName;
     document.getElementById('editEmail').value     = profileData.email;
@@ -323,6 +335,7 @@
 
     document.getElementById('editPhotoPreview').src = profileData.profileImage;
     editPhotoTemp = null;
+    editPhotoFile = null;
 
     editSkillsTemp = [...profileData.skills];
     renderEditSkills();
@@ -368,6 +381,8 @@
         return;
       }
 
+      editPhotoFile = file; // NUEVO: se sube de verdad al guardar
+
       const reader = new FileReader();
       reader.onload = (e) => {
         document.getElementById('editPhotoPreview').src = e.target.result;
@@ -383,7 +398,7 @@
 
   const btnGuardarPerfil = document.getElementById('btnGuardarPerfil');
   if (btnGuardarPerfil) {
-    btnGuardarPerfil.addEventListener('click', () => {
+    btnGuardarPerfil.addEventListener('click', async () => {
       const firstName = document.getElementById('editFirstName').value.trim();
       const lastName  = document.getElementById('editLastName').value.trim();
       const email     = document.getElementById('editEmail').value.trim();
@@ -405,28 +420,55 @@
         document.querySelectorAll('#editMentorTypeGrid input[name="editMentorType"]:checked')
       ).map(el => el.value);
 
-      profileData = {
-        firstName,
-        lastName,
-        email,
-        profileImage: editPhotoTemp || profileData.profileImage,
-        linkedin: document.getElementById('editLinkedin').value.trim(),
-        about: document.getElementById('editAbout').value.trim(),
-        generationProgram: document.getElementById('editProgram').value,
-        skills: [...editSkillsTemp],
-        mentorAreas: selectedAreas,
-        mentorType: selectedTypes,
-      };
+      btnGuardarPerfil.disabled = true;
 
-      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileData));
-      renderProfile(profileData);
-      closeModal('modal-editar-perfil');
-      showToast('¡Perfil actualizado correctamente!');
+      try {
+        let profileImageUrl = profileData.profileImage;
+
+        if (editPhotoFile) {
+          const uploaded = await uploadImage(editPhotoFile);
+          if (uploaded && uploaded.url) {
+            profileImageUrl = uploaded.url;
+          }
+        }
+
+        const payload = {
+          name: `${firstName} ${lastName}`.trim(),
+          email,
+          profile: {
+            profileImageUrl,
+            linkedin: document.getElementById('editLinkedin').value.trim(),
+            about: document.getElementById('editAbout').value.trim(),
+            generationProgram: document.getElementById('editProgram').value,
+            skills: [...editSkillsTemp],
+            mentorAreas: selectedAreas,
+            mentorType: selectedTypes,
+          },
+        };
+
+        const updated = await updateMyProfile(payload);
+
+        if (updated.token) {
+          setToken(updated.token);
+        }
+        updateStoredSession({ name: updated.name, email: updated.email });
+
+        profileData = mapApiProfileToLocal(updated);
+        renderProfile(profileData);
+        closeModal('modal-editar-perfil');
+        showToast('¡Perfil actualizado correctamente!');
+      } catch (error) {
+        console.error('Error actualizando el perfil:', error);
+        const message = error instanceof ApiError ? error.message : 'No se pudo guardar el perfil.';
+        showToast(message, 'error');
+      } finally {
+        btnGuardarPerfil.disabled = false;
+      }
     });
   }
 
   /* ══════════════════════════════════════
-     ANIMACIÓN DE ENTRADA — IntersectionObserver
+     ANIMACIÓN DE ENTRADA
      ══════════════════════════════════════ */
   const animStyle = document.createElement('style');
   animStyle.textContent = `
@@ -460,23 +502,8 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   /* ══════════════════════════════════════
-     GUARDAR / COMPARTIR (mocked)
+     ARRANQUE
      ══════════════════════════════════════ */
-  /* Estos botones están en el navbar del widget anterior;
-     si los añades al HTML puedes conectarlos aquí:
-
-  document.getElementById('btn-guardar')?.addEventListener('click', () => {
-    showToast('Mentor guardado en tu lista de favoritos.');
-  });
-
-  document.getElementById('btn-compartir')?.addEventListener('click', () => {
-    if (navigator.share) {
-      navigator.share({ title: 'Perfil mentor — Hub Alumni', url: window.location.href });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      showToast('Enlace copiado al portapapeles.');
-    }
-  });
-  */
+  bootstrapProfile();
 
 })();
