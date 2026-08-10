@@ -2,7 +2,7 @@ const LOCAL_HOSTNAMES = ["localhost", "127.0.0.1"];
 const isLocal = LOCAL_HOSTNAMES.includes(window.location.hostname);
 
 const API_BASE_URL = isLocal
-  ? "http://localhost:8080/api"
+  ? "http://localhost:8083/api"
   : "https://ec-c094f9e61f034e029869900306b99827.ecs.us-east-1.on.aws/api";
 
 export class ApiError extends Error {

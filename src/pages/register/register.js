@@ -442,7 +442,7 @@ form.addEventListener('submit', async (event) => {
             skillsList = [];
             renderSkills();
             aboutCounter.textContent = '0 / 500';
-            profilePreview.src = '../assets/images/logos/usuario.png';
+            profilePreview.src = '../../../assets/images/logos/usuario.png';
 
             mentorData = {
                 name: '',

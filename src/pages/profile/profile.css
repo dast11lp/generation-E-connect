@@ -97,7 +97,7 @@ main {
   column-gap: 24px;
   width: 100%;
   max-width: 1100px;
-  margin: -200px auto 0; /*-120*/
+  margin: -220px auto 0; /*-120*/
   padding: 0 40px;
   position: relative;
   z-index: 10;
@@ -219,8 +219,7 @@ main {
    ============================================================ */
 .container-info-profile {
   max-width: 1100px;
-  margin: 40px auto 0;
-  padding: 0 40px;
+  margin: 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -231,7 +230,6 @@ main {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, .55);
-  border-left: 4px solid var(--color-azul-generation);
   border-radius: var(--border-radius-terciario);
   box-shadow: 0 8px 32px rgba(0, 58, 112, .1);
   padding: 1.5rem;
@@ -1578,7 +1576,7 @@ a.contact-row i {
   }
 
   .container-statistics {
-    order: -1;
+    order: 1;
   }
 
   .tipo-grid {
@@ -1626,8 +1624,7 @@ a.contact-row i {
   .contact-mentor .btn-cta {
     width: 100%;
   }
-
-  .container-info-profile,
+  
   .container-info-grid {
     padding: 0 20px;
   }
