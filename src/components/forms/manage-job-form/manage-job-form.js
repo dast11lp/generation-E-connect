@@ -1,6 +1,5 @@
 import { uploadImage } from "../../../services/cloudinary.service.js";
-import { jobPortals as staticJobs } from "../../../data/jobs.data.js";
-import { readUserJobs, updateUserJob, deleteUserJob } from "../../../services/job-storage.service.js";
+import { fetchJobBoards, updateJobBoard, deleteJobBoard } from "../../../services/job-storage.service.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./manage-job-form-content.html", COMPONENT_URL);
@@ -37,7 +36,6 @@ export async function createManageJobForm() {
   const form = root.querySelector("#mjf-form");
   const select = root.querySelector("#mjf-select");
   const details = root.querySelector("#mjf-details");
-  const staticNote = root.querySelector("[data-static-note]");
   const nameInput = root.querySelector("#mjf-name");
   const descriptionInput = root.querySelector("#mjf-description");
   const urlInput = root.querySelector("#mjf-url");
@@ -58,20 +56,12 @@ export async function createManageJobForm() {
   footer.remove();
 
   let currentJob = null;
-
-  function getAllJobsWithMeta() {
-    const staticWithMeta = staticJobs.map((j) => ({ ...j, isStatic: true }));
-    const userJobs = readUserJobs().map((j) => ({ ...j, isStatic: false }));
-    return [...staticWithMeta, ...userJobs];
-  }
+  let allJobs = [];
 
   function populateSelect() {
-    const all = getAllJobsWithMeta();
     select.innerHTML =
       '<option value="">Seleccionar portal de empleo...</option>' +
-      all
-        .map((j) => `<option value="${String(j.id)}">${j.name}${j.isStatic ? " (predeterminado)" : ""}</option>`)
-        .join("");
+      allJobs.map((j) => `<option value="${String(j.id)}">${j.name}</option>`).join("");
   }
 
   function clearErrors() {
@@ -81,7 +71,6 @@ export async function createManageJobForm() {
   function fillForm(job) {
     currentJob = job;
     details.hidden = false;
-    staticNote.hidden = !job.isStatic;
     clearErrors();
 
     nameInput.value = job.name;
@@ -91,10 +80,9 @@ export async function createManageJobForm() {
     imageInput.value = "";
     imagePreview.src = job.image;
 
-    const readOnly = job.isStatic;
-    [nameInput, descriptionInput, urlInput, categoryInput, imageInput].forEach((el) => (el.disabled = readOnly));
-    saveBtn.disabled = readOnly;
-    deleteBtn.disabled = readOnly;
+    [nameInput, descriptionInput, urlInput, categoryInput, imageInput].forEach((el) => (el.disabled = false));
+    saveBtn.disabled = false;
+    deleteBtn.disabled = false;
   }
 
   select.addEventListener("change", () => {
@@ -104,13 +92,13 @@ export async function createManageJobForm() {
       currentJob = null;
       return;
     }
-    const job = getAllJobsWithMeta().find((j) => String(j.id) === id);
+    const job = allJobs.find((j) => String(j.id) === id);
     if (job) fillForm(job);
   });
 
   async function collectAndValidate() {
     clearErrors();
-    if (!currentJob || currentJob.isStatic) return { errors: true };
+    if (!currentJob) return { errors: true };
 
     let hasError = false;
     const name = nameInput.value.trim();
@@ -131,7 +119,7 @@ export async function createManageJobForm() {
 
     if (hasError) return { errors: true };
 
-    const updates = { name, description, url, category };
+    const updates = { name, description, url, category, image: currentJob.image };
     const newFile = imageInput.files[0];
 
     if (newFile) {
@@ -156,24 +144,33 @@ export async function createManageJobForm() {
     const result = await collectAndValidate();
     if (result.errors) return;
 
-    const updated = updateUserJob(currentJob.id, result.updates);
-    root.dispatchEvent(new CustomEvent("job-updated", { detail: updated, bubbles: true, composed: true }));
+    try {
+      const updated = await updateJobBoard(currentJob.id, result.updates);
+      root.dispatchEvent(new CustomEvent("job-updated", { detail: updated, bubbles: true, composed: true }));
+    } catch (error) {
+      errors.name.textContent = error.message ?? "No se pudo guardar el portal.";
+    }
   });
 
-  deleteBtn.addEventListener("click", () => {
-    if (!currentJob || currentJob.isStatic) return;
+  deleteBtn.addEventListener("click", async () => {
+    if (!currentJob) return;
 
     const confirmed = window.confirm("¿Estás seguro de eliminar este empleo? Esta acción no se puede deshacer.");
     if (!confirmed) return;
 
-    deleteUserJob(currentJob.id);
-    root.dispatchEvent(new CustomEvent("job-deleted", { detail: { id: currentJob.id }, bubbles: true, composed: true }));
+    try {
+      await deleteJobBoard(currentJob.id);
+      root.dispatchEvent(new CustomEvent("job-deleted", { detail: { id: currentJob.id }, bubbles: true, composed: true }));
+    } catch (error) {
+      window.alert(error.message ?? "No se pudo eliminar el portal.");
+    }
   });
 
   root.querySelector('[data-action="close"]')?.addEventListener("click", () => {
     root.dispatchEvent(new CustomEvent("manage-job-cancel", { bubbles: true, composed: true }));
   });
 
+  allJobs = await fetchJobBoards();
   populateSelect();
 
   return { element: root, footerElement: footer };

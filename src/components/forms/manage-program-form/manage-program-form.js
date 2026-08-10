@@ -1,4 +1,11 @@
 import { createProgramForm } from "../program-form/program-form.js";
+import {
+  fetchPrograms,
+  fetchFullProgram,
+  updateFullProgram,
+  deleteProgram,
+} from "../../../services/program-storage.service.js";
+import { ApiError } from "../../../services/api-client.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./manage-program-form-content.html", COMPONENT_URL);
@@ -15,10 +22,10 @@ function loadTemplates() {
   return templatesPromise;
 }
 
-/**
- * Construye el DOM del formulario de gestión (editar/eliminar) de programas.
- * Reutiliza createProgramForm() por completo para el árbol rutas/topics/links.
- */
+function apiErrorMessage(error, fallback) {
+  return error instanceof ApiError ? error.message : fallback;
+}
+
 export async function createManageProgramForm() {
   const [html, css] = await loadTemplates();
 
@@ -38,25 +45,44 @@ export async function createManageProgramForm() {
   footer.remove();
 
   let currentProgram = null;
-  let activeInnerForm = null; // instancia devuelta por createProgramForm
 
-  function populateSelect() {
-    const programs = getPrograms(); // función global de storage.js
+  async function populateSelect() {
+    let programs = [];
+    try {
+      programs = await fetchPrograms();
+    } catch (error) {
+      window.alert(apiErrorMessage(error, "No fue posible cargar los programas."));
+    }
     select.innerHTML =
       '<option value="">Seleccionar programa...</option>' +
       programs.map((p) => `<option value="${p.id}">${p.name}</option>`).join("");
   }
 
-  async function loadProgramIntoForm(program) {
+  async function loadProgramIntoForm(programId) {
     slot.innerHTML = "";
-    currentProgram = program;
+    let fullProgram;
+    try {
+      fullProgram = await fetchFullProgram(programId); // trae rutas + topics + links reales
+    } catch (error) {
+      slot.innerHTML = `<p class="error-state">${apiErrorMessage(error, "No fue posible cargar el programa.")}</p>`;
+      return;
+    }
 
-    activeInnerForm = await createProgramForm({ program });
-    slot.appendChild(activeInnerForm.element);
+    currentProgram = fullProgram;
 
-    activeInnerForm.element.addEventListener("program-updated", (e) => {
-      const updated = updateProgram(e.detail.id, e.detail); // función global de storage.js
-      root.dispatchEvent(new CustomEvent("program-form-updated", { detail: updated, bubbles: true, composed: true }));
+    const innerForm = await createProgramForm({ program: fullProgram });
+    slot.appendChild(innerForm.element);
+
+    innerForm.element.addEventListener("program-updated", async (e) => {
+      saveBtn.disabled = true;
+      try {
+        const updated = await updateFullProgram(currentProgram.id, e.detail);
+        root.dispatchEvent(new CustomEvent("program-form-updated", { detail: updated, bubbles: true, composed: true }));
+      } catch (error) {
+        window.alert(apiErrorMessage(error, "No fue posible guardar los cambios."));
+      } finally {
+        saveBtn.disabled = false;
+      }
     });
 
     saveBtn.disabled = false;
@@ -72,27 +98,30 @@ export async function createManageProgramForm() {
       deleteBtn.disabled = true;
       return;
     }
-    const program = getPrograms().find((p) => p.id === id);
-    if (program) await loadProgramIntoForm(program);
+    await loadProgramIntoForm(id);
   });
 
-  deleteBtn.addEventListener("click", () => {
+  deleteBtn.addEventListener("click", async () => {
     if (!currentProgram) return;
 
     const confirmed = window.confirm(
-      "¿Estás seguro de eliminar este programa?\nTambién se eliminarán todas sus rutas, topics y links asociados.\nEsta acción no se puede deshacer."
+      "¿Estás seguro de eliminar este programa?\nTambién se eliminarán todas sus rutas asociadas.\nEsta acción no se puede deshacer."
     );
     if (!confirmed) return;
 
-    deleteProgram(currentProgram.id); // función global de storage.js
-    root.dispatchEvent(new CustomEvent("program-form-deleted", { detail: { id: currentProgram.id }, bubbles: true, composed: true }));
+    try {
+      await deleteProgram(currentProgram.id);
+      root.dispatchEvent(new CustomEvent("program-form-deleted", { detail: { id: currentProgram.id }, bubbles: true, composed: true }));
+    } catch (error) {
+      window.alert(apiErrorMessage(error, "No fue posible eliminar el programa."));
+    }
   });
 
   root.querySelector('[data-action="close"]')?.addEventListener("click", () => {
     root.dispatchEvent(new CustomEvent("manage-program-cancel", { bubbles: true, composed: true }));
   });
 
-  populateSelect();
+  await populateSelect();
 
   return { element: root, footerElement: footer };
 }

@@ -1,8 +1,14 @@
 import { escapeHtml } from "../../utils/html.js";
-import { uploadVideo } from "../../../services/cloudinary.service.js";
+import { uploadVideo, uploadImage, uploadResource } from "../../../services/cloudinary.service.js";
 import { detectResourceType } from "../resource-form/resource-form.js";
-import { resources as staticResources } from "../../../data/resources.data.js";
-import { readUserResources, updateUserResource, deleteUserResource } from "../../../services/resource-storage.service.js";
+import { fetchCategories } from "../../../services/category-storage.service.js";
+import { fetchResourceTypes } from "../../../services/resource-type-storage.service.js";
+import {
+  CATEGORY_LABELS,
+  fetchResources,
+  updateResource,
+  deleteResource,
+} from "../../../services/resource-storage.service.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./manage-resource-form-content.html", COMPONENT_URL);
@@ -27,10 +33,6 @@ function formatFileSize(bytes) {
   return kb < 1024 ? `${kb.toFixed(1)} KB` : `${(kb / 1024).toFixed(1)} MB`;
 }
 
-/**
- * Construye el DOM del formulario de gestión (editar/eliminar) de recursos,
- * listo para pasarle a base-modal.open({ content, footer }).
- */
 export async function createManageResourceForm() {
   const [html, css, sharedCss] = await loadTemplates();
 
@@ -47,7 +49,6 @@ export async function createManageResourceForm() {
   const form = root.querySelector("#mrf-form");
   const select = root.querySelector("#mrf-select");
   const details = root.querySelector("#mrf-details");
-  const staticNote = root.querySelector("[data-static-note]");
   const titleInput = root.querySelector("#mrf-title");
   const categoryInput = root.querySelector("#mrf-category");
   const descriptionInput = root.querySelector("#mrf-description");
@@ -67,22 +68,22 @@ export async function createManageResourceForm() {
   footer.remove();
 
   let currentResource = null;
+  let allResources = [];
+  let resourceTypes = [];
 
-  function getAllResourcesWithMeta() {
-    const staticWithMeta = staticResources.map((r) => ({ ...r, isStatic: true }));
-    const userResources = readUserResources().map((r) => ({ ...r, isStatic: false }));
-    return [...staticWithMeta, ...userResources];
-  }
-
-  function populateSelect() {
-    const all = getAllResourcesWithMeta();
+  function populateResourceSelect() {
     select.innerHTML =
       '<option value="">Seleccionar recurso...</option>' +
-      all
-        .map(
-          (r) =>
-            `<option value="${escapeHtml(String(r.id))}">${escapeHtml(r.title)}${r.isStatic ? " (predeterminado)" : ""}</option>`
-        )
+      allResources
+        .map((r) => `<option value="${escapeHtml(String(r.id))}">${escapeHtml(r.title)}</option>`)
+        .join("");
+  }
+
+  function populateCategorySelect(categories) {
+    categoryInput.innerHTML =
+      '<option value="">Seleccione una categoría</option>' +
+      categories
+        .map((c) => `<option value="${c.id}">${escapeHtml(CATEGORY_LABELS[c.categoryType] ?? c.categoryType)}</option>`)
         .join("");
   }
 
@@ -93,11 +94,10 @@ export async function createManageResourceForm() {
   function fillForm(resource) {
     currentResource = resource;
     details.hidden = false;
-    staticNote.hidden = !resource.isStatic;
     clearErrors();
 
     titleInput.value = resource.title;
-    categoryInput.value = resource.category;
+    categoryInput.value = String(resource.categoryId ?? "");
     descriptionInput.value = resource.description;
     fileInput.value = "";
 
@@ -109,13 +109,9 @@ export async function createManageResourceForm() {
       currentFileMeta.textContent = "Sin archivo adjunto registrado.";
     }
 
-    const readOnly = resource.isStatic;
-    titleInput.disabled = readOnly;
-    categoryInput.disabled = readOnly;
-    descriptionInput.disabled = readOnly;
-    fileInput.disabled = readOnly;
-    saveBtn.disabled = readOnly;
-    deleteBtn.disabled = readOnly;
+    [titleInput, categoryInput, descriptionInput, fileInput].forEach((el) => (el.disabled = false));
+    saveBtn.disabled = false;
+    deleteBtn.disabled = false;
   }
 
   select.addEventListener("change", () => {
@@ -125,33 +121,78 @@ export async function createManageResourceForm() {
       currentResource = null;
       return;
     }
-    const resource = getAllResourcesWithMeta().find((r) => String(r.id) === id);
+    const resource = allResources.find((r) => String(r.id) === id);
     if (resource) fillForm(resource);
   });
 
   async function collectAndValidate() {
     clearErrors();
-    if (!currentResource || currentResource.isStatic) return { errors: true };
+    if (!currentResource) return { errors: true };
 
     let hasError = false;
     const title = titleInput.value.trim();
-    const category = categoryInput.value;
+    const categoryId = categoryInput.value;
     const description = descriptionInput.value.trim();
 
     if (!title) { errors.title.textContent = "El título es obligatorio."; hasError = true; }
-    if (!category) { errors.category.textContent = "Selecciona una categoría."; hasError = true; }
+    if (!categoryId) { errors.category.textContent = "Selecciona una categoría."; hasError = true; }
     if (!description) { errors.description.textContent = "Agrega una descripción."; hasError = true; }
 
     if (hasError) return { errors: true };
 
-    const updates = { title, category, description };
+    const updates = {
+      title,
+      description,
+      categoryId: Number(categoryId),
+      resourceTypeId: currentResource.resourceTypeId,
+      fileUrl: currentResource.fileUrl,
+      fileName: currentResource.fileName,
+      fileSize: currentResource.fileSize,
+      featured: currentResource.featured,
+      active: currentResource.active ?? true,
+    };
+
     const newFile = fileInput.files[0];
 
     if (newFile) {
+      const { type } = detectResourceType(newFile.name);
+      const matchingType = resourceTypes.find((t) => t.name.toLowerCase() === type.toLowerCase());
+
+      if (!matchingType) {
+        errors.file.textContent = `No existe un tipo de recurso "${type}" en el backend.`;
+        return { errors: true };
+      }
+
       try {
-        const fileUrl = await uploadVideo(newFile);
-        const { type, action } = detectResourceType(newFile.name);
-        Object.assign(updates, { fileUrl, fileName: newFile.name, fileSize: newFile.size, type, action });
+        const fileType = newFile.type.split("/")[0];
+        let fileUrl;
+
+        switch (fileType) {
+          case "video": {
+            const uploaded = await uploadVideo(newFile);
+            fileUrl = uploaded?.link;
+            break;
+          }
+          case "image": {
+            const uploaded = await uploadImage(newFile);
+            fileUrl = uploaded?.url;
+            break;
+          }
+          default:
+            fileUrl = await uploadResource(newFile);
+        }
+
+        if (!fileUrl) {
+          errors.file.textContent = "No se pudo subir el archivo.";
+          return { errors: true };
+        }
+
+        Object.assign(updates, {
+          resourceTypeId: matchingType.id,
+          fileUrl,
+          fileName: newFile.name,
+          fileSize: newFile.size,
+        });
       } catch (error) {
         errors.file.textContent = error.message ?? "No se pudo subir el archivo.";
         return { errors: true };
@@ -166,25 +207,41 @@ export async function createManageResourceForm() {
     const result = await collectAndValidate();
     if (result.errors) return;
 
-    const updated = updateUserResource(currentResource.id, result.updates);
-    root.dispatchEvent(new CustomEvent("resource-updated", { detail: updated, bubbles: true, composed: true }));
+    try {
+      const updated = await updateResource(currentResource.id, result.updates);
+      root.dispatchEvent(new CustomEvent("resource-updated", { detail: updated, bubbles: true, composed: true }));
+    } catch (error) {
+      errors.title.textContent = error.message ?? "No se pudo guardar el recurso.";
+    }
   });
 
-  deleteBtn.addEventListener("click", () => {
-    if (!currentResource || currentResource.isStatic) return;
+  deleteBtn.addEventListener("click", async () => {
+    if (!currentResource) return;
 
     const confirmed = window.confirm("¿Estás seguro de eliminar este recurso? Esta acción no se puede deshacer.");
     if (!confirmed) return;
 
-    deleteUserResource(currentResource.id);
-    root.dispatchEvent(new CustomEvent("resource-deleted", { detail: { id: currentResource.id }, bubbles: true, composed: true }));
+    try {
+      await deleteResource(currentResource.id);
+      root.dispatchEvent(new CustomEvent("resource-deleted", { detail: { id: currentResource.id }, bubbles: true, composed: true }));
+    } catch (error) {
+      window.alert(error.message ?? "No se pudo eliminar el recurso.");
+    }
   });
 
   root.querySelector('[data-action="close"]')?.addEventListener("click", () => {
     root.dispatchEvent(new CustomEvent("manage-resource-cancel", { bubbles: true, composed: true }));
   });
 
-  populateSelect();
+  const [resources, categories, types] = await Promise.all([
+    fetchResources(),
+    fetchCategories("library"),
+    fetchResourceTypes(),
+  ]);
+  allResources = resources;
+  resourceTypes = types;
+  populateResourceSelect();
+  populateCategorySelect(categories);
 
   return { element: root, footerElement: footer };
 }

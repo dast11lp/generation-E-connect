@@ -8,19 +8,21 @@
 
   <div id="mvf-details" class="mvf-details" hidden>
 
-    <div>
-      <label for="mvf-category">Tu categoria</label>
-      <select id="mvf-category" name="categoria-cohorte">
+    <div class="field">
+      <label for="mvf-title">Título del video</label>
+      <input type="text" id="mvf-title" name="title" />
+      <span class="error" data-error="title"></span>
+    </div>
+
+    <div class="field">
+      <label for="mvf-category">Categoría</label>
+      <select id="mvf-category" name="category">
         <option value="">Seleccione una categoría</option>
-        <option value="java">Full-Stack/Java</option>
-        <option value="soporte">Soporte TI</option>
-        <option value="unity">Unity</option>
-        <option value="marketing">Marketing digital</option>
       </select>
       <span class="error" data-error="category"></span>
     </div>
 
-    <div>
+    <div class="field">
       <label for="mvf-description">Descripción:</label>
       <textarea id="mvf-description" name="description" placeholder="Realiza una breve descripcion."></textarea>
       <span class="error" data-error="description"></span>

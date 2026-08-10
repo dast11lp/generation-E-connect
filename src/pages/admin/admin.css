@@ -36,37 +36,6 @@
 
 /* Fin Daniel */
 
-html {
-  font-size: 16px;
-}
-
-:root {
-    --color-azul-institucional: #003A70;
-    --color-azul-generation: #0066CC;
-    --color-cian-dinamico: #00A8E0;
-    --color-verde-impacto: #00B87D;
-    --color-verde-impacto-oscuro: #32b34d;
-    --color-azul-suave: #E8F3FF;
-    --color-gris-claro: #D1DEEA;
-    --color-gris-texto: #5F6368;
-    --color-oscuro-principal: #1A1A2E;
-    --color-blanco: #FFFFFF;
-    --border-radius-principal: 20px;
-    --border-radius-secundario: 15px;
-    --border-radius-terciario: 10px;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Montserrat, sans-serif;
-  background: var(--color-blanco);
-}
-
 /* SECCIONES */
 
 .section-grabaciones {
@@ -103,6 +72,7 @@ body {
 
     transition: 0.2s ease;
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    width: 100%;
 }
 
 .card:hover {
@@ -209,6 +179,21 @@ body {
     border-radius: var(--border-radius-terciario);
 }
 
+.admin-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 15px;
+}
+
+.admin-toolbar input {
+    flex: 1 1 260px;
+    min-width: 0;
+    max-width: 500px;
+    margin-top: 0;
+}
+
 .btn-buscar-sesiones {
     border: 1px solid var(--color-gris-claro);
     border-radius: 999px;
@@ -248,11 +233,39 @@ body {
     font-weight: 600;
 }
 
-#open-video-form{
-  margin-left: 270px;
+.video-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .video-actions {
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 480px) {
+  .admin-toolbar {
+    align-items: stretch;
+  }
+
+  .admin-toolbar input,
+  .btn-buscar-sesiones {
+    width: 100%;
+  }
+
+  .video-actions {
+    gap: 0.6rem;
+  }
+
+  .video-actions button {
+    width: 100%;
+  }
+
   .filtros-busqueda-sesiones a {
     padding: 0.6rem 1rem;
   }

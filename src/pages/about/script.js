@@ -2,7 +2,7 @@ const integrantes = [
   {
     nombre: "Daniel López",
     cargo: "Desarrollador Web",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQFqiXGCelU5LA/profile-displayphoto-shrink_400_400/B4EZVduNzOGYAk-/0/1741034151496?e=1783555200&v=beta&t=jxt8rIx_KtiSBhfX2J5rVT_e6-ydyHQ13dHrXHHwjcQ",
+    imagen: "daniel.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/daniel-steven-lopez-perez-desarrollador-full-stack-java",
@@ -11,7 +11,7 @@ const integrantes = [
   {
     nombre: "María",
     cargo: "Diseñadora UX/UI",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQHyHm_pjyUwRQ/profile-displayphoto-scale_400_400/B4EZ65FlL4KgAg-/0/1781221711312?e=1783555200&v=beta&t=SWzMraqb-ISaSZ_KwSuJQn_9cjgGWPDS4KTzjKAXmWQ",
+    imagen: "maria.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/mariagongora-fullstackdeveloper",
@@ -20,7 +20,7 @@ const integrantes = [
   {
     nombre: "Miguel",
     cargo: "Backend Developer",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQHhChRhyt9LvQ/profile-displayphoto-scale_400_400/B4EZ4FRfsNKAAg-/0/1778204937829?e=1783555200&v=beta&t=bJKnmtxFuvKFogBYTLqTmUoTLfVSWHkkM-Da7KWpUcg",
+    imagen: "miguel.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/miguel-alejandro-saldana-castro-software-web-developer/",
@@ -29,7 +29,7 @@ const integrantes = [
   {
     nombre: "Henry",
     cargo: "QA Tester",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQGSyGzs2OCWIA/profile-displayphoto-scale_400_400/B4EZ5wWETHIwAk-/0/1780001296871?e=1784160000&v=beta&t=sEzljfNh75YeoznTznTAEekdIXk2E-iS3FN1CegKXiE",
+    imagen: "henry.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/henry-alfonso-bol%C3%ADvar-unriza-dearrollador-fullstack/",
@@ -38,7 +38,7 @@ const integrantes = [
   {
     nombre: "Jaime",
     cargo: "Project Manager",
-    imagen: "https://media.licdn.com/dms/image/v2/D4E03AQEXryrvxaca4w/profile-displayphoto-scale_400_400/B4EZy2OOYaHgAg-/0/1772583713984?e=1783555200&v=beta&t=aVBvQVWoXD7GQvxQM417iWTK2waUbZi42rR7EvKmtug",
+    imagen: "jaime.jpg",
     descripcion:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam, ipsum sapiente aspernatur libero repellat quis consequatur ducimus quam nisi exercitationem omnis earum qui.",
     linkedin: "https://www.linkedin.com/in/jaime-pena/",
@@ -63,7 +63,7 @@ function crearTarjeta(persona) {
     <div class="tarjeta">
       <div class="tarjeta__forma">
       <div class="targeta-contenedor-imagen"> 
-       <img src="${persona.imagen}" alt="${persona.nombre}" class="tarjeta__imagen" />
+       <img src="/assets/images/${persona.imagen}" alt="${persona.nombre}" class="tarjeta__imagen" />
       </div>
        
         <figcaption class="tarjeta__nombre">${persona.nombre}</figcaption>
@@ -91,119 +91,14 @@ contenedor.innerHTML = integrantes
   .join("");
 
 
-// const header = document.querySelector(".header-navbar");
+const header = document.querySelector(".header-navbar");
 
-// window.addEventListener("scroll", () => {
+window.addEventListener("scroll", () => {
 
-//   if (window.scrollY > 120) {
-//     header.classList.add("scrolled");
-//   } else {
-//     header.classList.remove("scrolled");
-//   }
-
-// });
-
-// const shell = document.querySelector('.page-wrapper'); // tu contenedor scrollable
-// const navbar = document.querySelector('.header-navbar');
-
-// shell.addEventListener('scroll', () => {
-//   navbar.classList.toggle('scrolled', shell.scrollTop > 80);
-// });
-
-
-/**
- * NAVBAR — Hub Alumni Generation
- * Animación de absorción tipo mercurio al hacer scroll
- */
-
-(function () {
-  'use strict';
-
-  const navbar     = document.getElementById('header-navbar');
-  const hamburger  = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const navLinks   = document.querySelectorAll('.nav-pill a');
-
-  if (!navbar) return;
-
-  /* ── Scroll: absorción tipo mercurio ── */
-  let ticking = false;
-
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrolled = window.scrollY > 80;
-        navbar.classList.toggle('scrolled', scrolled);
-
-        /* Cierra el menú móvil si se vuelve al tope */
-        if (!scrolled && mobileMenu.classList.contains('open')) {
-          closeMenu();
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
+  if (window.scrollY > 120) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  /* ── Menú móvil ── */
-  function openMenu() {
-    mobileMenu.classList.add('open');
-    hamburger.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-    document.addEventListener('click', onClickOutside);
-  }
-
-  function closeMenu() {
-    mobileMenu.classList.remove('open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    document.removeEventListener('click', onClickOutside);
-  }
-
-  function toggleMenu() {
-    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
-  }
-
-  function onClickOutside(e) {
-    if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
-      closeMenu();
-    }
-  }
-
-  if (hamburger) {
-    hamburger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-  }
-
-  /* Cierra el menú al elegir un enlace en móvil */
-  mobileMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  /* ── Link activo según página actual ── */
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-
-  navLinks.forEach((link) => {
-    const href = link.getAttribute('href').split('/').pop();
-    if (href === currentPath) {
-      link.classList.add('active');
-    }
-    link.addEventListener('click', () => {
-      navLinks.forEach((l) => l.classList.remove('active'));
-      link.classList.add('active');
-    });
-  });
-
-  /* ── Escape cierra el menú ── */
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-      closeMenu();
-      hamburger.focus();
-    }
-  });
-
-})();
+});

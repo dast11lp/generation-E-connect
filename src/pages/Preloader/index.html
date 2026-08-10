@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generation E-Connect - Repositorio de Recursos y Grabaciones</title>
+  
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  
+
+  <link rel="stylesheet" href="styles.css" />
+<style>
+    .hero-slider-container {
+      width: 100%;
+      max-width: 100%;
+      height: 520px;
+      overflow: hidden;
+      position: relative;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      background: #f8fafc;
+      box-sizing: border-box;
+    }
+    .hero-slider-track {
+      display: flex;
+      width: max-content;
+      height: 100%;
+      animation: scrollSlider 120s linear infinite;
+    }
+    .hero-slider-track img {
+      width: 500px; /* Ajustado para que encaje de forma fluida sin desbordar */
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      pointer-events: none;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    @keyframes scrollSlider {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-500px * 8));
+      }
+    }
+</style>
+</head>
+<body>
+
+  <div id="page">
+
+    <section id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="reveal">
+            <div class="hero-badge">
+              <div class="hero-badge-dot"></div>
+              <span class="hero-badge-text">Portal exclusivo de recursos y grabaciones</span>
+            </div>
+            <h1>Tu biblioteca de <span>recursos y grabaciones</span></h1>
+            <p>Generation E-Connect es el portal que conecta a los egresados de <strong>Generation Colombia</strong> con los mejores recursos y grabaciones disponibles para todos los programas.</p>
+            <div class="hero-btns">
+              <a href="/src/pages/resources/resources.html" class="btn btn-solid-azul">Explorar recursos</a>
+            </div>
+          </div>
+          
+          <!-- Contenedor exacto respetando la clase original img-placeholder y hero-img -->
+          <div class="img-placeholder hero-img reveal hero-slider-container" style="transition-delay:.15s">
+            <div class="hero-slider-track">
+              <!-- Set original de 8 imágenes (.png desde Preloader/preloader-images) -->
+              <img src="../Preloader/preloader-images/img1.png" alt="Slide 1" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img2.png" alt="Slide 2" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img3.png" alt="Slide 3" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img4.png" alt="Slide 4" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img5.png" alt="Slide 5" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img6.png" alt="Slide 6" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img7.png" alt="Slide 7" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img8.png" alt="Slide 8" width="1738" height="1020">
+              <!-- Duplicado para bucle continuo fluido -->
+              <img src="../Preloader/preloader-images/img1.png" alt="Slide 1" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img2.png" alt="Slide 2" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img3.png" alt="Slide 3" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img4.png" alt="Slide 4" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img5.png" alt="Slide 5" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img6.png" alt="Slide 6" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img7.png" alt="Slide 7" width="1738" height="1020">
+              <img src="../Preloader/preloader-images/img8.png" alt="Slide 8" width="1738" height="1020">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+ 
+
+<section class="bg-suave" id="recursos">
+      <div class="container">
+        <div class="split-grid">
+          <div class="img-placeholder split-img reveal" style="overflow: hidden; border-radius: 20px;">
+            <img src="https://infonative.net/uploads/content_images/cover_258VpUT5oEolJmP.jpg" alt="Software Development Icon" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <div class="split-content reveal" style="transition-delay:.15s">
+            <span class="badge badge-azul">Recursos y Grabaciones</span>
+            <h2>Material formativo seleccionado para ti</h2>
+            <p>Generation E-Connect es el portal que conecta a los egresados de Generation Colombia con los mejores recursos disponibles para todos los programas.</p>
+            <div class="check-list">
+              <div class="check-item"><div class="check-dot">✓</div><span>Grabaciones de clases y talleres técnicos</span></div>
+              <div class="check-item"><div class="check-dot">✓</div><span>Documentación y guías actualizadas por programa</span></div>
+              <div class="check-item"><div class="check-dot">✓</div><span>Repositorio de herramientas y plantillas descargables</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Recursos</div>
+          <div class="section-header-row">
+            <div>
+              <h2>Herramientas y grabaciones destacadas</h2>
+              <p>Guías, grabaciones de talleres y plantillas para potenciar tu proceso de aprendizaje continuo.</p>
+            </div>
+            <a href="#" class="section-link">Ver todos →</a>
+          </div>
+        </div>
+        <div class="recursos-grid">
+          <div class="recurso-card reveal">
+            <span class="badge badge-azul">Grabación</span>
+            <h3>Masterclass: Fundamentos de Arquitectura Web</h3>
+            <p class="recurso-meta">🎬 Grabación · 1h 20min</p>
+            <p class="recurso-desc">Repasa los conceptos clave de backend, bases de datos y patrones de diseño explicados por expertos.</p>
+            <button class="btn-card">Ver grabación</button>
+          </div>
+          <div class="recurso-card reveal" style="transition-delay:.1s">
+            <span class="badge badge-verde">Video</span>
+            <h3>Taller: Resolución de Retos Técnicos</h3>
+            <p class="recurso-meta">🎬 Grabación · 45 min</p>
+            <p class="recurso-desc">Estrategias prácticas para abordar problemas de código y debugging en entornos de desarrollo reales.</p>
+            <button class="btn-card">Ver video</button>
+          </div>
+          <div class="recurso-card reveal" style="transition-delay:.2s">
+            <span class="badge badge-amber">Plantilla</span>
+            <h3>Kit de recursos y documentación técnica</h3>
+            <p class="recurso-meta">✏️ Repositorio editable</p>
+            <p class="recurso-desc">Plantillas y diagramas listos para utilizar en tus proyectos de programación y soporte.</p>
+            <button class="btn-card">Descargar recursos</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="bg-suave">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-header-row">
+            <div>
+              <h2>Explora recursos por programa</h2>
+              <p>Encuentra grabaciones y material de estudio específico para cada programa de Generation Colombia.</p>
+            </div>
+          </div>
+        </div>
+        <div class="explora-grid">
+          <div class="explora-card reveal"><div class="icon-box icon-box-azul">☕</div><div><h3>Desarrollador(a) Jr. en Java</h3><p>Grabaciones de sesiones de backend, bases de datos y arquitectura web utilizando Java.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.08s"><div class="icon-box icon-box-verde">🎮</div><div><h3>Desarrollador(a) Jr. en Unity</h3><p>Talleres y grabaciones sobre programación de entornos 3D, videojuegos y tecnologías AR/VR.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.16s"><div class="icon-box icon-box-azul">🔧</div><div><h3>Esp. de Soporte TI – Español</h3><p>Material y grabaciones especializadas en soporte técnico, redes e infraestructura.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.24s"><div class="icon-box icon-box-amber">🗣️</div><div><h3>Esp. de Soporte TI – Bilingüe</h3><p>Sesiones de mesa de ayuda y troubleshooting técnico en un segundo idioma.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.32s"><div class="icon-box icon-box-verde">🤖</div><div><h3>Marketing Digital + IA</h3><p>Talleres de crecimiento de marca aplicando herramientas avanzadas de inteligencia artificial.</p></div></div>
+          <div class="explora-card reveal" style="transition-delay:.4s"><div class="icon-box icon-box-azul">🤝</div><div><h3>Representante de Ventas</h3><p>Grabaciones y recursos para perfiles comerciales y negociación estratégica.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+
+   
+
+    <section>
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Historias de éxito</div>
+          <div class="section-header-row">
+            <div>
+              <h2>Egresados que lo lograron</h2>
+              <p>Conoce cómo los recursos y grabaciones de E-Connect ayudaron a otros graduados en su camino profesional.</p>
+            </div>
+            <a href="#" class="section-link">Ver todas →</a>
+          </div>
+        </div>
+        <!-- Conectado al archivo data/stories.data.js -->
+        <div class="historias-list" id="success-stories-container">
+          <div class="historia-card reveal">
+            <div class="avatar">LM</div>
+            <div>
+              <div class="historia-nombre">Laura Martínez</div>
+              <div class="historia-prog">Marketing Digital + IA · Medellín</div>
+              <p class="historia-texto">Las grabaciones y recursos de E-Connect me permitieron repasar las clases clave en menos de una semana. El material de apoyo facilitó mi actualización profesional.</p>
+              <span class="historia-result">✓ Especialista en Marketing y creadora de contenido digital</span>
+            </div>
+          </div>
+          <div class="historia-card reveal" style="transition-delay:.1s">
+            <div class="avatar">CR</div>
+            <div>
+              <div class="historia-nombre">Carlos Rincón</div>
+              <div class="historia-prog">Desarrollador(a) Jr. en Java · Bogotá</div>
+              <p class="historia-texto">Las grabaciones de los talleres técnicos marcaron la diferencia. Pude repasar los conceptos de código y llegar con total seguridad a mis proyectos.</p>
+              <span class="historia-result">✓ Desarrollador Jr. en Java en proyectos tecnológicos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo">
+              <div class="footer-logo-circle">E</div>
+              <span class="footer-logo-text">E-Connect</span>
+            </div>
+            <p class="footer-desc">El portal de recursos y grabaciones exclusivo para egresados de Generation Colombia. Transformamos vidas a través del aprendizaje.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Plataforma</h4>
+            <div class="footer-links">
+              <a href="/src/pages/resources/resources.html">Ver recursos</a>
+              <a href="/src/pages/admin/admin.html">Grabaciones</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Programas</h4>
+            <div class="footer-links">
+              <a href="#">Soporte TI</a>
+              <a href="#">Desarrollo Jr.</a>
+              <a href="#">Marketing + IA</a>
+              <a href="#">Ventas</a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Soporte</h4>
+            <div class="footer-links">
+              <a href="/src/pages/contact/contact.html">Contáctanos</a>
+              <a href="">Privacidad</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="footer-copy">© 2026 Generation E-Connect · Generation Colombia. Todos los derechos reservados.</span>
+          <span class="footer-heart">Hecho con ❤️ para nuestros egresados</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <script src="data/stories.data.js"></script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>

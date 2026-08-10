@@ -1,42 +1,10 @@
 /* ============================================================
-   VARIABLES
+   BASE DE LAYOUT DE RECURSOS
    ============================================================ */
 
 :root {
-  --color-azul-institucional: #003A70;
-  --color-azul-generation: #0066CC;
-  --color-cian-dinamico: #00A8E0;
-  --color-verde-impacto: #00B87D;
-  --color-azul-suave: #E8F3FF;
-  --color-gris-claro: #D1DEEA;
-  --color-gris-texto: #5F6368;
-  --color-oscuro-principal: #1A1A2E;
-  --color-blanco: #FFFFFF;
-  --border-radius-principal: 20px;
-  --border-radius-secundario: 15px;
-  --border-radius-terciario: 10px;
-  --sidebar-width: 280px;
-}
-
-/* ============================================================
-   BASE
-   ============================================================ */
-
-html {
-  font-size: 16px;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Montserrat, sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  --navbar-height: 100px;
+  --sidebar-footer-gap: 100px;
 }
 
 #footer-container {
@@ -50,16 +18,15 @@ body {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: calc(var(--navbar-height) + 20px) 20px 40px;
 }
 
 .barra-lateral {
   display: flex;
   flex-direction: column;
-  height: 1000px;
   width: 100%;
-  padding: 24px;
-  padding-top: 70px;
+  height: auto;
+  margin-top: 0;
+  padding: 20px;
   border-radius: var(--border-radius-terciario);
   color: white;
   background-color: var(--color-azul-institucional);
@@ -77,6 +44,48 @@ body {
 
 .barra-lateral input {
   margin-right: 10px;
+}
+
+.barra-lateral input[type="checkbox"],
+.barra-lateral input[type="radio"] {
+  appearance: none;
+  display: grid;
+  place-content: center;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0 10px 0 0;
+  border: 2px solid var(--color-blanco);
+  background-color: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.barra-lateral input[type="checkbox"] {
+  border-radius: 0.25rem;
+}
+
+.barra-lateral input[type="radio"] {
+  border-radius: 50%;
+}
+
+.barra-lateral input[type="checkbox"]:checked {
+  border-color: var(--color-cian-dinamico);
+  background-color: var(--color-cian-dinamico);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.barra-lateral input[type="radio"]:checked {
+  border-color: var(--color-cian-dinamico);
+  background-color: var(--color-cian-dinamico);
+  box-shadow: inset 0 0 0 3px var(--color-azul-institucional);
+}
+
+.barra-lateral input[type="checkbox"]:focus-visible,
+.barra-lateral input[type="radio"]:focus-visible {
+  outline: 2px solid var(--color-cian-dinamico);
+  outline-offset: 3px;
 }
 
 .contenedor-tipo-recursos input {
@@ -223,6 +232,8 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 1.25rem;
   margin-top: 1.5rem;
+  align-items: start;
+  justify-items: start;
 }
 
 .recurso-card {
@@ -234,6 +245,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  max-width: 420px;
+  width: 100%;
 }
 
 .recurso-card .badge {
@@ -269,20 +282,71 @@ body {
 
 @media (min-width: 768px) {
   .contenedor-principal {
-    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-columns: 300px minmax(0, 1fr);
     align-items: start;
   }
 
   .barra-lateral {
+    width: 300px;
+    height: min(1000px, calc(100dvh - var(--navbar-height) - 40px));
     position: sticky;
     top: calc(var(--navbar-height) + 20px);
-    max-height: calc(100vh - var(--navbar-height) - 40px);
     overflow-y: auto;
+    scrollbar-gutter: stable;
   }
 }
 
 @media (min-width: 1200px) {
   .contenedor-principal {
     gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor-principal {
+    gap: 16px;
+    padding-inline: 12px;
+  }
+
+  .barra-lateral {
+    padding: 16px;
+  }
+
+  .barra-lateral label {
+    padding-left: 0;
+  }
+
+  .contenido-principal h1 {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
+  }
+
+  .contenido-principal p {
+    font-size: 1rem;
+  }
+
+  .contenido-principal-toolbar {
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .contenido-principal-toolbar input,
+  #open-resource-form,
+  #open-manage-resource-form {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: none;
+  }
+
+  #open-resource-form {
+    margin-left: 0;
+  }
+
+  .contenedor-recursos {
+    gap: 1rem;
+  }
+
+  .recurso-card,
+  .empty-state {
+    padding: 1rem;
   }
 }

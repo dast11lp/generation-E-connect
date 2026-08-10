@@ -1,32 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-
-:root {
-  --color-azul-institucional: #003A70;
-  --color-azul-generation: #0066CC;
-  --color-cian-dinamico: #00A8E0;
-  --color-verde-impacto: #00B87D;
-  --color-azul-suave: #E8F3FF;
-  --color-gris-claro: #D1DEEA;
-  --color-gris-texto: #5F6368;
-  --color-oscuro-principal: #1A1A2E;
-  --color-blanco: #FFFFFF;
-  --border-radius-principal: 20px;
-  --border-radius-secundario: 15px;
-  --border-radius-terciario: 10px;
-}
-
-body {
-  font-family: Montserrat, sans-serif;
-}
-
 .final {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 300px;
+  margin-top: 100px;
   gap: 40px;
   padding: 50px 60px;
   background-color: var(--color-azul-institucional);
+  flex-wrap: wrap;
 }
 
 .footer-izquierda {
@@ -113,4 +93,36 @@ body {
 
 .footer-col a:hover {
   color: white;
+}
+
+@media (max-width: 677px) {
+  .footer-columnas {
+    justify-content: left;
+  }
+
+  .final {
+    justify-content: left;
+  }
+
+  .footer-izquierda {
+    justify-content: left;
+  }
+
+  .footer-logo {
+    display: flex;
+    justify-content: left;
+  }
+
+  .footer-sobre {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  /* .redes {
+    margin: auto;
+  }
+
+  .copy {
+    margin: auto;
+  } */
 }

@@ -1,124 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-
-html {
-    font-size: 16px;
-}
-
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Montserrat, sans-serif;
-    background-color: var(--color-azul-suave);
-}
-
-:root {
-    --color-azul-institucional: #003A70;
-    --color-azul-generation: #0066CC;
-    --color-cian-dinamico: #00A8E0;
-    --color-verde-impacto: #00B87D;
-    --color-azul-suave: #E8F3FF;
-    --color-gris-claro: #D1DEEA;
-    --color-gris-texto: #5F6368;
-    --color-oscuro-principal: #1A1A2E;
-    --color-blanco: #FFFFFF;
-    --border-radius-principal: 20px;
-    --border-radius-secundario: 15px;
-    --border-radius-terciario: 10px;
-}
-
-:root {
-  --color-background: #cbd5e1;
-  --color-background-alt: #8ec6ff;
-  --color-border-active: #173db6;
-  --color-border-default: #94a3b8;
-  --color-highlight: #8ec6ff;
-  --color-primary: #144be1;
-  --color-primary-active: #19388f;
-  --color-text-default: #0f172a;
-  --color-text-muted: #475569;
-
-  --font-family-body: "Open Sans", sans-serif;
-  --font-family-display: "Nunito Sans", sans-serif;
-}
-
-
-
 /* INICIO CAMBIO JAIME - SECCIÓN CONTACTO */
 
 .container {
-  display: flex;
-  row-gap: 1.5rem;
-  max-width: 800px;
-  width: 100%;
-  margin: 2rem auto;
+  display: block;
+  width: min(800px, calc(100% - 2rem));
+  margin: clamp(1.5rem, 4vw, 2.5rem) auto;
+  padding: clamp(1rem, 4vw, 2rem);
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 4px 15px var(--color-border-default);
   border-radius: 20px;
 }
 
 
-*,
-::before,
-::after {
-  box-sizing: border-box;
-}
-
-* {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  font-family: var(--font-family-body);
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  font-feature-settings: inherit;
-  font-variation-settings: inherit;
-  font-size: 100%;
-  font-weight: inherit;
-  line-height: inherit;
-  color: inherit;
-  margin: 0;
-  padding: 0;
-}
-
-[type="checkbox"],
-[type="radio"],
-[type="range"] {
-  appearance: none;
-  flex-shrink: 0;
-  padding: 0;
-  user-select: none;
-}
-
-[type="checkbox"]:focus,
-[type="radio"]:focus,
-[type="range"]:focus {
-  outline: none;
-}
-
 /** Components **/
 
 .fs-form {
   display: grid;
   row-gap: 1.5rem;
-  max-width: 600px;
+  max-width: none;
   width: 100%;
-  margin: 2rem auto;
+  margin: 0;
 }
 
 .fs-form:where(.fs-layout__2-column) {
@@ -152,6 +52,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   row-gap: 0.375rem;
+  min-width: 0;
 }
 
 .fs-label {
@@ -172,7 +73,7 @@ fieldset {
 
 .fs-button-group {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: flex-end;
   column-gap: 1.5rem;
 }
 
@@ -216,6 +117,7 @@ fieldset {
   outline: none;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+  width: 100%;
 }
 
 .fs-input:focus-visible,
@@ -384,6 +286,8 @@ fieldset {
   outline: none;
   padding: 0.5rem 0.75rem;
   resize: vertical;
+  min-height: 8rem;
+  width: 100%;
 }
 
 .fs-textarea:focus-visible {
@@ -425,14 +329,17 @@ fieldset {
 
 .fs-error-msg {
   color: rgb(226, 54, 54);
+  display: block;
+  min-height: 1.25rem;
 }
 
 /* Inicio stylos henry y Maria */
 .contenedor1 {
+    isolation: isolate;
     margin-top: -100px;
-    padding: 100px;
+    overflow: hidden;
+    padding: clamp(7.5rem, 18vw, 9.5rem) clamp(1rem, 5vw, 3rem) clamp(3.5rem, 8vw, 5rem);
     text-align: center;
-    font-size: 40px;
     color: var(--color-blanco);
     text-shadow: 3px 3px var(--color-azul-institucional);
     position: relative;
@@ -443,8 +350,9 @@ fieldset {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 400px;
+    inset: 0;
+    width: auto;
+    height: auto;
     background-image: url(/assets/images/header.jfif);
     background-repeat: no-repeat;
     background-position: center center;
@@ -454,54 +362,47 @@ fieldset {
 }
 
 .contenedor1 h2 {
-    margin-top: 80px;
+    margin: 0 auto;
+    max-width: 24ch;
+    font-size: 60px;
+    line-height: 1.15;
 }
 
 .mensaje{
+  width: min(800px, calc(100% - 2rem));
+  margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
   text-align: center;
-  font-size: 20px;
-  padding-left: 160px;
-  padding-right: 160px;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  line-height: 1.65;
   color: var(--color-azul-institucional);
 }
-/* ---- TABLET ---- */
-@media (max-width: 768px) {
-    .final {
-        flex-direction: column;
-        padding: 32px 24px;
-        gap: 32px;
-    }
 
-    .footer-izquierda {
-        max-width: 100%;
-    }
-
-    .footer-columnas {
-        justify-content: flex-start;
-        gap: 40px;
-    }
-}
-
-/* ---- CELULAR ---- */
 @media (max-width: 480px) {
-    .final {
-        padding: 24px 16px;
-    }
+  .contenedor1 {
+    padding-top: 7.5rem;
+    padding-bottom: 3rem;
+  }
 
-    .footer-logo-img {
-        width: 130px;
-    }
+  .contenedor1 h2 {
+    font-size: clamp(1.75rem, 9vw, 2.5rem);
+  }
 
-    .footer-columnas {
-        flex-direction: column;  /* columnas apiladas */
-        gap: 24px;
-    }
+  .container,
+  .mensaje {
+    width: min(800px, calc(100% - 1.5rem));
+  }
 
-    .footer-col-titulo {
-        font-size: 14px;
-    }
+  .container {
+    border-radius: var(--border-radius-secundario);
+    padding: 1rem;
+  }
 
-    .footer-col a {
-        font-size: 14px;
-    }
+  .fs-form {
+    row-gap: 1.25rem;
+  }
+
+  .fs-button-group,
+  .fs-button {
+    width: 100%;
+  }
 }

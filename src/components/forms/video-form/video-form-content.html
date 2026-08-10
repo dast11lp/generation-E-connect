@@ -1,4 +1,10 @@
 <form id="vf-form" class="video-form" novalidate>
+  <div class="field">
+    <label for="vf-title">Título del video</label>
+    <input type="text" id="vf-title" name="title" placeholder="Ej: Simula tu entrevista técnica" />
+    <span class="error" data-error="title"></span>
+  </div>
+
   <div class="tabs">
     <ul class="tabs__list">
       <li class="tabs__list__tab tabs__list__tab--active" data-tab="1">
@@ -29,23 +35,19 @@
     <span class="error" data-error="url"></span>
   </div>
 
-  <div>
-    <label for="vf-category">Programa</label>
-    <select id="vf-category" name="categoria-cohorte">
-      <option value="">Seleccione un programa</option>
-      <option value="java">Full-Stack/Java</option>
-      <option value="soporte">Soporte TI</option>
-      <option value="unity">Unity</option>
-      <option value="marketing">Marketing digital</option>
+  <div class="field">
+    <label for="vf-category">Categoría</label>
+    <select id="vf-category" name="category">
+      <option value="">Seleccione una categoría</option>
     </select>
     <span class="error" data-error="category"></span>
   </div>
 
-  <div>
+  <div class="field">
     <label for="vf-description">Descripción:</label>
     <textarea
       id="vf-description"
-      placeholder="Realiza una breve descripion."
+      placeholder="Realiza una breve descripción."
       name="description"
     ></textarea>
     <span class="error" data-error="description"></span>

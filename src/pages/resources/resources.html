@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../global.css">
     <link rel="stylesheet" href="resources.css">
     <link rel="stylesheet" href="../../components/ui/footer/footer.css">
     <link rel="stylesheet" href="../../components/ui/navbar/navbar.css">
@@ -18,19 +19,18 @@
             <div class="contenedor-tipo-recursos">
                 <h2>Tipo de recursos</h2>
                 <label><input type="checkbox" name="tipo-recurso" value="PDF">PDF</label>
-                <label><input type="checkbox" name="tipo-recurso" value="Video">Video</label>
                 <label><input type="checkbox" name="tipo-recurso" value="Plantilla">Plantilla</label>
                 <label><input type="checkbox" name="tipo-recurso" value="Guía">Guía</label>
                 <label><input type="checkbox" name="tipo-recurso" value="Enlace externo">Enlace externo</label>
-    </div>
+            </div>
 
-    <div class="contenedor-ordenar-por">
-        <h2>Ordenar por</h2>
-        <label><input type="radio" name="orden" value="recientes" checked>Más reciente</label>
-        <label><input type="radio" name="orden" value="descargas">Más descargado</label>
-        <label><input type="radio" name="orden" value="destacados">Destacados</label>
-    </div>
-</aside>
+            <div class="contenedor-ordenar-por">
+                <h2>Ordenar por</h2>
+                <label><input type="radio" name="orden" value="recientes" checked>Más reciente</label>
+                <label><input type="radio" name="orden" value="descargas">Más descargado</label>
+                <label><input type="radio" name="orden" value="destacados">Destacados</label>
+            </div>
+        </aside>
 
         <main class="contenido-principal">
             <h1>Biblioteca de recursos</h1>
@@ -38,8 +38,8 @@
             
             <div class="contenido-principal-toolbar">
                 <input type="text" placeholder="Buscar recursos">
-                <button type="button" id="open-resource-form">+ Agregar recurso</button>
-                <button type="button" id="open-manage-resource-form">Administrar recursos</button>
+                <button type="button" id="open-resource-form" hidden style="display: none">+ Agregar recurso</button>
+                <button type="button" id="open-manage-resource-form" hidden style="display: none">Administrar recursos</button>
             </div>
             
             <div class="categorias"></div>

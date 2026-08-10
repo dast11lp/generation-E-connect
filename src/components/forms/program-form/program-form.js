@@ -42,9 +42,11 @@ export async function createProgramForm({ program = null } = {}) {
 
   footer.remove(); // se entrega aparte para el slot de footer del modal
 
-  function addRoute(routeData = null) {
+function addRoute(routeData = null) {
     routesContainer.appendChild(routeTemplate.content.cloneNode(true));
     const routeEl = routesContainer.lastElementChild;
+
+    routeEl.dataset.routeId = routeData?.id ?? "";
 
     if (routeData) {
       routeEl.querySelector('[data-field="route-title"]').value = routeData.title ?? "";
@@ -207,7 +209,8 @@ export async function createProgramForm({ program = null } = {}) {
         return;
       }
 
-      routes.push({ id: routeIndex + 1, title, topics });
+      const routeId = routeEl.dataset.routeId ? Number(routeEl.dataset.routeId) : null;
+      routes.push({ id: routeId, title, topics });
     });
 
     if (hasError) return { errors: true };
