@@ -1,5 +1,6 @@
 import { register } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
+import { isLoggedIn } from "../../services/auth.service.js";
 
 let currentStep = 1;
 const totalSteps = 3;
@@ -415,20 +416,23 @@ form.addEventListener('submit', async (event) => {
 
     try {
         await register(mentorData.name, mentorData.email, mentorData.password);
-        showGlobalMessage('¡Cuenta creada con éxito! Ahora puedes iniciar sesión.', 'success');
-
-        setTimeout(() => {
-            window.location.href = "../login/login.html";
-        }, 2000);
+        showGlobalMessage('Cuenta creada con éxito.', 'success');
+        form.reset();
+        showStep(1);
     } catch (error) {
         const mensaje = error instanceof ApiError
             ? error.message
             : 'No fue posible conectar con el servidor. Intenta de nuevo.';
         showGlobalMessage(mensaje, 'error');
+    } finally {
         submitButton.disabled = false;
     }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    if (!isLoggedIn()) {
+        window.location.href = "../login/login.html";
+        return;
+    }
     showStep(1);
 });

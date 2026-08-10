@@ -61,7 +61,6 @@ export async function login(email, password) {
 export async function register(name, email, password) {
   return apiFetch("/auth/register", {
     method: "POST",
-    auth: false,
     body: { name, email, password },
   });
 }
