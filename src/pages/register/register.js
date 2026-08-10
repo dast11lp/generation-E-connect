@@ -1,4 +1,5 @@
-const STORAGE_KEY = 'generationAlumniMentors';
+import { register } from "../../services/auth.service.js";
+import { ApiError } from "../../services/api-client.js";
 
 let currentStep = 1;
 const totalSteps = 3;
@@ -252,8 +253,7 @@ function validateStep1() {
 }
 
 function saveStep1Data() {
-    mentorData.firstName = firstNameInput.value.trim();
-    mentorData.lastName = lastNameInput.value.trim();
+    mentorData.name = `${firstNameInput.value.trim()} ${lastNameInput.value.trim()}`.trim();
     mentorData.email = emailInput.value.trim();
     mentorData.password = passwordInput.value;
 }
@@ -398,71 +398,35 @@ btnBackStep3.addEventListener('click', () => {
     showStep(2);
 });
 
-// ------------------------------------------------------------
-// GUARDADO EN LOCALSTORAGE
-// ------------------------------------------------------------
-
-function getMentorsFromStorage() {
-    try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        return data ? JSON.parse(data) : [];
-    } catch (error) {
-        console.error('Error leyendo mentores desde localStorage:', error);
-        return [];
-    }
-}
-
-function saveMentorToStorage(mentor) {
-    const mentors = getMentorsFromStorage();
-
-    mentor.id = Date.now();
-    mentor.createdAt = new Date().toISOString();
-
-    mentors.push(mentor);
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(mentors));
-}
 
 // ------------------------------------------------------------
 // ENVÍO DEL FORMULARIO
 // ------------------------------------------------------------
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     if (!validateStep3()) return;
 
     saveStep3Data();
 
-    // Guardamos el registro completo en localStorage
-    saveMentorToStorage(mentorData);
+    const submitButton = document.getElementById('btn-submit');
+    submitButton.disabled = true;
 
-    showGlobalMessage('¡Solicitud enviada con éxito! Bienvenido/a como mentor de Generation Alumni.', 'success');
+    try {
+        await register(mentorData.name, mentorData.email, mentorData.password);
+        showGlobalMessage('¡Cuenta creada con éxito! Ahora puedes iniciar sesión.', 'success');
 
-    // Reiniciamos el formulario y el estado después de un momento
-    setTimeout(() => {
-        form.reset();
-        skillsList = [];
-        renderSkills();
-        aboutCounter.textContent = '0 / 500';
-        profilePreview.src = '../assets/images/logos/usuario.png';
-
-        mentorData = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            profileImage: '',
-            mentorAreas: [],
-            linkedin: '',
-            about: '',
-            generationProgram: '',
-            skills: [],
-            mentorType: []
-        };
-
-        showStep(1);
-    }, 2000);
+        setTimeout(() => {
+            window.location.href = "../login/login.html";
+        }, 2000);
+    } catch (error) {
+        const mensaje = error instanceof ApiError
+            ? error.message
+            : 'No fue posible conectar con el servidor. Intenta de nuevo.';
+        showGlobalMessage(mensaje, 'error');
+        submitButton.disabled = false;
+    }
 });
 
 document.addEventListener('DOMContentLoaded', () => {

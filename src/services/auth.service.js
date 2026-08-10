@@ -58,6 +58,14 @@ export async function login(email, password) {
   return response;
 }
 
+export async function register(name, email, password) {
+  return apiFetch("/auth/register", {
+    method: "POST",
+    auth: false,
+    body: { name, email, password },
+  });
+}
+
 export function logout() {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(ACTIVE_SESSION_KEY);
