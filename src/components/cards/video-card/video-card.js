@@ -8,7 +8,6 @@ export function createVideoCard(video) {
     <a href="${escapeHtml(video.link)}" class="card" target="_blank" rel="noopener noreferrer">
       <div class="thumbnail">
         ${thumbnail}
-        <span class="duracion">${escapeHtml(video.duration)}</span>
       </div>
       <div class="card-content">
         <span class="categoria">${escapeHtml(video.category)}</span>
