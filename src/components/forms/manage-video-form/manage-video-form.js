@@ -1,4 +1,6 @@
 import { escapeHtml } from "../../utils/html.js";
+import { mostrarAlerta } from "../../ui/alert/alert.js";
+import { confirmarAccion } from "../../ui/confirm/confirm.js";
 import { uploadVideo } from "../../../services/cloudinary.service.js";
 import { fetchCategories } from "../../../services/category-storage.service.js";
 import { CATEGORY_LABELS } from "../../../services/resource-storage.service.js";
@@ -200,14 +202,14 @@ export async function createManageVideoForm() {
   deleteBtn.addEventListener("click", async () => {
     if (!currentVideo) return;
 
-    const confirmed = window.confirm("¿Estás seguro de eliminar este video? Esta acción no se puede deshacer.");
+    const confirmed = await confirmarAccion("¿Estás seguro de eliminar este video? Esta acción no se puede deshacer.");
     if (!confirmed) return;
 
     try {
       await deleteVideo(currentVideo.id);
       root.dispatchEvent(new CustomEvent("video-deleted", { detail: { id: currentVideo.id }, bubbles: true, composed: true }));
     } catch (error) {
-      window.alert(error.message ?? "No se pudo eliminar el video.");
+      mostrarAlerta(error.message ?? "No se pudo eliminar el video.", "error");
     }
   });
 

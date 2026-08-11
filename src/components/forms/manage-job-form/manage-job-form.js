@@ -1,5 +1,7 @@
 import { uploadImage } from "../../../services/cloudinary.service.js";
 import { fetchJobBoards, updateJobBoard, deleteJobBoard } from "../../../services/job-storage.service.js";
+import { mostrarAlerta } from "../../ui/alert/alert.js";
+import { confirmarAccion } from "../../ui/confirm/confirm.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./manage-job-form-content.html", COMPONENT_URL);
@@ -155,14 +157,14 @@ export async function createManageJobForm() {
   deleteBtn.addEventListener("click", async () => {
     if (!currentJob) return;
 
-    const confirmed = window.confirm("¿Estás seguro de eliminar este empleo? Esta acción no se puede deshacer.");
+    const confirmed = await confirmarAccion("¿Estás seguro de eliminar este empleo? Esta acción no se puede deshacer.");
     if (!confirmed) return;
 
     try {
       await deleteJobBoard(currentJob.id);
       root.dispatchEvent(new CustomEvent("job-deleted", { detail: { id: currentJob.id }, bubbles: true, composed: true }));
     } catch (error) {
-      window.alert(error.message ?? "No se pudo eliminar el portal.");
+      mostrarAlerta(error.message ?? "No se pudo eliminar el portal.", "error");
     }
   });
 

@@ -8,6 +8,7 @@ import { createManageResourceForm } from "../../components/forms/manage-resource
 import { syncAdminControls } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
 import { trackResourceEvent } from "../../services/interaction-storage.service.js";
+import { mostrarAlerta } from "../../components/ui/alert/alert.js";
 
 const resourcesContainer = document.querySelector(".contenedor-recursos");
 const filtersContainer = document.querySelector(".categorias");
@@ -170,7 +171,7 @@ function bindEvents() {
         const mensaje = error instanceof ApiError
           ? error.message
           : "No fue posible guardar el recurso.";
-        window.alert(mensaje);
+        mostrarAlerta(mensaje, "error");
       }
     });
 

@@ -4,6 +4,7 @@ import { createJobForm } from "../../components/forms/job-form/job-form.js";
 import { createManageJobForm } from "../../components/forms/manage-job-form/manage-job-form.js";
 import { syncAdminControls } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
+import { mostrarAlerta } from "../../components/ui/alert/alert.js";
 
 const grid = document.querySelector(".grid_portales");
 const filtersContainer = document.querySelector(".filtros-portales");
@@ -66,7 +67,7 @@ openFormBtn?.addEventListener("click", async () => {
       const mensaje = error instanceof ApiError
         ? error.message
         : "No fue posible guardar el portal de empleo.";
-      window.alert(mensaje);
+      mostrarAlerta(mensaje, "error");
     }
   });
 

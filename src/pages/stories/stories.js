@@ -4,6 +4,7 @@ import { fetchStories, createStory } from "../../services/story-storage.service.
 import { createManageStoryForm } from "../../components/forms/manage-story-form/manage-story-form.js";
 import { syncAdminControls } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
+import { mostrarAlerta } from "../../components/ui/alert/alert.js";
 
 const MAX_CAROUSEL_STORIES = 4;
 
@@ -81,7 +82,7 @@ storyForm.addEventListener("submit", async (event) => {
     const message = error instanceof ApiError
       ? error.message
       : "No pudimos publicar tu historia. Intenta de nuevo en unos minutos.";
-    alert(message);
+    mostrarAlerta(message, "error");
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = "Publicar historia";

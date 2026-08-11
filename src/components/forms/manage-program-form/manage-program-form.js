@@ -1,4 +1,6 @@
 import { createProgramForm } from "../program-form/program-form.js";
+import { mostrarAlerta } from "../../ui/alert/alert.js";
+import { confirmarAccion } from "../../ui/confirm/confirm.js";
 import {
   fetchPrograms,
   fetchFullProgram,
@@ -51,7 +53,7 @@ export async function createManageProgramForm() {
     try {
       programs = await fetchPrograms();
     } catch (error) {
-      window.alert(apiErrorMessage(error, "No fue posible cargar los programas."));
+      mostrarAlerta(apiErrorMessage(error, "No fue posible cargar los programas."), "error");
     }
     select.innerHTML =
       '<option value="">Seleccionar programa...</option>' +
@@ -79,7 +81,7 @@ export async function createManageProgramForm() {
         const updated = await updateFullProgram(currentProgram.id, e.detail);
         root.dispatchEvent(new CustomEvent("program-form-updated", { detail: updated, bubbles: true, composed: true }));
       } catch (error) {
-        window.alert(apiErrorMessage(error, "No fue posible guardar los cambios."));
+        mostrarAlerta(apiErrorMessage(error, "No fue posible guardar los cambios."), "error");
       } finally {
         saveBtn.disabled = false;
       }
@@ -104,7 +106,7 @@ export async function createManageProgramForm() {
   deleteBtn.addEventListener("click", async () => {
     if (!currentProgram) return;
 
-    const confirmed = window.confirm(
+    const confirmed = await confirmarAccion(
       "¿Estás seguro de eliminar este programa?\nTambién se eliminarán todas sus rutas asociadas.\nEsta acción no se puede deshacer."
     );
     if (!confirmed) return;
@@ -113,7 +115,7 @@ export async function createManageProgramForm() {
       await deleteProgram(currentProgram.id);
       root.dispatchEvent(new CustomEvent("program-form-deleted", { detail: { id: currentProgram.id }, bubbles: true, composed: true }));
     } catch (error) {
-      window.alert(apiErrorMessage(error, "No fue posible eliminar el programa."));
+      mostrarAlerta(apiErrorMessage(error, "No fue posible eliminar el programa."), "error");
     }
   });
 

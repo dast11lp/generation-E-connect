@@ -1,4 +1,6 @@
 import { fetchStories, updateStory, deactivateStory } from "../../../services/story-storage.service.js";
+import { mostrarAlerta } from "../../ui/alert/alert.js";
+import { confirmarAccion } from "../../ui/confirm/confirm.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./manage-story-form-content.html", COMPONENT_URL);
@@ -157,7 +159,7 @@ export async function createManageStoryForm() {
   deleteBtn.addEventListener("click", async () => {
     if (!currentStory) return;
 
-    const confirmed = window.confirm(
+    const confirmed = await confirmarAccion(
       "¿Estás seguro de eliminar esta historia?\nSeguirá existiendo en el sistema pero dejará de mostrarse públicamente.\nEsta acción no se puede deshacer desde aquí."
     );
     if (!confirmed) return;
@@ -166,7 +168,7 @@ export async function createManageStoryForm() {
       await deactivateStory(currentStory.id);
       root.dispatchEvent(new CustomEvent("story-deleted", { detail: { id: currentStory.id }, bubbles: true, composed: true }));
     } catch (error) {
-      window.alert(error.message ?? "No se pudo desactivar la historia.");
+      mostrarAlerta(error.message ?? "No se pudo desactivar la historia.", "error");
     }
   });
 

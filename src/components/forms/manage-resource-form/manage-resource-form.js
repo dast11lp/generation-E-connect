@@ -1,4 +1,6 @@
 import { escapeHtml } from "../../utils/html.js";
+import { mostrarAlerta } from "../../ui/alert/alert.js";
+import { confirmarAccion } from "../../ui/confirm/confirm.js";
 import { uploadVideo, uploadImage, uploadResource } from "../../../services/cloudinary.service.js";
 import { detectResourceType } from "../resource-form/resource-form.js";
 import { fetchCategories } from "../../../services/category-storage.service.js";
@@ -218,14 +220,14 @@ export async function createManageResourceForm() {
   deleteBtn.addEventListener("click", async () => {
     if (!currentResource) return;
 
-    const confirmed = window.confirm("¿Estás seguro de eliminar este recurso? Esta acción no se puede deshacer.");
+    const confirmed = await confirmarAccion("¿Estás seguro de eliminar este recurso? Esta acción no se puede deshacer.");
     if (!confirmed) return;
 
     try {
       await deleteResource(currentResource.id);
       root.dispatchEvent(new CustomEvent("resource-deleted", { detail: { id: currentResource.id }, bubbles: true, composed: true }));
     } catch (error) {
-      window.alert(error.message ?? "No se pudo eliminar el recurso.");
+      mostrarAlerta(error.message ?? "No se pudo eliminar el recurso.", "error");
     }
   });
 

@@ -1,5 +1,6 @@
 import { createProgramForm } from "../../components/forms/program-form/program-form.js";
 import { createManageProgramForm } from "../../components/forms/manage-program-form/manage-program-form.js";
+import { mostrarAlerta } from "../../components/ui/alert/alert.js";
 import { escapeHtml } from "../../components/utils/html.js";
 import { normalizeTopic } from "../../components/utils/topics.js";
 import { syncAdminControls } from "../../services/auth.service.js";
@@ -195,7 +196,7 @@ openFormBtn.addEventListener('click', async () => {
             const mensaje = error instanceof ApiError
                 ? error.message
                 : "No fue posible crear el programa.";
-            window.alert(mensaje);
+            mostrarAlerta(mensaje, "error");
         }
     });
 

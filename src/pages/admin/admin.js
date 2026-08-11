@@ -6,6 +6,7 @@ import { syncAdminControls } from "../../services/auth.service.js";
 import { ApiError } from "../../services/api-client.js";
 import { fetchCategories } from "../../services/category-storage.service.js";
 import { CATEGORY_LABELS } from "../../services/resource-storage.service.js";
+import { mostrarAlerta } from "../../components/ui/alert/alert.js";
 
 const searchInput = document.querySelector("#busqueda-sesiones");
 const resultsContainer = document.querySelector("#tarjetas-grabaciones");
@@ -102,7 +103,7 @@ openFormBtn.addEventListener("click", async () => {
       const mensaje = error instanceof ApiError
         ? error.message
         : "No fue posible guardar el video.";
-      window.alert(mensaje);
+      mostrarAlerta(mensaje, "error");
     }
   });
 
