@@ -19,6 +19,26 @@ function toStoryPayload(story) {
   };
 }
 
+// Cambio
+function toStoryUpdatePayload(story) {
+  const year = (story.year || "").trim();
+  const publicationDate = /^\d{4}$/.test(year) ? `${year}-01-01` : undefined;
+
+  return {
+    alumniName: story.name,
+    program: story.category,
+    company: story.company,
+    role: story.role,
+    timeToHire: story.timeToHire,
+    photoUrl: story.photo || null,
+    testimonial: story.testimony,
+    publicationDate,
+    featured: story.featured,
+    active: story.active,
+  };
+}
+//Cambio
+
 function fromStoryDTO(dto) {
   const year = dto.publicationDate ? dto.publicationDate.slice(0, 4) : "";
   return {
@@ -48,11 +68,27 @@ export async function fetchFeaturedStories() {
 export async function createStory(story) {
   const dto = await apiFetch("/stories", {
     method: "POST",
-    auth: false,
     body: toStoryPayload(story),
   });
   return fromStoryDTO(dto);
 }
+
+// Nuevo
+export async function updateStory(id, story) {
+  const dto = await apiFetch(`/stories/${id}`, {
+    method: "PUT",
+    body: toStoryUpdatePayload(story),
+  });
+  return fromStoryDTO(dto);
+}
+//Cambio
+
+export async function deactivateStory(id) {
+  await apiFetch(`/stories/${id}`, { method: "DELETE" });
+  return true;
+}
+
+//Cambio
 
 function getInitials(name = "") {
   return name

@@ -163,7 +163,7 @@
   display: none;
 }
 
-.btn-agregar {
+.btn-agregar, #open-manage-story-form{
   display: inline-block;
   margin-bottom: 24px;
 
@@ -178,8 +178,8 @@
   transition: .2s;
 }
 
-.btn-agregar:hover {
-  background: var(--color-verde-impacto-oscuro);
+.btn-agregar:hover, #open-manage-story-form:hover {
+  background: var(--color-oscuro-principal);
 }
 
 .modal {

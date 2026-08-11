@@ -1,3 +1,5 @@
+import { isTokenExpired, handleSessionExpired } from "./auth.service.js";
+
 const LOCAL_HOSTNAMES = ["localhost", "127.0.0.1"];
 const isLocal = LOCAL_HOSTNAMES.includes(window.location.hostname);
 
@@ -61,6 +63,10 @@ export async function apiFetch(path, { method = "GET", body, auth = true, header
   });
 
   if (!response.ok) {
+    if (auth && (response.status === 401 || response.status === 403) && isTokenExpired()) {
+      handleSessionExpired();
+    }
+
     const message = await parseErrorMessage(response);
     throw new ApiError(message, response.status);
   }

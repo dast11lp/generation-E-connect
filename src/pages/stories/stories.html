@@ -29,7 +29,10 @@
         <div id="tarjetas-historias" class="grid-estudiantes"></div>
 
         <br>
-        <button id="btn-agregar-historia" class="btn-agregar">+ Agregar mi historia</button>
+
+        <button id="btn-agregar-historia" class="btn-agregar" hidden style="display: none">+ Agregar historia</button>
+        <button id="open-manage-story-form" class="btn btn--secondary" hidden style="display: none">Administrar historias</button>
+
     </section>
     <div id="modal-historia" class="modal oculto">
       <div class="modal-contenido">
@@ -74,6 +77,8 @@
     <div id="footer-container"></div>
     <script src="../../components/ui/footer/footer.js"></script>
     <script src="../../components/ui/navbar/navbar.js"></script>
+    <base-modal id="story-form-modal"></base-modal>
+    <script type="module" src="/src/components/ui/modal/base-modal/base-modal.js"></script>
     <script type="module" src="stories.js"></script>
 </body>
 </html>
