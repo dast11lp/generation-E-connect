@@ -243,6 +243,11 @@
 .mobile-menu a:hover { background: rgba(255, 255, 255, 0.06); }
 .mobile-menu-actions { padding: 14px 24px; }
 
+.navegacion-principal a.hidden,
+.mobile-menu a.hidden {
+  display: none !important;
+}
+
 @media (max-width: 980px) {
   .header-navbar {
     grid-template-columns: unset;
@@ -253,4 +258,22 @@
   .navegacion-secundaria { display: none; }
   .hamburger { display: flex; }
   .mobile-menu { display: block; }
+}
+
+.inicio-link {
+    display: inline-block;
+    margin-top: 18px;
+    margin-bottom: 10px;
+
+    color: #1557b0;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.inicio-link:hover {
+    color: #0d3f82;
+    text-decoration: underline;
 }
