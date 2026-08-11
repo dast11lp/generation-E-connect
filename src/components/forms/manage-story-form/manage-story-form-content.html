@@ -1,0 +1,76 @@
+<form id="msf-form" class="resource-form" novalidate>
+  <div class="field">
+    <label for="msf-select">Selecciona una historia</label>
+    <select id="msf-select">
+      <option value="">Seleccionar historia...</option>
+    </select>
+  </div>
+
+  <div id="msf-details" class="msf-details" hidden>
+    <div class="field">
+      <label for="msf-name">Nombre completo</label>
+      <input type="text" id="msf-name" name="name" />
+      <span class="error" data-error="name"></span>
+    </div>
+
+    <div class="field">
+      <label for="msf-company">Empresa</label>
+      <input type="text" id="msf-company" name="company" />
+      <span class="error" data-error="company"></span>
+    </div>
+
+    <div class="field">
+      <label for="msf-timeToHire">Tiempo en conseguir empleo</label>
+      <input type="text" id="msf-timeToHire" name="timeToHire" placeholder="Ej: 3 meses" />
+      <span class="error" data-error="timeToHire"></span>
+    </div>
+
+    <div class="field">
+      <label for="msf-role">Rol / puesto</label>
+      <input type="text" id="msf-role" name="role" />
+      <span class="error" data-error="role"></span>
+    </div>
+
+    <div class="field">
+      <label for="msf-year">Año</label>
+      <input type="text" id="msf-year" name="year" />
+      <span class="error" data-error="year"></span>
+    </div>
+
+    <div class="field">
+      <label for="msf-category">Categoría</label>
+      <select id="msf-category" name="category">
+        <option value="Java">Java</option>
+        <option value="Unity">Unity</option>
+        <option value="IT">IT</option>
+        <option value="Data">Data</option>
+      </select>
+      <span class="error" data-error="category"></span>
+    </div>
+
+    <div class="field">
+      <label>Foto actual</label>
+      <div class="msf-current-photo">
+        <img data-current-photo-preview alt="Foto actual" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="msf-photo">URL de la foto (opcional)</label>
+      <input type="url" id="msf-photo" name="photo" placeholder="https://..." />
+      <span class="error" data-error="photo"></span>
+    </div>
+
+    <div class="field">
+      <label for="msf-testimony">Testimonio</label>
+      <textarea id="msf-testimony" name="testimony" rows="3"></textarea>
+      <span class="error" data-error="testimony"></span>
+    </div>
+  </div>
+</form>
+
+<footer class="modal__footer" id="msf-footer">
+  <button type="button" class="btn btn--danger" id="msf-delete" data-action="delete" disabled>Eliminar historia</button>
+  <button type="button" class="btn btn--secondary" data-action="close">Cerrar</button>
+  <button type="submit" form="msf-form" class="btn btn--primary" id="msf-save" disabled>Guardar cambios</button>
+</footer>

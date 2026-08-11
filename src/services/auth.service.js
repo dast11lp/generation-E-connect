@@ -14,6 +14,8 @@ const ADMIN_CONTROL_IDS = [
   "open-manage-job-form",
   "open-video-form",
   "open-manage-video-form",
+  "open-manage-story-form",
+  "btn-agregar-historia",
 ];
 
 export function getToken() {
@@ -68,6 +70,63 @@ export async function register({ name, email, password, profile }) {
 export function logout() {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(ACTIVE_SESSION_KEY);
+}
+
+export function getTokenExpiration(token = getToken()) {
+  if (!token) return null;
+
+  const payload = token.split(".")[1];
+  if (!payload) return null;
+
+  try {
+    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const padding = (4 - (normalized.length % 4)) % 4;
+    const claims = JSON.parse(atob(normalized + "=".repeat(padding)));
+    return typeof claims.exp === "number" ? claims.exp * 1000 : null;
+  } catch {
+    return null;
+  }
+}
+
+export function isTokenExpired(token = getToken()) {
+  const expiresAt = getTokenExpiration(token);
+  if (expiresAt === null) return true;
+  return Date.now() >= expiresAt;
+}
+
+let sessionExpiredHandled = false;
+let autoLogoutTimer = null;
+
+export function handleSessionExpired(message = "Tu sesión ha expirado. Debes iniciar sesión nuevamente.") {
+  if (sessionExpiredHandled) return;
+  sessionExpiredHandled = true;
+
+  if (autoLogoutTimer) {
+    clearTimeout(autoLogoutTimer);
+    autoLogoutTimer = null;
+  }
+
+  logout();
+  alert(message);
+  window.location.href = "/src/pages/login/login.html";
+}
+
+export function scheduleAutoLogout() {
+  if (autoLogoutTimer) {
+    clearTimeout(autoLogoutTimer);
+    autoLogoutTimer = null;
+  }
+
+  if (!isLoggedIn()) return;
+
+  const token = getToken();
+  if (isTokenExpired(token)) {
+    handleSessionExpired();
+    return;
+  }
+
+  const msRemaining = getTokenExpiration(token) - Date.now();
+  autoLogoutTimer = setTimeout(() => handleSessionExpired(), msRemaining);
 }
 
 export function syncAdminControls(root = document) {
