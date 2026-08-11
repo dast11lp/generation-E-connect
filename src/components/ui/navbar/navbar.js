@@ -12,6 +12,9 @@
     container.innerHTML = await response.text();
     rebaseComponentUrls(container, scriptUrl);
     initializeNavbar(container);
+    requestAnimationFrame(() => {
+      toggleRegisterLink(container);
+    });
   } catch (error) {
     console.error(error);
   }
@@ -82,4 +85,17 @@ function initializeNavbar(container) {
   navbar.querySelectorAll(".navegacion-principal a").forEach((link) => {
     link.classList.toggle("active", new URL(link.href).pathname === currentPath);
   });
+}
+
+
+function toggleRegisterLink(container) {
+  const register1 = container?.querySelector("#register-1");
+  const register2 = container?.querySelector("#register-2");
+
+  const sesionActiva = Boolean(
+    localStorage.getItem("sesionActiva") && localStorage.getItem("authToken")
+  );
+
+  if (register1) register1.style.display = sesionActiva ? "" : "none";
+  if (register2) register2.style.display = sesionActiva ? "" : "none";
 }

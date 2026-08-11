@@ -243,6 +243,11 @@
 .mobile-menu a:hover { background: rgba(255, 255, 255, 0.06); }
 .mobile-menu-actions { padding: 14px 24px; }
 
+.navegacion-principal a.hidden,
+.mobile-menu a.hidden {
+  display: none !important;
+}
+
 @media (max-width: 980px) {
   .header-navbar {
     grid-template-columns: unset;
