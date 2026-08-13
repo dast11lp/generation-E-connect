@@ -2,7 +2,7 @@ import { escapeHtml } from "../../utils/html.js";
 
 export function createJobCard(portal) {
   return `
-    <article class="targeta">
+    <article class="card-base targeta">
       <div class="icono_portal">
         <img src="${escapeHtml(portal.image)}" alt="${escapeHtml(portal.name)}">
       </div>

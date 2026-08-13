@@ -4,7 +4,7 @@ export function createResourceCard(resource) {
   const typeClass = resource.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
  
   return `
-    <article class="recurso-card">
+    <article class="card-base recurso-card">
       <span class="badge ${typeClass}">${escapeHtml(resource.type)}</span>
       <h3>${escapeHtml(resource.title)}</h3>
       <p class="meta">${escapeHtml(resource.category)} · ${escapeHtml(resource.date)}</p>

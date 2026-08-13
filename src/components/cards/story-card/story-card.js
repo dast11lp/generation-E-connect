@@ -3,7 +3,7 @@ import { escapeHtml } from "../../utils/html.js";
 /** Renderiza una tarjeta de historia de éxito. */
 export function createStoryCard(story) {
   return `
-    <article class="card-historia">
+    <article class="card-base card-historia">
       <header class="header-historia">
         <img src="${escapeHtml(story.photo)}" alt="Foto de ${escapeHtml(story.name)}" class="foto-perfil">
         <div>

@@ -5,7 +5,7 @@ export function createVideoCard(video) {
     ? `<img src="${escapeHtml(video.thumbnail)}" alt="Miniatura de ${escapeHtml(video.title)}">`
     : "";
   return `
-    <a href="${escapeHtml(video.link)}" class="card" target="_blank" rel="noopener noreferrer">
+    <a href="${escapeHtml(video.link)}" class="card-base card" target="_blank" rel="noopener noreferrer">
       <div class="thumbnail">
         ${thumbnail}
       </div>

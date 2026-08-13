@@ -32,7 +32,12 @@ section {
   font-weight: 600;
 }
 
-.grid-recursos,
+.grid-recursos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
 .grid-explora {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -41,7 +46,6 @@ section {
   justify-items: center;
 }
 
-.recurso-card,
 .explora-card,
 .historia-card {
   background: var(--color-blanco);
@@ -55,25 +59,13 @@ section {
   transform: translateY(-4px);
 }
 
-.recurso-card {
-  display: flex;
-  flex-direction: column;
-  min-height: 420px;
-  max-width: 420px;
-  width: 100%;
-  padding: 28px;
-}
-
 .explora-card {
-  display: flex;
-  align-items: center;
   gap: 18px;
   padding: 28px;
   width: 100%;
 }
 
 .historia-card {
-  display: flex;
   align-items: flex-start;
   gap: 20px;
   padding: 32px;
@@ -275,14 +267,12 @@ section {
 }
 
 .bloque_recurso {
-    background-color: var(--color-azul-suave);
-    padding: 20px;
-    border-radius: var(--border-radius-secundario);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
+  background-color: var(--color-azul-suave);
+  border: none;
+  box-shadow: none;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
 }
 
 .bloque_recurso:hover {

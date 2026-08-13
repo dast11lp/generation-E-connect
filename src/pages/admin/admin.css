@@ -62,17 +62,17 @@
 /* TARJETAS WEBINARS */
 
 .card {
-    display: block;
     text-decoration: none;
     color: var(--color-azul-suave);
     margin: 0 auto;
     background: var(--color-azul-institucional);
     border-radius: var(--border-radius-principal);
+    border: none;
+    padding: 0;
     overflow: hidden;
-
     transition: 0.2s ease;
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
-    width: 100%;
+    max-width: 400px;
 }
 
 .card:hover {

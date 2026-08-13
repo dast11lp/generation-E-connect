@@ -2,7 +2,7 @@ import { escapeHtml } from "../../utils/html.js";
 
 export function createFeaturedStoryCard(story) {
   return `
-    <article class="historia-card">
+    <article class="card-base card-base--row historia-card">
       <div class="avatar">${escapeHtml(story.initials)}</div>
       <div>
         <h3>${escapeHtml(story.name)} — ${escapeHtml(story.role)} · ${escapeHtml(story.cohort)}</h3>

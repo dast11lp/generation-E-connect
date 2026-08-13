@@ -286,10 +286,9 @@
 .card-historia {
   background: var(--color-azul-generation);
   color: var(--color-blanco);
-
+  border: none;
   padding: 24px;
   border-radius: var(--border-radius-principal);
-
   box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
@@ -326,7 +325,7 @@
 
 .badge-rol {
   display: inline-block;
-
+  max-width: 220px;
   padding: 8px 16px;
 
   background: var(--color-azul-suave);
@@ -339,7 +338,7 @@
 .btn-ver-mas {
   display: inline-block;
 
-  margin-top: 16px;
+  margin-top: auto;
   padding: 10px 18px;
 
   background: var(--color-verde-impacto);
@@ -348,7 +347,7 @@
   text-decoration: none;
   border-radius: 999px;
   font-weight: 600;
-
+  max-width: max-content;
   transition: .2s;
 }
 
