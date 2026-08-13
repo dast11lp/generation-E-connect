@@ -2,6 +2,7 @@ import { uploadVideo, uploadImage, uploadResource } from "../../../services/clou
 import { fetchCategories } from "../../../services/category-storage.service.js";
 import { fetchResourceTypes } from "../../../services/resource-type-storage.service.js";
 import { CATEGORY_LABELS } from "../../../services/resource-storage.service.js";
+import { required, maxLength, fileSizeUnder, hasExtension } from "../validation.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./resource-form-content.html", COMPONENT_URL);
@@ -17,12 +18,16 @@ function loadTemplates() {
   }
   return templatesPromise;
 }
-
 const TYPE_RULES = [
   { extensions: ["pdf"], type: "PDF", action: "Descargar" },
   { extensions: ["mp4", "mov", "webm", "avi"], type: "Video", action: "Ver video" },
   { extensions: ["ppt", "pptx", "doc", "docx", "xls", "xlsx"], type: "Plantilla", action: "Usar plantilla" },
 ];
+
+export const MAX_TITLE_LENGTH = 80;
+export const MAX_DESCRIPTION_LENGTH = 150;
+export const MAX_FILE_SIZE_MB = 20;
+export const ALLOWED_EXTENSIONS = TYPE_RULES.flatMap((r) => r.extensions);
 
 // exportado para reutilizar en manage-resource-form.js
 export function detectResourceType(fileName) {
@@ -99,10 +104,37 @@ export async function createResourceForm() {
     const description = descriptionInput.value.trim();
     const file = fileInput.files[0];
 
-    if (!title) { errors.title.textContent = "El título es obligatorio."; hasError = true; }
-    if (!categoryId) { errors.category.textContent = "Selecciona una categoría."; hasError = true; }
-    if (!description) { errors.description.textContent = "Agrega una descripción."; hasError = true; }
-    if (!file) { errors.file.textContent = "Selecciona un archivo."; hasError = true; }
+    if (!required(title)) {
+      errors.title.textContent = "El título es obligatorio.";
+      hasError = true;
+    } else if (!maxLength(title, MAX_TITLE_LENGTH)) {
+      errors.title.textContent = `El título no puede superar los ${MAX_TITLE_LENGTH} caracteres.`;
+      hasError = true;
+    }
+
+    if (!required(categoryId)) {
+      errors.category.textContent = "Selecciona una categoría.";
+      hasError = true;
+    }
+
+    if (!required(description)) {
+      errors.description.textContent = "Agrega una descripción.";
+      hasError = true;
+    } else if (!maxLength(description, MAX_DESCRIPTION_LENGTH)) {
+      errors.description.textContent = `La descripción no puede superar los ${MAX_DESCRIPTION_LENGTH} caracteres.`;
+      hasError = true;
+    }
+
+    if (!file) {
+      errors.file.textContent = "Selecciona un archivo.";
+      hasError = true;
+    } else if (!hasExtension(file.name, ALLOWED_EXTENSIONS)) {
+      errors.file.textContent = `Tipo de archivo no permitido. Extensiones válidas: ${ALLOWED_EXTENSIONS.join(", ")}.`;
+      hasError = true;
+    } else if (!fileSizeUnder(file, MAX_FILE_SIZE_MB)) {
+      errors.file.textContent = `El archivo supera el tamaño máximo de ${MAX_FILE_SIZE_MB}MB.`;
+      hasError = true;
+    }
 
     if (hasError) return { errors: true };
 

@@ -1,6 +1,12 @@
 import { escapeHtml } from "../../utils/html.js";
 import { uploadVideo, uploadImage, uploadResource } from "../../../services/cloudinary.service.js";
-import { detectResourceType } from "../resource-form/resource-form.js";
+import {
+  detectResourceType,
+  MAX_TITLE_LENGTH,
+  MAX_DESCRIPTION_LENGTH,
+  MAX_FILE_SIZE_MB,
+  ALLOWED_EXTENSIONS,
+} from "../resource-form/resource-form.js";
 import { fetchCategories } from "../../../services/category-storage.service.js";
 import { fetchResourceTypes } from "../../../services/resource-type-storage.service.js";
 import {
@@ -9,6 +15,7 @@ import {
   updateResource,
   deleteResource,
 } from "../../../services/resource-storage.service.js";
+import { required, maxLength, fileSizeUnder, hasExtension } from "../validation.js";
 
 const COMPONENT_URL = import.meta.url;
 const HTML_URL = new URL("./manage-resource-form-content.html", COMPONENT_URL);
@@ -134,9 +141,26 @@ export async function createManageResourceForm() {
     const categoryId = categoryInput.value;
     const description = descriptionInput.value.trim();
 
-    if (!title) { errors.title.textContent = "El título es obligatorio."; hasError = true; }
-    if (!categoryId) { errors.category.textContent = "Selecciona una categoría."; hasError = true; }
-    if (!description) { errors.description.textContent = "Agrega una descripción."; hasError = true; }
+    if (!required(title)) {
+      errors.title.textContent = "El título es obligatorio.";
+      hasError = true;
+    } else if (!maxLength(title, MAX_TITLE_LENGTH)) {
+      errors.title.textContent = `El título no puede superar los ${MAX_TITLE_LENGTH} caracteres.`;
+      hasError = true;
+    }
+
+    if (!required(categoryId)) {
+      errors.category.textContent = "Selecciona una categoría.";
+      hasError = true;
+    }
+
+    if (!required(description)) {
+      errors.description.textContent = "Agrega una descripción.";
+      hasError = true;
+    } else if (!maxLength(description, MAX_DESCRIPTION_LENGTH)) {
+      errors.description.textContent = `La descripción no puede superar los ${MAX_DESCRIPTION_LENGTH} caracteres.`;
+      hasError = true;
+    }
 
     if (hasError) return { errors: true };
 
@@ -155,6 +179,14 @@ export async function createManageResourceForm() {
     const newFile = fileInput.files[0];
 
     if (newFile) {
+      if (!hasExtension(newFile.name, ALLOWED_EXTENSIONS)) {
+        errors.file.textContent = `Tipo de archivo no permitido. Extensiones válidas: ${ALLOWED_EXTENSIONS.join(", ")}.`;
+        return { errors: true };
+      }
+      if (!fileSizeUnder(newFile, MAX_FILE_SIZE_MB)) {
+        errors.file.textContent = `El archivo supera el tamaño máximo de ${MAX_FILE_SIZE_MB}MB.`;
+        return { errors: true };
+      }
       const { type } = detectResourceType(newFile.name);
       const matchingType = resourceTypes.find((t) => t.name.toLowerCase() === type.toLowerCase());
 
